@@ -1,0 +1,22 @@
+<article>
+  <div class="container">
+    <div class="titleBlock">
+      {% if entry.serviceUpdateOrUpgrade == "serviceUpdate" %}
+        <div class="titleBlock__title scale--large">
+          Service Update
+        </div>
+      {% elseif entry.serviceUpdateOrUpgrade == "upgradeOffer" %}
+        <div class="titleBlock__title scale--large">
+          Upgrade Offer
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="scale--xLarge">
+      {{ entry.title }}
+    </div>
+
+    {{ entry.body }}
+  </div>
+</article>
+

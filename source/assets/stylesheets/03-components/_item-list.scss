@@ -1,0 +1,87 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  Styling for the Item List Table used for cart
+//
+//  - Item List
+//  - Item List Title
+//  - Remove
+//  - Data
+//  - Additional
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// !-- Item List
+//
+// -----------------------------------------------------------------------------
+
+.itemList {
+  list-style: none;
+}
+
+.itemList--cart {
+  margin-bottom: $verticalRhythm;
+  padding: $verticalRhythm ($verticalRhythm / 4);
+  border-bottom: $borderWidth--thick solid $black;
+}
+
+.itemList__item {
+  margin: 0;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Item List Title
+//     name of the item
+// -----------------------------------------------------------------------------
+
+.itemList__title {
+  font-size: map-get($fontSizes, base);
+  display: inline-block;
+  margin-bottom: 0;
+
+  @include respond-to(medium) {
+    font-size: map-get($fontSizes, large);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Item List Remove
+//     link to remove item
+// -----------------------------------------------------------------------------
+
+.itemList__remove {
+  display: inline-block;
+
+  .button--submitLink {
+    margin: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Item List Data
+//     Currently being used to show price
+// -----------------------------------------------------------------------------
+
+.itemList__data {
+  font-size: map-get($fontSizes, small);
+
+  @include respond-to(medium) {
+    font-size: map-get($fontSizes, base);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Item List Additional
+//     Shows additional info for the list items
+// -----------------------------------------------------------------------------
+
+.itemList__additional {
+  textarea {
+    width: 250%;
+    margin-top: $verticalRhythm / 4;
+
+    @include respond-to(small) {
+      width: 100%;
+    }
+  }
+}

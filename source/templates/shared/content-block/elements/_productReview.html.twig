@@ -1,0 +1,17 @@
+<div class="contentBlock__productReview {{ craft.keiserCommerceHelpers.getCustomCSSClasses(contentElement)|join(' ') }}" id="{{ contentElement.contentBlockID ? contentElement.contentBlockID : 'div'~contentElement.id }}">
+    <div class="contentBlock__productReview__starIcon">
+        {% for i in 1..contentElement.productReviewDetails.rating.value * 1 %}
+            <img src="/assets/images/content-blocks/product-reviews/content-block-product-review-star-icon.svg">
+        {% endfor %}
+    </div>
+    <div class="text--sansSerif--black contentBlock__productReview__review">
+        <strong>{{ contentElement.productReviewDetails.review }}</strong>
+    </div>
+    <div class="contentBlock__productReview__reviewerDetails">
+        <span>{{ contentElement.productReviewDetails.reviewerName }}</span>
+        {% if contentElement.productReviewDetails.reviewerLocation %}
+            <span>|</span>
+            <span>{{ contentElement.productReviewDetails.reviewerLocation }}</span>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<vue-modal :active-modal="activeModal" name="commercialGradeWarranty__modal" class="contactUs__modal strengthMpp__fullScreen__modal commercialGradeWarranty__modal" v-cloak id="commercialGradeWarranty__modal">
+    <div slot="header">
+        <div class="container container--noPad">
+            <div class="row">
+                <div class="l--extraSmall--2 l--extraSmall--offset--10 columns text--alignRight margin--bottom--none">
+                    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('commercialGradeWarranty__modal')">
+                        <img src="/assets/images/modal-close-button-white.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div slot="body">
+        <div class="container container--noPad">
+
+            <div class="row">
+                <div class="l--small--6 columns text--white">
+                    <h3 class="leasingOptions__modal__title margin--bottom">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.commercialGradeWarrantyModalTitle }}</h3>
+                    <p>{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.commercialGradeWarrantyModalSubtitle }}</p>
+                    <div>
+                        <p class="margin--bottom--half">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.commercialGradeWarrantyModalWarrantyCoverageTitle }}</p>
+                        <ul class="product__features__featureList">
+                            {% for item in strengthMppSharedContentEntry.strengthMppSharedContent.one.commercialGradeWarrantyModalWarrantyCoveredItems %}
+                                <li>{{ item.item }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p><a class="text--white text--underline" href="{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.commercialGradeWarrantyModalWarrantyPageLink }}">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.commercialGradeWarrantyModalWarrantyPageLinkCta }}</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="l--small--12 columns text--alignCenter strengthMpp__fullScreen__modal__quote">
+                    <p class="text--sansSerif-light text--large">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.commercialGradeWarrantyModalHighlightedQuote }}
+                    </p>
+                    <p class="text--uppercase margin--bottom--none">- {{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalDennisKeiserName }}</p>
+                </div>
+                <div class="l--small--12 columns text--alignCenter">
+                    <span class="text--white text--underline strengthMpp__fullScreen__modal__close__link" v-on:click="closeModal('commercialGradeWarranty__modal')">Close</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div slot="footer"></div>
+</vue-modal>

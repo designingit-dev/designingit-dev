@@ -1,0 +1,18 @@
+{% set caseStudies = craft.entries.section('caseStudies').relatedTo(category).orderBy('field_caseStudyDisplayOrder').all() %}
+
+{% extends '_layout' %}
+
+{% block content %}
+
+  {% include "case-studies/_pageTitle" with {
+    pageTitle: category.title ~ ' Success Stories'
+  } %}
+
+  {% include "case-studies/_filters" with {
+    selectedFilter: category
+  } %}
+
+  {% include "case-studies/_entries" with {
+    caseStudies: caseStudies
+  } %}
+{% endblock %}

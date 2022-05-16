@@ -1,0 +1,217 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Local Variables
+//  - Animation Mixin
+//  - FAQ styling
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// !-- local Variables
+// -----------------------------------------------------------------------------
+
+$_timing: .2s;
+
+// -----------------------------------------------------------------------------
+// !-- Animation Mixin
+// -----------------------------------------------------------------------------
+
+@mixin animation {
+  transition: all $_timing ease;
+}
+
+// -----------------------------------------------------------------------------
+// !-- FAQ styling
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: FAQs
+name: faqs
+category: Components - FAQs
+---
+
+This is a more robust FAQ component, one that hides and shows the answer on user click.
+
+``` html_example
+
+<div class="faq">
+  <div class="faq__iconWrapper">
+    <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+  </div>
+  <div class="faq__content">
+    <div class="faq__question">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+    </div>
+    <div class="faq__answer" aria-hidden="true">
+      Suspendisse in leo sodales, consequat augue at, efficitur risus.
+      Nunc pharetra urna eget augue commodo, vel interdum neque iaculis.
+      Ut varius non nibh nec vulputate. Nulla facilisi. Morbi malesuada lobortis augue,
+      at iaculis diam lobortis eu. Nunc euismod facilisis sem ut pellentesque.
+    </div>
+  </div>
+</div>
+
+```
+
+
+This is an alternate FAQ styling. It is more minimal, with less padding and no borders.
+Add the `.faq--minimal` modifier to get this styling.
+
+``` html_example
+
+<div class="faq faq--minimal">
+  <div class="faq__iconWrapper">
+    <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+  </div>
+  <div class="faq__content">
+    <div class="faq__question">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+    </div>
+    <div class="faq__answer" aria-hidden="true">
+      Suspendisse in leo sodales, consequat augue at, efficitur risus.
+      Nunc pharetra urna eget augue commodo, vel interdum neque iaculis.
+      Ut varius non nibh nec vulputate. Nulla facilisi. Morbi malesuada lobortis augue,
+      at iaculis diam lobortis eu. Nunc euismod facilisis sem ut pellentesque.
+    </div>
+  </div>
+</div>
+
+
+```
+*/
+
+
+/*doc
+---
+title: Numbered FAQs
+name: numbered-faqs
+category: Components - FAQs
+---
+
+These FAQ components can be combined with the [Numbered List][numbered-list] component to get
+numbered FAQs.
+
+Notice that the `.faq` and `.faq--minimal` classes are added on the `<li>` tag, as well as the
+`.numberedList__item`.
+
+``` html_example
+
+<ul class="numberedList">
+  <li class="faq faq--minimal numberedList__item numberedList__item--setWidth">
+    <div class="faq__iconWrapper">
+      <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+    </div>
+    <div class="faq__content">
+      <div class="faq__question">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+      </div>
+      <div class="faq__answer" aria-hidden="true">
+        Suspendisse in leo sodales, consequat augue at, efficitur risus.
+        Nunc pharetra urna eget augue commodo, vel interdum neque iaculis.
+        Ut varius non nibh nec vulputate. Nulla facilisi. Morbi malesuada lobortis augue,
+        at iaculis diam lobortis eu. Nunc euismod facilisis sem ut pellentesque.
+      </div>
+    </div>
+  </li>
+  <li class="faq faq--minimal numberedList__item numberedList__item--setWidth">
+    <div class="faq__iconWrapper">
+      <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+    </div>
+    <div class="faq__content">
+      <div class="faq__question">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+      </div>
+      <div class="faq__answer" aria-hidden="true">
+        Suspendisse in leo sodales, consequat augue at, efficitur risus.
+        Nunc pharetra urna eget augue commodo, vel interdum neque iaculis.
+        Ut varius non nibh nec vulputate. Nulla facilisi. Morbi malesuada lobortis augue,
+        at iaculis diam lobortis eu. Nunc euismod facilisis sem ut pellentesque.
+      </div>
+    </div>
+  </li>
+</ul>
+
+```
+
+*/
+
+.faq {
+  @include animation;
+  display: flex;
+  padding: $gutter;
+  cursor: pointer;
+  border-top: $borderWidth--thin solid $grey--xLight;
+
+  &:hover {
+    @include animation;
+    background: $grey--xLight;
+
+    .faq__question {
+      @include animation;
+      color: $red;
+    }
+  }
+
+  &:last-child {
+    border-bottom: $borderWidth--thin solid $grey--xLight;
+  }
+
+  &--minimal {
+    margin-bottom: $verticalRhythm--narrow;
+    padding: $gutter--narrow;
+    border: 0;
+
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  &__iconWrapper {
+    float: left;
+    margin-right: $gutter--half;
+  }
+
+  &__icon {
+    @include animation;
+    max-width: rem(20px);
+
+    &.is--rotated {
+      @include animation;
+      transform: rotate(45deg);
+    }
+  }
+
+  &__content {
+    width: 100%;
+  }
+
+  &__question {
+    @include animation;
+    font-size: map-get($fontSizes, large);
+    font-weight: $fontWeight--bold;
+
+    // scss-lint:disable NestingDepth
+    // additional styling for Rich Text fields through CMS
+    p {
+      margin-bottom: 0;
+    }
+    // scss-lint:enable NestingDepth
+  }
+
+  &__answer {
+    display: none;
+    margin-top: $gutter--half;
+
+    // scss-lint:disable NestingDepth
+    // additional styling for Rich Text fields through CMS
+    p {
+      margin-bottom: $gutter--narrow;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    // scss-lint:enable NestingDepth
+  }
+}

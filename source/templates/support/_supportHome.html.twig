@@ -1,0 +1,78 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+  {% include 'support/shared/_hero' %}
+
+  {% if entry.supportAnnouncements is not empty %}
+    {% include 'support/shared/_announcementsCarousel' with {'announcements': entry.supportAnnouncements} %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% if entry.topResources is not empty %}
+  <div class="container container--tight">
+    <div class="row">
+      <div class="l--small--12 l--medium--6">
+        <div class="dividedBlock__left" id="supportHome__popularTopics">
+          <h2>Popular topics</h2>
+          {% for resource in entry.topResources %}
+            {% set item = resource.resource.one() %}
+            <a href="{{ item.getSection().handle == 'supportLinks' ? item.linkURL|parseRefs|raw : item.url }}" class="text--large">{{ item.title }}</a>
+            <br>
+            <br>
+          {% endfor %}
+        </div>
+      </div>
+      {% set subcategories = entry.supportSubcategories.one %}
+      <div class="l--small--12 l--medium--6">
+        <div class="dividedBlock__right">
+          <h2>{{ subcategories.sectionHeading }}</h2>
+          <p>{{ subcategories.sectionSubheading }}</p>
+          <div class="row" id="supportHome__supportSubcategoriesContainer">
+            {% for subcategory in subcategories.subcategoriesList %}
+              {% if loop.index % 4 == 0 %}
+                <div class="row">
+              {% endif %}
+              <a href="{{ subcategory.url }}">
+                <div class="l--medium--6 l--extraSmall--6 columns textCenter supportHomeSubcategory">
+                  <img src="{{ subcategory.supportCategoryImage.one.url }}" />
+                  <p>{{ subcategory.title }}</p>
+                </div>
+              </a>
+              {% if loop.index % 4 == 0 %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% for block in entry.arbitraryContentBlocks %}
+    {% include 'shared/_arbitrary-content-block' with { 'block': block } %}
+    <hr class="pageDivider background--red">
+  {% endfor %}
+
+  {% if entry.supportLinkBlockWithIcon is not empty %}
+    {% include 'support/shared/_linkBlockWithIcon' with {
+      'linkBlockWithIcon': entry.supportLinkBlockWithIcon.one
+    } %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% if entry.supportCopyBlockWithLink is not empty %}
+    {% include 'support/shared/_copyBlockWithLink' with {
+      'copyBlockWithLink': entry.supportCopyBlockWithLink.one
+    } %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% include 'support/shared/_supportFooter' %}
+
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+{% endblock %}

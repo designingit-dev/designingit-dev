@@ -1,0 +1,176 @@
+{% set product = craft.products.slug(productSlug).one() %}
+{% set form = craft.sproutForms.form('productReview') %}
+{% if not product or not form %}
+  {% redirect siteUrl %}
+{% else %}
+  {% set productReviewForm = true %}
+{% endif %}
+
+{% extends "_layout" %}
+
+{% block seo %}
+  {% set title =  'Write Review | ' ~ product.title|lower|title ~' | Keiser Fitness' %}
+  <title>{{ title }}</title>
+  <meta content="{{ title }}" name="DC.title"/>
+{% endblock %}
+
+{% set category = product.commerceProductCategory.one %}
+{% block breadcrumb %}
+  <div class="background--white is--hidden is--visible--medium margin--bottom--none">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--medium--12 columns navigation-breadcrumb">
+          <div data-showForeign="true">
+            <a href="{{ url('/') }}">Home</a> / <a href="/shop">Shop</a> / <a href="{{ category.url }}">{{ category.title }}</a> / <a href="{{ product.url }}">{{ product.title }} </a> / Review
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <button id="productReviewThankYouButton" v-on:click="openModal('productReviewThankYou')" class="is--hidden"></button>
+  <vue-modal :active-modal="activeModal" name="productReviewThankYou" id="productReviewThankYou" v-cloak>
+    <div slot="header">
+      <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('productReviewThankYou')"><img src="/assets/images/modal-close-button.png" /> </div>
+      <h2 class="text--red margin--bottom--none">Thank you</h2>
+    </div>
+    <div slot="body">
+      <h2>For submitting your review</h2>
+    </div>
+    <div slot="footer" class="background--lightGrey">
+      <div class="container container--tight">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns l--noMargin" id="productReviewThankYou__footer">
+            <img data-src="/assets/images/keiser-logo.svg" alt="Keiser" class="footer__logo lazyload">
+            <img data-src="/assets/images/footer-slogan.svg" alt="Because Good Enough Isn't" class="footer__slogan lazyload">
+          </div>
+        </div>
+      </div>
+    </div>
+  </vue-modal>
+  <article class="productReview">
+    <form method="post" action="/forms/productReview" accept-charset="UTF-8" enctype="multipart/form-data" id="productReview__form">
+      <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+      <input type="hidden" name="handle" value="productReview">
+      {{ redirectInput('/' ~ craft.app.request.segments[0] ~ '?message=thankyouforsubmitting') }}
+      <input type="hidden" name="fields[productSlug]" value="{{ productSlug }}">
+      <input type="hidden" name="fields[originCountry]" value="{{ craft.keiserContactHelpers.getEnvironmentVariable('HOME_COUNTRY') }}">
+      <input type="hidden" id="fields-rating" name="fields[rating]">
+      {{ craft.blitz.csrfInput() }}
+      <div class="container container--noPad margin--top--none">
+        <div class="row">
+          <div class="l--medium--7 columns" id="productReview__title">
+            <div class="row">
+              <div class="l--medium--8 columns">
+                <h3 class="text--greyLight" id="productReview__heading">Product Reviews</h3>
+                <h1 class="text--red" id="productReview__title">Keiser {{ product.title }}</h1>
+              </div>
+              <div class="l--medium--12 columns rating is--hidden is--visible--medium">
+                <div class="heading margin--bottom--narrow">
+                  <label>Star Rating *</label>
+                </div>
+                <span class="rating__star inline--block" data-value="1"></span>
+                <span class="rating__star inline--block" data-value="2"></span>
+                <span class="rating__star inline--block" data-value="3"></span>
+                <span class="rating__star inline--block" data-value="4"></span>
+                <span class="rating__star inline--block" data-value="5"></span>
+                <p class="text--red margin--top margin--bottom--none is--hidden productReview__error"></p>
+              </div>
+            </div>
+          </div>
+          <div class="l--medium--5 columns textCenter" id="productReview__image">
+            <img src="{{ product.image.one.getURL("xsmall") }}" style="width: 300px" />
+          </div>
+          <div class="l--medium--12 columns rating is--hidden--medium">
+            <div class="heading margin--bottom--narrow">
+              <label>Star Rating *</label>
+            </div>
+            <span class="rating__star inline--block" data-value="1"></span>
+            <span class="rating__star inline--block" data-value="2"></span>
+            <span class="rating__star inline--block" data-value="3"></span>
+            <span class="rating__star inline--block" data-value="4"></span>
+            <span class="rating__star inline--block" data-value="5"></span>
+            <p class="text--red margin--top margin--bottom--none is--hidden productReview__error"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--12 columns">
+            {{ craft.sproutForms.displayField(form, form.getField('reviewHeadline')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('comments')) }}
+            <input type="hidden" id="fields-recommend-1-negative" name="fields[recommend][]" value="no">
+            <input type="checkbox" id="fields-recommend-1" name="fields[recommend][]" value="yes">
+            <div id="fields-recommend-field" class="field checkboxes recommend-field">
+              <div class="row">
+                <div class="l--extraSmall--1 columns margin--bottom--none productReview__checkbox__input__container">
+                  <div class="productReview__checkbox__input" data-for="fields-recommend-1"></div>
+                </div>
+                <div class="l--extraSmall--11 columns margin--bottom--none productReview__checkbox__label__container">
+                  <label data-for="fields-recommend-1" class="productReview__checkbox__label">Yes, I'd recommend the {{ product.title | title }} to a friend</label>
+                </div>
+              </div>
+            </div>
+            {{ craft.sproutForms.displayField(form, form.getField('nickname')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('reviewImage')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('city')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('state')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('age')) }}
+            <input type="radio" id="fields-gender-1" name="fields[gender]" value="male">
+            <input type="radio" id="fields-gender-2" name="fields[gender]" value="female">
+            <div id="fields-gender-field" class="field radiobuttons gender-field">
+              <div class="heading">
+                Gender
+              </div>
+              <div class="input">
+                <div id="fields-gender" class="gender">
+                  <div class="productReview__radio__input" data-input="fields[gender]" data-for="fields-gender-1"></div><label class="productReview__radio__label" data-for="fields-gender-1">Male</label>
+                  <div class="productReview__radio__input" data-input="fields[gender]" data-for="fields-gender-2"></div><label class="productReview__radio__label" data-for="fields-gender-2">Female</label>
+                </div>
+              </div>
+            </div>
+            <input type="checkbox" id="fields-termsConditions-1" name="fields[termsConditions][]" value="agree" checked="true">
+            <div id="fields-termsConditions-field" class="field checkboxes termsConditions-field">
+              <div class="row">
+                <div class="l--extraSmall--1 columns margin--bottom--none productReview__checkbox__input__container">
+                  <div class="productReview__checkbox__input productReview__checkbox__input__checked" data-for="fields-termsConditions-1"></div>
+                </div>
+                <div class="l--extraSmall--11 columns margin--bottom--none productReview__checkbox__label__container">
+                  <label data-for="fields-termsConditions-1" class="productReview__checkbox__label">I agree with the <a href="/terms-and-conditions" target="_blank">terms and conditions</a></label>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="fields-newsletterSignup-1-negative" name="fields[newsletterSignup][]" value="no" disabled="true">
+            <input type="checkbox" id="fields-newsletterSignup-1" name="fields[newsletterSignup][]" value="true" checked="true">
+            <div id="fields-newsletterSignup-field" class="field checkboxes newsletterSignup-field">
+              <div class="row">
+                <div class="l--extraSmall--1 columns margin--bottom--none productReview__checkbox__input__container">
+                  <div class="productReview__checkbox__input productReview__checkbox__input__checked" data-for="fields-newsletterSignup-1"></div>
+                </div>
+                <div class="l--extraSmall--11 columns margin--bottom--none productReview__checkbox__label__container">
+                  <label data-for="fields-newsletterSignup-1" class="productReview__checkbox__label">Keep me signed up for news and announcements</label>
+                </div>
+              </div>
+            </div>
+            {% hook 'sproutForms.modifyForm' %}
+            <input type="submit" class="button" value="Submit">
+          </div>
+        </div>
+      </div>
+      {% if craft.app.request.getParam('reviewid') is not empty and craft.app.request.getParam('authtoken') is not empty %}
+        {% set entry = craft.sproutForms.entries.id(craft.app.request.getParam('reviewid')).one() %}
+        {% if entry is not null and entry.authToken == craft.app.request.getParam('authtoken') %}
+          {% set entryContent = entry.attributes %}
+          <script type="text/javascript">
+            var entryContent = {{ entryContent | json_encode() | raw }};
+            entryContent['reviewImage'] = '{{ entry.reviewImage.one.getUrl('xxsmall') }}';
+            console.log(entryContent);
+          </script>
+          <input type="hidden" name="entryId" value="{{ entryContent.id }}">
+        {% endif %}
+      {% endif %}
+    </form>
+  </article>
+{% endblock %}

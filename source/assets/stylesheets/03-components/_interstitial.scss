@@ -1,0 +1,89 @@
+// ------------------------------------------------------------------------------
+// Table of Contents
+//
+// - Did you Know? Block
+//
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// !-- Did You know? block
+// ------------------------------------------------------------------------------
+
+.interstitial {
+  &__svgWrapper {
+    margin-bottom: $verticalRhythm;
+
+    @include respond-to(small) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__textWrapper {
+    margin-bottom: $gutter--narrow;
+  }
+}
+
+/*doc
+---
+title: Did You Know?
+name: Did-You-Know
+category: Components - Interstitials
+---
+
+``` html_example
+
+<div class="background--red">
+  <div class="container container--tight">
+    <div class="interstitial">
+      <div class="row">
+        <div class="l--small--6 l--medium--4 columns l--noMargin">
+          <div class="interstitial__svgWrapper">
+            <img src="/assets/images/Keiser_DidYouKnow.svg" alt="Did You Know?">
+          </div>
+        </div>
+        <div class="l--small--6 l--medium--7 columns l--noMargin l--pullRight">
+          <div class="interstitial__textWrapper">
+            Over 80% of the top professional sports teams in the world train on Keiser.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+```
+*/
+
+
+/*doc
+---
+title: Season to Sweat
+name: Season-to-sweat
+category: Components - Interstitials
+---
+
+``` html_example
+
+<div class="background--red">
+  <div class="container container--tight">
+    <div class="interstitial">
+      <div class="row">
+        <div class="l--small--6 l--medium--4 columns l--noMargin">
+          <div class="interstitial__svgWrapper">
+            <img src="/assets/images/keiser-season-to-sweat.svg" alt="'Tis the season to sweat">
+          </div>
+        </div>
+        <div class="l--small--6 l--medium--7 columns l--noMargin l--pullRight">
+          <div class="interstitial__textWrapper">
+            Buy our <strong>M3i Bike</strong> factory-direct and enjoy <strong>Free Shipping &amp; Gifts</strong>.
+          </div>
+          <div class="cta">
+            <a href="https://shop.keiser.com/" target="_blank" class="button button--secondary">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+```
+*/

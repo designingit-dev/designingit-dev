@@ -1,0 +1,279 @@
+.ihrsa2019 {
+
+  &__hero {
+    background-color: $black;
+    background-image: url('/assets/images/landing-pages/ihrsa-2019/ihrsa-2019-hero-bg.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: auto 288px;
+    height: 466px;
+
+    @include respond-to(medium){
+      background-position: center center;
+      background-size: auto 492px;
+      height: 492px;
+    }
+
+    &__title {
+
+      padding-top: 30px;
+
+      &__small {
+        font-weight: $fontWeight--bold;
+        font-size: 20px;
+        line-height: 20px;
+
+        @include respond-to(medium){
+          font-size: 28px;
+          line-height: 28px;
+        }
+      }
+
+      &__large {
+        font-family: $sansSerif--black;
+        font-weight: $fontWeight--black;
+        font-size: 42px;
+        line-height: 38px;
+
+        @include respond-to(medium){
+          font-size: 86px;
+          line-height: 68px;
+        }
+      }
+
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-width: 76px;
+      @include respond-to(medium){
+        max-width: 100px;
+      }
+    }
+
+  }
+
+  &__roi {
+
+    font-family: $sansSerif--black;
+    font-weight: $fontWeight--black;
+    background-color: $grey--xLight;
+
+    @include respond-to(medium){
+      height: 409px;
+    }
+
+    div.display--inline--block {
+      vertical-align: top;
+    }
+
+    &__divider {
+
+      @include respond-to(small){
+        margin-top: -2px;
+      }
+
+      @include respond-to(medium){
+        margin-left: -6px;
+      }
+
+      img {
+        @include respond-to(medium){
+          height: 409px !important;
+        }
+      }
+    }
+
+    &__left {
+      background-color: $keiser--red;
+      margin: auto;
+      max-width: 312px;
+
+      @include respond-to(medium){
+        height: 409px;
+        padding: 30px 14px 30px calc((100vw - 960px)/2);
+        max-width: 100%;
+      }
+
+      &__xSmall {
+
+        font-size: 16px;
+        position: relative;
+        top: -28px;
+
+        @include respond-to(medium){
+          font-size: 18px;
+          position: relative;
+          top: -42px;
+        }
+      }
+
+      &__small {
+
+        font-size: 26px;
+        letter-spacing: -1px;
+        line-height: 20px;
+        color: $black;
+
+        @include respond-to(medium){
+          font-size: 38px;
+          letter-spacing: -3px;
+          line-height: 38px;
+        }
+
+      }
+
+      &__large {
+
+        font-size: 54px;
+        line-height: 46px;
+        letter-spacing: -3.5px;
+
+        @include respond-to(medium){
+          font-size: 86px;
+          line-height: 68px;
+          letter-spacing: -6.5px;
+        }
+      }
+
+      &__xLarge {
+
+        font-size: 98px;
+        line-height: 80px;
+        letter-spacing: -10px;
+
+        @include respond-to(medium){
+          font-size: 136px;
+          line-height: 98px;
+          letter-spacing: -20px;
+        }
+      }
+
+    }
+
+    &__right {
+
+      padding-top: 30px;
+      padding-bottom: 30px;
+      @include respond-to(medium){
+        padding-left: 30px;
+      }
+
+      &__1 {
+        font-size: 38px;
+        letter-spacing: -2px;
+      }
+
+      &__2 {
+        font-size: 72px;
+        letter-spacing: -5px;
+        margin-top: -18px;
+      }
+
+      &__3 {
+        font-size: 67px;
+        letter-spacing: -4px;
+        margin-top: -27px;
+      }
+
+      &__4 {
+
+        margin-top: -6px;
+
+        .left {
+          font-size: 86px;
+          letter-spacing: 3.5px;
+          line-height: 60px;
+        }
+
+        .right p {
+          font-size: 43px;
+          line-height: 35px;
+          letter-spacing: -3px;
+        }
+
+      }
+
+      &__5 {
+        font-size: 104px;
+        margin-top: -16px;
+        letter-spacing: -6px;
+      }
+
+    }
+
+  }
+
+  &__comparison {
+
+    background-image: url('/assets/images/landing-pages/ihrsa-2019/equipment-comparison-background.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: repeat-y;
+
+    img.equipment {
+
+      max-height: 150px;
+      margin-left: auto;
+      margin-right: auto;
+
+      @include respond-to(medium){
+        max-height: 500px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 18px;
+      font-weight: $fontWeight--bold;
+
+      @include respond-to(medium){
+        font-size: 28px;
+        line-height: 28px;
+      }
+
+      &.large {
+        font-family: $sansSerif--black;
+        font-weight: $fontWeight--black;
+        font-size: 28px;
+        @include respond-to(medium){
+          font-size: 46px;
+        }
+      }
+
+      &.heading {
+        font-family: $sansSerif--black;
+        font-weight: $fontWeight--black;
+        font-size: 18px;
+        line-height: 18px;
+        @include respond-to(medium){
+          font-size: 32px;
+          line-height: 32px;
+        }
+      }
+
+    }
+
+    &__vs {
+      position: relative;
+      top: 58px;
+      @include respond-to(medium){
+        top: 200px;
+      }
+    }
+
+    &__border {
+
+      &__top {
+        border-top: solid 2px $grey--light--alt;
+      }
+
+      &__bottom {
+        border-bottom: solid 2px $grey--light--alt;
+      }
+    }
+  }
+
+}

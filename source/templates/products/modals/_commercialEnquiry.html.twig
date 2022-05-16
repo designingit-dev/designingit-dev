@@ -1,0 +1,105 @@
+{% set formDescriptionEntry = craft.entries.section('contactForms').slug(formDescriptionEntrySlug).one() %}
+
+<vue-modal :active-modal="activeModal" name="strengthMpp__commercialEnquiry__{{ formSlug }}" class="contactUs__modal" v-cloak>
+    {% set form = craft.sproutForms.form(formSlug) %}
+    <div slot="header">
+        <div class="container container--noPad contactUs__modal__headerAction">
+            <div class="row">
+                <a onClick="chatButton.onClick();" class="contactUs__modal__emailSupport">
+                    <div class="l--extraSmall--3 l--small--1 columns margin--bottom--half text--alignCenter">
+                        <img src="/assets/images/contact-us/contact-us-via-chat.png" />
+                    </div>
+                    <div class="l--extraSmall--7 l--small--10 columns margin--bottom--half">
+                        <p class="margin--bottom--none contactUs__modal__emailSupport__heading">Not Sure?</p>
+                        <p class="margin--bottom--none contactUs__modal__emailSupport__body">Chat with a representative.</p>
+                    </div>
+                </a>
+                <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+                    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('strengthMpp__commercialEnquiry__{{ formSlug }}')"><img src="/assets/images/modal-close-button.png" /> </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="l--small--12 l--medium--8 columns margin--bottom--none">
+                    <h3 class="margin--top contactUs__modal__formName">{{ formDescriptionEntry.title }}</h3>
+                    {% if subtitle is defined and subtitle is not empty %}
+                        <p class="text--sansSerif margin--bottom--veryNarrow contactUs__modal__subtitle">{{ subtitle }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div slot="body">
+        <form method="post" action="/forms/{{ formSlug }}" accept-charset="UTF-8" enctype="multipart/form-data" id="strengthMpp__commercialEnquiry__form" v-on:submit="disableSubmit('strengthMpp__commercialEnquiry__form')">
+            <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+            <input type="hidden" name="handle" value="{{ formSlug }}">
+            {{ redirectInput('/about-us/contact-us/thank-you') }}
+            <input type="hidden" name="fields[countryISO]" value="">
+            <input type="hidden" name="fields[country]" value="">
+            <input type="hidden" name="fields[zip]" value="">
+            <input type="hidden" name="fields[repEmail]" value="">
+            <input type="hidden" name="fields[repVPEmail]" value="">
+            <input type="hidden" name="fields[sendToSugarCRM1]" value="true">
+            {{ craft.sproutForms.displayField(form, form.getField('pageTitle')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('campaignTracking')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('geoLocation')) }}
+            {{ craft.blitz.csrfInput() }}
+            <div class="container container--noPad" id="contactUs__modal__fieldsContainer">
+
+                {% include 'products/modals/_visitorLocationFlow' %}
+
+                <div class="row is--hidden modalContentPage" id="contactUs__commercialSales__contactDetails">
+
+                    <div class="l--small--12 l--medium--8 columns margin--bottom--half">
+
+                        <div class="contactUs__modal__fieldName text--transform--none margin--bottom">{{ formDescriptionEntry.body }}</div>
+
+                        {% if showRepInfo %}
+                            <div class="row">
+                                <div class="l--small--2 columns" id="strengthMpp__commercialEnquiry__modal__repImageColumn">
+                                    <div class="contactUs__commercialSales__repImage contactUs__commercialSales__repRoundedCornersImage"></div>
+                                </div>
+                                <div class="l--small--10 columns" id="strengthMpp__commercialEnquiry__modal__repContactDetailsColumn">
+                                    <p class="margin--bottom--veryNarrow text--sansSerif--black"><strong>Your Keiser Representative</strong></p>
+                                    <p class="margin--bottom--veryNarrow text--bold strengthMpp__commercialEnquiry__modal__repNameDesignation">
+                                        <span class="strengthMpp__commercialEnquiry__modal__repName"></span>
+                                        <span class="is--hidden--small"><br></span>
+                                        <span class="strengthMpp__commercialEnquiry__modal__repDesignation"></span>
+                                    </p>
+                                    <p class="margin--bottom--none text--small strengthMpp__commercialEnquiry__modal__repPhoneTollFree">
+                                        <a class="strengthMpp__commercialEnquiry__modal__repPhone"></a>
+                                        <span class="strengthMpp__commercialEnquiry__modal__repTollFree__container">
+                                            <span class="strengthMpp__commercialEnquiry__modal__repPhoneTollFree__divider"> | </span>
+                                            <span class="is--hidden--small"><br></span>
+                                            <a class="strengthMpp__commercialEnquiry__modal__repTollFree"></a>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {{ craft.sproutForms.displayField(form, form.getField('fullName')) }}
+                        {{ craft.sproutForms.displayField(form, form.getField('customerTitle')) }}
+                        {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+                        {{ craft.sproutForms.displayField(form, form.getField('phoneNumber')) }}
+                        {{ craft.sproutForms.displayField(form, form.getField('institutionType')) }}
+                        {{ craft.sproutForms.displayField(form, form.getField('message')) }}
+                        {{ craft.sproutForms.displayField(form, form.getField('marketingOptIn')) }}
+                        {% hook 'sproutForms.modifyForm' %}
+                    </div>
+
+                    <div class="row">
+                        <div class="l--extraSmall--12 l--small--6 l--small--push--6 columns margin--top--half margin--bottom--none text--alignRight">
+                            <input class="button contactUs__modal__button" type="submit" value="Send" v-on:click="disableButton()">
+                        </div>
+                        <div class="l--extraSmall--12 l--small--6 l--small--pull--6 columns margin--top--half">
+                            <a class="button button--black contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer')">Back</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div slot="footer"></div>
+</vue-modal>

@@ -1,0 +1,25 @@
+{% if entry is defined %}
+  {%- set title = entry.title is defined ? entry.title : "" %}
+{% elseif category is defined %}
+  {%- set title = category.title is defined ? category.title : "" %}
+{% else %}
+  {%- set title = "" %}
+{% endif %}
+
+<div class="background--darkGrey cta-full">
+
+  <h2>Talk to a sales rep today</h2>
+
+  <a href="tel:{{ about.phoneNumber }}">
+    <img src="/assets/images/contact-us/contact-customer-support.svg" />
+    <h3 >
+      {{ about.phoneNumber }}
+      <small>Speak to a sales representative</small>
+    </h3>
+  </a>
+
+  <button v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor('Get a Commercial Quote', 'getACommercialQuoteCTACard')]">
+    {{ getPricingCTA }}
+  </button>
+
+</div>

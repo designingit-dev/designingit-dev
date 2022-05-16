@@ -1,0 +1,45 @@
+// -----------------------------------------------------------------------------
+// !-- Icon Block
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Icon Block
+name: icon-block
+category: Components - Icon Block
+---
+
+``` html_example
+<div class="iconBlock">
+  <div class="row">
+    <div class="l--small--2 columns">
+      <div class="iconBlock__iconWrapper background--darkGrey">
+        <img class="iconBlock__icon" src="http://placehold.it/100x100">
+      </div>
+    </div>
+    <div class="l--small--10 columns">
+      <div class="iconBlock__copy">
+        <h3>Icon Block Title</h3>
+        <p>Icon Block Copy. Etiam laoreet rhoncus interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id turpis quis purus tincidunt porttitor. Proin sodales elit non massa tempor, vel ornare diam dapibus. Suspendisse non arcu auctor est mattis placerat quis ac tellus.</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.iconBlock {
+  $wrapperSize: 70px;
+
+  &__iconWrapper {
+    display: none;
+
+    @include respond-to(small) {
+      display: inherit;
+      width: pem($wrapperSize);
+      height: pem($wrapperSize);
+      margin: auto;
+      border-radius: $radius--circle;
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{%- set required = field.required is defined and field.required ? " required" : "" %}
+<input name="{{ name }}" type="hidden">
+<div class="userLocationField" data-required="{{- required -}}" data-combinedFieldName="{{name}}"></div>

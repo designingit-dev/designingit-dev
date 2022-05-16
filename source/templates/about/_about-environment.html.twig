@@ -1,0 +1,40 @@
+{% cache %}
+<article>
+  {% include "support/_header-block.html" %}
+
+  <div class="container">
+    {% set heroImage = entry.image.one %}
+    {% if heroImage %}
+      <div class="fullImageWithCopy">
+        <img class="fullImageWithCopy__image"
+             src="{{ heroImage.getURL("large") }}"
+             srcset="
+                {{ heroImage.getURL("xsmall") }} 320w,
+                {{ heroImage.getURL("small") }} 480w,
+                {{ heroImage.getURL("medium") }} 640w,
+                {{ heroImage.getURL("large") }} 960w,
+                {{ heroImage.getURL("xlarge") }} 1280w">
+      </div>
+    {% endif %}
+
+    {% for block in entry.twoColumnBlockWithHeaders %}
+      <div class="titleBlock">
+        <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+        <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+      </div>
+
+      <div class="twoColumns text--grey">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.copyBlockLeft }}
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.copyBlockRight }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</article>
+{% endcache %}

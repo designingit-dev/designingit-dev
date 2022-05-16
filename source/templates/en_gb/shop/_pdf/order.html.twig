@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <style>
+    .paidLogo{
+        font-weight:bold;
+        position: absolute;
+        left:30%;
+        font-family: 'Helvetica', serif;
+        color:rgb(211, 65, 50);
+        font-size:48px;
+        -ms-transform: rotate(-20deg); /* IE 9 */
+        -webkit-transform: rotate(-20deg); /* Safari */
+        transform: rotate(-20deg);
+    }
+    table { width: 100%; }
+    table.heading td{
+        vertical-align: top;
+    }
+    @page { margin: 100px 25px 15px; }
+    header { text-align: right; position: fixed; top: -80px; left: 0px; right: 0px; height: 50px; width:100%; }
+    header .logo {
+        height: 40px;
+        position: absolute;
+        right: -10px;
+        top: 0;
+        width: 223px;
+    }
+    footer { text-align: right; font-size: 14px; position: fixed; bottom: 0; left: 0px; right: 0px; height: 50px; width:100%; }
+    </style>
+</head>
+
+<body>
+    <header><img src="/var/www/keiseruk/keiser-web/build/storage/userphotos/keiser-pdf-logo.png" class="logo"></header>
+    <footer><p>For Support Please Call: 01666 504710 or Email <a href="mailto:{{ commerce.orderSupportEmail }}">{{ commerce.orderSupportEmail }}</a><br/>Keiser UK Ltd. | Unit 3, Hampton Industrial Estate | Tetbury, Gloucestershire, GL8 8LD</p></footer>
+
+{% set orderTable %}
+    <div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <h5>Details</h5>
+                        <ul>
+                            <li><strong>{{ "Customer"|t }}:</strong> {{ order.customer.email }}</li>
+                            <li><strong>{{ "Total"|t }}:</strong> {{ order.totalPrice|commerceCurrency(order.currency) }}</li>
+                            <li><strong>{{ "Paid"|t }}:</strong>{{ order.totalPaid|commerceCurrency(order.currency) }} {{ order.datePaid|date('D dS M Y') }}</li>
+                            <li><strong>{{ "Date"|t }}:</strong> {{ order.dateOrdered|date('Y-m-d') }}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <h5>Shipping Address</h5>
+                        {% if order.shippingAddress %}
+                        {% include '/checkout/addresses/_address' with { address: order.shippingAddress } %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <h5>Billing Address</h5>
+                        {% if order.billingAddress %}
+                        {% include '/checkout/addresses/_address' with { address: order.billingAddress } %}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set whiteGloveDeliveryFees = 0 %}
+                {% for item in order.lineItems %}
+                    <tr>
+                        <td valign="top">
+                            <strong>{{ item.description }}</strong><br>
+                            SKU: {{ item.sku }}
+                            {% if item.options.productSellersNotes is defined %}
+                              <br>{{ item.options.productSellersNotes }}
+                            {% endif %}
+                            {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+                                {% set whiteGloveDeliveryFees = whiteGloveDeliveryFees + (item.purchasable.product.whiteGloveDeliveryFee * item.qty) %}
+                              <br>M Series Assembly & Maintenance Kit included with White Glove Assembly
+                            {% endif %}
+                            {% if item.options.tShirtSize is defined %}
+                              <br>Free T-Shirt: {{ item.options.tShirtSize }}
+                            {% endif %}
+                            {% if item.options.promoItem is defined %}
+                              <br>Free Promotional Item: {{ craft.keiserCommerceHelpers.getProductTitleBySKU(item.options.promoItem) }}
+                            {% endif %}
+                            {% if item.purchasable.clothingSize is defined and item.purchasable.clothingSize is not empty %}
+                              <br>{{ item.purchasable.product.clothingSizeLabel }}: {{ item.purchasable.clothingSize|upper }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.onSale %}
+                                <strike>{{ item.price|commerceCurrency(order.currency) }}</strike>   {{ item.salePrice|commerceCurrency(order.currency) }}
+                            {% else %}
+                                {{ item.price|commerceCurrency(order.currency) }}
+                            {% endif %}
+                        </td>
+                        <td>{{ item.qty }}</td>
+                        <td>
+                            {{ item.subtotal|commerceCurrency(order.currency) }}
+                            {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+                                <br>White Glove Assembly
+                                <br>+ {{ (item.purchasable.product.whiteGloveDeliveryFee * item.qty) | commerceCurrency(order.currency) }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if item.note %}
+                    <tr>
+                        <td colspan="4"><strong>Notes:</strong> {{ item.note }}</td>
+                    </tr>
+                    {% endif %}
+
+                {% endfor %}
+
+                {% for adjustment in order.adjustments %}
+                    {% set isFreebie = false %}
+                    {% if (adjustment.type == 'discount' and adjustment.amount == 0) %}
+                        {% set isFreebie = true %}
+                    {% endif %}
+                    <tr>
+                        <td{% if isFreebie %} colspan="4"{% endif %}>
+                        {% if isFreebie is same as(false) %}
+                            {{ adjustment.type }}
+                        {% else %}
+                            <br><strong>{{ adjustment.name }}</strong>{% if adjustment.description %}<br>({{ adjustment.description }}){% endif %}<br><br>
+                        {% endif %}
+                        </td>
+                        {% if isFreebie is same as(false) %}
+                        <td colspan="2"><strong>{{ adjustment.name }}</strong>{% if adjustment.description %}<br>({{ adjustment.description }}){% endif %}</td>
+                            {% if adjustment.type == 'shipping' %}
+                                <td>{{ (adjustment.amount - whiteGloveDeliveryFees)|commerceCurrency(order.currency) }}</td>
+                            {% else  %}
+                                <td>{{ adjustment.amount|commerceCurrency(order.currency) }}</td>
+                            {% endif %}
+
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                <tr><td colspan="2"><div class="paidLogo"><span>{{ 'PAID'|t }}</div></td><td colspan="2"></td></tr>
+                <tr>
+                    <td colspan="4">
+                        Item Sub Total: {{ (order.itemSubtotal + whiteGloveDeliveryFees) |commerceCurrency(order.currency) }}<br>
+                        Total Shipping Cost: {{ (order.getAdjustmentsTotalByType('shipping') - whiteGloveDeliveryFees)|commerceCurrency(order.currency) }}<br>
+                        Total Discount: {{ order.getAdjustmentsTotalByType('discount')|commerceCurrency(order.currency) }}<br>
+                        Order Sub Total: {{ (order.itemSubTotal + order.getAdjustmentsTotalByType('discount') + order.getAdjustmentsTotalByType('shipping'))|commerceCurrency(order.currency) }}<br>
+                        Total Tax: {{ order.getAdjustmentsTotalByType('tax')|commerceCurrency(order.currency) }}<br>
+                        <h4>Total: {{ order.totalPrice|commerceCurrency(order.currency) }}</h4>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endset %}
+
+{# Use the option param passed into the pdf template to show different order pdf's depending on the context #}
+{% switch option %}
+{% case "receipt" %}
+    <h1>Receipt for Order #{{ order.number[:7]|upper }}</h1>
+    {{ orderTable }}
+{% case "ajax" %}
+    <h1>NA</h1>
+{% default %}
+    <h1>Order #{{ order.number[:7]|upper }}</h1>
+    {{ orderTable }}
+{% endswitch %}
+
+</body>
+</html>

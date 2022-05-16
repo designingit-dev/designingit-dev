@@ -1,0 +1,27 @@
+<div class="campaignTrackingField__admin">
+  {% if value is defined and value is not empty %}
+    {% set values = value|split(';') %}
+    <p>Campaign: {{values[0]}}</p>
+    {% if values[1] is defined %}
+      <p>Content Creative: {{values[1]}}</p>
+    {% endif %}
+    {% if values[2] is defined %}
+      <p>Keyword: {{values[2]}}</p>
+    {% endif %}
+    {% if values[3] is defined %}
+      <p>Lead Source: {{values[3]}}</p>
+    {% endif %}
+    {% if values[4] is defined %}
+      <p>Placement: {{values[4]}}</p>
+    {% endif %}
+    {% if values[5] is defined %}
+      <p>Site: {{values[5]}}</p>
+    {% endif %}
+    {% if values[6] is defined %}
+      <p>Offer: {{values[6]}}</p>
+    {% endif %}
+    {% if values[7] is defined %}
+      <p>Adwords URL: {{values[7]}}</p>
+    {% endif %}
+  {% endif %}
+</div>

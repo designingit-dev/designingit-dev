@@ -1,0 +1,105 @@
+{% extends "_layout" %}
+
+{% block content %}
+  <script>
+    window.app = window.app || {};
+    app.data = app.data || {};
+    app.data.category = '{{ category.slug }}';
+  </script>
+
+  {% set tags = craft.tags.group("productLines").relatedTo(category) %}
+
+  {% if category.image.one and category.body != '' %}
+  <div class="productCategory__header">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--small--12 l--medium--6 columns l--mobileMargin">
+          <div class="padding--top">
+            <h1 class="text--white">{{ category.title }}</h1>
+            <div class="text--white">{{ category.body }}</div>
+            <div data-hideForeign="true">
+              {% if category.productCategoryDisplayShopForHomeButton %}
+                <a class="button" href="/shop">Shop for Home</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="l--small--12 l--medium--6 columns l--noMargin">
+          <div class="image--fullBleed">
+            {% set entryImage = category.image.one %}
+            {% include 'shared/_srcset_image.html' with {'image': entryImage, 'default_size': 'large' } %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% for strengthTags in craft.categories.id('12') %}
+    {% if craft.request.path == strengthTags.uri %}
+      <div class="container container--tight">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <h1>{{ category.title }}</h1>
+          </div>
+
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="flexGrowLinks">
+              {% for tag in tags %}
+                <a href="#{{ tag.slug }}" class="button flexGrowLinks__link l--centered">{{ tag.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="background--red pageDivider">
+    {% endif %}
+  {% endfor %}
+
+  {% for tag in tags %}
+    {% set entries = craft.entries.section("products").relatedTo(tag).orderBy("orderDescending desc,title") %}
+
+    <div class="container" id="{{ tag.slug }}">
+      <h1>{{ tag.title }}</h1>
+
+      <div class="row">
+        {% for entry in entries %}
+          {% if entry.productCategories.one == category.title %}
+            <div class="l--small--6 l--medium--4 columns l--centered">
+              <div class="imageLink">
+                <a href="/{{ entry.uri }}" class="imageLink__imageWrapper">
+                  {% set productImage = entry.image.one %}
+                  {% if productImage %}
+                    <img data-src="{{ entry.image.one.getURL("medium") }}" class="imageLink__image lazyload">
+                  {% else %}
+                    <img data-src="{{ about.imageUnavailable.one.getURL("medium") }}" class="imageLink__image lazyload">
+                  {% endif %}
+                </a>
+                <div class="imageLink__copy">
+                  <h2 class="l--noMargin">{{ entry.title }}</h2>
+                  <a href="/{{ entry.uri }}" class="button">View Equipment</a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <hr class="background--red pageDivider">
+
+  {% endfor %}
+
+  {% for productFeatureContentBlockEntry in category.productFeatureContentBlocks %}
+    {% include 'shared/content-block/layout/_customCSS' with {
+      'blocks': productFeatureContentBlockEntry.contentBlocks
+    } %}
+    {% for block in productFeatureContentBlockEntry.contentBlocks.level(1) %}
+      {% include 'shared/content-block/_content-block' with {
+        'block': block
+      } %}
+    {% endfor %}
+  {% endfor %}
+
+{% endblock %}

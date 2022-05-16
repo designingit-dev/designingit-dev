@@ -1,0 +1,128 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+<!-- Leaders Offer Page Hero -->
+<div class="leadersOfferPage__hero">
+  <div class="container">
+    <div class="row">
+
+      <div class="l--small--6 columns leadersOfferPage__hero__logoContainer text--alignCenter margin--bottom--none">
+        <img src="/assets/images/landing-pages/leaders-offer/keiser-leaders-logo-lockup.png">
+      </div>
+
+      <div class="l--small--6 columns text--alignCenter leadersOfferPage__hero__offerDetails">
+        <div class="leadersOfferPage__hero__offerDetails__container">
+          <figure class="text--alignLeft">
+
+            <figcaption class="text--white text--large"><h3>Get Deep Discounts <br> On Keiser Equipment</h3></figcaption>
+            <div class="margin--top">
+              <img src="/assets/images/landing-pages/leaders-offer/leaders-offer-arrows.svg">
+              <div class="display--inline--block text--large text--white leadersOfferPage__hero__offerDetails__pointsContainer">
+                <div class="leadersOfferPage__hero__offerDetails__point1">
+                  <strong>15% off Strength</strong>
+                </div>
+                <div class="leadersOfferPage__hero__offerDetails__point2">
+                  <strong>25% off Cardio</strong>
+                </div>
+                <div class="leadersOfferPage__hero__offerDetails__point3">
+                  <strong>$100 off Strength <br>and Cardio</strong>
+                </div>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="is--hidden--medium">
+    <img src="/assets/images/landing-pages/leaders-offer/leaders-promo-hero-background.jpg">
+  </div>
+</div>
+<!-- End Leaders Offer Page Hero -->
+
+<div class="container container--noPadBottom">
+<!-- Leaders Offer Page Intro -->
+
+  <div class="row">
+    <div class="l--medium--12 columns">
+      <h1 class="leadersOfferPage__intro__title">Don't Lose Your Edge</h1>
+      <p>
+        Keep up your training in the comfort of your own home. As the official strength and conditioning partner of
+        the Leaders Performance Institute, Keiser is proud to offer this special to Leaders members.
+      </p>
+      <h3 class="margin--bottom--none">Get Deep Discounts on Keiser Equipment</h3>
+    </div>
+  </div>
+<!-- End Leaders Offer Page Intro -->
+
+<!-- Leaders Offer Details -->
+  <div class="row">
+
+    <div class="l--small--6 l--small--push--4 columns leadersOfferPage__offerDetails">
+
+      <div>
+        <h3>Strength</h3>
+        <h2 class="margin--bottom--narrow text--red">15% Off</h2>
+        <p>
+          our full line of strength equipment, including our core, lower body, and upper body machines.
+        </p>
+      </div>
+
+      <div>
+        <h3>Cardio</h3>
+        <h2 class="margin--bottom--narrow text--red">25% Off</h2>
+        <p>
+          including our M3i Indoor Bike, M3i Total Body Trainer, or the M5i Elliptical Trainer
+        </p>
+      </div>
+
+      <div>
+        <h3>Strength + Cardio</h3>
+        <h2 class="margin--bottom--narrow text--red">Additional $100 Off</h2>
+        <p>
+          when you bundle a strength purchase  with a cardio piece
+        </p>
+      </div>
+
+    </div>
+
+    <div class="l--small--4 l--small--pull--6 columns">
+      <img src="/assets/images/landing-pages/leaders-offer/leaders-promo-image.jpg">
+    </div>
+
+  </div>
+</div>
+<!-- End Leaders Offer Details -->
+
+<!-- Leaders Offer CTA -->
+<div class="container leadersOfferPage__ctaContainer">
+  <div class="row">
+    <div class="l--medium--12 columns text--alignCenter">
+
+      <div class="l--medium--12 columns text--alignCenter margin--bottom--none">
+        <p class="margin--bottom--half">Mention <span class="text--red">LEADERS20</span> for this limited time offer.</p>
+      </div>
+
+      <div class="l--medium--6 columns l--medium--offset--3 text--alignCenter margin--bottom--none">
+        <a class="button button--fullWidth" v-on:click="openCommercialSalesSimplifiedModal()">Contact A Keiser Sales Rep</a>
+      </div>
+
+      <div class="l--medium--12 columns text--alignCenter margin--bottom--none">
+        <p class="margin--top--half">
+          Shop <a class="leadersOfferPage__ctaContainer__shopLink" href="/fitness-equipment/strength-training">Strength</a> |
+          Shop <a class="leadersOfferPage__ctaContainer__shopLink" href="/fitness-equipment/cardio-training">Cardio</a> |
+          Shop <a class="leadersOfferPage__ctaContainer__shopLink" href="/fitness-equipment/functional-training">Functional</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- End Leaders Offer CTA -->
+
+{% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+{% include 'about/contact-us/modals/_commercialSales' %}
+{% include 'about/contact-us/modals/_customerSupport' %}
+
+{% endblock %}

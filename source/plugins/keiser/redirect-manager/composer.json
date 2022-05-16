@@ -1,0 +1,33 @@
+{
+  "name": "keiser/redirect-manager",
+  "description": "Manage 301 and 302 redirects",
+  "version": "1.0.0",
+  "type": "craft-plugin",
+  "keywords": ["some", "keywords", "here"],
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Akshay Agarwal",
+      "homepage": "https://10xmanagement.com"
+    }
+  ],
+  "support": {
+    "email": "info@akshayagarwal.in",
+    "issues": "https://keiser.com/about-us/contact-us",
+    "source": "https://keiser.com/about-us/contact-us",
+    "docs": "https://keiser.com/about-us/contact-us"
+  },
+  "require": {
+    "craftcms/cms": "^3.7",
+    "craftcms/commerce": "^3.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "keiser\\redirectmanager\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "keiser-redirect-manager",
+    "name": "Keiser Redirect Manager"
+  }
+}

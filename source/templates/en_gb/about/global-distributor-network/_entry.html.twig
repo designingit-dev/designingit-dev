@@ -1,0 +1,93 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+  <div class="background--darkGrey">
+    <div class="container container--tight">
+      <div class="row">
+        <div class="l--small--12 columns l--noMargin">
+          <div class="titleBlock">
+            <h1 class="titleBlock__subTitle">
+              {{ entry.title }}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% set form = craft.sproutForms.form('globalDistributorNetwork') %}
+  <form method="post" action="/forms/globalDistributorNetwork" accept-charset="UTF-8" enctype="multipart/form-data" id="globalDistributorNetwork__form" data-preventDuplicateSubmit="true">
+    <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+    <input type="hidden" name="handle" value="globalDistributorNetwork">
+    {{ redirectInput('/about-us/contact-us/thank-you#commercial-sales') }}
+    <input type="hidden" name="fields[repEmail]" value="">
+    <input type="hidden" name="fields[repVPEmail]" value="">
+    {{ craft.blitz.csrfInput() }}
+
+    <div class="container" id="globalDistributorNetwork__form__userLocationField">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          {{ entry.countryGuidanceHeader }}
+        </div>
+        <div class="l--medium--12 columns">
+          {{ craft.sproutForms.displayField(form, form.getField('userLocation')) }}
+          <input type="button" class="button margin--top margin--bottom" id="globalDistributorNetwork__form__userLocationField__submit" value="Next">
+          <p class="margin--bottom--none">For UK, <a href="/about-us/contact-us">Click Here to contact your Keiser Sales Representative.</a> </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container is--hidden" id="globalDistributorNetwork__form__contactFields">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <h2 id="globalDistributorNetwork__form__countryTitle"></h2>
+        </div>
+      </div>
+      <div class="row is--hidden--medium">
+        <div class="l--medium--5 l--medium--offset--1 columns margin--bottom--half globalDistributorNetwork__repContactDetails">
+          <p class="margin--bottom--none"><strong>Your Keiser Representative</strong></p>
+          <br>
+          <p class="margin--bottom--none globalDistributorNetwork__repContactDetails__repName"></p>
+          <p class="margin--bottom--none globalDistributorNetwork__repContactDetails__repContact"></p>
+          <p class="margin--bottom--half">
+            <span class="globalDistributorNetwork__repContactDetails__repWebsite"></span>
+          </p>
+          <p class="margin--bottom--none">
+            <span class="globalDistributorNetwork__repContactDetails__repFirstName contactUs__commercialSales__repFirstName"></span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="l--medium--8 columns margin--bottom--half">
+          {{ craft.sproutForms.displayField(form, form.getField('fullName')) }}
+          {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+          {{ craft.sproutForms.displayField(form, form.getField('phoneNumber')) }}
+          {{ craft.sproutForms.displayField(form, form.getField('message')) }}
+          {{ craft.sproutForms.displayField(form, form.getField('geoLocation')) }}
+          {{ craft.sproutForms.displayField(form, form.getField('marketingOptIn')) }}
+          {% hook 'sproutForms.modifyForm' %}
+          <input class="button" type="submit" value="Send">
+        </div>
+        <div class="l--medium--4 columns margin--bottom--half is--hidden--extraSmall is--visible--medium globalDistributorNetwork__repContactDetails">
+          <p class="margin--bottom--none"><strong>Your Keiser Representative</strong></p>
+          <br>
+          <p class="margin--bottom--none globalDistributorNetwork__repContactDetails__repName"></p>
+          <p class="margin--bottom--none globalDistributorNetwork__repContactDetails__repContact"></p>
+          <p class="margin--bottom--half">
+            <img src="/assets/images/contact-us/email-pointer.png" class="contactUs__commercialSales__emailPointer" />
+            <span class="globalDistributorNetwork__repContactDetails__repFirstName contactUs__commercialSales__repFirstName"></span>
+          </p>
+          <p class="margin--bottom--half">
+            <span class="globalDistributorNetwork__repContactDetails__repWebsite"></span>
+          </p>
+          <p class="margin--bottom--none">
+            <a class="text--red text--underline" href="/global-distributor-network">Go Back & Search Again</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+{% endblock %}

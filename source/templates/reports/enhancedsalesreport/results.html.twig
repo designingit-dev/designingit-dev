@@ -1,0 +1,43 @@
+{% set results = craft.keiserCommerceHelpers.getOrdersWithPromoDetails() %}
+
+{{ craft.sproutReports.addHeaderRow([
+  'Order Number',
+  'Order Date',
+  'SKU',
+  'Item Name',
+  'Quantity',
+  'Price',
+  'Total',
+  'Promo Item',
+  'T-Shirt Size',
+  'First Name',
+  'Last Name',
+  'Email',
+  'Phone',
+  'City',
+  'State',
+  'Zip',
+  'Country'
+]) }}
+
+{% for result in results %}
+  {% do craft.sproutReports.addRow([
+    result.shortNumber,
+    result.orderDate,
+    result.sku,
+    result.itemName,
+    result.qty,
+    result.price,
+    result.total,
+    result.promoItem,
+    result.tShirtSize,
+    result.firstName,
+    result.lastName,
+    result.email,
+    result.phone,
+    result.city,
+    result.state,
+    result.zip,
+    result.country
+  ]) %}
+{% endfor %}

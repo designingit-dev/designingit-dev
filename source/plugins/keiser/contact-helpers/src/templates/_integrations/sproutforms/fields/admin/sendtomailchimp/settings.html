@@ -1,0 +1,9 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+label: "Mailchimp List ID",
+instructions: "Mention the Mailchimp list ID to which the customer's email should be subscribed. This value can be obtained from Mailchimp Audience settings. Make sure to include an email field with the slug 'email' in the form as well. If not sure, contact Keiser website developer.",
+id: 'mailChimpListId',
+name: 'mailChimpListId',
+value: field.mailChimpListId
+}) }}

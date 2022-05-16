@@ -1,0 +1,129 @@
+// ------------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Modal
+//
+// ------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------
+// !-- Modal
+// ------------------------------------------------------------------------------
+
+.modal {
+  $background--mask: transparentize($black, .3);
+  $background--wrapper: $white;
+  $maxWidth: $site--maxWidth;
+
+  &__mask {
+    position: fixed;
+    z-index: map-get($z-index, top);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transition: opacity $duration--long $ease-in-out;
+    background-color: $background--mask;
+}
+
+  &__wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    overflow: auto;
+    width: 80vw;
+    max-width: $modal--maxWidth;
+    max-height: 80vh;
+    padding: $gutter;
+    transition: all $duration--long $ease-in-out;
+    transform: translate(-50%, -50%);
+    background-color: $background--wrapper;
+  }
+
+  &__header {
+    margin-top: 0;
+    color: $black;
+  }
+
+  &__body {
+    color: $black;
+
+    iframe {
+      width: 100%;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid $keiser--red;
+    color: $keiser--red;
+    background: transparent;
+    padding: 6px 15px;
+    margin-top: 0;
+  }
+
+  &__defaultButton {
+    float: right;
+    margin-left: 20px;
+  }
+
+  .container {
+    max-width: 960px;
+  }
+}
+
+/*
+ * the following styles are auto-applied to elements with
+ * v-transition="modal" when their visiblity is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter,
+.modal-leave {
+  opacity: 0;
+}
+
+.modal-enter .modal__container,
+.modal-leave .modal__container {
+  transform: scale(1.1);
+}
+
+/*doc
+---
+title: Modal
+name: 01-modal
+category: Components - Modal
+---
+
+This is the default modal
+
+``` html_example
+
+<button v-on:click="openModal('homeVideo')">Why Keiser?</button>
+<vue-modal :show.sync="showModal" :active-modal="activeModal" name="homeVideo">
+  <h3 slot="header">
+    We Are Keiser
+  </h3>
+  <div slot="body" v-html.literal='<iframe width="560" height="315" src="https://www.youtube.com/embed/u1ZB_rGFyeU" frameborder="0" allowfullscreen=""></iframe>'>
+  </div>
+</vue-modal>
+
+```
+``` html_example
+
+<button v-on:click="openModal('textBlurb')">Show Text Blurb</button>
+<vue-modal :active-modal="activeModal" name="textBlurb">
+  <h3 slot="header">
+    We Are Keiser
+  </h3>
+  <div slot="body">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat leo erat, et aliquam diam tristique sit amet. Vestibulum sagittis, odio quis eleifend commodo, nunc erat volutpat neque, eu volutpat arcu enim sit amet velit. Sed sit amet nisi ac nunc posuere fermentum. Curabitur posuere nunc diam, ut vehicula eros tincidunt ac. Nam porttitor congue fringilla. Mauris iaculis lacus lectus, at dictum leo accumsan sit amet. Suspendisse in libero elementum enim placerat tincidunt. Pellentesque id egestas ligula. In hac habitasse platea dictumst. Duis ante eros, fermentum non viverra in, posuere et ligula. Sed finibus, mi at faucibus aliquam, nulla ipsum ornare nisi, vitae egestas lectus massa sit amet velit.
+  </div>
+</vue-modal>
+
+```
+*/

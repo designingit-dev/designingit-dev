@@ -1,0 +1,217 @@
+.productReview {
+  margin-bottom: 100px;
+}
+
+.rating__star.active {
+  width: 54px;
+  height: 54px;
+  background: url(/assets/images/reviews/active-review-star.png);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.rating__star {
+  width: 54px;
+  height: 54px;
+  background: url('/assets/images/reviews/inactive-review-star.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor:pointer;
+}
+
+.rating__label {
+  @include respond-to(medium){
+    position: relative;
+    top: -23px;
+    margin-left: 32px;
+  }
+}
+
+.productReview div.field {
+  margin-bottom: 45px;
+}
+
+.productReview div.termsConditions-field .heading,.productReview div.newsletterSignup-field .heading,.productReview div.recommend-field .heading {
+  display: none;
+}
+
+.productReview div.termsConditions-field label,.productReview div.newsletterSignup-field label,.productReview div.recommend-field label {
+  font-weight: $fontWeight--bold;
+}
+
+.productReview input[type="checkbox"] {
+  display: none;
+}
+
+.productReview__checkbox__input {
+  visibility: visible;
+  width: 25px;
+  height: 25px;
+  background: url('/assets/images/sprites/product-review-form-icons.png') -55px -87px;
+  display: inline-block;
+  padding: 0px;
+}
+
+.productReview__checkbox__input__checked {
+  visibility: visible;
+  width: 25px;
+  height: 25px;
+  background: url('/assets/images/sprites/product-review-form-icons.png') -10px -87px;;
+  display: inline-block;
+  padding: 0px;
+}
+
+.productReview input[type="radio"] {
+  visibility: hidden;
+  display: inline-block;
+}
+
+.productReview__radio__input {
+  content: "";
+  visibility: visible;
+  width: 25px;
+  height: 25px;
+  background: url('/assets/images/sprites/product-review-form-icons.png') -137px -87px;
+  display: inline-block;
+  padding: 0px;
+  position: relative;
+  top: 11px;
+}
+
+.productReview__radio__input__checked {
+  content: "";
+  visibility: visible;
+  width: 25px;
+  height: 25px;
+  background: url('/assets/images/sprites/product-review-form-icons.png') -100px -87px;;
+  display: inline-block;
+  padding: 0px;
+}
+
+.productReview #fields-gender label {
+  display: inline-block;
+  margin-right: 20px;
+  margin-top: 6px;
+}
+
+#fields-reviewImage {
+  display: none;
+}
+
+label[for="fields-reviewImage"] {
+  color: $red;
+  font-size: map_get($fontSizes, 'large');
+}
+
+label[for="fields-reviewImage"]:before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  background: url('/assets/images/sprites/product-review-form-icons.png') -44px -132px;
+  display: inline-block;
+  padding: 0px;
+  margin-right: 7px;
+  position: relative;
+  top: 1px;
+}
+
+.productReview__error {
+  margin-left: 5px;
+}
+
+#productReviewThankYou .modal__wrapper {
+  width: auto;
+  max-width: 680px;
+  min-width: 320px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+#productReviewThankYou .modal__header {
+  margin-left: 20px;
+  @include respond-to(medium){
+    margin-left: 70px;
+  }
+  margin-bottom: 0px;
+}
+
+#productReviewThankYou .modal__header h2 {
+  margin-top: 75px;
+  font-size: map-get($fontSizes, 'larger');
+  @include respond-to(medium){
+    font-size: map-get($fontSizes, 'xLarge');
+  }
+}
+
+#productReviewThankYou .modal__body h2 {
+  font-size: map-get($fontSizes, 'larger');
+  @include respond-to(medium){
+    font-size: map-get($fontSizes, 'xLarge');
+  }
+}
+
+#productReviewThankYou .modal__body {
+  margin-left: 20px;
+  margin-top: 5px;
+  @include respond-to(medium){
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+  margin-bottom: 65px;
+}
+
+#productReviewThankYou__footer {
+  margin-left: 10px;
+  @include respond-to(medium){
+    margin-left: 70px;
+  }
+}
+
+#modal-close-button {
+  margin-right: 15px;
+  margin-top: 7px;
+  cursor: pointer;
+}
+
+.productReview__checkbox__input {
+  max-width: 31px;
+}
+
+.productReview__checkbox__label {
+  margin-left: 9px;
+  @include respond-to(medium){
+    margin-top: 3px;
+  }
+}
+
+#productReview__image {
+  margin-top: 0px;
+}
+
+.productReview__checkbox__input__container {
+  max-width: 20px;
+  @include respond-to(medium){
+    max-width: 25px;
+  }
+}
+
+.productReview__checkbox__label__container {
+  margin-left: 5px;
+}
+
+#productReview__title {
+  @include respond-to(medium){
+    min-height: 130px;
+  }
+}
+
+#productReview__heading {
+  margin-top: 45px;
+}
+
+#reviewImagePreviewContainer img {
+  max-width: 160px;
+  padding: 20px;
+}

@@ -1,0 +1,9 @@
+<div class="pageTitleField__admin">
+    {% if value is defined and value is not empty %}
+        {% set values = value|split(';') %}
+        <span>Title: {{values[0]}}</span>
+        {% if values[1] is defined %}
+            <p>URL: <a href="{{ values[1] }}" target="_blank">{{values[1]}}</a></p>
+        {% endif %}
+    {% endif %}
+</div>

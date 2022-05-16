@@ -1,0 +1,11 @@
+{% if entry.strengthMppEnableNewVariant is defined and entry.strengthMppEnableNewVariant %}
+    {% include 'products/_entry_v1' %}
+{% elseif entry.productCategories.one.slug in ['specialty-equipment','racks','functional-training'] %}
+  {% include 'products/_entry_control' with {
+      getPricingCTA: 'Get pricing'
+  } %}
+{% else %}
+    {% include 'products/_entry_control' with {
+        getPricingCTA: 'Get a commercial quote'
+    } %}
+{% endif %}

@@ -1,0 +1,6 @@
+{% for article in articles %}
+    <div class="blog__article__list__item margin--bottom--half">
+        <a href="{{ article.url }}" class="blog__articleList__title"><h3 class="margin--bottom--narrow">{{ article.title }}</h3></a>
+        <p class="margin--bottom--none blog__articleList__summary">{{ article.powerEdBlogArticleSummary }}</p>
+    </div>
+{% endfor %}

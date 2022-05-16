@@ -1,0 +1,11 @@
+.promo {
+  @include respond-to(medium){
+    height: 337px;
+  }
+}
+
+.promo img {
+  @include respond-to(medium){
+    height: 337px !important;
+  }
+}

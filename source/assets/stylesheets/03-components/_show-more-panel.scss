@@ -1,0 +1,42 @@
+.show__more {
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__anchor {
+    position: absolute;
+    bottom: -1em;
+    z-index: map-get($z-index, above);
+    color: $strength--mpp--show--more;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__anchor:target {
+    display: none;
+  }
+
+  &__anchor:target ~ &__panel {
+    max-height: 20000px;
+  }
+
+  &__anchor:target ~ &__fade {
+    display: none;
+  }
+
+  &__panel {
+    position: relative;
+    max-height: 210px;
+    overflow: hidden;
+    transition: max-height .5s ease;
+  }
+
+  &__fade {
+    background: linear-gradient(to bottom, rgba($keiser--white,0) 0%,rgba($keiser--white,1) 75%);
+    height: 100px;
+    margin-top: -100px;
+    position: relative;
+  }
+
+}

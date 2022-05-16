@@ -1,0 +1,13 @@
+{% set avgRating = 0 %}
+{% for review in productReviews %}
+  {% set avgRating = avgRating + review.rating %}
+{% endfor %}
+{% set avgRating = avgRating / productReviews.count() %}
+
+<div class="aggregateRatingCondensed">
+  <p class="text--small commerceProductReview__average__avgRatingLabel">Average rating</p>
+  {{ craft.keiserCommerceHelpers.getRatingStarsHtml(avgRating) | raw  }}
+  <p class="margin--bottom--none">
+    <a href="#productReviews" class="text--small margin--bottom--half">Read reviews</a>
+  </p>
+</div>

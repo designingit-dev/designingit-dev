@@ -1,0 +1,170 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Brand Colors
+//  - Named Colors
+//  - Status Colors
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Brand Colors
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Brand Colors
+name: 00-brand-colors
+categories: Variables - Colors
+---
+
+These are colors pulled from the Keiser Brand Guidelines document.
+
+<div class="sg--colors">
+  <figure class="sg--color" style="background: #d10a2c;">
+    <figcaption class="sg--color__details">
+      <strong>$keiser--red</strong> #d10a2c
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #fff;">
+    <figcaption class="sg--color__details">
+      <strong>$keiser--white</strong> #fff
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #000;">
+    <figcaption class="sg--color__details">
+      <strong>$keiser--black</strong> #000
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #c8a334;">
+    <figcaption class="sg--color__details">
+      <strong>$yellow</strong> #c8a334
+    </figcaption>
+  </figure>
+</div>
+*/
+// -----------------------------------------------------------------------------
+
+$keiser--red: #d10a2c;
+$keiser--white: #fff;
+$keiser--black: #000000;
+$keiser--blue: #357daa;
+
+// -----------------------------------------------------------------------------
+// !-- Named Colors
+// -----------------------------------------------------------------------------
+/*doc
+
+---
+title: Named Colors
+name: 00-named-colors
+categories: Variables - Colors
+---
+
+These are all the colors that will be included in the application.
+
+<div class="sg--colors">
+  <figure class="sg--color" style="background: #282828;">
+    <figcaption class="sg--color__details">
+      <strong>$grey</strong> #282828
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #636363;">
+    <figcaption class="sg--color__details">
+      <strong>$grey--medium</strong> #949494
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #58595b;">
+    <figcaption class="sg--color__details">
+      <strong>$grey--medium--alt</strong> #58595b
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #949494;">
+    <figcaption class="sg--color__details">
+      <strong>$grey--light</strong> #949494
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #cccccc;">
+    <figcaption class="sg--color__details">
+      <strong>$grey--light--alt</strong> #cccccc
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #e0e0e0;">
+    <figcaption class="sg--color__details">
+      <strong>$grey--xLight</strong> #e0e0e0
+    </figcaption>
+  </figure>
+  <figure class="sg--color" style="background: #bcbec0;">
+    <figcaption class="sg--color__details">
+      <strong>$grey--xLight--alt</strong> #e0e0e0
+    </figcaption>
+  </figure>
+</div>
+*/
+// -----------------------------------------------------------------------------
+
+$red: $keiser--red;
+$white: $keiser--white;
+$white-transparent: rgba(255, 255, 255, 0.6);
+$black: $keiser--black;
+$grey: #282828;
+$grey--medium: #636363;
+$grey--medium-alt: #58595b;
+$grey--light: #949494;
+$grey--light--alt: #cccccc;
+$grey--xLight: #e0e0e0;
+$grey--xLight-alt: #bcbec0;
+$grey--xxLight: #F8F8F8;
+$grey--border: #7b7d82;
+$yellow: #c8a334;
+$blue--light: #c8ddef;
+$blue--medium: #93abbd;
+$blue--dark: #56697a;
+$demo--van--grey--callout: #242424;
+$demo--van--grey--subtitle: #4e4f51;
+$content--block--product--review--background: #e2e2e2;
+$content--block--product--review--review: #110f0d;
+$content--block--product--review--reviewerDetails: #5b5c5e;
+$strength--mpp--light--grey--highlight: #8a8a8d;
+$strength--mpp--product--advantages--background: #f4f4f5;
+$strength--mpp--maroon--color: #781e1e;
+$strength--mpp--show--more: #547a92;
+
+$steel--blue--light: #449ecc;
+$steel--blue--bright: #58bdec;
+$steel--blue--medium: #065a85;
+$steel--blue--dark: #083f62;
+$steel--blue--fill--light: #cae6ef;
+$steel--blue--fill--medium: #7cb3d1;
+$steel--blue--outline: #7f97ad;
+$blp--dark--red: #781e1e;
+$blp--grey: #eee;
+$blp--grey--medium: #a9a8a9;
+$blp--grey--dark: #4c4d4e;
+$blp--header--nav--item: #221f1f;
+$blp--footer--nav--item: #8a898c;
+$blp--footer--nav--secondary--item: #4d4e4f;
+$blp--black: #1a1a1a;
+$blp--homepage--dark--grey: #0f1313;
+$blp--homepage--equipmentcard--grey--background: #f0f0f0;
+$blp--homepage--customerLogoShowcase--grey--light: #374548;
+$blp--homepage--made--in--usa--grey--background: #f1f5f5;
+$blp--textual--link: #101314;
+$blp--homepage--border--grey: #d9dfdf;
+$blp--red--button--hover: #bc0928;
+$blp--red--button--active: #6c1b1c;
+$blp--black--outline--button: #191919;
+$blog--about--author: #878787;
+$header--top--container--back:#252525;
+$header-top-menu-hover:#E1233B;
+
+
+$colors: (
+  $red,
+  $white,
+  $black,
+  $grey,
+  $grey--medium,
+  $grey--light,
+  $grey--xLight,
+  $yellow
+);

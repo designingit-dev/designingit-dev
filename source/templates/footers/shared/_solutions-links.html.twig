@@ -1,0 +1,16 @@
+<div class="footer__sectionLinks">
+  {% for entry in craft.entries.section("solutions").level(1) %}
+    <a href="{{ entry.url }}" class="scale--base">
+      {% include 'shared/_nav-title.html' with {'entry': entry} %}
+    </a>
+  {% endfor %}
+  <ul class="list--tight">
+    {% for entry in craft.entries.section("solutions").level(2) %}
+      <li>
+        <a href="{{ entry.url }}">
+          {% include 'shared/_nav-title.html' with {'entry': entry} %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,306 @@
+<vue-modal :active-modal="activeModal" name="contactUs__commercialSales" class="contactUs__modal" v-cloak>
+  {% set form = craft.sproutForms.form('contactCommercialSales') %}
+  <div slot="header">
+    <div class="container container--noPad contactUs__modal__headerAction">
+      <div class="row">
+        <a onClick="chatButton.onClick();" class="contactUs__modal__emailSupport">
+          <div class="l--extraSmall--3 l--small--1 columns margin--bottom--half text--alignCenter">
+            <img src="/assets/images/contact-us/contact-us-via-chat.png" />
+          </div>
+          <div class="l--extraSmall--7 l--small--10 columns margin--bottom--half">
+            <p class="margin--bottom--none contactUs__modal__emailSupport__heading">Not Sure?</p>
+            <p class="margin--bottom--none contactUs__modal__emailSupport__body">Chat with a representative.</p>
+          </div>
+        </a>
+        <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('contactUs__commercialSales')"><img src="/assets/images/modal-close-button.png" /> </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <h3 class="margin--top--none contactUs__modal__formName">{{ form.name }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <form method="post" action="/forms/contactCommercialSales" accept-charset="UTF-8" enctype="multipart/form-data" id="contactUs__commercialSales__form" v-on:submit="disableSubmit('contactUs__commercialSales__form')">
+      <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+      <input type="hidden" name="handle" value="contactCommercialSales">
+      {{ redirectInput('/about-us/contact-us/thank-you#commercial-sales') }}
+      <input type="hidden" name="fields[countryISO]" value="">
+      <input type="hidden" name="fields[country]" value="">
+      <input type="hidden" name="fields[zip]" value="">
+      <input type="hidden" name="fields[repEmail]" value="">
+      <input type="hidden" name="fields[repVPEmail]" value="">
+      <input type="hidden" name="fields[sendToSugarCRM1]" value="true">
+      {{ craft.sproutForms.displayField(form, form.getField('geoLocation')) }}
+      {{ craft.blitz.csrfInput() }}
+      <div class="container container--noPad" id="contactUs__modal__fieldsContainer">
+
+        <div class="row modalContentPage" id="contactUs__commercialSales__institutionType">
+          {% set institutionType = form.getField('institutionType') %}
+          <div class="l--medium--12 columns margin--bottom--half">
+            <h3 class="contactUs__modal__fieldName">{{ institutionType.name }}</h3>
+          </div>
+          <div class="l--medium--12 columns margin--bottom--half contactUs__modal__errorContainer is--hidden" id="{{ institutionType.handle }}__error">
+            <p class="margin--bottom--none">This field is required. Please select one of the following institution types</p>
+          </div>
+          {% for option in institutionType.settings.options %}
+            {% set labels = option.label | split('(') %}
+            {% set label1 = labels[0]|trim %}
+            {% set label2 = labels[1]|replace(')','')|trim %}
+            <div class="l--extraSmall--12 l--medium--6 columns margin--bottom--half">
+              <label>
+                <input type="radio" class="productReview__radio__input" value="{{ option.value }}" name="fields[{{ institutionType.handle }}]" {%- if option.default %} checked="checked"{% endif -%}>
+                <p class="margin--bottom--none contactUs__modal__optionSmallLabel">{{ label1 }}</p>
+                <p class="margin--bottom--none contactUs__modal__optionLargeLabel">{{ label2 }}</p>
+              </label>
+            </div>
+            {% if loop.index % 2 == 0 %}
+              <div class="clearfix__medium clearfix__large"></div>
+            {% endif %}
+          {% endfor %}
+          <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <a class="button contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__interestedProducts', 'contactUs__modal__fieldsContainer', 'fields[{{ institutionType.handle }}]', 'radio', '{{ institutionType.handle }}__error')">Next</a>
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+            <a class="button button--black contactUs__modal__button" v-on:click="closeModal('contactUs__commercialSales')">Back</a>
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+            <a class="button button--black" v-on:click="closeModal('contactUs__commercialSales')">Back</a>
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+            <a class="button text--alignRight contactUs__modal__buttonNext" v-on:click="showPage('contactUs__commercialSales__interestedProducts', 'contactUs__modal__fieldsContainer', 'fields[{{ institutionType.handle }}]', 'radio', '{{ institutionType.handle }}__error')">Next</a>
+          </div>
+        </div>
+
+        <div class="row is--hidden modalContentPage" id="contactUs__commercialSales__interestedProducts">
+          {% set interestedProducts = form.getField('interestedProducts') %}
+          <div class="l--medium--12 columns margin--bottom--half">
+            <h3 class="contactUs__modal__fieldName">{{ interestedProducts.name }}</h3>
+          </div>
+          <div class="l--medium--12 columns margin--bottom--half contactUs__modal__errorContainer is--hidden" id="{{ interestedProducts.handle }}__error">
+            <p class="margin--bottom--none">This field is required. Please select at least one of the following product types</p>
+          </div>
+          {% set infoEntries = [] %}
+          {% for option in interestedProducts.settings.options %}
+            {% set labels = option.label|split('(') %}
+            {% set label1 = labels[0]|trim %}
+            {% set label2 = labels[1]|replace(')','')|trim %}
+            {% set infoEntry = craft.entries.section('productCategoryHelpers').title(label2).one() %}
+            <div class="l--extraSmall--10 l--medium--11 columns margin--bottom--half">
+              <label class="contactUs__modal__checkboxLabel">
+                <input type="checkbox" class="productReview__checkbox__input" value="{{ option.value }}" name="fields[{{ interestedProducts.handle }}][]" {%- if option.default %} checked="checked"{% endif -%}>
+                <p class="margin--bottom--none contactUs__modal__optionSmallLabel">{{ label1 }}</p>
+                <p class="margin--bottom--none contactUs__modal__optionLargeLabel">{{ label2 }}</p>
+              </label>
+            </div>
+            {% if infoEntry is not empty %}
+              <div class="l--extraSmall--2 l--medium--1 columns margin--bottom--half">
+                <img class="contactUs__commercialSales__interestedProducts__infoEntryIcon" src="/assets/images/contact-us/question-mark.png" v-on:click="showPage('contactUs__commercialSales__infoEntries__{{ infoEntry.slug }}', 'contactUs__modal__fieldsContainer', null, null, null, true)">
+              </div>
+              {% set infoEntries = infoEntries|merge([infoEntry]) %}
+            {% endif %}
+          {% endfor %}
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <a class="button contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer', 'fields[{{ interestedProducts.handle }}][]', 'checkbox', '{{ interestedProducts.handle }}__error')">Next</a>
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+            <a class="button button--black contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__institutionType', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+            <a class="button button--black" v-on:click="showPage('contactUs__commercialSales__institutionType', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+            <a class="button" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer', 'fields[{{ interestedProducts.handle }}][]', 'checkbox', '{{ interestedProducts.handle }}__error')">Next</a>
+          </div>
+        </div>
+
+        {% for infoEntry in infoEntries %}
+          <div class="row is--hidden modalContentPage" id="contactUs__commercialSales__infoEntries__{{ infoEntry.slug }}">
+            <div class="l--medium--12 columns">
+              {% if infoEntry.productCategoryHelperImage.one is not empty %}
+                <img class="lazyload contactUs__commercialSales__infoEntries__image" data-src="{{ infoEntry.productCategoryHelperImage.one.getURL() }}" />
+              {% endif %}
+              <h3 class="text--uppercase">{{ infoEntry.productCategoryHelperSmallTitle }}</h3>
+              <h2>{{ infoEntry.title }}</h2>
+              <p class="margin--bottom--none">{{ infoEntry.productCategoryHelperInfo }}</p>
+            </div>
+            <div class="l--medium--2 l--medium--offset--10 columns text--alignRight">
+              <a class="button" v-on:click="showPage('contactUs__commercialSales__interestedProducts', 'contactUs__modal__fieldsContainer')">Close</a>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="row is--hidden modalContentPage" id="contactUs__commercialSales__geolocationConfirmation">
+          <div class="l--medium--12 columns margin--bottom--none">
+            <h3 class="contactUs__modal__fieldName">IS YOUR ORGANIZATION LOCATED IN:</h3>
+            <h2 id="contactUs__commercialSales__geolocationConfirmation__currentLocation"></h2>
+          </div>
+          <div class="contactUs__modal__errorContainer is--hidden" id="contactUs__commercialSales__geolocationConfirmation__error">
+            <p class="margin--bottom--none">Please select one of the following options</p>
+          </div>
+          <div class="l--medium--12 columns">
+            <label for="contactUs__commercialSales__geolocationConfirmation__yes">
+              <input type="radio" class="productReview__radio__input" id="contactUs__commercialSales__geolocationConfirmation__yes" name="contactUs__commercialSales__geolocationConfirmation" value="yes">
+              <p class="margin--bottom--none contactUs__modal__optionSmallLabel">YES</p>
+            </label>
+            <label for="contactUs__commercialSales__geolocationConfirmation__no">
+              <input type="radio" class="productReview__radio__input" id="contactUs__commercialSales__geolocationConfirmation__no" name="contactUs__commercialSales__geolocationConfirmation" value="no">
+              <p class="margin--bottom--none contactUs__modal__optionSmallLabel">NO</p>
+            </label>
+          </div>
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <a class="button contactUs__modal__button" v-on:click="geolocationConfirmation('contactUs__commercialSales__geolocationConfirmation__error')">Next</a>
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+            <a class="button button--black contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__interestedProducts', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+            <a class="button button--black" v-on:click="showPage('contactUs__commercialSales__interestedProducts', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+            <a class="button" v-on:click="geolocationConfirmation('contactUs__commercialSales__geolocationConfirmation__error')">Next</a>
+          </div>
+        </div>
+
+        <div class="row is--hidden modalContentPage" id="contactUs__commercialSales__zipCodeSelection">
+          <div class="l--medium--12 columns margin--bottom--half">
+            <h3 class="contactUs__modal__fieldName">To connect with the correct representative, please tell us where your organization is located</h3>
+          </div>
+          <div class="l--medium--12 columns is--hidden contactUs__modal__errorContainer" id="contactUs__commercialSales__zipCodeSelection__error">
+            <p class="margin--bottom--none">Please provide a valid US ZIP Code</p>
+          </div>
+          <div class="l--medium--6 columns">
+            <div class="field plaintext required">
+              <div class="heading">
+                <label for="contactUs__commercialSales__zipCode">Enter your ZIP Code (US Only)</label>
+              </div>
+              <div class="input">
+                <input type="text" name="contactUs__commercialSales__zipCode" id="contactUs__commercialSales__zipCode" maxlength="5">
+              </div>
+            </div>
+          </div>
+          <div class="l--medium--12 columns">
+            <a v-on:click="showPage('contactUs__commercialSales__countrySelection', 'contactUs__modal__fieldsContainer')">Not from the US? Click Here</a>
+          </div>
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <a class="button contactUs__modal__button contactUs__commercialSales__zipCodeConfirmationButton" v-on:click="locationConfirmation('zipCode','contactUs__commercialSales__zipCodeSelection__error')">Next</a>
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+            <a class="button button--black contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+            <a class="button button--black" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+            <a class="button contactUs__commercialSales__zipCodeConfirmationButton" v-on:click="locationConfirmation('zipCode','contactUs__commercialSales__zipCodeSelection__error')">Next</a>
+          </div>
+        </div>
+
+        <div class="row is--hidden modalContentPage" id="contactUs__commercialSales__countrySelection">
+          <div class="l--medium--12 columns margin--bottom--half">
+            <h3 class="contactUs__modal__fieldName">To connect with the correct representative, please tell us where your organization is located</h3>
+          </div>
+          <div class="l--medium--12 columns is--hidden contactUs__modal__errorContainer" id="contactUs__commercialSales__countrySelection__error">
+            <p class="margin--bottom--none">Please select from one of the countries below</p>
+          </div>
+          <div class="l--medium--6 columns">
+            <div class="field plaintext required">
+              <div class="heading">
+                <label for="contactUs__commercialSales__country">Country</label>
+              </div>
+              <div class="input">
+                <div class="typeahead__container">
+                  <div class="typeahead__field">
+                  <span class="typeahead__query">
+                    <input class="js-typeahead"
+                           name="contactUs__commercialSales__country"
+                           id="contactUs__commercialSales__country"
+                           type="text"
+                           autocomplete="new-password">
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="l--medium--12 columns margin--bottom--none"></div>
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <a class="button contactUs__modal__button" v-on:click="locationConfirmation('country', 'contactUs__commercialSales__countrySelection__error')">Next</a>
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+            <a class="button button--black contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns text--alignLeft is--hidden--extraSmall is--visible--small">
+            <a class="button button--black" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns text--alignRight is--hidden--extraSmall is--visible--small">
+            <a class="button" v-on:click="locationConfirmation('country', 'contactUs__commercialSales__countrySelection__error')">Next</a>
+          </div>
+        </div>
+
+        <div class="row is--hidden modalContentPage" id="contactUs__commercialSales__contactDetails">
+          <div class="l--medium--12 columns margin--bottom--half">
+            <h3 class="contactUs__modal__fieldName">Based on what you’ve told us, we’re confident your message will go to the correct party.</h3>
+          </div>
+          <div class="l--medium--5 l--medium--offset--1 columns margin--bottom--half is--hidden--medium">
+            <p class="margin--bottom--none"><strong>Your Keiser representative</strong></p>
+            <br>
+            <p class="margin--bottom--none contactUs__commercialSales__repName"></p>
+            <p class="margin--bottom--none contactUs__commercialSales__repContact"></p>
+            <div class="contactUs__commercialSales__repImage"></div>
+            <p class="margin--bottom--none">
+              <span class="contactUs__commercialSales__repFirstName"></span>
+            </p>
+          </div>
+          <div class="l--medium--6 columns margin--bottom--half">
+            {{ craft.sproutForms.displayField(form, form.getField('fullName')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('customerTitle')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('phoneNumber')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('message')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('marketingOptIn')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('campaignTracking')) }}
+            {% hook 'sproutForms.modifyForm' %}
+          </div>
+          <div class="l--medium--5 l--medium--offset--1 columns margin--bottom--half is--hidden--extraSmall is--visible--medium">
+            <p class="margin--bottom--none"><strong>YOUR KEISER REPRESENTATIVE</strong></p>
+            <br>
+            <div class="row" id="contactUs__commercialSales__repContactContainer">
+              <div id="contactUs__commercialSales__repImageColumn">
+                <div class="contactUs__commercialSales__repImage"></div>
+              </div>
+              <div id="contactUs__commercialSales__repContactColumn">
+                <p class="margin--bottom--none contactUs__commercialSales__repName"></p>
+                <p class="margin--bottom--none contactUs__commercialSales__repContact"></p>
+              </div>
+            </div>
+            <p class="margin--bottom--none">
+              <img src="/assets/images/contact-us/email-pointer.png" class="contactUs__commercialSales__emailPointer" />
+              <span class="contactUs__commercialSales__repFirstName"></span>
+            </p>
+          </div>
+          <div class="clearfix__medium clearfix__large"></div>
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <input class="button contactUs__modal__button" type="submit" value="Send" v-on:click="disableButton()">
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+            <a class="button button--black contactUs__modal__button" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+            <a class="button button--black" v-on:click="showPage('contactUs__commercialSales__geolocationConfirmation', 'contactUs__modal__fieldsContainer')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+            <input class="button" type="submit" value="Send" v-on:click="disableButton()">
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>

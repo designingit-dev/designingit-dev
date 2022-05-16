@@ -1,0 +1,38 @@
+.featuredHero__ratioBox {
+  position: relative;
+  padding: 0;
+  height: 0;
+  padding-top: calc((400 / 770) * 100%);
+}
+
+.featuredHero__ratioBox--link {
+  display: block;
+  color: inherit;
+}
+
+.featuredHero__title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: map-get($z-index, above);
+}
+
+.featuredHero__image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+  z-index: map-get($z-index, below);
+}
+
+.featuredHero__button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: map-get($z-index, above);
+}

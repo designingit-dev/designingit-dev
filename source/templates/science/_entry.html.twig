@@ -1,0 +1,190 @@
+{% extends "_layout" %}
+
+{% block content %}
+<article>
+  {% cache %}
+  <div class="background--black">
+    <div class="constrain">
+      {% for block in entry.heroImageBlock %}
+        <div class="image--fullBleed">
+          <picture>
+            <source srcset="{{ block.mobileImage.one.getURL("small") }}" media="(max-width: 500px)">
+            <source srcset="{{ block.tabletImage.one.getURL("medium") }}" media="(max-width: 800px)">
+            <img src="{{ block.desktopImage.one.getURL("large") }}">
+          </picture>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="background--darkGrey">
+    <div class="container">
+      <div class="row anchor" id="pneumatic">
+        {% for block in entry.teaserBlocks.type('pneumaticTeaser') %}
+          <div class="l--small--12 l--medium--6 columns">
+            <div class="titleBlock">
+              <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+              <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+            </div>
+            <p>{{ block.copyBlock }}</p>
+              <div>
+                  <button class="js--showStatusQuo">Read More</button>
+              </div>
+          </div>
+          <div class="l--small--12 l--medium--6 columns">
+            <div class="videoEmbed">
+              {{ block.videoEmbed|raw}}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endcache %}
+
+    <div class="js--statusQuoExpanded is--hidden">
+      <div class="background--red">
+        <div class="container container--tight">
+          {% include "shared/_testimonial.html" %}
+        </div>
+      </div>
+
+      {% cache %}
+      <div class="container container--tight">
+        {% for block in entry.expandedBlocks.type('pneumaticExpanded') %}
+          <div class="titleBlock">
+            <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+            <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+          </div>
+          <p>{{ block.copyBlock }}</p>
+        {% endfor %}
+
+        {% for block in entry.expandedBlocks.type('pneumaticExpandedIconListItem') %}
+          <div class="iconBlock">
+            <div class="row">
+              <div class="l--small--2 columns">
+                <div class="iconBlock__iconWrapper background--white">
+                  <img class="iconBlock__icon" src="{{ block.icon.one.getURL("small") }}">
+                </div>
+              </div>
+              <div class="l--small--10 columns">
+                <div class="iconBlock__copy">
+                  <h3>{{ block.iconListTitle }}</h3>
+                  <p class="l--noMargin">{{ block.iconListCopy }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <button class="js--hideStatusQuo">Read Less</button>
+      </div>
+      {% endcache %}
+    </div>
+  </div>
+
+  {% cache %}
+  <div class="container">
+    {% for block in entry.teaserBlocks.type('mSeriesTeaser') %}
+      <div class="row anchor" id="mSeries">
+        <div class="l--small--12 l--medium--6 columns">
+          <div class="videoEmbed">
+            {{ block.videoEmbed|raw}}
+          </div>
+        </div>
+        <div class="l--small--12 l--medium--6 columns">
+          <div class="titleBlock">
+            <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+            <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+          </div>
+
+          <p>{{ block.copyBlock }}</p>
+          <button class="js--showMSeries">Read More</button>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="js--mSeriesExpanded is--hidden">
+      {% for block in entry.expandedBlocks.type('mSeriesExpanded') %}
+        <div class="row margin--top">
+          <div class="l--small--12 l--medium--6 columns">
+            <div class="titleBlock">
+              <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+              <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+            </div>
+
+            <p>{{ block.copyBlock }}</p>
+          </div>
+
+          <div class="l--small--12 l--medium--6 columns">
+            {% include 'shared/_srcset_image.html' with {'image': block.image.one, 'default_size': 'large' } %}
+          </div>
+        </div>
+
+        <div class="titleBlock">
+          <h3 class="titleBlock__title">{{ block.magnetSmallHeader }}</h3>
+          <h1 class="titleBlock__subTitle">{{ block.magnetLargeHeader }}</h1>
+        </div>
+
+        <p>{{ block.magnetCopyBlock }}</p>
+
+      {% endfor %}
+      <button class="js--hideMSeries margin--bottom">Read Less</button>
+    </div>
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="container">
+
+    {% for block in entry.teaserBlocks.type('pedalTeaser') %}
+      <div class="row anchor" id="pedal">
+        <div class="l--small--12 l--medium--6 columns">
+          <div class="titleBlock">
+            <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+            <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+          </div>
+          <p>{{ block.copyBlock }}</p>
+          <div>
+              <button class="js--showPedal">Read More</button>
+          </div>
+        </div>
+        <div class="l--small--12 l--medium--6 columns">
+          <div class="videoEmbed">
+            {{ block.videoEmbed|raw}}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="js--pedalExpanded margin--top is--hidden">
+
+      {% for block in entry.expandedBlocks.type('pedalExpanded') %}
+        <div class="titleBlock">
+          <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+          <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+        </div>
+
+        <p>{{ block.copyBlock }}</p>
+
+        <div class="row">
+          {% for pedalImage in block.image %}
+            <div class="l--small--12 l--medium--6 columns">
+              {% include 'shared/_srcset_image.html' with {'image': pedalImage, 'default_size': 'large' } %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% for item in block.imageKeys %}
+          <ul class="list--noBullets">
+            <li>
+              <span class="scale--base">{{ item.imageKey }}  </span>
+              {{ item.imageKeyInfo }}
+            </li>
+          </ul>
+        {% endfor %}
+      {% endfor %}
+      <button class="js--hidePedal">Read Less</button>
+    </div>
+  </div>
+  {% endcache %}
+</article>
+{% endblock %}

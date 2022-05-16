@@ -1,0 +1,33 @@
+{
+  "name": "keiser/sentry-integration",
+  "description": "Sentry integration for Craft CMS",
+  "version": "1.0.0",
+  "type": "craft-plugin",
+  "keywords": ["some", "keywords", "here"],
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Akshay Agarwal",
+      "homepage": "https://10xmanagement.com"
+    }
+  ],
+  "support": {
+    "email": "info@akshayagarwal.in",
+    "issues": "https://keiser.com/about-us/contact-us",
+    "source": "https://keiser.com/about-us/contact-us",
+    "docs": "https://keiser.com/about-us/contact-us"
+  },
+  "require": {
+    "craftcms/cms": "^3.7",
+    "keiser/sentry": "1.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "keiser\\sentryintegration\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "keiser-sentry-integration",
+    "name": "Keiser Sentry Integration"
+  }
+}

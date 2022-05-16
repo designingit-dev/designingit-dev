@@ -1,0 +1,105 @@
+// -----------------------------------------------------------------------------
+// !-- Definition List
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Definition List
+name: definition-list
+category: Components - Definition List
+---
+
+This implementation of a `cardGroup` lines up four [Title Cards][01-titleCard]
+together in a 4up fashion.
+
+``` html_example
+<div class="cardGroup">
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title scale--xXLarge text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader scale--xLarge text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title scale--xXLarge text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader scale--xLarge text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title scale--xXLarge text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader scale--xLarge text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title scale--xXLarge text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader scale--xLarge text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.definitionList {
+  &__label {
+    text-transform: uppercase;
+    color: $black;
+    border-bottom: $borderWidth--thin solid $grey--light;
+
+    &--red {
+      color: $red;
+      border-bottom: 0;
+    }
+
+    &--lowercase {
+      text-transform: none;
+    }
+  }
+
+  &__value {
+    font-size: map-get($fontSizes, large);
+    margin-bottom: $verticalRhythm;
+    color: $grey--medium;
+
+    &--small {
+      font-size: map-get($fontSizes, small);
+    }
+
+    // scss-lint:disable NestingDepth
+    // additional styling for Rich Text fields through CMS
+    p {
+      margin-bottom: $gutter--narrow;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    // scss-lint:enable NestingDepth
+  }
+}

@@ -1,0 +1,74 @@
+<vue-modal :active-modal="activeModal" name="madeInTheUSA__modal" class="contactUs__modal strengthMpp__fullScreen__modal madeInTheUSA__modal" v-cloak id="madeInTheUSA__modal">
+    <div slot="header">
+        <div class="container container--noPad">
+            <div class="row">
+                <div class="l--extraSmall--2 l--extraSmall--offset--10 columns text--alignRight margin--bottom--none">
+                    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('madeInTheUSA__modal')">
+                        <img src="/assets/images/modal-close-button-white.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div slot="body">
+
+        <div class="container container--noPad">
+
+            <div class="row">
+                <div class="l--small--6 columns text--white">
+                    <h3 class="leasingOptions__modal__title margin--bottom--narrow">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalTitle }}</h3>
+                    <p>{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalSubtitle }}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="l--small--12 columns madeInTheUSA__modal__coverImage">
+                    <img src="{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalCoverImage.one.url }}">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container container container--noPad text--white madeInTheUSA__modal__description">
+
+            <div class="row">
+
+                <div class="l--small--6 columns madeInTheUSA__modal__description__nameContainer">
+                    <div>
+                        <p class="margin--bottom--none">
+                            <span class="text--xLarge text--sansSerif--black"><strong>{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalDennisKeiserName }}</strong></span>
+                            <span class="text--uppercase text--small text--sansSerif-light">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalDennisKeiserNamePosition }}</span>
+                        </p>
+                        <p class="text--uppercase margin--bottom--half">{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalDennisKeiserDesignation)|raw }}</p>
+                        <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalDennisKeiserOfficeLocation)|raw }}</p>
+                    </div>
+                </div>
+
+                <div class="l--small--6 columns madeInTheUSA__modal__description__nameContainer">
+                    <div>
+                        <p class="margin--bottom--none">
+                            <span class="text--xLarge text--sansSerif--black"><strong>{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalRandyKeiserName }}</strong></span>
+                            <span class="text--uppercase text--small text--sansSerif-light">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalRandyKeiserNamePosition }}</span>
+                        </p>
+                        <p class="text--uppercase margin--bottom--half">{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalRandyKeiserDesignation)|raw }}</p>
+                        <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalRandyKeiserOfficeLocation)|raw }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="l--small--12 columns text--alignCenter strengthMpp__fullScreen__modal__quote text--black">
+                    <p class="text--sansSerif-light text--large">
+                        {{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalHighlightedQuote)|raw }}
+                    </p>
+                    <p class="text--uppercase margin--bottom--none">- {{ strengthMppSharedContentEntry.strengthMppSharedContent.one.madeInTheUsaModalDennisKeiserName }}</p>
+                </div>
+                <div class="l--small--12 columns text--alignCenter">
+                    <span class="text--white text--underline strengthMpp__fullScreen__modal__close__link" v-on:click="closeModal('madeInTheUSA__modal')">Close</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div slot="footer"></div>
+</vue-modal>

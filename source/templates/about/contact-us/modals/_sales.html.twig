@@ -1,0 +1,68 @@
+<vue-modal :active-modal="activeModal" name="contactUs__sales" class="contactUs__modal" v-cloak>
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <a onClick="chatButton.onClick();" class="contactUs__modal__emailSupport">
+          <div class="l--extraSmall--3 l--small--1 columns margin--bottom--half text--alignCenter">
+            <img src="/assets/images/contact-us/contact-us-via-chat.png" />
+          </div>
+          <div class="l--extraSmall--7 l--small--10 columns margin--bottom--half">
+            <p class="margin--bottom--none contactUs__modal__emailSupport__heading">Not Sure?</p>
+            <p class="margin--bottom--none contactUs__modal__emailSupport__body">Chat with a representative.</p>
+          </div>
+        </a>
+        <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('demoVan__modal')"><img src="/assets/images/modal-close-button.png" /> </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <h3 class="margin--top--half contactUs__modal__formName">Contact Sales</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad" id="contactUs__modal__fieldsContainer">
+
+      <div class="row modalContentPage" id="contactUs__modal__locationType">
+        <div class="l--medium--12 columns margin--bottom--half">
+          {% set form = craft.sproutForms.form('contactCommercialSales') %}
+          {% set locationType = form.getField('locationType') %}
+          <h3 class="contactUs__modal__fieldName">{{ locationType.name }}</h3>
+        </div>
+        {% for option in locationType.settings.options %}
+          {% set labels = option.label | split('(') %}
+          {% set label1 = labels[0]|trim %}
+          {% set label2 = labels[1]|replace(')','')|trim %}
+          <div class="l--extraSmall--12 l--medium--6 columns margin--bottom--half">
+            <label>
+              <input type="radio" class="productReview__radio__input" value="{{ option.value }}" name="fields[{{ locationType.handle }}]" {%- if option.default %} checked="checked"{% endif -%}>
+              <p class="margin--bottom--none contactUs__modal__optionSmallLabel">{{ label1 }}</p>
+              <p class="margin--bottom--none contactUs__modal__optionLargeLabel">{{ label2 }}</p>
+            </label>
+          </div>
+          {% if loop.index % 2 == 0 %}
+            <div class="clearfix__medium clearfix__large"></div>
+          {% endif %}
+        {% endfor %}
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+        <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+          <a class="button contactUs__modal__button" v-on:click="[openSalesModal(),trackFormAnchor('Contact Us (Sales)', 'salesModal')]">Next</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+          <a class="button button--black contactUs__modal__button" v-on:click="closeModal('contactUs__sales')">Back</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+          <a class="button button--black" v-on:click="closeModal('contactUs__sales')">Back</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+          <a class="button text--alignRight contactUs__modal__buttonNext" v-on:click="[openSalesModal(),trackFormAnchor('Contact Us (Sales)', 'salesModal')]">Next</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>

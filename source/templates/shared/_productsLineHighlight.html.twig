@@ -1,0 +1,158 @@
+<div class="background--red">
+  <div class="container container--tight">
+    {% include "shared/_didYouKnow.html" %}
+  </div>
+</div>
+
+{% cache %}
+
+  {% set strengthTrainingBlock = null %}
+  {% set cardioTrainingBlock = null %}
+  {% set functionalTrainingBlock = null %}
+
+  {% for block in entry.categoryBlockWithImage %}
+    {% switch block.linkToCategory.first.slug %}
+    {% case 'strength-training' %}
+      {% set strengthTrainingBlock = block %}
+    {% case 'cardio-training' %}
+      {% set cardioTrainingBlock = block %}
+    {% case 'functional-training' %}
+      {% set functionalTrainingBlock = block %}
+    {% endswitch %}
+  {% endfor %}
+
+
+  {% if strengthTrainingBlock %}
+    <div class="background--black">
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns l--pullRight">
+            <div class="padding--top">
+              <h1>{{ strengthTrainingBlock.blockTitle }}</h1>
+              <p>{{ strengthTrainingBlock.blockDescription }}</p>
+              <a href="/fitness-equipment/strength-training" class="button">View Line</a>
+            </div>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set productImage = strengthTrainingBlock.categoryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': productImage, 'default_size': 'large', 'lazyload': true } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+
+  <div class="container container--tight">
+    <h1>Strength equipment</h1>
+    <div class="row">
+      {% for block in entry.linksToProducts.type("strengthProduct") %}
+        <div class="l--small--6 l--medium--3 columns l--centered">
+          <div class="imageLink">
+            <a href="{{ block.linkDestination }}" class="imageLink__imageWrapper">
+              <img class="imageLink__image lazyload" data-src="{{ block.productImage.one.getURL("medium") }}">
+            </a>
+            <div class="imageLink__copy">
+              <h2 class="l--noMargin">{{ block.productTitle }}</h2>
+              <a href="{{ block.linkDestination }}" class="button">{{ block.linkText }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if cardioTrainingBlock %}
+    <div class="background--black">
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns">
+            <div class="padding--top">
+              <h1>{{ cardioTrainingBlock.blockTitle }}</h1>
+              <p>{{ cardioTrainingBlock.blockDescription }}</p>
+              <a href="/fitness-equipment/cardio-training" class="button">View Line</a>
+            </div>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set productImage = cardioTrainingBlock.categoryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': productImage, 'default_size': 'large', 'lazyload': true } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container container--tight">
+    <h1>Cardio equipment</h1>
+
+    <div class="row">
+      {% for block in entry.linksToProducts.type("cardioProduct") %}
+        <div class="l--small--6 l--medium--4 columns l--centered">
+          <div class="imageLink">
+            <a href="/fitness-equipment/cardio-training" class="imageLink__imageWrapper">
+              <img class="imageLink__image lazyload" data-src="{{ block.productImage.one.getURL("medium") }}">
+            </a>
+            <div class="imageLink__copy">
+              <h2 class="l--noMargin">{{ block.productTitle }}</h2>
+              <a href="/fitness-equipment/cardio-training" class="button">View More</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if functionalTrainingBlock %}
+    <div class="background--black">
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns l--pullRight">
+            <div class="padding--top">
+              <h1>{{ functionalTrainingBlock.blockTitle }}</h1>
+              <p>{{ functionalTrainingBlock.blockDescription }}</p>
+              <a href="/fitness-equipment/functional-training" class="button">View Line</a>
+            </div>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set productImage = functionalTrainingBlock.categoryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': productImage, 'default_size': 'large', 'lazyload': true } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container container--tight">
+    <h1>Functional equipment</h1>
+
+    <div class="row margin--bottom">
+      {% for block in entry.linksToProducts.type("functionalProduct") %}
+        <div class="l--small--6 l--medium--4 columns l--centered">
+          <div class="imageLink">
+            <a href="/fitness-equipment/functional-training" class="imageLink__imageWrapper">
+              <img class="imageLink__image lazyload" data-src="{{ block.productImage.one.getURL("medium") }}">
+            </a>
+            <div class="imageLink__copy">
+              <h2 class="l--noMargin">{{ block.productTitle }}</h2>
+              <a href="/fitness-equipment/functional-training" class="button">View More</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% include "shared/_ctaCard-fullWidth.html" with {
+      'getPricingCTA': 'Get pricing'
+    } %}
+  </div>
+
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+{% endcache %}

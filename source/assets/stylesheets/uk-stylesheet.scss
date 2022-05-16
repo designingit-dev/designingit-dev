@@ -1,0 +1,79 @@
+@import "00-core/functions";
+
+@import "00-core/variables/03-measurements";
+@import "00-core/variables/breakpoints";
+@import "00-core/variables/structure";
+@import "00-core/variables/01-colors";
+@import "00-core/mixins/*";
+
+.logo__image {
+
+  margin-left: 24px;
+
+  @include respond-to(medium){
+    margin-left: 36px;
+
+    .is--sticky & {
+      margin-left: 24px
+    }
+
+  }
+
+  &__flag{
+
+    position: absolute;
+    max-width: 16px;
+    top: 2px;
+
+    @include respond-to(medium){
+      max-width: 25px;
+
+      .is--sticky & {
+        max-width: 16px;
+      }
+
+    }
+  }
+}
+
+.button--distributorLocator {
+  margin-top: 15px;
+
+  @include respond-to(medium){
+    vertical-align: baseline !important;
+    margin-left: 13px;
+    margin-top: 5px;
+  }
+}
+
+#curator-feed div.crt-load-more a {
+  border: 2px solid;
+  text-transform: uppercase;
+  padding: 10px 35px;
+  font-size: 12px;
+  font-weight: bold;
+  color: $red !important;
+  border-color: $red !important;
+  background-color: $grey--xLight;
+
+  &:hover {
+    color: $white !important;
+    background-color: $red !important;
+  }
+}
+
+.siteHeader__logo--small {
+  max-width: 135px;
+}
+
+.siteHeader__logo--small .logo__image {
+
+  margin-left: 4px;
+  max-width: 106px;
+
+    &__flag {
+      width: 14px;
+      position: relative;
+      top: -2px;
+    }
+}

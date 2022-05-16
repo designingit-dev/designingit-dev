@@ -1,0 +1,21 @@
+{%- for tab in tabs -%}
+{%- if tab.name != 'SEO Meta' -%}
+  {%- set layoutFields = tab.getFields() %}
+
+  {% if tab.name != 'Hidden' %}
+  <div class="form__tab">
+
+    {% if form.displaySectionTitles -%}
+      <h3>{{ tab.name|t }}</h3>
+    {%- endif %}
+  {% endif %}
+
+  {% for field in layoutFields -%}
+    {{- craft.sproutForms.displayField(form, field, renderingOptions) }}
+  {%- endfor %}
+
+  {% if tab.name != 'Hidden' %}
+  </div>
+  {% endif %}
+{%- endif -%}
+{%- endfor -%}

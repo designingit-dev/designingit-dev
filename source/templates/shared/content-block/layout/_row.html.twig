@@ -1,0 +1,8 @@
+<div class="row {{ craft.keiserCommerceHelpers.getCustomCSSClasses(row)|join(' ') }}" id="{{ row.contentBlockID ? row.contentBlockID : 'div'~row.id }}">
+  {% for column in row.children %}
+    {% include 'shared/content-block/layout/_column' with {
+      'column': column
+    } %}
+  {% endfor %}
+</div>
+

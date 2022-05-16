@@ -1,0 +1,94 @@
+{% cache %}
+
+<meta charset="utf-8" />
+{% include "shared/_headerThirdPartyScripts" %}
+<meta content="{{ craft.keiserContactHelpers.getEnvironmentVariable('GOOGLE_SITE_VERIFICATION') }}" name="google-site-verification"/>
+<meta content="{{ siteName }}" property="og:site_name"/>
+
+<link rel="home" href="{{ siteUrl }}" />
+{% if canonicalUrl is defined %}
+  <link href="{{ canonicalUrl }}" rel="canonical">
+{% else %}
+  <link href="{{ url(craft.app.request.pathInfo) }}" rel="canonical">
+{% endif %}
+<meta content="{{ url(craft.app.request.pathInfo) }}" property="og:url"/>
+
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+<meta content="on" http-equiv="cleartype"/>
+<meta content="True" name="HandheldFriendly"/>
+<meta content="320" name="MobileOptimized"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+{% if productReviewForm is defined and productReviewForm == true %}
+  <meta content=“none” name=“robots”>
+{% endif %}
+
+{#
+# ---------------------------------------------------------------------------
+# Favicons
+# IE 6-10 use favicon.ico from public. Other browsers use the appropriate
+# file from this list
+# ---------------------------------------------------------------------------
+#}
+
+<link href="/assets/images/fav/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"></link>
+<link href="/assets/images/fav/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"></link>
+<link href="/assets/images/fav/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"></link>
+<link href="/assets/images/fav/favicon-128x128.png" rel="icon" sizes="128x128" type="image/png"></link>
+<link href="/assets/images/fav/favicon-196x196.png" rel="icon" sizes="196x196" type="image/png"></link>
+
+{#
+# ---------------------------------------------------------------------------
+# IOS Favicons
+# ---------------------------------------------------------------------------
+#}
+
+<link href="/assets/images/fav/apple-touch-icon.png" rel="apple-touch-icon-precomposed" type="image/png"></link>
+<link href="/assets/images/fav/apple-touch-icon-60x60.png" rel="apple-touch-icon-precomposed" sizes="60x60" type="image/png"></link>
+<link href="/assets/images/fav/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72" type="image/png"></link>
+<link href="/assets/images/fav/apple-touch-icon-76x76.png" rel="apple-touch-icon-precomposed" sizes="76x76" type="image/png"></link>
+<link href="/assets/images/fav/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114" type="image/png"></link>
+<link href="/assets/images/fav/apple-touch-icon-120x120.png" rel="apple-touch-icon-precomposed" sizes="120x120" type="image/png"></link>
+<link href="/assets/images/fav/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144" type="image/png"></link>
+<link href="/assets/images/fav/apple-touch-icon-152x152.png" rel="apple-touch-icon-precomposed" sizes="152x152" type="image/png"></link>
+
+{#
+# ---------------------------------------------------------------------------
+# Windows 8 Pinboard Tiles - 144x144
+# ---------------------------------------------------------------------------
+#}
+
+<meta content="#ffffff" name="msapplication-TileColor"/>
+<meta content="{{ siteName }}" name="application-name"/>
+<meta content="/assets/images/fav/mstile-144x144.png" name="msapplication-TileImage"/>
+
+{#
+# ---------------------------------------------------------------------------
+# Windows 8.1 Pinboard Tiles
+# Images fill full tapable area, leave room for text at bottom
+# ---------------------------------------------------------------------------
+#}
+
+<meta content="/assets/images/fav/mstile-70x70.png" name="msapplication-square70x70logo"/>
+<meta content="/assets/images/fav/mstile-150x150.png" name="msapplication-square150x150logo"/>
+<meta content="/assets/images/fav/mstile-310x150.png" name="msapplication-wide310x150logo"/>
+<meta content="/assets/images/fav/mstile-310x310.png" name="msapplication-square310x310logo"/>
+
+{% endcache %}
+
+{% set countries = craft.keiserContactHelpers.getCountriesList() %}
+<script type="text/javascript">
+    window.countriesList = {};
+    {% for country in countries %}
+      window.countriesList['{{ country.name }}'] = '{{ country.alpha2Code }}';
+    {% endfor %}
+    window.homeCountryISO = '{{ craft.keiserContactHelpers.getEnvironmentVariable('HOME_COUNTRY') }}';
+</script>
+
+<!-- Algolia client side configuration -->
+<script type="text/javascript">
+  var algoliaApplicationId = '{{ craft.keiserSearchHelpers.getSettings().algoliaApplicationId }}';
+  var algoliaSearchApiKey = '{{ craft.keiserSearchHelpers.getSettings().algoliaSearchApiKey }}';
+  var algoliaIndexPrefix = '{{ craft.keiserSearchHelpers.getSettings().algoliaIndexPrefix }}';
+  var serverTimestamp = {{ now.getTimestamp() }};
+</script>
+<!-- End Algolia client side configuration -->

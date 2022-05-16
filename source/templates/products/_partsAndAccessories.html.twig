@@ -1,0 +1,263 @@
+{% if entry.displayRequired or entry.airSystemRequired or entry.customColorsAvailable %}
+  <h2>Components</h2>
+  <div class="row">
+    {% if entry.displayRequired %}
+      {% set displayOption = craft.entries.slug('display-options').one %}
+      <div class="l--small--6 l--medium--4 columns">
+        <div class="card">
+          <div class="card__imageWrapper">
+            <img class="card__image" src="{{ displayOption.image.one.getURL("small") }}">
+          </div>
+          <div class="titleCard">
+            <div class="height--small">
+              <h3 class="titleCard__title">
+                {{ displayOption.title }}
+              </h3>
+              <div class="titleCard__description">
+                {{ displayOption.body }}
+              </div>
+            </div>
+            <button v-on:click="openModal('{{ displayOption.id }}')" class="button--fullWidth">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <vue-modal :active-modal="activeModal" name="{{ displayOption.id }}">
+        <div slot="body">
+
+          <div class="iconBlock">
+            <div class="row">
+              <div class="l--small--3 columns l--noMargin">
+                <img class="iconBlock__icon" src="{{ displayOption.image.one.getURL("small") }}">
+              </div>
+              <div class="l--small--9 columns l--noMargin">
+                <div class="iconBlock__copy">
+                  <h3>{{ displayOption.title }}</h3>
+                  <p>{{ displayOption.body }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </vue-modal>
+    {% endif %}
+
+    {% if entry.airSystemRequired %}
+      {% set airSystem = craft.entries.slug('air-systems').one %}
+      <div class="l--small--6 l--medium--4 columns">
+        <div class="card">
+          <div class="card__imageWrapper">
+            <img class="card__image" src="{{ airSystem.image.one.getURL("small") }}">
+          </div>
+          <div class="titleCard">
+            <div class="height--small">
+              <h3 class="titleCard__title">
+                {{ airSystem.title }}
+              </h3>
+              <div class="titleCard__description">
+                {{ airSystem.body }}
+              </div>
+            </div>
+            <button v-on:click="openModal('{{ airSystem.id }}')" class="button--fullWidth">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <vue-modal :active-modal="activeModal" name="{{ airSystem.id }}">
+        <div slot="body">
+
+          <div class="iconBlock">
+            <div class="row">
+              <div class="l--small--3 columns l--noMargin">
+                <img class="iconBlock__icon" src="{{ airSystem.image.one.getURL("small") }}">
+              </div>
+              <div class="l--small--9 columns l--noMargin">
+                <div class="iconBlock__copy">
+                  <h3>{{ airSystem.title }}</h3>
+                  <p>{{ airSystem.body }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </vue-modal>
+    {% endif %}
+
+    {% if entry.customColorsAvailable %}
+      {% set paintUpholstery = craft.entries.slug('paint-upholstery').one %}
+      <div class="l--small--6 l--medium--4 columns">
+        <div class="card">
+          <div class="card__imageWrapper">
+            <img class="card__image" src="{{ paintUpholstery.image.one.getURL("small") }}">
+          </div>
+          <div class="titleCard">
+            <div class="height--small">
+              <h3 class="titleCard__title ">
+                {{ paintUpholstery.title }}
+              </h3>
+              <div class="titleCard__description">
+                {{ paintUpholstery.body }}
+              </div>
+            </div>
+            <button v-on:click="openModal('{{ paintUpholstery.id }}')" class="button--fullWidth">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <vue-modal :active-modal="activeModal" name="{{ paintUpholstery.id }}">
+        <div slot="body">
+
+          <div class="iconBlock">
+            <div class="row">
+              <div class="l--small--3 columns l--noMargin">
+                <img class="iconBlock__icon" src="{{ paintUpholstery.image.one.getURL("small") }}">
+              </div>
+              <div class="l--small--9 columns l--noMargin">
+                <div class="iconBlock__copy">
+                  <h3>{{ paintUpholstery.title }}</h3>
+                  <p>{{ paintUpholstery.body }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </vue-modal>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if entry.partsAndAccessories|length %}
+  <h2>Accessories - Standard</h2>
+  <div class="row">
+    {% for accessory in entry.partsAndAccessories %}
+      <div class="l--small--6 l--medium--4 columns">
+        <div class="card">
+          {% set accessoryImage = accessory.image.one %}
+
+          {% if accessoryImage %}
+            <div class="card__imageWrapper">
+              <img class="card__image" src="{{ accessoryImage.getURL("small") }}">
+            </div>
+          {% else %}
+            <div class="imageWrapper">
+              <img class="card__image" src="{{ about.imageUnavailable.one.getURL("small") }}">
+            </div>
+          {% endif %}
+          <div class="titleCard">
+            <div class="height--small">
+              <h3 class="titleCard__title">
+                {{ accessory.title }}
+              </h3>
+              <div class="titleCard__description">
+                {{ accessory.body }}
+              </div>
+            </div>
+            <div class="flexGrowLinks">
+              <a v-on:click.prevent="openModal('{{ accessory.id }}')"
+                 class="button flexGrowLinks__link l--centered">
+                Read More
+              </a>
+              {% set product = accessory.sellableAccessory.one() %}
+              {% if product is not null %}
+                {% include "shared/_add_to_cart.html" with {
+                product: product,
+                buttonText: accessory.addToCartCta ?: "Buy Now",
+                buttonClasses: "flexGrowLinks__link flexGrowLinks__link--last l--centered",
+                } %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <vue-modal :active-modal="activeModal" name="{{ accessory.id }}">
+        <div slot="body">
+
+          <div class="iconBlock">
+            <div class="row">
+              <div class="l--small--12 l--medium--3 columns l--mobileMargin">
+                <img class="iconBlock__icon" src="{{ accessory.image.one.getURL("small") }}">
+              </div>
+              <div class="l--small--12 l--medium--9 columns l--noMargin">
+                <div class="iconBlock__copy">
+                  <h3>{{ accessory.title }}</h3>
+                  <p>{{ accessory.body }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </vue-modal>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if entry.partsAndAccessoriesOptional|length %}
+  <h2>Accessories - Optional</h2>
+  <div class="row">
+    {% for accessory in entry.partsAndAccessoriesOptional %}
+      <div class="l--small--6 l--medium--4 columns">
+        <div class="card">
+          {% set accessoryImage = accessory.image.one %}
+
+          {% if accessoryImage %}
+            <div class="card__imageWrapper">
+              <img class="card__image" src="{{ accessoryImage.getURL("small") }}">
+            </div>
+          {% else %}
+            <div class="imageWrapper">
+              <img class="card__image" src="{{ about.imageUnavailable.one.getURL("small") }}">
+            </div>
+          {% endif %}
+          <div class="titleCard">
+            <div class="height--small">
+              <h3 class="titleCard__title">
+                {{ accessory.title }}
+              </h3>
+              <div class="titleCard__description">
+                {{ accessory.body }}
+              </div>
+            </div>
+            <div class="flexGrowLinks">
+              <a v-on:click.prevent="openModal('{{ accessory.id }}')"
+                 class="button flexGrowLinks__link l--centered">
+                Read More
+              </a>
+              {% set product = accessory.sellableAccessory.one() %}
+              {% if product is not null %}
+                {% include "shared/_add_to_cart.html" with {
+                product: product,
+                buttonText: accessory.addToCartCta ?: "Buy Now",
+                buttonClasses: "flexGrowLinks__link flexGrowLinks__link--last l--centered",
+                } %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <vue-modal :active-modal="activeModal" name="{{ accessory.id }}">
+        <div slot="body">
+
+          <div class="iconBlock">
+            <div class="row">
+              <div class="l--small--12 l--medium--3 columns l--mobileMargin">
+                <img class="iconBlock__icon" src="{{ accessory.image.one.getURL("small") }}">
+              </div>
+              <div class="l--small--12 l--medium--9 columns l--noMargin">
+                <div class="iconBlock__copy">
+                  <h3>{{ accessory.title }}</h3>
+                  <p>{{ accessory.body }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </vue-modal>
+    {% endfor %}
+  </div>
+{% endif %}

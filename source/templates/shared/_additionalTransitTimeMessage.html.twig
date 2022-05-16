@@ -1,0 +1,124 @@
+<div class="text--small">
+  {% if includeAsterisk %}
+    <sup>*</sup>
+  {% endif %} Once shipped, transit time will vary based on your location.
+{#  <a data-modal-trigger="fedex_ground_delivery_service_map" class="link--underlined modalTrigger">See FedEx Ground delivery service map for transit&nbsp;time.</a>#}
+</div>
+
+{% if includeModals %}
+
+<vue-modal :active-modal="activeModal" name="fedex_ground_delivery_service_map" class="contactUs__modal additionalTransitTime__modal" v-cloak>
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--extraSmall--10 l--small--11 columns margin--bottom--half">
+          <h3 class="contactUs__modal__formName">FedEx Ground Service Map</h3>
+        </div>
+        <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('fedex_ground_delivery_service_map')">
+            <img class="lazyload" data-src="/assets/images/modal-close-button.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+      <div class="container container--noPad">
+
+        <div class="row modalContentPage">
+          <div class="l--extraSmall--12 l--small--8 columns">
+            <img class="lazyload" data-src="/assets/images/cart/fedex-ground/map-fedex-ground-home-delivery-service.png">
+          </div>
+          <div class="l--extraSmall--12 l--small--4 columns text--alignCenter additionalTransitTime__modal__mapLabels">
+            <dl>
+
+              <div class="margin--bottom--half">
+                <dt class="display--inline--block vertical--align--middle">
+                  <img class="lazyload" data-src="/assets/images/cart/fedex-ground/swatche-fedex-ground-1-day.png"></dt>
+                <dd class="display--inline--block vertical--align--middle text--large">1 Business Day</dd>
+              </div>
+
+              <div class="margin--bottom--half">
+                <dt class="display--inline--block vertical--align--middle">
+                  <img class="lazyload" data-src="/assets/images/cart/fedex-ground/swatche-fedex-ground-2-day.png"></dt>
+                <dd class="display--inline--block vertical--align--middle text--large">2 Business Days</dd>
+              </div>
+
+              <div class="margin--bottom--half">
+                <dt class="display--inline--block vertical--align--middle">
+                  <img class="lazyload" data-src="/assets/images/cart/fedex-ground/swatche-fedex-ground-3-day.png"></dt>
+                <dd class="display--inline--block vertical--align--middle text--large">3 Business Days</dd>
+              </div>
+
+              <div class="margin--bottom--half">
+                <dt class="display--inline--block vertical--align--middle">
+                  <img class="lazyload" data-src="/assets/images/cart/fedex-ground/swatche-fedex-ground-4-day.png"></dt>
+                <dd class="display--inline--block vertical--align--middle text--large">4 Business Days</dd>
+              </div>
+
+              <div class="margin--bottom--half">
+                <dt class="display--inline--block vertical--align--middle">
+                  <img class="lazyload" data-src="/assets/images/cart/fedex-ground/swatche-fedex-ground-5-day.png"></dt>
+                <dd class="display--inline--block vertical--align--middle text--large">5 Business Days</dd>
+              </div>
+
+              <div class="margin--bottom--half">
+                <dt class="display--inline--block vertical--align--middle">
+                  <img class="lazyload" data-src="/assets/images/cart/fedex-ground/swatche-fedex-ground-7-day.png"></dt>
+                <dd class="display--inline--block vertical--align--middle text--large">7 Business Days</dd>
+              </div>
+
+            </dl>
+          </div>
+
+          <div class="l--extraSmall--6 columns margin--top--mediumOnly">
+            <button class="text--uppercase text--alignCenter" v-on:click="closeModal('fedex_ground_delivery_service_map')">OK</button>
+          </div>
+        </div>
+
+      </div>
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>
+
+<vue-modal :active-modal="activeModal" name="cart_needItSooner" class="contactUs__modal additionalTransitTime__needItSooner__modal" v-cloak>
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--extraSmall--2 l--extraSmall--offset--10 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('cart_needItSooner')">
+            <img class="lazyload" data-src="/assets/images/modal-close-button.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad">
+
+      <div class="row modalContentPage">
+        <div class="l--extraSmall--12 l--medium--8 l--medium--offset--2 columns ">
+          <p>
+            We install the Dumbbell Holder on your M3i Indoor Bike in our factory when you order those items&nbsp;together.
+          </p>
+          <p>
+            For that reason, orders that include both items usually ship within five business&nbsp;days.
+          </p>
+          <p>
+            <strong>
+              If you order those items separately, they usually ship within two business&nbsp;days.
+            </strong>
+          </p>
+        </div>
+        <div class="l--extraSmall--6 l--medium--8 l--medium--offset--2 columns">
+          <button class="text--uppercase text--alignCenter" v-on:click="closeModal('cart_needItSooner')">OK</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>
+{% endif %}

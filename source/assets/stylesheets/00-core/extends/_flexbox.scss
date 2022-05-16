@@ -1,0 +1,146 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Local Variables
+//  - Flex Display
+//  - Flex Direction
+//  - Flex Grow/Shrink
+//  - Align Items
+//  - Justify Content
+//  - Ordering
+//  - Flex Basis
+//
+//  NOTES:
+//  We extend the flexbox properties due to the amount of markup that is added
+//  to them in autoprefixer. It's better to combine the selectors here, than
+//  duplicate that code everywhere. The selectors are all prefixed with
+//  %flex, with the flex property camelCased after the double hyphens, & the
+//  value camelCased after the underscores. %flex--propertyName__valueHere
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Local Variables
+// -----------------------------------------------------------------------------
+
+$flexCount: 12;
+
+// -----------------------------------------------------------------------------
+// !-- Flex Display
+// -----------------------------------------------------------------------------
+
+%flex--display {
+  display: flex;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Flex Direction
+// -----------------------------------------------------------------------------
+%flex--direction__row {
+  flex-direction: row;
+}
+
+%flex--direction__column {
+  flex-direction: column;
+}
+
+%flex--direction__columnReverse {
+  flex-direction: column-reverse;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Flex Grow/Shrink
+// -----------------------------------------------------------------------------
+
+%flex--auto {
+  flex: auto;
+}
+
+%flex--none {
+  flex: none;
+}
+
+@for $span from 1 through $flexCount {
+  %flex--#{$span} {
+    flex: $span;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Align items
+// -----------------------------------------------------------------------------
+
+%flex--alignItems__center {
+  align-items: center;
+}
+
+%flex--alignItems__flexStart {
+  align-items: flex-start;
+}
+
+%flex--alignItems__baseline {
+  align-items: baseline;
+}
+
+%flex--alignItems__stretch {
+  align-items: stretch;
+}
+
+%flex--alignSelf__flexStart {
+  align-self: flex-start;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Justify Content
+// -----------------------------------------------------------------------------
+
+%flex--justifyContent__spaceAround {
+  justify-content: space-around;
+}
+
+%flex--justifyContent__spaceBetween {
+  justify-content: space-between;
+}
+
+%flex--justifyContent__flexStart {
+  justify-content: flex-start;
+}
+
+%flex--justifyContent__flexEnd {
+  justify-content: flex-end;
+}
+
+%flex--justifyContent__center {
+  justify-content: center;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Ordering
+// -----------------------------------------------------------------------------
+
+%flex--order__1 {
+  order: 1;
+}
+
+%flex--order__2 {
+  order: 2;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Flex Basis
+// -----------------------------------------------------------------------------
+
+%flex--basis__auto {
+  flex-basis: auto;
+}
+
+%flex--basis__33 {
+  flex-basis: 33.333333%;
+}
+
+%flex--basis__50 {
+  flex-basis: 50%;
+}
+
+%flex--basis__67 {
+  flex-basis: 66.666666%;
+}

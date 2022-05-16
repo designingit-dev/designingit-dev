@@ -1,0 +1,60 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+{% include 'blog/shared/_hero' %}
+
+<section class="blog">
+
+    <div class="container container--tight">
+
+        <div class="row">
+
+            <div class="l--small--9 columns blog__articleList">
+
+                <h2 class="blog__module__title">{{ category.title }}</h2>
+
+                {% include 'blog/shared/_articleList' with {
+                    'articles': craft.entries.section('powerEdBlog').relatedTo(category).orderBy('dateUpdated desc').all()
+                } %}
+
+                <div class="blog__promo__container">
+                    {% if category.powerEdBlogPromo1 is defined and category.powerEdBlogPromo1 is not empty %}
+                        {% set powerEdBlogPromo1Entry = category.powerEdBlogPromo1.first() %}
+                    {% else %}
+                        {% set powerEdBlogPromo1Entry = craft.entries.section('powerEdBlogHomepage').first().powerEdBlogPromo1.first() %}
+                    {% endif %}
+                    {% include 'shared/content-block/layout/_customCSS' with {
+                        'blocks': powerEdBlogPromo1Entry.contentBlocks
+                    } %}
+                    {% for block in powerEdBlogPromo1Entry.contentBlocks.level(1) %}
+                        {% include 'shared/content-block/_content-block' with {
+                            'block': block
+                        } %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="l--small--3 columns">
+
+                {% include 'blog/shared/_sidebar_article_list' with {
+                    'listTitle': 'By format',
+                    'categorySlug': 'powerEdBlogArticleFormats'
+                } %}
+                {% include 'blog/shared/_sidebar_article_list' with {
+                    'listTitle': 'By topic',
+                    'categorySlug': 'powerEdBlogArticleTopics'
+                } %}
+                {% include 'blog/shared/_sidebar_powered_authors' %}
+                {% include 'blog/shared/_sidebar_newsletter_subscription' with {
+                    'form': craft.sproutForms.form('poweredblogsubscription')
+                } %}
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}

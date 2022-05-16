@@ -1,0 +1,166 @@
+<article>
+
+  {% if entry.copyBlockWithImage %}
+    {% for introBlock in entry.copyBlockWithImage %}
+      <div class="constrain padding--top margin--bottom">
+        <div class="row">
+          <div class="columns">
+            <h1 class="text--xxxxLarge dividedTitle"><img src="{{ introBlock.image.one.url }}" /><span>{{ introBlock.smallTitle }}</span></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--6 columns">
+              <div class="l--medium--12">
+                    <h2 class="scale--xXLarge">{{ introBlock.largeTitle }}</h2>
+                    {{ introBlock.bodyCopy }}
+                    <a href="{{ entry.href2 }}" class="button">Register</a>
+              </div>
+          </div>
+          <div class="l--medium--6 columns is--hidden is--visible--medium">
+            {% set heroImage = entry.image.one %}
+            {% if heroImage %}
+              <img src="{{ heroImage.getURL("large") }}"
+               srcset="
+                {{ heroImage.getURL("xsmall") }} 320w,
+                {{ heroImage.getURL("small") }} 480w,
+                {{ heroImage.getURL("medium") }} 640w,
+                {{ heroImage.getURL("large") }} 960w,
+                {{ heroImage.getURL("xlarge") }} 1280w">
+            {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="background--black">
+    <div class="constrain padding--top">
+      <div class="row">
+        <div class="l--medium--6 columns l--pullRight">
+          {% set trainingImage = entry.images.one %}
+          {% if trainingImage %}
+            <a href="{{ entry.href }}"><img
+                 src="{{ trainingImage.getURL("large") }}"
+                 srcset="
+                    {{ trainingImage.getURL("xsmall") }} 320w,
+                    {{ trainingImage.getURL("small") }} 480w,
+                    {{ trainingImage.getURL("medium") }} 640w,
+                    {{ trainingImage.getURL("large") }} 960w,
+                    {{ trainingImage.getURL("xlarge") }} 1280w"></a>
+          {% endif %}
+        </div>
+        <div class="l--medium--6 columns l--pullRight">
+          <div class="l--medium--12 margin--bottom">
+                <h2 class="scale--xXLarge">{{ entry.altTitle }}</h2>
+                {{ entry.richText }}
+                <a href="{{ entry.href }}" class="button">{{ entry.callToAction }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="constrain padding--top">
+    <div class="row">
+      <div class="l--medium--6 columns">
+        <div class="l--medium--12">
+          <div class="videoEmbed">
+            {{ entry.videoEmbed|raw }}
+          </div>&nbsp;<br>
+          {{ entry.body }}
+        </div>
+      </div>
+      <div class="l--medium--6 columns">
+        <h2>{{ entry.trainingListOneTitle }}</h2>
+        <ul class="list--fancy">
+          {% for block in entry.trainingListOneItem %}
+            {% include "education/_education-training-list-item.html" %}
+          {% endfor %}
+        </ul>
+        {% if entry.trainingListTwoItem is not empty %}
+          <h2>{{ entry.trainingListTwoTitle }}</h2>
+          <ul class="list--fancy">
+            {% for block in entry.trainingListTwoItem %}
+              {% include "education/_education-training-list-item.html" %}
+            {% endfor %}
+        {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+      <div class="row">
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                Foundations correspondence course
+              </h3>
+              <a href="https://education.keiser.com/store/283083-foundations-correspondence-course" class="button button--fullWidth">View Course</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                Specialized module
+              </h3>
+              <a href="/forms/specializedModule" class="button button--fullWidth">View Form</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                Request training – M3 Series
+              </h3>
+              <a href="/forms/requestTrainingFormM3Series" class="button button--fullWidth">View Form</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                The Ride Instructor application
+              </h3>
+              <a href="/forms/theRideInstructorApplication" class="button button--fullWidth">View Form</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                Training calendar
+              </h3>
+              <a href="/education/training" class="button button--fullWidth">View Calendar</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                PowerED online store
+              </h3>
+              <a href="https://education.keiser.com" class="button button--fullWidth">Visit Store</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</article>

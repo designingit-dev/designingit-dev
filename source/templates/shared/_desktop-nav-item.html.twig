@@ -1,0 +1,53 @@
+{% set foreignDisplayProps = '' %}
+{% if hideForeign is defined and hideForeign %}
+  {% set foreignDisplayProps = 'data-hideForeign=true' %}
+{% endif %}
+
+{% switch section %}
+
+  {% case 'shop' %}
+    <li {{ foreignDisplayProps }} class="navHorizontal__item {{ class is defined ? class }}">
+      <a href="/shop" class="navHorizontal__link">SHOP ONLINE</a>
+    </li>
+
+  {% case 'supporthomepage' %}
+    <li {{ foreignDisplayProps }} class="navHorizontal__item {{ class is defined ? class }}">
+      <a href="/support" class="navHorizontal__link">SUPPORT</a>
+    </li>
+
+  {% case 'products' %}
+    <li {{ foreignDisplayProps }} class="navHorizontal__item item--has--dropdown {{ class is defined ? class }}">
+      {% for entry in craft.entries.section('fitnessEquipment').limit(1) %}
+        <a href="/fitness-equipment" class="navHorizontal__link" data-toggle="dropdown" data-target="#subMenu-{{ entry.slug }}">
+          {% include 'shared/_nav-title.html' with {'entry': entry} %}
+        </a>
+      {% endfor %}
+      <svg class="dropdown--icon">
+        <use xlink:href="#icon-topnav-dropdown"></use>
+      </svg>
+    </li>
+
+  <!-- Test industry link item -->
+
+  {% case 'industry' %}
+    <li {{ foreignDisplayProps }} class="navHorizontal__item item--has--dropdown {{ class is defined ? class }}">
+      {% for entry in craft.entries.section('fitnessEquipment').limit(1) %}
+        <a href="/fitness-equipment" class="navHorizontal__link" data-toggle="dropdown" data-target="#subMenu-fitness-equipment-solutions">
+          INDUSTRIES
+        </a>
+      {% endfor %}
+      <svg class="dropdown--icon">
+        <use xlink:href="#icon-topnav-dropdown"></use>
+      </svg>
+    </li>
+
+  {% default %}
+    {% for entry in craft.entries.section(section).level(1) %}
+      <li {{ foreignDisplayProps }} class="navHorizontal__item item--has--dropdown {{ class is defined ? class }}">
+        <a href="{{ entry.url }}" class="navHorizontal__link" {% if entry.hasDescendants() %} data-toggle="dropdown"{% endif %} data-target="#subMenu-{{ entry.slug }}">
+          {% include 'shared/_nav-title.html' with {'entry': entry} %}
+        </a>
+      </li>
+    {% endfor %}
+
+{% endswitch %}

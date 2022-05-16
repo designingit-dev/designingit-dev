@@ -1,0 +1,164 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Containers
+//  - Items
+//  - Links
+//
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Vertical Nav
+name: vertical-nav
+category: Components - Nav
+---
+
+```html_example
+<ul class="navVertical">
+  <li class="navVertical__item">
+    <a href="#" class="navVertical__link">Link 1</a>
+    <ul class="navVertical navVertical--secondary">
+      <li class="navVertical__item navVertical--secondary__item"><a href="#" class="navVertical__link navVertical--secondary__link">Link 2</a></li>
+      <li class="navVertical__item navVertical--secondary__item"><a href="#" class="navVertical__link navVertical--secondary__link">Link 2</a></li>
+    </ul>
+  </li>
+  <li class="navVertical__item"><a href="#" class="navVertical__link">Link 2</a></li>
+  <li class="navVertical__item"><a href="#" class="navVertical__link is--active">Link 3 .is--active</a></li>
+  <li class="navVertical__item"><a href="#" class="navVertical__link">Link 4</a></li>
+</ul>
+```
+
+*/
+
+.navVertical {
+// -----------------------------------------------------------------------------
+// !-- Containers
+// -----------------------------------------------------------------------------
+  list-style: none;
+
+  &--secondary {
+    margin-left: 1em;
+
+    @include respond-to-max(medium) {
+      margin-left: 0;
+      padding-top: 0;
+
+      &__item {
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+// !-- Items
+// -----------------------------------------------------------------------------
+
+  &__item {
+    margin: 1em 0;
+
+    @include respond-to-max(medium) {
+      margin: 0;
+      border-top: 1px solid $strength--mpp--light--grey--highlight;
+    }
+
+  }
+
+// -----------------------------------------------------------------------------
+// !-- Links
+// -----------------------------------------------------------------------------
+
+  &__link {
+    font-weight: $fontWeight--bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $blp--header--nav--item;
+
+    &.is--active {
+      opacity: .8;
+    }
+
+    @include respond-to-max(medium) {
+      font-family:$sansSerif;
+      font-weight:$fontWeight--extraBold;
+      font-size: map-get($fontSizesPx, 16);
+      text-decoration: none;
+      text-transform: uppercase;
+      color: $header--top--container--back;
+      line-height: map-get($fontSizesPx, 45);
+      padding: 0 $gutter--half;
+      height: 45px;
+      display: inline-flex;
+      width: 100%;
+    }
+
+  }
+
+  &--secondary__link {
+    font-weight: $fontWeight--light;
+    text-transform: capitalize;
+
+    @include respond-to-max(medium) {
+      text-transform: uppercase;
+      font-weight: $fontWeight--semiBold;
+      font-size: map-get($fontSizesPx, 14);
+      line-height: map-get($fontSizesPx, 45);
+    }
+
+  }
+}
+
+.bottomSecondaryLinks {
+
+  @include respond-to-max(medium) {
+    margin-bottom: -$gutter--half;
+  }
+
+  .top--mobile--contacts {
+    display: flex;
+    flex-wrap: wrap;
+    padding: $gutter--half 0;
+  
+    div {
+      width: 50%;
+      text-align: center;
+    }
+  
+    a {
+      text-transform: uppercase;
+      color: $keiser--red;
+      font-weight: $fontWeight--semiBold;
+      font-size: map-get($fontSizesPx, 14);
+      line-height: map-get($fontSizesPx, 45);
+      display: block;
+      width: 100%;
+      height: 45px;
+    }
+  
+  }
+
+  a:not(.button--red) {
+    color: $keiser--red;
+  }
+
+  a.button--red {
+    padding: $gutter--half 0;
+    width: 100%;
+    margin: 0;
+    margin-bottom: $gutter--half;
+  }
+
+}
+
+.navVertical__item:not(.navVertical--secondary__item) {
+  margin: $verticalRhythm 0;
+
+  @include respond-to-max(medium) {
+    margin: 0;
+    border-top: 2px solid $blp--grey--medium;
+  }
+
+}

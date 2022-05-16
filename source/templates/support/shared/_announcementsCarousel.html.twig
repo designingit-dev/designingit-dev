@@ -1,0 +1,18 @@
+<div class="container container--tight">
+  <div class="row">
+    <div class="l--medium--12 columns">
+      <h2>Announcements</h2>
+      <div id="announcementsCarousel">
+        {% for announcement in announcements %}
+          <div class="announcement">
+            <p><strong class="text--large">{{ announcement.title }}</strong></p>
+            {{ announcement.announcementBody }}
+            {% if announcement.announcementLink is not empty %}
+              <a href="{{ announcement.announcementLink|parseRefs|raw }}" class="button button--submitLink">{{ announcement.announcementLinkCTA is empty ? 'Learn More' : announcement.announcementLinkCTA }}</a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

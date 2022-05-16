@@ -1,0 +1,54 @@
+// -----------------------------------------------------------------------------
+// !-- Title Lists
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Title List
+name: title-list
+category: Components - Lists
+---
+
+This is used when you have a list that is associated with another item,
+usually a title.
+
+Wrap everything in a `.titleList` class. For the title, include `.titleList--title`
+and `.scale--large` classes for spacing and sizing.
+
+Create your unordered list just like above, except this time, add the class
+`.titleList__item` on the `li` elements and class `.list--tight` on the `ul`.
+
+``` html_example
+
+<div class="titleList">
+  <div class="titleList__title scale--large">
+    Title
+  </div>
+  <ul class="list--tight">
+    <li class="titleList__item">
+      Item
+    </li>
+    <li class="titleList__item">
+      Item
+    </li>
+    <li class="titleList__item">
+      Item
+    </li>
+  </ul>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.titleList {
+  $marginBottom: pem(5px);
+
+  &__title {
+    margin-top: $gutter / 2;
+    margin-bottom: $marginBottom;
+  }
+
+  &__item {
+    font-size: map-get($fontSizes, small);
+    color: $grey--medium;
+  }
+}

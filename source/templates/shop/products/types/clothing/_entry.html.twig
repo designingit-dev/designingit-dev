@@ -1,0 +1,165 @@
+{#
+ # Merchandise commerce page template
+ # ---------------
+ #
+ #}
+{% set page = product %}
+
+{% if product.defaultVariant is defined and featureFlags.activateCommerce %}
+  {% set variant = product.defaultVariant %}
+{% endif %}
+
+{% set productId = product.defaultVariant.id %}
+{% set currentPrice = product.defaultVariant.onSale ? product.defaultVariant.salePrice : product.defaultVariant.price %}
+
+{% extends "_layout" %}
+
+{% block breadcrumb %}
+  <div class="background--white is--hidden is--visible--medium">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--medium--12 columns navigation-breadcrumb">
+          <a href="{{ url('/') }}">Home</a> / <a href="/shop">Shop</a> / <a href="/shop/merchandise">Merchandise</a> / {{ product.title }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+  {% cache %}
+
+<div itemscope itemtype="http://schema.org/Product">
+  <div class="constrain" id="commerceProductContainer">
+    <div class="row">
+      <h1 class="text--black text--sansSerif--black l--medium--6 columns">{{ product.title }}</h1>
+    </div>
+
+    <div class="row">
+      <div class="l--medium--6 columns margin--bottom--none">
+        {% if product.image.one %}
+          {% include "shop/products/shared/_gallery.html" with {
+            gallery: product.imageAndVideoGallery,
+            primaryImage: product.image.one,
+          } %}
+          </a>
+        {% else %}
+          <img src="{{ about.imageUnavailable.one.getURL("medium") }}">
+        {% endif %}
+      </div>
+
+      {% include 'shop/products/shared/seo/_productProperties' with { 'product': product } %}
+
+      <div class="l--medium--6 columns margin--bottom--none">
+        {% for feature in product.productFeatures %}
+          {% include 'shop/products/shared/_featureRow' with { 'feature': feature } %}
+        {% endfor %}
+
+        {% set body %}
+          Call Today <a href="tel:{{ about.phoneNumber }}">{{ about.phoneNumber }}</a>
+        {% endset %}
+        {% include "shop/products/shared/_featureRow.html" with {
+          'image': 'icon-contact-customer-service.svg',
+          'title': 'Questions?',
+          'body': body
+        } only %}
+
+        {% include "shop/products/types/clothing/_clothingSize.html" with { 'product': product } %}
+
+        <div class="row--flex flex--items--center margin--bottom--half">
+          <div class="flex flex--items--center l--small--6 margin--bottom--half">
+            <div class="l--extraSmall--6 float--none">
+              <p class="margin--bottom--none position--relative">
+                {% if product.defaultVariant.onSale %}
+                  <s class="position--absolute left--0 top--negative--full text--large text--black">
+                    {{ product.defaultVariant.price|commerceCurrency(cart.currency) }}
+                  </s>
+                {% endif %}
+                <span class="text--xLarge text--red">{{ currentPrice|commerceCurrency(cart.currency) }}</span>
+              </p>
+            </div>
+            <div class="l--extraSmall--6 float--none textCenter background--lightGrey">
+              {% include 'shop/products/shared/_quantity.html' with {
+                variant: product.defaultVariant
+              } %}
+            </div>
+          </div>
+          <div class="row--flex l--small--5 l--small--offset--1 margin--bottom--half">
+            {% include "shared/_add_to_cart.html" with {
+              product: product,
+              buttonText: product.addToCartCta ?: "Add to Cart",
+              buttonClasses: "button--fullWidth button--smallMax--fullWidth",
+              useAjax: 'ajaxAddToCart'
+            } %}
+          </div>
+        </div>
+
+        <div class="row">
+          {% set messageColumn = 'l--medium--9 l--medium--offset--3 columns' %}
+
+          <div class="is--hidden {{ messageColumn }} margin--bottom--half proceedToCheckout" for="form{{ productId }}">
+            <a href="/cart" class="button button--red">Proceed to Checkout</a>
+          </div>
+
+          <div class="is--hidden {{ messageColumn }} maxQtyAlert" for="qty{{ productId }}">
+            <a href="/about-us/contact-us#find-your-rep">For volume discounts, click here</a>
+          </div>
+
+          {% if product.addToCartMessage is not empty %}
+            <div class="{{ messageColumn }} margin--bottom--half margin--top--narrow">
+              <span class="text--small text--red">{{ product.addToCartMessage }}</span>
+            </div>
+          {% endif %}
+
+          {% set inStock = product.defaultVariant.hasUnlimitedStock or product.defaultVariant.stock > 0 %}
+          {% if not inStock and product.outOfStockMessage is not empty %}
+            <div class="l--extraSmall--12 columns margin--bottom--half margin--top--narrow">
+              <span class="text--small text--red">{{ product.outOfStockMessage|nl2br }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        {{ product.productDescription }}
+
+        {% if product.productSellersNotes is not empty %}
+          <p class="margin--top padding--half background--lightGrey">
+            {{ product.productSellersNotes }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+  {% if product is not null %}
+    <script type="text/javascript">
+      ga('keisergtm.require', 'ec');
+
+      ga('keisergtm.ec:addProduct', {
+        'id': '{{ variant.sku }}',
+        'name': '{{ variant.title }}',
+        'category': '{{ product.analyticsCategory.one() }}'
+      });
+
+      ga('keisergtm.ec:setAction', 'detail');
+
+      ga('keisergtm.send', 'event', 'ecommerce', 'Detail', {'nonInteraction': true});
+
+      rudderanalytics.track('Product Viewed', {
+        product_id: '{{ variant.sku }}',
+        sku: '{{ variant.sku }}',
+        category: '{{ product.analyticsCategory.one() }}',
+        name: '{{ variant.title }}',
+        brand: 'Keiser',
+        price: {{ product.defaultVariant.onSale ? product.defaultVariant.salePrice : product.defaultVariant.price }},
+        currency: 'USD',
+        url: '{{ product.url }}',
+        image_url: '{{ product.image.one ? product.image.one.url : '' }}',
+        site: window.location.hostname
+      });
+
+    </script>
+  {% endif %}
+  {% endcache %}
+{% endblock %}

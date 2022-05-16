@@ -1,0 +1,9 @@
+<h2>Need immediate help?</h2>
+<a href="tel:{{ about.phoneNumber }}">
+  <img src="/assets/images/contact-us/contact-customer-support-50x50.svg" />
+  <h3 class="text--larger margin--bottom--none">{{ about.phoneNumber }}</h3>
+  <small class="text--small">Speak to a support specialist</small>
+</a>
+<p class=" margin--bottom--none">Support hours: Monday - Friday, 9am - 5pm London Time<br>
+  <small class="textCenter text--small">Current: {{ 'now' | date('g:i a', 'Europe/London') }} London Time</small></p>
+

@@ -1,0 +1,90 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk" crossorigin="anonymous"></script>
+<!-- Web Only Start -->
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.35.1/dist/algoliasearchLite.min.js" integrity="sha384-AHhNbDcx1e36rq10dtWgBHzu5/hIg0shS4CoDfHRVIwM38i/LHPMsX9Jku7iWMqH" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch-helper@2.23.2/dist/algoliasearch.helper.min.js" integrity="sha384-D32QKZwsrKmrtaN+x4e9O8wH1DOyeKetEj1ZNPJIuGRWg7nYVOH3tQ+SAdaycEnv" crossorigin="anonymous"></script>
+<!-- Web Only End -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" integrity="sha384-YGnnOBKslPJVs35GG0TtAZ4uO7BHpHlqJhs0XK3k6cuVb6EBtl+8xcvIIOKV5wB+" crossorigin="anonymous"></script>
+
+{% if featureFlags.distributorRedirect %}
+  <script type="text/javascript">
+
+    window.distributors = {};
+    {% set distributors = craft.entries.section('distributors') %}
+    {% for distributor in distributors %}
+      window.distributors['{{ distributor.distributorISO }}'] = {
+        'name': '{{ distributor.title }}',
+        'address': '{{ distributor.distributorAddress | escape('js') }}',
+        'phone': '{{ distributor.distributorPhone }}',
+        'email': '{{ distributor.distributorEmail }}',
+        'website': '{{ distributor.distributorWebsite }}'
+      };
+    {% endfor %}
+
+    window.executeOnce = function(){
+      var argc = arguments.length, bImplGlob = typeof arguments[argc - 1] === "string";
+      if (bImplGlob) { argc++; }
+      if (argc < 3) { throw new TypeError("executeOnce - not enough arguments"); }
+      var fExec = arguments[0], sKey = arguments[argc - 2];
+      if (typeof fExec !== "function") { throw new TypeError("executeOnce - first argument must be a function"); }
+      if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { throw new TypeError("executeOnce - invalid identifier"); }
+      if (decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) === "1") { return false; }
+      fExec.apply(argc > 3 ? arguments[1] : null, argc > 4 ? Array.prototype.slice.call(arguments, 2, argc - 2) : []);
+      document.cookie = encodeURIComponent(sKey) + "=1; SameSite=Strict; Secure; expires=Fri, 31 Dec 9999 23:59:59 GMT" + (bImplGlob || !arguments[argc - 1] ? "; path=/" : "");
+      return true;
+    };
+
+    function checkDistributorRedirect(){
+        if(typeof window.distributors[window.countryISO] !== 'undefined'){
+            $(document).ready(function(){
+                $('#distributorRedirect__trigger').click();
+            });
+        }
+    }
+
+    window.executeOnce(checkDistributorRedirect, null, 'distributor_redirect', false);
+
+  </script>
+{% endif %}
+
+<script type="text/javascript">
+  window.s3Bucket = '{{ craft.keiserContactHelpers.getEnvironmentVariable('S3_BUCKET') }}';
+  window.s3BaseUrl = '{{ craft.keiserContactHelpers.getEnvironmentVariable('S3_BASE_URL')|replace({'https://':''}) }}';
+</script>
+
+<script src="/assets/javascripts/bundle.min.js"></script>
+
+{% if craft.commerce.gateways.allCustomerEnabledGateways|length %}
+
+  {% if craft.request.path != 'checkout' %}
+
+    {% for gateway in craft.commerce.gateways.allCustomerEnabledGateways %}
+      {% switch gateway.handle %}
+        {% case 'affirm' %}
+          {% js %}
+            {% include 'shared/_affirmLoader.html' %}
+          {% endjs %}
+        {% case 'klarna' %}
+          <script src="{{ craft.keiserContactHelpers.getEnvironmentVariable('KLARNA_JS_URL') }}lib.js" data-client-id="{{ craft.keiserContactHelpers.getEnvironmentVariable('KLARNA_JS_CLIENT_ID') }}" async></script>
+      {% endswitch %}
+    {% endfor %}
+
+  {% else %}
+
+    {% for gateway in craft.commerce.gateways.allCustomerEnabledGateways %}
+      {% switch gateway.handle %}
+        {% case 'stripe' %}
+          <script src="https://js.stripe.com/v3/"></script>
+        {% case 'affirm' %}
+          {% js %}
+            {% include 'shared/_affirmLoader.html' %}
+          {% endjs %}
+        {% case 'klarna' %}
+          <script src="https://x.klarnacdn.net/kp/lib/v1/api.js" async></script>
+      {% endswitch %}
+    {% endfor %}
+
+  {% endif %}
+
+{% endif %}
+
+{#<script>(function(){ var s = document.createElement('script'), e = ! document.body ? document.querySelector('head') : document.body; s.src = 'https://acsbapp.com/apps/app/dist/js/app.js'; s.async = true; s.onload = function(){ acsbJS.init({ statementLink : '', footerHtml : '', hideMobile : false, hideTrigger : false, language : 'en', position : 'left', leadColor : '#d10a2c', triggerColor : '#d10a2c', triggerRadius : '50%', triggerPositionX : 'right', triggerPositionY : 'bottom', triggerIcon : 'people', triggerSize : 'medium', triggerOffsetX : 20, triggerOffsetY : 20, mobile : { triggerSize : 'small', triggerPositionX : 'right', triggerPositionY : 'bottom', triggerOffsetX : 10, triggerOffsetY : 10, triggerRadius : '50%' } }); }; e.appendChild(s);}());</script>#}

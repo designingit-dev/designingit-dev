@@ -1,0 +1,45 @@
+{% cache %}
+<article>
+
+  {% include "support/_education.html" %}
+
+  <div class="container">
+    <div class="row">
+      {% for block in entry.twoColumnBlockWithHeaders %}
+        <div class="titleBlock">
+          <h3 class="titleBlock__title">
+            {{ block.smallHeader }}
+          </h3>
+          <h1 class="titleBlock__subTitle">
+            {{ block.largeHeader }}
+          </h1>
+        </div>
+
+        <div class="twoColumns">
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.copyBlockLeft }}
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.copyBlockRight }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="background--darkGrey" data-hideForeign="true" id="education_training_calendar">
+    <div class="container">
+      <h1>
+        {{ entry.calendarHeader }}
+      </h1>
+
+      <div class="row">
+        <div class="l--small--12 columns">
+          {{ entry.scriptEmbed|raw }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</article>
+{% endcache %}

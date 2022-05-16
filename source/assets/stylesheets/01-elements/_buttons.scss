@@ -1,0 +1,374 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Local Variables
+//  - Extends
+//  - Standard Button
+//  - Alternative Buttons
+//  - Button Inputs
+//  - Stripe Button Override
+//
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Buttons
+name: buttons
+category: Base - Buttons
+---
+
+```html_example_table
+<button class="button">Button</button>
+
+<a href="#" class="button">Button Link</a>
+
+<a href="#" class="button button--secondary">Secondary Button</a>
+
+<a href="#" class="button button--reverse">Reversed Button</a>
+
+<a href="#" class="button button--small">Small Button</a>
+
+<a href="#" class="button button--fullWidth">Full Width Button</a>
+
+<a href="#" class="button button--reverse">Reversed Button</a>
+
+<a href="#" class="button button--reversedTertiary">Reversed Tertiary Button</a>
+
+<input type="submit" value="Submit Button">
+
+<input class="button button--submitLink" type="submit" value="Submit Button">
+
+<input type="reset" value="Reset Button">
+```
+*/
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Extends
+// -----------------------------------------------------------------------------
+
+%buttonInput {
+  @include input-appearance;
+  border: 0;
+  background: inherit;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Standard Button
+// -----------------------------------------------------------------------------
+
+.button {
+  $marginTop: 5px;
+
+  font-size: 1em;
+  font-weight: $fontWeight--bold;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-top: pem($marginTop);
+  padding: $gutter--narrow $gutter;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $white;
+  background: $red;
+  max-width: $button--maxWidth;
+
+  &::after {
+    font-size: 2em;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0%;
+    height: 110%;
+    content: "";
+    transition-timing-function: $ease-in-out;
+    transition-duration: $duration, $duration / 4;
+    transition-property: width, opacity;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    border-radius: 5em;
+    background: transparentize($black, .9);
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+
+    &::after {
+      width: 125%;
+      opacity: 1;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    color: $white;
+  }
+}
+
+button {
+  @extend .button;
+  @extend %buttonInput;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Button Inputs
+// -----------------------------------------------------------------------------
+
+// inputs don't support ::after selectors, so the animation won't work for a plain
+// input[type=submit]. use button[type=submit] instead so you get the animation.
+[type="submit"],
+[type="button"] {
+  @extend .button;
+  @extend %buttonInput;
+}
+
+[type="reset"] {
+  @extend .button--secondary;
+  @extend %buttonInput;
+  cursor: pointer;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Alternative Button
+// -----------------------------------------------------------------------------
+
+.button--secondary {
+  color: $black;
+  background: $yellow;
+
+  &:hover,
+  &:focus {
+    color: $black;
+  }
+}
+
+.button--reverse {
+  border: $borderWidth--medium solid $white;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    border-color: tint($red, 80%);
+  }
+
+  &:hover::after,
+  &:focus::after {
+    background: transparentize($white, .9);
+  }
+}
+
+.button--reversedTertiary {
+  text-transform: none;
+  border: $borderWidth--medium solid $white;
+  background: 0;
+
+  &:hover::after,
+  &:focus::after {
+    background: transparentize($white, .9);
+  }
+}
+
+.button--quaternary {
+  color: $red;
+  background: $white;
+
+  &:hover,
+  &:focus {
+    color: $red;
+  }
+}
+
+.button--small {
+  font-size: map-get($fontSizes, small);
+  font-weight: $fontWeight--normal;
+  padding: $gutter--narrow;
+}
+
+.button--fullWidth {
+  width: 100%;
+  text-align: center;
+}
+
+.button--smallMax--fullWidth {
+  @include respond-to-max(small) {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+  }
+}
+
+.button--wide {
+  padding: 16px 110px;
+}
+
+.button--submitLink {
+  font-size: map-get($fontSizes, small);
+  padding: 0;
+  text-align: left;
+  color: $red;
+  background: transparent;
+
+  @include respond-to(medium) {
+    font-size: map-get($fontSizes, base);
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    color: $red;
+  }
+}
+
+.button--noAnimation {
+  &::after {
+    background: none;
+  }
+}
+
+.button--textWrap {
+  padding: 10px;
+  text-align: left;
+  width: 272px;
+  white-space: normal;
+}
+
+.button--black {
+  color: $white;
+  background: $black;
+  transition-timing-function: $ease-in-out;
+  transition-duration: $duration, $duration / 4;
+  transition-property: background;
+
+  &:hover,
+  &:focus {
+    background: $grey;
+  }
+}
+
+.button--red {
+  color: $white;
+  background-color: $keiser--red;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #ea0125;
+  }
+}
+
+.button--disabled,.button--disabled:active,.button--disabled:hover,.button--disabled:focus {
+  background: $grey--xLight;
+  pointer-events: none;
+}
+
+.button--outline {
+  background: transparent;
+  border: solid 1px $keiser--red;
+  color: $keiser--red;
+  padding-top: 9px;
+  padding-bottom: 9px;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    background-color: $blp--red--button--hover;
+  }
+
+  &:active {
+    text-decoration: none;
+    background-color: $blp--red--button--active;
+  }
+}
+
+.button--outline--black {
+    @extend .button--outline;
+    border-color: $blp--black--outline--button;
+    color: $blp--black--outline--button;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      background-color: rgba($blp--black--outline--button, 0.7);
+    }
+
+    &:active {
+      text-decoration: none;
+      background-color: $blp--black--outline--button;
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// !-- Icon Button
+// -----------------------------------------------------------------------------
+// Full Product Sheet links have an icon.
+//
+.button--icon {
+  background-position: 5px 50%;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  padding: $gutter--narrow $gutter $gutter--narrow 40px;
+}
+
+.button--product-sheet span {
+  @extend .button--icon;
+
+  background-image: url('/assets/images/button-product-sheet.png');
+}
+
+
+// -----------------------------------------------------------------------------
+// !-- Stripe Button Override
+// -----------------------------------------------------------------------------
+// The Stripe Payment JS inserts a blue button on the payment step of the checkout
+// flow and we need to override those styles.
+
+%stripeOverride {
+  font-family: $sansSerif;
+  font-size: map-get($fontSizes, base);
+  line-height: map-get($fontSizes, xXLarge);
+  position: relative;
+  display: block;
+  height: auto;
+  min-height: auto;
+  padding: 0 $gutter--half;
+  border: 0;
+  border-radius: 0;
+  background: $red;
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.checkoutValidate--btn.stripeOverride--btn,
+.stripe-button-el.stripeOverride--btn {
+  @extend .button;
+  @extend %stripeOverride;
+
+  &:focus,
+  &:active,
+  &:not(:disabled):active,
+  &:not(:disabled):active span {
+    @extend %stripeOverride;
+  }
+}
+
+.checkoutValidate--btn span.stripeOverride--span,
+.stripe-button-el span.stripeOverride--span {
+  @extend %stripeOverride;
+
+  &:focus,
+  &:active {
+    @extend %stripeOverride;
+  }
+}
+
+.checkoutValidate--btn.stripeOverride--btn:disabled,
+.checkoutValidate--btn.stripeOverride--btn:disabled span.stripeOverride--span,
+.stripe-button-el.stripeOverride--btn:disabled,
+.stripe-button-el.stripeOverride--btn:disabled span.stripeOverride--span {
+  @extend .button--disabled;
+}

@@ -1,0 +1,41 @@
+{% set containerClasses = craft.keiserCommerceHelpers.getCustomCSSClasses(block) %}
+{% if block.contentBlockContainerBorder is defined %}
+  {% for row in block.contentBlockContainerBorder %}
+    {% if row.style != 'none' %}
+      {% set classNameComponents = ['border',row.position,row.style,row.color,row.height] %}
+      {% set className = classNameComponents|join('--') %}
+      {% set containerClasses = containerClasses|merge([className]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if block.contentBlockBackground is defined and block.contentBlockBackground is not empty and block.contentBlockBackground.one.backgroundFullWidth is defined and block.contentBlockBackground.one.backgroundFullWidth %}
+  <div id="{{ block.contentBlockID ? block.contentBlockID~'containerbackground' : 'div'~block.id~'containerbackground' }}" >
+    <div class="container contentBlock {{ containerClasses|join(' ') }}" id="{{ block.contentBlockID ? block.contentBlockID : 'div'~block.id }}">
+      {% for row in block.children %}
+        {% include 'shared/content-block/layout/_row' with {
+          'row': row
+        } %}
+      {% endfor %}
+    </div>
+  </div>
+{% elseif block.contentBlockBackground is defined and block.contentBlockBackground is not empty and block.contentBlockBackground.one.backgroundFullWidth is defined and not block.contentBlockBackground.one.backgroundFullWidth %}
+  <div class="container contentBlock" id="{{ block.contentBlockID ? block.contentBlockID~'containerbackground' : 'div'~block.id~'containerbackground' }}">
+    <div id="{{ block.contentBlockID ? block.contentBlockID : 'div'~block.id }}">
+      {% for row in block.children %}
+        {% include 'shared/content-block/layout/_row' with {
+          'row': row
+        } %}
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+    <div class="container contentBlock {{ containerClasses|join(' ') }}" id="{{ block.contentBlockID ? block.contentBlockID : 'div'~block.id }}">
+      {% for row in block.children %}
+        {% include 'shared/content-block/layout/_row' with {
+          'row': row
+        } %}
+      {% endfor %}
+    </div>
+{% endif %}
+

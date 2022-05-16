@@ -1,0 +1,73 @@
+{% cache %}
+<article>
+
+  {% include "support/_education.html" %}
+
+  <div class="container">
+
+    <div class="fullImageWithCopy">
+      {% for block in entry.copyBlockWithImage %}
+        {% set heroImage = block.image.one %}
+        {% if heroImage %}
+          <img class="fullImageWithCopy__image"
+               src="{{ heroImage.getURL("large") }}"
+               srcset="
+                  {{ heroImage.getURL("xsmall") }} 320w,
+                  {{ heroImage.getURL("small") }} 480w,
+                  {{ heroImage.getURL("medium") }} 640w,
+                  {{ heroImage.getURL("large") }} 960w,
+                  {{ heroImage.getURL("xlarge") }} 1280w">
+        {% endif %}
+
+        <div class="titleBlock">
+          <h3 class="titleBlock__title">
+            {{ block.smallTitle }}
+          </h3>
+          <h1 class="titleBlock__subTitle">
+            {{ block.largeTitle }}
+          </h1>
+
+          <div class="fullImageWithCopy__copy">
+            {{ block.bodyCopy }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <hr class="background--lightGrey pageDivider">
+
+    {% for block in entry.trainer %}
+      <div class="imageCopyBlock">
+        <div class="row">
+          <div class="l--small--4 l--medium--3 columns l--mobileMargin">
+            <div class="image--fullBleed">
+              {% set trainerImage = block.image.one %}
+              {% if trainerImage %}
+                <img class="imageCopyBlock__image" src="{{ trainerImage.getURL("medium") }}">
+              {% else %}
+                <img class="imageCopyBlock__image" src="{{ about.imageUnavailable.one.getURL("medium") }}">
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="l--small--8 l--medium--9 columns l--noMargin">
+            <div class="imageCopyBlock__copyBlock">
+              <h2 class="imageCopyBlock__header">
+                {{ block.trainerName }}
+              </h2>
+              <h4 class="imageCopyBlock__header">
+                Hometown: {{ block.hometown }}
+              </h4>
+              <h4 class="imageCopyBlock__header">
+                {{ block.trainerTitle }}
+              </h4>
+              <p class="imageCopyBlock__copy">
+                {{ block.trainerBio }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</article>
+{% endcache %}

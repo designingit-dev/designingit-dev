@@ -1,0 +1,656 @@
+{#
+ # Homepage template
+ # ---------------
+ #
+ #}
+{% set entry = craft.entries.section('homepage').first() %}
+{% extends "_layout" %}
+
+{% block content %}
+<article class="homepage homepage-1">
+
+  {# Start Hero #}
+  <div class="homepage__hero__outerMostContainer">
+    <div class="background--blpblack homepage__hero__outerContainer">
+      <div class="container container--noPad">
+        <div class="row homepage__hero__innerContainer">
+
+          <div class="l--extraSmall--12 l--small--6 l--medium--5 columns margin--bottom--none homepage__hero__left">
+            <h1 class="text--white text--sansSerif--black homepage__hero__left__heroCaption">Optimized fitness equipment&nbsp;for</h1>
+            <h1 class="text--black text--sansSerif--black homepage__hero__left__heroCaption homepage__hero__left__highlight">every body</h1><span class="text--white text--sansSerif--black homepage__hero__left__heroCaption">.</span>
+            <div>
+              <a href="/fitness-equipment" class="button margin--top margin--bottom--half">Explore Equipment</a>
+            </div>
+          </div>
+
+          <div class="l--extraSmall--12 columns margin--bottom--none text--alignCenter homepage__hero__right">
+            <img src="/assets/images/homepage/keiser_equipment_assortment_homepage_hero_background_mobile.png">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {# End Hero #}
+
+  {# Start Equipment Cards #}
+  <div class="container container--noPad homepage__equipmentCard">
+    <div class="row homepage__equipmentCard__row">
+
+      <div class="l--small--4 columns homepage__equipmentCard__column">
+        <div class="homepage__equipmentCard__card">
+          <div class="text--bold homepage__equipmentCard__card__title">Train more efficiently while protecting joints.</div>
+          <div class="text--alignCenter margin--top homepage__equipmentCard__card__image">
+            <img src="/assets/images/homepage/homepage_equipmentcard_strength.png">
+          </div>
+          <div class="margin--top homepage__equipmentCard__card__button">
+            <a href="/fitness-equipment/strength-training" class="button button--outline--black">Strength Line</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="l--small--4 columns homepage__equipmentCard__column">
+        <div class="homepage__equipmentCard__card">
+          <div class="text--bold homepage__equipmentCard__card__title">Ultra smooth, magnetic resistance.</div>
+          <div class="text--alignCenter homepage__equipmentCard__card__image homepage__equipmentCard__card__image__cardio">
+            <img src="/assets/images/homepage/homepage_equipmentcard_cardio.png">
+          </div>
+          <div class="margin--top--half homepage__equipmentCard__card__button">
+            <div class="margin--bottom--half">
+              <a href="/fitness-equipment/cardio-training" class="button button--outline--black">Cardio Line</a>
+            </div>
+            <div>
+              <a href="/shop" class="button button--outline--black margin--top--none">Shop for Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l--small--4 columns homepage__equipmentCard__column">
+        <div class="homepage__equipmentCard__card">
+          <div class="text--bold homepage__equipmentCard__card__title">Train any movement at any speed.</div>
+          <div class="text--alignCenter margin--top homepage__equipmentCard__card__image">
+            <img src="/assets/images/homepage/homepage_equipmentcard_functional.png">
+          </div>
+          <div class="margin--top homepage__equipmentCard__card__button">
+            <a href="/fitness-equipment/functional-training" class="button button--outline--black">Functional Line</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {# End Equipment Cards #}
+
+  {# Start Customer Logo Showcase #}
+  <div class="container padding--top--none homepage__customerLogoShowcase">
+    <div class="row">
+      <div class="l--small--12 columns margin--bottom--none text--alignCenter">
+        <h2 class="text--extraBold">Trusted around the world.</h2>
+        <p>Our partners include:</p>
+      </div>
+      <div class="l--small--12 columns margin--bottom--none homepage__customerLogoShowcase__logoContainer">
+
+        <div class="homepage__customerLogoShowcase__laFitness"></div>
+        <div class="homepage__customerLogoShowcase__orangeTheory"></div>
+        <div class="homepage__customerLogoShowcase__agePerformance"></div>
+        <div class="homepage__customerLogoShowcase__exos"></div>
+        <div class="homepage__customerLogoShowcase__desktopOnly homepage__customerLogoShowcase__leaders"></div>
+        <div class="homepage__customerLogoShowcase__desktopOnly homepage__customerLogoShowcase__fai"></div>
+        <div class="homepage__customerLogoShowcase__desktopOnly homepage__customerLogoShowcase__digme"></div>
+        <div class="homepage__customerLogoShowcase__desktopOnly homepage__customerLogoShowcase__ace"></div>
+
+      </div>
+    </div>
+  </div>
+  {# End Customer Logo Showcase #}
+
+  {# Start Made in USA #}
+  <div class="homepage__madeInUSA__outerContainer">
+    <div class="container container--noPad">
+      <div class="row homepage__madeInUSA__innerContainer">
+        <div class="l--small--6 columns margin--bottom--none">
+          <img class="is--hidden--small" src="/assets/images/homepage/homepage_dennis_keiser_looking_at_factory.jpg">
+        </div>
+        <div class="l--small--6 l--small--offset--6 columns margin--bottom--none homepage__madeInUSA__descriptionContainer">
+          <div class="homepage__madeInUSA__descriptionInnermostContainer">
+            <h2>Made in the USA</h2>
+            <p class="text--bold homepage__madeInUSA__description__large">using domestically and globally sourced materials.</p>
+            <p class="homepage__madeInUSA__description__regular">
+              In a time when craftsmanship is largely a thing of the past, we invest in the skills of our
+              local manufacturing team. We focus on precision, integrity, and customer satisfaction. As a result, we
+              deliver the highest quality products in the industry. <strong>Because... 'Good Enough' Isn't.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {# End Made in USA #}
+
+  {# Start Equipment Features
+  <div class="container homepage__equipmentFeatures is--hidden">
+    <div class="row">
+      <div class="l--small--12 columns text--alignCenter">
+        <h2>Here's where we excel.</h2>
+      </div>
+    </div>
+    <div class="row margin--top--half">
+
+      <div class="l--medium--4 columns text--alignCenter">
+        <div>
+          <img src="/assets/images/homepage/homepage_equipment_feature_safety.png">
+        </div>
+        <h3 class="text--uppercase">Safety</h3>
+        <p class="margin--bottom--none">
+          We use intelligently applied compressed air in our strength equipment. This helps protect the joints and
+          connective tissues from shock&nbsp;loading.
+        </p>
+      </div>
+
+      <div class="l--medium--4 columns text--alignCenter">
+        <div>
+          <img src="/assets/images/homepage/homepage_equipment_feature_versatility.png">
+        </div>
+        <h3 class="text--uppercase">Versatility</h3>
+        <p class="margin--bottom--none">
+          Our strength equipment can be used at any speed, allowing you to train in a variety of ways. Our cardio
+          equipment is super lightweight and can accommodate any&nbsp;space.
+        </p>
+      </div>
+
+      <div class="l--medium--4 columns text--alignCenter">
+        <div>
+          <img src="/assets/images/homepage/homepage_equipment_feature_efficiency.png">
+        </div>
+        <h3 class="text--uppercase">Efficiency</h3>
+        <p class="margin--bottom--none">
+          Our equipment increases resistance where you’re strongest and decreases where you’re weakest, optimizing every
+          part of each&nbsp;movement.
+        </p>
+      </div>
+
+    </div>
+  </div>
+  End Equipment Features #}
+
+  {# Start Homepage Demo Van Feature #}
+  <div class="homepage__demoVanFeature">
+    <div class="container">
+      <div class="row">
+        <div class="l--small--4 columns margin--bottom--none text--alignCenter">
+          <img class="lazyload" src="/assets/images/homepage/homepage_demo_van_feature.png">
+        </div>
+        <div class="l--small--8 columns margin--bottom--none homepage__demoVanFeature__description">
+          <h2>Experience the Keiser difference for&nbsp;yourself.</h2>
+          <p class="margin--top--half">
+            Our Mobile Showroom can bring our equipment to your location, so you can experience the benefits in person.
+          </p>
+          <a href="/demo" class="margin--top--half link--textual link--chevron">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {# End Homepage Demo Van Feature #}
+
+  {# Start Functional Trainer Feature #}
+  <div class="homepage__functionalTrainerFeature">
+    <div class="container padding--top--half padding--bottom--half">
+      <div class="homepage__functionalTrainerFeature__innerContainer">
+        <div class="margin--bottom--none homepage__functionalTrainerFeature__descriptionContainer">
+          <div class="homepage__functionalTrainerFeature__descriptionContainer__inner">
+            <h2>Functional Trainer</h2>
+            <p class="margin--top--half">
+              With hundreds of ways to train on a single machine, you’ll quickly see why this beloved piece of equipment is
+              part of our Infinity Series. Built for all fitness levels, you can train at any speed&mdash;in ways that
+              directly apply to your unique life.
+            </p>
+            <a href="/fitness-equipment/functional-training" class="link--textual">Details</a>
+          </div>
+        </div>
+        <div class="margin--bottom--none homepage__functionalTrainerFeature__imageContainer">
+{#          <img srcset="/assets/images/homepage/homepage_woman_using_keiser_functional_trainer.png 904w,/assets/images/homepage/homepage_woman_using_keiser_functional_trainer_tablet.png 512w,/assets/images/homepage/homepage_woman_using_keiser_functional_trainer_mobile.png 588w"#}
+{#               sizes="(min-width: 852px) 904px,(min-width: 564px) 512px,588px"#}
+{#               src="/assets/images/homepage/homepage_woman_using_keiser_functional_trainer_mobile.png"#}
+{#               alt="Older adult woman using Keiser functional trainer and lifting her grandchild">#}
+          {# TODO: Make this more efficient using srcset #}
+          <img src="/assets/images/homepage/homepage_woman_using_keiser_functional_trainer.jpg" class="is--hidden is--visible--medium">
+          <img src="/assets/images/homepage/homepage_woman_using_keiser_functional_trainer_tablet.jpg" class="homepage__functionalTrainerFeature__image__tablet">
+          <img src="/assets/images/homepage/homepage_woman_using_keiser_functional_trainer_mobile.png" class="homepage__functionalTrainerFeature__image__mobile is--hidden--small">
+        </div>
+      </div>
+    </div>
+  </div>
+  {# End Functional Trainer Feature #}
+
+  {# Start Homepage Elliptica Review #}
+  <div class="container">
+    <div class="row homepage__elliptica__review__row">
+
+      <div class="l--small--12 l--medium--6 columns margin--bottom--none homepage__elliptica__review__thumbnail text--alignRight homepage__elliptica__review__column " v-on:click="openModal('homepage-elliptica-review')">
+        <p class="text--bold margin--bottom--half homepage__elliptica__review__thumbnail__quote is--hidden is--visible--small">"I love this machine."</p>
+        <p class="margin--bottom--none homepage__elliptica__review__thumbnail__name">Clair Mason</p>
+        <p class="homepage__elliptica__review__thumbnail__name">Co-founder, Elliptica</p>
+        <div class="margin--top homepage__elliptica__review__logo">
+          <img src="/assets/images/homepage/homepage_elliptica_logo.png">
+        </div>
+      </div>
+
+      <div class="l--small--12 l--medium--6 columns margin--bottom--none homepage__elliptica__review__description homepage__elliptica__review__column">
+        <div class="row">
+
+          <div class="l--extraSmall--12 columns margin--top margin--bottom is--hidden--small text--alignCenter homepage__elliptica__review__description__image__mobile">
+            <img src="/assets/images/homepage/homepage_elliptica_review_m5i_elliptical_strider.png">
+          </div>
+
+          <div class="l--small--7 columns margin--bottom--none homepage__elliptica__review__description__title">
+            <h2>M5i Strider Elliptical Machine</h2>
+            <p>
+              The compact design of the M5i makes it a great alternative to the larger Ellipticals typically found in
+              the cardio area of clubs, especially when space is a factor. Its elegant, compact, quiet design, and
+              commercial quality will provide the home buyer a lifetime of exercise.
+            </p>
+            <div class="margin--top is--hidden--medium">
+              <a href="/shop/cardio-equipment/m5i-elliptical-strider" class="button">Shop for Home</a>
+              <a href="/fitness-equipment/cardio-equipment/m5i-strider" class="button button--outline margin--left--narrow">Details</a>
+            </div>
+          </div>
+
+          <div class="l--small--5 columns margin--bottom--none is--hidden is--visible--small homepage__elliptica__review__description__image">
+            <img src="/assets/images/homepage/homepage_elliptica_review_m5i_elliptical_strider.png">
+          </div>
+
+        </div>
+
+        <div class="homepage__elliptica__review__description__links is--hidden is--visible--medium">
+          <a href="/shop/cardio-equipment/m5i-strider-elliptical-machine" class="button">Shop for Home</a>
+          <a href="/fitness-equipment/cardio-training/m5i-strider" class="button button--outline margin--left--narrow">Details</a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage-elliptica-review">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage-elliptica-review')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/ZJ-EOZJegyc?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+  {# End Homepage Elliptica Review #}
+
+  {# Start Homepage Squat Feature #}
+  <div class="homepage__squatFeature">
+    <div class="container container--noPad">
+      <div class="row">
+
+        <div class="l--small--12 l--medium--8 columns margin--bottom--none">
+          <div class="row">
+
+            <div class="l--small--4 columns homepage__squatFeature__squat">
+              <h3 class="text--uppercase">A300 Squat</h3>
+              <div class="margin--top margin--bottom">
+                <img src="/assets/images/homepage/homepage_squat_feature_a300_squat.jpg">
+              </div>
+              <p class="homepage__squatFeature__squat__highlight margin--bottom--half"><strong>Full extension for an explosive base.</strong></p>
+              <p>People of every age and ability can use this unique machine to develop their explosive power.</p>
+              <a href="/fitness-equipment/strength-training/air300-squat" class="link--textual">Details</a>
+            </div>
+
+            <div class="l--small--4 columns homepage__squatFeature__squat">
+              <h3 class="text--uppercase">A300 Squat Pro</h3>
+              <div class="margin--top margin--bottom">
+                <img src="/assets/images/homepage/homepage_squat_feature_a300_squat_pro.jpg">
+              </div>
+              <p class="homepage__squatFeature__squat__highlight margin--bottom--half"><strong>For the most powerful among us.</strong></p>
+              <p>
+                Features an enhanced frame plus an added 200 extra pounds of weight in the base to help hold it in place for
+                extremely powerful users.
+              </p>
+              <a href="/fitness-equipment/strength-training/a300-squat-pro" class="link--textual">Details</a>
+            </div>
+
+            <div class="l--small--4 columns homepage__squatFeature__squat">
+              <h3 class="text--uppercase">A300 Belt Squat</h3>
+              <div class="margin--top margin--bottom">
+                <img src="/assets/images/homepage/homepage_squat_feature_a300_belt_squat.jpg">
+              </div>
+              <p class="homepage__squatFeature__squat__highlight margin--bottom--half"><strong>Build power without shoulder loading.</strong></p>
+              <p>
+                Build explosive hip and leg strength with up to 800 pounds of resistance without additional stress on your
+                shoulders and spinal column.
+              </p>
+              <a href="/fitness-equipment/strength-training/air300-belt-squat" class="link--textual">Details</a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="l--medium--4 columns margin--bottom--none is--hidden is--visible--medium homepage__squatFeature__promoImage">
+          <img src="/assets/images/homepage/homepage_squat_feature_promo_image.jpg">
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {# End Homepage Squat Feature #}
+
+  {# Start Homepage Rack Feature #}
+  <div class="container">
+
+    <div class="row">
+      <div class="l--medium--8 l--medium--offset--2 columns text--alignCenter">
+        <h2>Versatility beyond comparison.</h2>
+        <p class="margin--top--half">
+          Our racks combine Keiser Dynamic Variable Resistance and iron weight resistance.
+          The result is a hybrid approach that allows you to add greater variety to your training.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="l--small--6 l--medium--3 columns text--alignCenter">
+        <div class="homepage__rackFeature__card" v-on:click="openModal('homepage_rackFeature_assisted_pull_up')">
+          <img class="homepage__rackFeature__card__image" src="/assets/images/homepage/homepage_rack_feature_assisted_pull_up.jpg">
+        </div>
+        <h3 class="text--uppercase margin--top">Assisted Pull Up</h3>
+      </div>
+
+      <div class="l--small--6 l--medium--3 columns text--alignCenter">
+        <div class="homepage__rackFeature__card" v-on:click="openModal('homepage_rackFeature_pneumatic_step_up')">
+          <img class="homepage__rackFeature__card__image" src="/assets/images/homepage/homepage_rack_feature_pneumatic_step_up.jpg">
+        </div>
+        <h3 class="text--uppercase margin--top">Pneumatic Step Up</h3>
+      </div>
+
+      <div class="l--small--6 l--medium--3 columns text--alignCenter">
+        <div class="homepage__rackFeature__card" v-on:click="openModal('homepage_rackFeature_pneumatic_weight_back_squat')">
+          <img class="homepage__rackFeature__card__image" src="/assets/images/homepage/homepage_rack_feature_pneumatic_weight_back_squat.jpg">
+        </div>
+        <h3 class="text--uppercase margin--top">Pneumatic/Free Weight Back Squat</h3>
+      </div>
+
+      <div class="l--small--6 l--medium--3 columns text--alignCenter">
+        <div class="homepage__rackFeature__card" v-on:click="openModal('homepage_rackFeature_continuous_belt_squat')">
+          <img class="homepage__rackFeature__card__image" src="/assets/images/homepage/homepage_rack_feature_continuous_belt_squat_jump.jpg">
+        </div>
+        <h3 class="text--uppercase margin--top">Continuous belt squat jump</h3>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="l--medium--12 columns margin--bottom--none text--alignCenter">
+        <a href="/fitness-equipment/racks" class="button">Explore Racks</a>
+      </div>
+    </div>
+  </div>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage_rackFeature_assisted_pull_up">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage_rackFeature_assisted_pull_up')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/bmnjiA9-y0o?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage_rackFeature_pneumatic_step_up">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage_rackFeature_pneumatic_step_up')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/jTOssSgzgX8?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage_rackFeature_pneumatic_weight_back_squat">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage_rackFeature_pneumatic_weight_back_squat')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/zaVsDt99qqs?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage_rackFeature_continuous_belt_squat">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage_rackFeature_continuous_belt_squat')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/W7z6PGrbiv8?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+  {# End Homepage Rack Feature #}
+
+  {# Start Homepage Education Feature #}
+  <div class="container padding--top">
+
+    <div class="row">
+      <div class="l--medium--12 columns margin--bottom--none text--alignCenter">
+        <h2>Education. Coaching. Training.</h2>
+      </div>
+    </div>
+
+    <div class="row margin--top homepage__educationFeature__row">
+
+      <div class="l--medium--6 columns homepage__educationFeature__column">
+        <div class="homepage__educationFeature__card">
+          <div class="homepage__educationFeature__card__image homepage__educationFeature__card__image__groupCycling">
+
+          </div>
+          <div class="homepage__educationFeature__card__description">
+            <h3 class="text--uppercase">Cardio Instructor Training.</h3>
+            <p>
+              Become a top instructor with Keiser’s world-renowned cardio training. This research-based program will help
+              you level-up your classes no matter how long you’ve been teaching.
+            </p>
+            <a href="/education/training" class="link--textual margin--top">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="l--medium--6 columns homepage__educationFeature__column">
+        <div class="homepage__educationFeature__card">
+          <div class="homepage__educationFeature__card__image homepage__educationFeature__card__image__theRide">
+
+          </div>
+          <div class="homepage__educationFeature__card__description">
+            <h3 class="text--uppercase">The Ride.</h3>
+            <p>
+              Experience inspiring indoor cycling workouts designed to help you feel amazing! Stream classes from around
+              the world. Anywhere, anytime.
+            </p>
+            <a href="/lp/the-ride-indoor-cycling-workouts" class="link--textual margin--top">Start your free trial</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="l--medium--12 columns margin--top margin--bottom--none text--alignCenter">
+        <a href="/education/training#education_training_calendar" class="link--textual">Training and Events Calendar</a>
+      </div>
+    </div>
+
+  </div>
+  {# End Homepage Education Feature #}
+
+  {# Start Homepage Success Stories Feature #}
+  <div class="container padding--top">
+
+    <div class="row">
+      <div class="l--medium--12 columns text--alignCenter">
+        <h2>What customers are saying.</h2>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="l--small--12 l--medium--8 columns">
+        <div class="homepage__successStoriesFeature__shaper">
+          <div class="homepage__successStoriesFeature__feature homepage__successStoriesFeature__feature__jacob" v-on:click="openModal('homepage_successStoryFeature_jacob')">
+            <p class="homepage__successStoriesFeature__feature__quote">
+              <strong>
+                "It allowed me to see big differences on the ice."
+              </strong>
+            </p>
+            <p class="margin--bottom--none homepage__successStoriesFeature__feature__name">Jacob Chychrun</p>
+            <p class="homepage__successStoriesFeature__feature__name">Professional Hockey Player</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="l--small--12 l--medium--4 columns">
+        <div class="row">
+
+          <div class="l--small--6 l--medium--12 columns margin--bottom--none">
+            <div class="homepage__successStoriesFeature__shaper">
+              <div class="homepage__successStoriesFeature__feature homepage__successStoriesFeature__feature__mensHealth" v-on:click="openModal('homepage_successStoryFeature_mensHealth')">
+                <p class="homepage__successStoriesFeature__feature__quote__small">
+                  <strong>
+                    "Absolutely, if I was outfitting a gym, I'd have Keiser equipment inside."
+                  </strong>
+                </p>
+                <p class="margin--bottom--none homepage__successStoriesFeature__feature__name__small">Sean Garner, Fitness Advisor</p>
+                <p class="homepage__successStoriesFeature__feature__name__small">Men's Health</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="l--small--6 l--medium--12 columns">
+            <div class="homepage__successStoriesFeature__shaper">
+              <div class="homepage__successStoriesFeature__feature homepage__successStoriesFeature__feature__agePerformance" v-on:click="openModal('homepage_successStoryFeature_agePerformance')">
+                <p class="homepage__successStoriesFeature__feature__quote__small">
+                  <strong>
+                    "Keiser is the equipment to use."
+                  </strong>
+                </p>
+                <p class="margin--bottom--none homepage__successStoriesFeature__feature__name__small">Paul Holbrook</p>
+                <p class="margin--bottom--none homepage__successStoriesFeature__feature__name__small">Founder, Owner</p>
+                <p class="homepage__successStoriesFeature__feature__name__small">Age Performance</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="l--medium--12 margin--bottom--none columns text--alignCenter">
+        <a href="/success-stories" class="link--textual">View More Success Stories</a>
+      </div>
+    </div>
+
+  </div>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage_successStoryFeature_jacob">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage_successStoryFeature_jacob')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/Mx6e4MZTHd0?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage_successStoryFeature_mensHealth">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage_successStoryFeature_mensHealth')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/OBD1PMrRfBw?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="homepage_successStoryFeature_agePerformance">
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('homepage_successStoryFeature_agePerformance')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+      youtubeLink : 'https://www.youtube.com/embed/UpE2plh09yU?autoplay=true'
+    }  %}'>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+  {# End Homepage Success Stories Feature #}
+
+</article>
+
+{% endblock %}

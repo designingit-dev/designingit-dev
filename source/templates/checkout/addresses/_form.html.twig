@@ -1,0 +1,186 @@
+{% set countries = craft.commerce.countries.allCountriesAsList %}
+{% set states = craft.commerce.states.getAllStatesAsListGroupedByCountryId %}
+{% set allStateAbbr = craft.keiserCommerceHelpers.getAllStateAbbreviations() %}
+{% set allCountryAbbr = craft.keiserCommerceHelpers.getAllCountryAbbreviations() %}
+{% set suggestedCountryId = craft.keiserCommerceHelpers.getSuggestedCountryIdForCheckout() %}
+{% set suggestedStateId = craft.keiserCommerceHelpers.getSuggestedStateIdForCheckout(suggestedCountryId) %}
+
+{% set modelName = modelName is defined ? modelName : 'address' %}
+{% set model = address is defined ? address : null %}
+
+<div class="addressBox {{ modelName }} formFields" data-type="{{ modelName }}">
+
+  <div class="field">
+    <label for="{{ modelName }}-firstName">First Name *</label>
+    <div class="field__input">
+      <input class="{{ modelName }}-requiredField" {{ required ? 'required' }} autocomplete="given-name" type="text" id="{{ modelName }}-firstName" name="{{ modelName }}[firstName]" value="{{ model ? model.firstName : '' }}">
+    </div>
+    {% if model and model.getErrors('firstName') %}
+      <span class="flash">{{ model.getErrors('firstName')|join }}</span>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <label for="{{ modelName }}-lastName">Last Name *</label>
+    <div class="field__input">
+      <input class="{{ modelName }}-requiredField" {{ required ? 'required' }} autocomplete="family-name" type="text" id="{{ modelName }}-lastName" name="{{ modelName }}[lastName]" value="{{ model ? model.lastName : '' }}">
+    </div>
+    {% if model and model.getErrors('lastName') %}
+      <span class="flash">{{ model.getErrors('lastName')|join }}</span>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <label for="{{ modelName }}-address1">Address 1 *</label>
+    <div class="field__input">
+      <input class="{{ modelName }}-requiredField" {{ required ? 'required' }} autocomplete="address-line1" type="text" id="{{ modelName }}-address1" name="{{ modelName }}[address1]" value="{{ model ? model.address1 : '' }}">
+    </div>
+    {% if model and model.getErrors('address1') %}
+      <span class="flash">{{ model.getErrors('address1')|join }}</span>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <label for="{{ modelName }}-address2">Address 2</label>
+    <div class="field__input">
+      <input autocomplete="address-line2" type="text" id="{{ modelName }}-address2" name="{{ modelName }}[address2]" value="{{ model ? model.address2 : '' }}">
+    </div>
+    {% if model and model.getErrors('address2') %}
+      <span class="flash">{{ model.getErrors('address2')|join }}</span>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <label for="{{ modelName }}-city">City *</label>
+    <div class="field__input">
+      <input class="{{ modelName }}-requiredField" {{ required ? 'required' }} autocomplete="address-level2" type="text" id="{{ modelName }}-city" name="{{ modelName }}[city]" value="{{ model ? model.city : '' }}">
+    </div>
+    {% if model and model.getErrors('city') %}
+      <span class="flash">{{ model.getErrors('city')|join }}</span>
+    {% endif %}
+  </div>
+
+  <div class="field dropdown">
+    <label for="{{ modelName }}-countryId">Country *</label>
+    <div class="field__input">
+      <select
+          {{ required ? 'required="required"' }}
+          autocomplete="country"
+          id="{{ modelName }}-countryId"
+          name="{{ modelName }}[countryId]"
+          class="address-country {{ modelName }}-requiredField">
+        {% set optionValue = (model ? model.countryId : suggestedCountryId) %}
+        {% for key, option in countries %}
+          <option value="{{ key }}" data-country-abbr="{{ allCountryAbbr[key] }}" {% if key == optionValue %} selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+      </select>
+      <input type="hidden" name="fields[requiresManualReview]" value="{{ optionValue is not empty and attribute(countries, optionValue) is defined and attribute(countries, optionValue) != 'United States' ? 1 : 0  }}" />
+    </div>
+  </div>
+
+  <div class="field dropdown">
+    <label for="{{ modelName }}-stateId">State / Province / Region *</label>
+    <div class="field__input">
+      <select
+        data-modelname="{{ modelName }}"
+        {{ required ? 'required="required"' }}
+        autocomplete="address-level1"
+        id="{{ modelName }}-stateId"
+        class="address-stateId {{ modelName }}-requiredField"
+        name="{{ modelName }}[stateValue]">
+        {% set options = (model and states[model.countryId] is defined ? states[model.countryId] : states[suggestedCountryId]) %}
+        {% set optionValue = (model ? model.stateId : suggestedStateId) %}
+        {% for key, option in options %}
+          <option value="{{ key }}" {% if key == optionValue %}selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+      </select>
+      <input type="text" data-modelname="{{ modelName }}" id="{{ modelName }}-stateName" class="is--hidden address-stateName {% if options|length > 0 %}hidden{% endif %} u-full-width" {% if model and model.stateName %}name="{{ modelName }}[stateValue]" value="{{ model.stateName}}"{% endif %}>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="{{ modelName }}-zipCode">Postal Code *</label>
+    <div class="field__input">
+      <input class="{{ modelName }}-requiredField" {{ required ? 'required' }} autocomplete="postal-code" type="text" id="{{ modelName }}-zipCode" name="{{ modelName }}[zipCode]" value="{{ model ? model.zipCode : '' }}">
+    </div>
+    {% if model and model.getErrors('zipCode') %}
+      <span class="flash">{{ model.getErrors('zipCode')|join }}</span>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <label for="{{ modelName }}-phone">Phone *</label>
+    <div class="field__input">
+      <input class="{{ modelName }}-requiredField" {{ required ? 'required' }} autocomplete="tel" minlength="10" type="text" id="{{ modelName }}-phone" name="{{ modelName }}[phone]" value="{{ model ? model.phone : '' }}">
+    </div>
+    {% if model and model.getErrors('phone') %}
+      <span class="flash">{{ model.getErrors('phone')|join }}</span>
+    {% endif %}
+  </div>
+
+</div>
+
+{% js %}
+  var states = {{ craft.commerce.states.getAllStatesAsListGroupedByCountryId|json_encode|raw }};
+  var allStateAbbr = {{ craft.keiserCommerceHelpers.getAllStateAbbreviations|json_encode|raw }};
+
+  $('select.address-country').change(function ()
+  {
+    // get the value of the selected country.
+    var cid = $(this).val();
+    var $states = $(this).closest('.addressBox').find('select.address-stateId');
+    var $stateName = $(this).closest('.addressBox').find('input.address-stateName');
+    $states.find('option').remove();
+
+    if($(this).children().filter(':selected').text() == 'United States'){
+      $("input[name='fields[requiresManualReview]']").val('0');
+    } else {
+      $("input[name='fields[requiresManualReview]']").val('1');
+    }
+
+    if (states.hasOwnProperty(cid))
+    {
+      // We have states for this country, show the states drop down.
+      $states.removeClass('hidden');
+      $states.attr('name', $states.data('modelname') + '[stateValue]');
+
+      // We have states for this country, hide the stateName input.
+      $stateName.removeAttr('name');
+      $stateName.addClass('hidden');
+      $stateName.val('');
+
+      // Add all states as options to drop down.
+      $states.append('<option></option>');
+      for (var id in states[cid])
+      {
+        var state = states[cid][id];
+        var $option = $('<option/>');
+        $option.attr('value', id).text(state);
+        $option.attr('data-state-abbr',allStateAbbr[id])
+        $states.append($option);
+      }
+
+    } else {
+      // hide the states dropdown, since this country has none.
+      $states.addClass('hidden');
+      $states.removeAttr('name');
+
+      // show the stateName
+      $stateName.removeClass('hidden');
+      $stateName.attr('name', $stateName.data('modelname')+'[stateValue]');
+    }
+
+  });
+
+  $(document).ready(function(){
+    $('select.address-stateId').each(function(){
+      $('option', $(this)).each(function(){
+        var val = $(this).val();
+        if(typeof allStateAbbr[val] !== 'undefined'){
+          $(this).attr('data-state-abbr', allStateAbbr[val]);
+        }
+      });
+    });
+  });
+
+{% endjs %}

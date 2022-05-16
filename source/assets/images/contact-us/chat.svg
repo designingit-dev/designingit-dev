@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 79.58 79.58">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>KSR_Customer_Support_Icon_Red</dc:title>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style>.cls-1{fill:#d1202e;stroke:#d1202e;stroke-miterlimit:10;stroke-width:.63px}.cls-2{fill:#fff}</style>
+ </defs>
+ <title>KSR_Customer_Support_Icon_Red</title>
+ <circle stroke-width=".63px" stroke="#d1202e" class="cls-1" cy="39.79" cx="39.79" stroke-miterlimit="10" r="39.47" fill="#d1202e"/>
+ <path d="m26.401 32.418h-10.463v22.494h3.513v6.3832c1.9788-2.1277 3.9576-4.2555 5.9363-6.3832h24.19v-6.6757h-23.176v-15.818z" stroke-width=".082039" fill="#fff"/>
+ <polygon points="524.64 339.88 569.16 339.88 569.16 54.806 142.84 54.806 142.84 162.36 142.84 339.88 410.04 339.88 449.4 339.88 524.64 420.78" fill="#fff" transform="matrix(.082039 0 0 .082039 16.912 18.125)"/>
+</svg>

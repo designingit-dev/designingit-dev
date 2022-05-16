@@ -1,0 +1,250 @@
+<div class="row">
+  <div class="l--12 columns">
+    <div class="margin--bottom">
+
+      {% set numEnabledGateways = craft.commerce.gateways.allCustomerEnabledGateways|length %}
+      {% if not numEnabledGateways  %}
+        <p>No payment methods available.</p>
+      {% else %}
+
+        {% for gateway in craft.commerce.gateways.allCustomerEnabledGateways %}
+          {% switch gateway.handle %}
+
+            {% case 'keiserStripe' %}
+              {% set paymentIntent = craft.keiserStripeGateway.createPaymentIntent(cart.id, cart.totalPrice * 100, cart.paymentCurrency) %}
+              {% if not paymentIntent %}
+                {% redirect '/checkout/receipt?number='~cart.number with notice "Payment already completed for this order" %}
+              {% endif %}
+              <div class="row cart__paymentOption margin--bottom"
+                   data-gatewayhandle="{{ gateway.handle }}"
+                   data-gatewayid="{{ gateway.id }}"
+                   data-paymentIntent="{{ paymentIntent.id }}">
+                <div class="inline--block">
+                  <p class="text--bold margin--bottom--none cart__paymentOption__creditCard">Credit Card</p>
+                </div>
+                <div class="inline--block float--right">
+                  <i class="cart__paymentOption__icon visa"></i>
+                  <i class="cart__paymentOption__icon mastercard"></i>
+                  <i class="cart__paymentOption__icon discover"></i>
+                  <i class="cart__paymentOption__icon amex"></i>
+                </div>
+                <div id="stripe-card-element" class="margin--top--half"></div>
+                <div id="stripe-card-errors" class="margin--top--half" role="alert"></div>
+              </div>
+              <script type="text/javascript">
+                var stripe = Stripe('{{ getenv('STRIPE_PUBLISHABLE_KEY') }}');
+                var stripeElements = stripe.elements();
+                var style = {
+                  base: {
+                    color: "#32325d",
+                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                    fontSmoothing: "antialiased",
+                    fontSize: "16px",
+                    "::placeholder": {
+                        color: "#aab7c4"
+                    }
+                  },
+                  invalid: {
+                    color: "#fa755a",
+                    iconColor: "#fa755a"
+                  },
+                };
+                var cardElement = stripeElements.create('card', {style: style});
+                cardElement.mount('#stripe-card-element');
+
+                cardElement.addEventListener('change', function(event) {
+                  var displayError = document.getElementById('stripe-card-errors');
+                  if (event.error) {
+                    displayError.textContent = event.error.message;
+                      window.checkout.togglePaymentSubmit('off');
+                  } else {
+                    displayError.textContent = '';
+                      window.checkout.togglePaymentSubmit('on');
+                  }
+                });
+
+                window.processStripePayment = function(){
+                  var clientSecret = '{{ paymentIntent.client_secret }}';
+                  stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                      type: 'card',
+                      card: cardElement,
+                      billing_details: {
+                        name: '{{ cart.billingAddress.firstName }} {{ cart.billingAddress.lastName }}',
+                        email: '{{ cart.email }}',
+                        address: {
+                            'line1': '{{ cart.billingAddress.address1 }}',
+                            'line2': '{{ cart.billingAddress.address2 }}',
+                            'city': '{{ cart.billingAddress.city }}',
+                            'postal_code': '{{ cart.billingAddress.zipCode }}',
+                            'country': '{{ cart.billingAddress.country.iso }}'
+                        },
+                        phone: '{{ cart.billingAddress.phone }}'
+                      }
+                    },
+                  }).then(function(result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                        window.checkout.togglePaymentSubmit('on');
+                    } else if(result.paymentIntent.status === 'succeeded') {
+                      window.checkout.togglePaymentSubmit('off');
+                      $('#payment-form').append('<input type="hidden" name="paymentIntent" value="{{ paymentIntent.id }}">');
+                      rudderanalytics.track('Payment Info Entered', {
+                        checkout_id: '{{ cart.number[:7]|upper }}',
+                        order_id: '{{ cart.number[:7]|upper }}',
+                        step: 4,
+                        payment_method: 'Stripe',
+                        site: window.location.hostname
+                      });
+                      rudderanalytics.track('Checkout Step Completed', {
+                        checkout_id: '{{ cart.number[:7]|upper }}',
+                        step: 4,
+                        payment_method: 'Stripe',
+                        site: window.location.hostname
+                      });
+                      if (typeof ga !== 'undefined') {
+                        ga('keisergtm.ec:setAction', 'checkout_option', {
+                            'step': 4,
+                            'option': 'Stripe'
+                        });
+                        ga('keisergtm.send', 'event', 'Checkout', 'Option', {
+                            hitCallback: window.createFunctionWithTimeout(window.submitPaymentForm())
+                        });
+                      } else {
+                          window.submitPaymentForm()
+                      }
+                    }
+                  });
+                }
+              </script>
+
+            {% case 'affirm' %}
+              {% if cart.shippingAddress.countryText == 'United States' %}
+                <div class="row cart__paymentOption margin--bottom" data-gatewayhandle="{{ gateway.handle }}" data-gatewayid="{{ gateway.id }}">
+                  <div class="l--extraSmall--7 columns margin--bottom--none">
+                    <p class="text--bold margin--bottom--none cart__paymentOption__creditCard">Pay Over Time</p>
+                  </div>
+                  <div class="l--extraSmall--5 columns margin--bottom--none float--right cart__paymentOption__affirm">
+                    <img src="/assets/images/cart/affirm-logo-color.svg">
+                  </div>
+                  <div class="l--extraSmall--12 columns margin--bottom--none">
+                    <p class="affirm-as-low-as text--small margin--top--narrow margin--bottom--none" data-affirm-type="text" data-page-type="payment" data-amount="{{ cart.totalPrice|commerceCurrency(cart.paymentCurrency,convert=true,format=false) * 100 }}"></p>
+                  </div>
+                </div>
+                <script type="text/javascript">
+                  affirm.checkout({
+                    "merchant": {
+                      "user_confirmation_url":    "{{ getenv('EN_SITE_URL') }}/checkout",
+                      "user_cancel_url":          "{{ getenv('EN_SITE_URL') }}/checkout",
+                      "user_confirmation_url_action": "POST",
+                      "name": "Keiser"
+                    },
+                    "shipping":{
+                      "name":{
+                        "first": "{{ cart.shippingAddress.firstName }}",
+                        "last": "{{ cart.shippingAddress.lastName }}"
+                      },
+                      "address":{
+                        "line1": "{{ cart.shippingAddress.address1 }}",
+                        "line2": "{{ cart.shippingAddress.address2 }}",
+                        "city": "{{ cart.shippingAddress.city }}",
+                        "state": "{{ cart.shippingAddress.stateText }}",
+                        "zipcode": "{{ cart.shippingAddress.zipCode }}",
+                        "country": "USA"
+                      },
+                      "phone_number": "{{ cart.shippingAddress.phone }}",
+                      "email": "{{ cart.email }}"
+                    },
+                    "billing":{
+                      "name": {
+                        "first": "{{ cart.billingAddress.firstName }}",
+                        "last": "{{ cart.billingAddress.lastName }}"
+                      },
+                      "address": {
+                        "line1": "{{ cart.billingAddress.address1 }}",
+                        "line2": "{{ cart.billingAddress.address2 }}",
+                        "city": "{{ cart.billingAddress.city }}",
+                        "state": "{{ cart.billingAddress.stateText }}",
+                        "zipcode": "{{ cart.billingAddress.zipCode }}",
+                        "country": "USA"
+                      },
+                      "phone_number": "{{ cart.billingAddress.phone }}",
+                      "email": "{{ cart.email }}"
+                    },
+                    "items": [
+                      {% for item in cart.lineItems %}
+                        {
+                          "display_name": "{{ item.description }}",
+                          "sku": "{{ item.sku }}",
+                          "unit_price": {{ item.price|commerceCurrency(cart.paymentCurrency,convert=true,format=false) * 100 }},
+                          "qty": {{ item.qty }},
+                          "item_image_url": "{{ item.purchasable.product.url }}",
+                          "item_url": "{{ item.purchasable.product.url }}"
+                        },
+                      {% endfor %}
+                    ],
+                    "metadata": {
+                      "mode": "modal",
+                      "shipping_type": "{{ cart.getShippingMethod.name }}",
+                      "platform_type": "CraftCommerce"
+                    },
+                    "order_id": "{{ cart.number }}",
+                    "shipping_amount": {{ cart.getAdjustmentsTotalByType('shipping')|commerceCurrency(cart.paymentCurrency,convert=true,format=false)|round(2) * 100  }},
+                    "tax_amount": {{ cart.getAdjustmentsTotalByType('tax')|commerceCurrency(cart.paymentCurrency,convert=true,format=false)|round(2) * 100 }},
+                    "total": {{ cart.totalPrice|commerceCurrency(cart.paymentCurrency,convert=true,format=false) * 100 }}
+                  });
+                  affirm.ui.refresh();
+                </script>
+              {% endif %}
+
+            {% case 'klarna' %}
+              {% if cart.shippingAddress.countryIso in ['GB','US'] %}
+                  {% set klarnaClientToken = craft.keiserKlarnaHelpers.createSession() %}
+                  {% if klarnaClientToken %}
+                    <div class="row cart__paymentOption margin--bottom" data-gatewayhandle="{{ gateway.handle }}" data-gatewayid="{{ gateway.id }}" id="klarna-payments-container"></div>
+                      <script type="text/javascript">
+                          try {
+                              Klarna.Payments.init({
+                                  client_token: '{{ klarnaClientToken }}'
+                              });
+                              Klarna.Payments.load({
+                                  container: '#klarna-payments-container',
+                                  payment_method_category: '{{ craft.keiserContactHelpers.getEnvironmentVariable('KLARNA_PRIMARY_PAYMENT_METHOD') }}'
+                              }, function(res){
+                                if(!res.show_form){
+                                    $('#klarna-payments-container').hide();
+                                } else if(res.error !== undefined && res.error.length){
+                                    console.log(res.error);
+                                }
+                              })
+                          } catch(e) {
+                              console.log(e);
+                          }
+                      </script>
+                  {% endif %}
+              {% endif %}
+
+          {% endswitch %}
+        {% endfor %}
+        <button class="checkoutValidate--btn cart__paymentOption__submit">
+          <span>PAY WITH CARD</span>
+        </button>
+        <div class="l--medium--12 columns margin--top">
+          <a class="text--small text--uppercase checkout__goBackLink" onclick="window.checkout.editShippingMethod()">< Return to shipping method</a>
+        </div>
+      {% endif %}
+
+
+        <form method="POST" id="payment-form" style="display:none;">
+          <input type="hidden" name="action" value="commerce/payments/pay"/>
+          {{ redirectInput('/checkout/receipt?number='~cart.number) }}
+          <input type="hidden" name="cancelUrl" value="{{ '/checkout'|hash }}"/>
+          <input type="hidden" name="orderEmail" value="{{ cart.email }}"/>
+          <input type="hidden" id="gatewayId" name="gatewayId" value="{{ cart.gatewayId }}"/>
+          <input type="hidden" id="gatewayToken" name="token" value=""/>
+          {{ csrfInput() }}
+        </form>
+    </div>
+
+  </div>
+</div>

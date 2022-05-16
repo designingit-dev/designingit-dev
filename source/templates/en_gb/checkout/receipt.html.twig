@@ -1,0 +1,74 @@
+{% extends "_layout" %}
+
+{% set number = craft.request.param('number') %}
+{% set order = craft.orders.number(number).one() %}
+
+{% if not order or not number %}
+  {% redirect '/' %}
+{% endif %}
+
+{% block headerThirdPartyScripts %}
+  {% include 'checkout/_dataLayer' with {
+    order: order
+  } %}
+{% endblock %}
+
+{% block seo %}
+  {% include "checkout/_seo-checkout.html" with {
+    stepTitle: siteName~" Checkout - Receipt"
+  } %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="background--black padding--top--thin">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <h1 class="margin--bottom--none">Thank you for your order</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Order #{{ order.number[:7]|upper }}</h2>
+
+    {% if order.pdfUrl %}
+      <p><a href="{{ order.getPdfUrl('receipt') }}">Download Receipt</a></p>
+    {% endif %}
+    <div class="row">
+      <div class="l--small--4 column">
+        <h4>Details</h4>
+
+        <ul class="list--noBullets">
+          <li><strong>{{ "Customer"|t }}:</strong> {{ order.email }}</li>
+          <li><strong>{{ "Total"|t }}:</strong> {{ order.totalPrice|commerceCurrency(cart.currency) }}</li>
+          <li><strong>{{ "Amount Paid"|t }}:</strong> {{ order.totalPaid|commerceCurrency(cart.currency) }}</li>
+          <li><strong>{{ "Date"|t }}:</strong> {{ order.dateOrdered|date('Y-m-d') }}</li>
+          <li>
+            <strong>{{ "Scheduled Ship Date"|t }}:</strong> {{ order.scheduledShipDate|date('Y-m-d') }}
+          </li>
+        </ul>
+      </div>
+      <div class="l--small--4 columns">
+        <h4>Shipping Address</h4>
+
+        {% if order.shippingAddress %}
+        {% include '/checkout/addresses/_address' with { address: order.shippingAddress } %}
+        {% endif %}
+      </div>
+      <div class="l--small--4 columns">
+        <h4>Billing Address</h4>
+
+        {% if order.billingAddress %}
+        {% include '/checkout/addresses/_address' with { address: order.billingAddress } %}
+        {% endif %}
+      </div>
+    </div>
+
+    {% include "checkout/_reviewTable" with { referralObject: order, showAddresses: false } %}
+
+    {% include "checkout/_analytics" with { order: order } %}
+  </div>
+{% endblock %}

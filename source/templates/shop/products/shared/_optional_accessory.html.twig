@@ -1,0 +1,66 @@
+<div class="row suggestedAccessoryOptional">
+  <div class="l--medium--12 columns is--hidden--medium margin--bottom--none">
+    <p class="text--bold text--large margin--bottom--half suggestedAccessoryOptional__body__title">{{ product.title }}</p>
+    {% if product.defaultVariant.onSale %}
+      <p class="text--bold text--large margin--bottom--none"><s>{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</s></p>
+      <p class="text--bold text--larger text--red">{{ product.defaultVariant.salePrice | commerceCurrency(cart.currency) }}</p>
+    {% else %}
+      <p class="text--bold text--larger text--red">{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</p>
+    {% endif %}
+  </div>
+  <div class="l--medium--2 columns suggestedAccessoryOptional__image margin--bottom--none">
+    <img class="lazyload" data-src="{{ product.image.one.getUrl('xxsmall') }}" />
+  </div>
+  <div class="l--medium--6 columns suggestedAccessoryOptional__body">
+    <p class="text--bold text--large margin--bottom--narrow is--hidden is--visible--medium suggestedAccessoryOptional__body__title">{{ product.title }}</p>
+    {% if product.defaultVariant.onSale %}
+      <p class="text--bold text--large margin--bottom--none is--hidden is--visible--medium"><s>{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</s></p>
+      <p class="text--bold text--larger text--red margin--bottom--narrow is--hidden is--visible--medium">{{ product.defaultVariant.salePrice | commerceCurrency(cart.currency) }}</p>
+    {% else %}
+      <p class="text--bold text--larger text--red margin--bottom--narrow is--hidden is--visible--medium">{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</p>
+    {% endif %}
+    <div class="suggestedAccessoryOptional__body__description">{{ product.productDescription }} </div>
+  </div>
+
+  {% if product.defaultSku == 'WHITEGLOVEDELIVERY' %}
+
+    <div class="l--medium--4 columns">
+      <div class="row">
+        <div class="l--extraSmall--4 l--small--2 l--medium--4 l--extraSmall--offset--4 l--small--offset--5 l--medium--offset--0 columns textCenter background--lightGrey quantityContainer"></div>
+        <div class="l--medium--8 columns textRight addToCartContainer">
+          <button class="flexGrowLinks__link flexGrowLinks__link--last l--centered" id="shippingOptions__addWhiteGloveDeliveryButton" v-on:click="addWhiteGloveDeliveryToCart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  {% else %}
+
+    <div class="l--medium--4 columns">
+      <div class="row">
+        <div class="l--extraSmall--4 l--small--2 l--medium--4 l--extraSmall--offset--4 l--small--offset--5 l--medium--offset--0 columns textCenter background--lightGrey quantityContainer">
+          {% include 'shop/products/shared/_quantity.html' with {
+            variant: product.defaultVariant
+          } %}
+        </div>
+        <div class="l--medium--8 columns textRight addToCartContainer">
+          {% if product is not null %}
+            {% include "shared/_add_to_cart.html" with {
+            product: product,
+            buttonText: product.addToCartCta ?: "Add to Cart",
+            buttonClasses: "flexGrowLinks__link flexGrowLinks__link--last l--centered",
+            useAjax: 'ajaxAddToCart'
+            } %}
+          {% endif %}
+        </div>
+        <div class="l--medium--12 columns margin--bottom--half is--hidden proceedToCheckout" for="form{{ product.defaultVariant.id }}">
+          <a href="/cart" class="button button--red">Proceed to Checkout</a>
+        </div>
+        <div class="l--medium--12 columns is--hidden maxQtyAlert" for="qty{{ product.defaultVariant.id }}">
+          <a href="/about-us/contact-us#find-your-rep">For volume discounts, click here</a>
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+
+</div>

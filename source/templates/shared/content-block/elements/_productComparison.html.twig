@@ -1,0 +1,14 @@
+<div class="contentBlock__productComparison {{ craft.keiserCommerceHelpers.getCustomCSSClasses(contentElement)|join(' ') }}" id="{{ contentElement.contentBlockID ? contentElement.contentBlockID : 'div'~contentElement.id }}">
+  <div class="contentBlock__productComparison__productTitle text--alignCenter">
+    <span class="text--sansSerif--black font--size--extraSmall--18 font--size--medium--28">{{ contentElement.contentBlockProductDetails.productTitle }}</span>
+  </div>
+  <div class="contentBlock__productComparison__productImage text--alignCenter">
+    <img src="{{ contentElement.contentBlockProductDetails.productImage.one.url() }}">
+  </div>
+  {% for feature in contentElement.contentBlockProductFeatures %}
+    <div class="contentBlock__productComparison__productFeature">
+        <img class="contentBlock__productComparison__productFeature__icon" src="{{ feature.icon.one.url() }}">
+        <p class="contentBlock__productComparison__productFeature__description">{{ feature.description }}</p>
+    </div>
+  {% endfor %}
+</div>

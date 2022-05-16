@@ -1,0 +1,76 @@
+.mppReview {
+
+  &__aggregateRating {
+
+    .dividedBlock__left {
+      border-right: none;
+    }
+
+    &__rating {
+      font-family: $sansSerif--black;
+      font-weight: $fontWeight--black;
+      margin-right: 5px;
+      font-size: 3.5em;
+      vertical-align: sub;
+    }
+
+    &__label {
+      color: $grey--light;
+    }
+
+    &__stars {
+      margin-bottom: 10px;
+
+      img.ratingStar {
+        max-width: 50px;
+        margin-right: 6px;
+      }
+    }
+
+  }
+
+  &__latestReview {
+
+    .dividedBlock__right {
+      padding-top: 0;
+
+      > div {
+        border-top: 2px solid $keiser--red;
+        padding-top: $verticalRhythm;
+
+        @include respond-to(medium){
+          border-top: none;
+          padding-top: 0;
+        }
+      }
+
+      @include respond-to(medium){
+        border-top: none;
+        border-left: 2px solid $keiser--red;
+      }
+    }
+
+    &__label {
+      color: $grey--light;
+      margin-bottom: 5px;
+    }
+
+    &__stars {
+
+      margin-bottom: 5px;
+
+      img.ratingStar {
+        max-width: 27px;
+        margin-right: 2px;
+      }
+
+    }
+
+    &__review {
+      margin-top: 8px;
+      color: $grey--light;
+    }
+
+  }
+
+}

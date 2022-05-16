@@ -1,0 +1,11 @@
+{% if financing is not defined %}
+  {% set financing = false %}
+{% endif %}
+<div class="productFeature row">
+  <div class="l--extraSmall--3 l--small--2 l--medium--2 columns margin--bottom--half padding--right--none productFeature__icon {{ financing ? 'affirm-site-modal'}}" {{ financing ? 'data-page-type="product"' }}>
+    <img class="lazyload" data-src="/assets/images/{{ image }}" />
+  </div>
+  <div class="l--extraSmall--9 l--small--10 l--medium--10 columns margin--bottom--half productFeature__text {{ financing ? 'affirm-site-modal' }}" {{ financing ? 'data-page-type="product"' }}>
+    <p class="text--black text--large margin--bottom--none">{{ title | raw }}</p>
+  </div>
+</div>

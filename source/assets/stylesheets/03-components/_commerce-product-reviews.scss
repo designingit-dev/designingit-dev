@@ -1,0 +1,122 @@
+.commerceProductReview__recommend img {
+  width: 26px;
+}
+
+.commerceProductReview__recommend span {
+  position: relative;
+  top: -6px;
+  margin-left: 3px;
+}
+
+#commerceProductReview__average .ratingStar {
+  width: 42px;
+  margin-top: 4px;
+}
+
+.commerceProductReview .ratingStar {
+  width: 25px;
+}
+
+#commerceProductReview__average__rating {
+  position: relative;
+  top: -7px;
+  margin-left: 15px;
+}
+
+#commerceProductReview__average__productTitle,.commerceProductReview__average__avgRatingLabel {
+  margin-bottom: 5px;
+}
+
+.commerceProductReview__date {
+  margin-left: 10px;
+  position: relative;
+  top: -5px;
+}
+
+.commerceProductReview__name,.commerceProductReview__city,.commerceProductReview__gender {
+  margin-bottom: 5px;
+}
+
+.commerceProductReview__headline {
+  margin-top: 6px;
+}
+
+#commerceProductReview__pagination img {
+  max-height: 20px;
+  position: relative;
+  top: 3px;
+}
+
+#commerceProductReview__pagination a {
+  margin-left: 30px;
+  font-size: map-get($fontSizes, 'large');
+  font-weight: $fontWeight--bold;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+}
+
+#commerceProductReview__pagination a:hover,#commerceProductReview__pagination a:active {
+  background: $grey--xLight;
+  text-decoration: none;
+}
+
+#commerceProductReview__pagination a.currentPage {
+  color: $keiser--black;
+}
+
+.commerceProductReview hr {
+  border-top: none;
+}
+
+.commerceProductReview__moderatorComments {
+  padding: 15px;
+}
+
+.commerceProductReview__imageContainer img {
+  max-width: 130px;
+  border: solid 10px $grey--xLight;
+}
+
+.commerceProductReview__verifiedPurchaseContainer {
+  margin-bottom: 10px;
+
+  img {
+    width: 20px;
+  }
+
+  span {
+    font-weight: $fontWeight--bold;
+    position: relative;
+    top: -8px;
+  }
+}
+
+.aggregateRatingCondensed {
+
+  img.ratingStar {
+    max-width: 21px;
+    margin-right: 4px;
+  }
+
+  display: inline-block;
+  border-left: solid 1px $keiser--red;
+  margin-left: 20px;
+  padding-left: 20px;
+
+  .commerceProductReview__average__avgRatingLabel {
+    color: $grey--light;
+  }
+
+}
+
+.productPage__new {
+
+  .aggregateRatingCondensed {
+    border-left: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+}

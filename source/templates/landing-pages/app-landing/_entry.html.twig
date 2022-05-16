@@ -1,0 +1,110 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+  {% if entry.appLandingHeader is not empty %}
+    {% set appLandingHeader = entry.appLandingHeader.one() %}
+    <div class="background--darkGrey appLanding__header">
+      <div class="container">
+        <div class="row">
+          <div class="l--extraSmall--3 columns">
+            <img class="appLanding__header__icon" src="{{ appLandingHeader.appIcon.one().url }}" >
+          </div>
+          <div class="l--extraSmall--9 columns">
+            {% if appLandingHeader.smallHeading %}
+              <h2 class="text--red is--hidden--extraSmall is--hidden--small is--visible--medium appLanding__header__smallHeading">{{ appLandingHeader.smallHeading }}</h2>
+              <h3 class="text--red is--hidden--medium appLanding__header__smallHeading">{{ appLandingHeader.smallHeading }}</h3>
+            {% endif %}
+            {% if appLandingHeader.largeHeading %}
+              <h1 class="appLanding__header__largeHeading">{{ appLandingHeader.largeHeading|nl2br }}</h1>
+            {% endif %}
+            {% if entry.appLandingAppStoreBlock %}
+              {% set appStoreBlock = entry.appLandingAppStoreBlock.one() %}
+              <div class="row is--hidden is--visible--medium margin--top">
+                <div class="l--extraSmall--6 l--medium--4 columns margin--bottom--none">
+                  <a href="{{ appStoreBlock.appleLink }}"><img class="appLanding__headerWithImage__appStoreIcon" src="{{ appStoreBlock.appleImage.one().url }}"></a>
+                </div>
+                <div class="l--extraSmall--6 l--medium--6 margin--bottom--none">
+                  <a href="{{ appStoreBlock.googleLink }}"><img class="appLanding__headerWithImage__appStoreIcon" src="{{ appStoreBlock.googleImage.one().url }}"></a>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% if entry.appLandingAppStoreBlock %}
+          {% set appStoreBlock = entry.appLandingAppStoreBlock.one() %}
+          <div class="row is--hidden--medium">
+            <div class="l--extraSmall--6 l--small--5 l--small--offset--1 columns text--alignCenter margin--bottom--none">
+              <a href="{{ appStoreBlock.appleLink }}"><img class="appLanding__appStoreBlock__appStoreIcon" src="{{ appStoreBlock.appleImage.one().url }}"></a>
+            </div>
+            <div class="l--extraSmall--6 l--small--5 columns text--alignCenter margin--bottom--none">
+              <a href="{{ appStoreBlock.googleLink }}"><img class="appLanding__appStoreBlock__appStoreIcon" src="{{ appStoreBlock.googleImage.one().url }}"></a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container">
+    <div class="row">
+      {% if entry.appLandingDescription %}
+        <div class="l--medium--6 columns appLanding__description">
+          {{ entry.appLandingDescription }}
+        </div>
+      {% endif %}
+      {% if entry.appLandingScreenshots is not empty %}
+        <div class="l--medium--6 columns">
+          <div class="row">
+            {% for screenshot in entry.appLandingScreenshots %}
+              <div class="l--extraSmall--6 l--medium--6 columns">
+                <strong class="text--red">{{ screenshot.screenshotTitle }}</strong>
+                <img class="margin--top--narrow" src="{{ screenshot.image.one().url }}">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if entry.appLandingAppStoreBlock is not empty %}
+    {% set appStoreBlock = entry.appLandingAppStoreBlock.one() %}
+    <div class="background--black">
+      <div class="container">
+        <div class="row">
+          <div class="l--extraSmall--6 l--medium--6 columns text--alignCenter appLanding__appStoreBlock__appleColumn">
+            <a href="{{ appStoreBlock.appleLink }}"><img class="appLanding__appStoreBlock__appStoreIcon" src="{{ appStoreBlock.appleImage.one().url }}"></a>
+          </div>
+          <div class="l--extraSmall--6 l--medium--6 columns text--alignCenter">
+            <a href="{{ appStoreBlock.googleLink }}"><img class="appLanding__appStoreBlock__appStoreIcon" src="{{ appStoreBlock.googleImage.one().url }}"></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--12 columns text--alignCenter text--red margin--bottom--none">
+            <h2 class="appLanding__appStoreBlock__description">{{ appStoreBlock.description }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingModalCta is not empty %}
+    {% set contactModalCTA = entry.appLandingModalCta.one() %}
+    <div class="background--darkGrey">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--6 columns margin--bottom--none">
+            <h2 class="appLanding__modalCTA__description">{{ contactModalCTA.description }}</h2>
+          </div>
+          <div class="l--medium--1 columns"></div>
+          <div class="l--medium--5 columns margin--bottom--none">
+            <button class="commercialSalesModal text--alignLeft text--larger appLanding__modalCTA__cta" v-on:click="openModal('{{ contactModalCTA.modalName }}')" class="button">{{ contactModalCTA.ctaTitle }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include contactModalCTA.modalTemplatePath %}
+  {% endif %}
+
+{% endblock %}

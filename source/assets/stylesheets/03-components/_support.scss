@@ -1,0 +1,348 @@
+
+#supportOptionsContainer__top {
+  text-align: center;
+  padding: $gutter $gutter--narrow;
+  background: black;
+  @include respond-to(small){
+    margin-top: 36px;
+  }
+  a {
+    display: inline-block;
+    text-align: left;
+    padding: $gutter/2;
+    width: 325px;
+    img {
+      width: 50px;
+      margin-right: $gutter--narrow;
+      float: left;
+    }
+    small {
+      white-space: nowrap;
+    }
+  }
+  a, p {
+    clear: both;
+  }
+  p {
+    margin-top: $gutter--half;
+  }
+}
+
+.announcement p {
+  margin-bottom: $verticalRhythm--half;
+}
+
+.supportLinksList__type {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.supportLinksList__type.active,.supportLinksList__type:hover {
+  background: $keiser--red;
+}
+
+#supportLinksList__container {
+  padding-top: $verticalRhythm;
+  margin-bottom: 10px;
+}
+
+.supportLinksList__link {
+  text-align: center;
+  cursor: pointer;
+}
+
+.supportLinksList__link__imageContainer {
+  border: solid 1px $keiser--red;
+}
+
+.supportLinksList__link__image {
+  max-width: 48px;
+  max-height: 48px;
+  margin-top: 15px;
+  margin-bottom: 12px;
+}
+
+.supportLinksList__link__label {
+  height: 83px;
+  padding-top: 15px;
+  border: solid 1px $keiser--black;
+}
+
+.supportLinksList__link__external {
+  position: absolute;
+  width: 17px;
+  right: 0px;
+  top: 0px;
+}
+
+.subcategoriesList:hover {
+  text-decoration: underline;
+}
+
+.supportLinksList__link:hover {
+  text-decoration: underline;
+  text-decoration-color: $keiser--white;
+}
+
+.subcategoriesList__thumbnail {
+  margin-bottom: 7px;
+}
+
+#supportPageTitle {
+
+}
+
+.supportHomeSubcategory:hover {
+  text-decoration: underline;
+}
+
+.supportHomeSubcategory img {
+  max-width: 140px;
+  margin-bottom: 7px;
+}
+
+
+#supportHome__popularTopics {
+  @include respond-to(medium){
+    padding-left: 0;
+    padding-right: 15%;
+  }
+}
+
+#supportHome__moreProducts img {
+  width: 13px;
+  position: relative;
+  left: 4px;
+}
+
+.subcategoriesList__clearfix {
+  @include clearfix;
+  @include respond-to(extraSmall){
+    display: none;
+  }
+  @include respond-to(small){
+    display: block;
+  }
+  @include respond-to(medium){
+    display: none;
+  }
+  @include respond-to(large){
+    display: none;
+  }
+}
+
+.clearfix__extraSmall {
+  @include clearfix;
+  @include respond-to(extraSmall){
+    display: block;
+  }
+  @include respond-to(small){
+    display: none;
+  }
+  @include respond-to(medium){
+    display: none;
+  }
+  @include respond-to(large){
+    display: none;
+  }
+}
+
+.clearfix__small {
+  @include clearfix;
+  @include respond-to(extraSmall){
+    display: none;
+  }
+  @include respond-to(small){
+    display: block;
+  }
+  @include respond-to(medium){
+    display: none;
+  }
+  @include respond-to(large){
+    display: none;
+  }
+}
+
+.clearfix__medium {
+  @include clearfix;
+  @include respond-to(extraSmall){
+    display: none;
+  }
+  @include respond-to(small){
+    display: none;
+  }
+  @include respond-to(medium){
+    display: block;
+  }
+  @include respond-to(large){
+    display: none;
+  }
+}
+
+.clearfix__large {
+  @include clearfix;
+  @include respond-to(extraSmall){
+    display: none;
+  }
+  @include respond-to(small){
+    display: none;
+  }
+  @include respond-to(medium){
+    display: none;
+  }
+  @include respond-to(large){
+    display: block;
+  }
+}
+
+#tagEntryListContainer h3 {
+  color: $keiser--red;
+}
+
+.topResource__linkButton {
+  height: 40.8px;
+}
+
+.instructions {
+  figure {
+    text-align: center;
+  }
+  figcaption {
+    text-align: left;
+  }
+  figure, figcaption {
+    padding-top: $gutter;
+    padding-bottom: $gutter;
+    @include respond-to(small){
+      padding-left: $gutter;
+      padding-right: $gutter;
+    }
+  }
+  @include respond-to(medium){
+    > ul, > ol, > p, > [role] {
+      max-width: 66%;
+    }
+  }
+  ul {
+    ol, li {
+      margin-top: $verticalRhythm--half;
+    }
+  }
+  ol.steps {
+    width: 100%;
+    max-width: 100%;
+    counter-reset: steps;
+    > li {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      display: block;
+      @include respond-to(medium){
+        width: 50%;
+      }
+      &:before {
+        counter-increment: steps;
+        content: counter(steps, decimal);
+        position: absolute;
+        line-height: 60px;
+        font-weight: bold;
+        left: 0;
+        top: 0;
+        font-size: 28px;
+        width: 60px;
+        height: 60px;
+        color: white;
+        background: $keiser--red;
+        border-radius: 100%;
+        text-align: center;
+      }
+    }
+  }
+  .hidden-steps {
+    display: none;
+    figure, figcaption {
+      padding-bottom: 0;
+    }
+    &.active {
+      display: block;
+    }
+  }
+  .section, .hidden-steps.active {
+    max-width: 100%;
+    > figcaption {
+      padding: $gutter $gutter 0 $gutter;
+    }
+    @include respond-to(medium){
+	    display: flex;
+      flex-flow: row wrap;
+      > figure, > figcaption {
+        width: 50%;
+      }
+      > img {
+        margin-right: $gutter;
+        width: calc(50% - #{$gutter}); 
+      }
+    }
+  }
+  figure.section {
+    align-items: center;
+  }
+  h2, h3, h4, h5 {
+    text-transform: uppercase;
+  }
+  h2 { 
+    clear: both;
+    margin: 40px 0;
+  }
+  [role]:before {
+    margin-right: 3px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 100%;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+  }
+  [role=note]:before {
+    content: "i";
+    background: #4778b3;
+  }
+  [role=alert]:before {
+    content: "!";
+    background: $keiser--red;
+  }
+  iframe {
+    border: none;
+    width: 800px;
+    height: 320px;
+    @include respond-to(small){
+      height: 480px;
+    }
+  }
+}
+
+.chatButton {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform-origin: 100% 0%;
+  transform: rotate(90deg) scale(0.75);
+  z-index: 999997;
+  box-shadow: 0 0 2px #000;
+  border-radius: 0 0 3px 3px;
+  @include respond-to(small){
+    transform: rotate(90deg) scale(1);
+  }
+}
+
+div[id*="b_59157796_"] > div, div[id*="b_d5947c5b_"] > div {
+  transform: scale(0.75);
+  @include respond-to(small){
+    transform: scale(1);
+  }
+}

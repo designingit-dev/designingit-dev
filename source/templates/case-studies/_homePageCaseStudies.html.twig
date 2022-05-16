@@ -1,0 +1,92 @@
+<div class="background--darkGrey">
+  <div class="container margin--top">
+    <div class="row">
+      <div class="l--medium--12 columns">
+        <h2 class="margin--bottom--none">More success stories</h2>
+      </div>
+      {% for caseStudy in entry.homePageMoreCaseStudiesModule %}
+        <div class="l--small--6 columns caseStudy__homePage">
+          <h4 class="text--white">{{ caseStudy.market.one.title }}</h4>
+          <div class="row caseStudy__homePage__thumbnail__container">
+            <div class="l--medium--6 columns caseStudy__homePage__thumbnail" style="background-image:url('{{ caseStudy.caseStudy.one.caseStudyHomepageThumbnail.one().url }}')" v-on:click="openModal('case-study-homepage-{{ caseStudy.caseStudy.one.slug }}')">
+              <div class="caseStudy__heroThumbnail__playButtonOverlay caseStudy__homePage__thumbnail__overlay"></div>
+            </div>
+            <div class="l--small--6 columns caseStudy__homePage__intrigueSnippet" v-on:click="openModal('case-study-homepage-{{ caseStudy.caseStudy.one.slug }}')">
+                {{ caseStudy.caseStudy.one.caseStudyIntrigueSnippet | nl2br }}
+            </div>
+          </div>
+          <a class="button text--uppercase text--alignCenter caseStudy__homePage__link" href="{{ caseStudy.market.one.url }}">More {{ caseStudy.market.one.title }}</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% set allCaseStudies = craft.entries.section('caseStudies') %}
+{% set allCaseStudySlugs = [] %}
+{% for caseStudy in allCaseStudies %}
+  {% set allCaseStudySlugs = allCaseStudySlugs | merge ([caseStudy.slug]) %}
+{% endfor %}
+{% for caseStudy in allCaseStudies %}
+  <vue-modal :show.sync="showModal" :active-modal="activeModal" name="case-study-homepage-{{ caseStudy.slug }}">
+
+    <div slot="header">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--10 l--small--11 columns"></div>
+          <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+            <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('case-study-homepage-{{ caseStudy.slug }}')"><img src="/assets/images/modal-close-button.png" /> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div slot="body">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--medium--12 columns text--alignCenter" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+            youtubeLink: caseStudy.caseStudyYoutubeLink ~ '?autoplay=true'
+          } %}'>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="l--medium--6 columns">
+            <h3>Featured success stories</h3>
+            {% set featuredCaseStudySlugs = craft.keiserCommerceHelpers.getFeaturedCaseStudiesForModal(allCaseStudySlugs, caseStudy.slug) %}
+            {% for slug in featuredCaseStudySlugs %}
+              {% for study in allCaseStudies %}
+                {% if study.slug == slug %}
+                  <div class="row">
+                    <div class="l--extraSmall--5 columns" v-on:click="changeModal('case-study-homepage-{{ caseStudy.slug }}', 'case-study-homepage-{{ study.slug }}')">
+                      <div class="caseStudy__homePage__modal__thumbnail" style="background-image: url('{{ study.caseStudyHomepageThumbnail.one.url }}')">
+                        <div class="caseStudy__heroThumbnail__playButtonOverlay caseStudy__homePage__modal__overlay"></div>
+                      </div>
+                    </div>
+                    <div class="l--extraSmall--7 columns" v-on:click="changeModal('case-study-homepage-{{ caseStudy.slug }}', 'case-study-homepage-{{ study.slug }}')">
+                      {{ study.caseStudyIntrigueSnippet | nl2br }}
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </div>
+
+          <div class="l--medium--6 columns">
+            <h3>Success Stories By Industry</h3>
+            {% for market in craft.categories.group('caseStudyMarkets') %}
+              <div>
+                <a class="button text--uppercase text--alignCenter caseStudy__homePage__link" href="{{ market.url }}">{{ market.title }}</a>
+              </div>
+            {% endfor %}
+            <div>
+              <a class="button text--uppercase text--alignCenter caseStudy__homePage__link" href="/success-stories">See All</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div slot="footer"></div>
+  </vue-modal>
+{% endfor %}

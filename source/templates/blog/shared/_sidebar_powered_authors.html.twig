@@ -1,0 +1,9 @@
+<aside class="blog__sidebar blog__category__list margin--bottom">
+    <h2 class="blog__module__title">Keiser PowerED</h2>
+    <ul class="list--noBullets">
+        {% for user in craft.users.group('powerEdBlogUsers').all() %}
+            <li class="margin--left--none margin--bottom--narrow"><a href="/education/resources/authors/{{ user.firstName|lower }}-{{ user.lastName|lower }}">{{ user.fullName }}</a></li>
+        {% endfor %}
+        <li class="margin--left--none margin--bottom--narrow"><a href="/about-us/contact-us?modal=contactEducationServices">Contact Keiser PowerED</a></li>
+    </ul>
+</aside>

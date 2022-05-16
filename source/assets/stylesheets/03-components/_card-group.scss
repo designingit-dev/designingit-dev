@@ -1,0 +1,118 @@
+// -----------------------------------------------------------------------------
+// !-- Title Card
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Card Group
+name: card-group
+category: Components - Card Group
+---
+
+This implementation of a `cardGroup` lines up four [Title Cards][01-titleCard]
+together in a 4up fashion.
+
+``` html_example
+<div class="cardGroup">
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+  <div class="titleCard titleCard--cta">
+    <div class="titleCard__title text--upcase">
+      Better
+    </div>
+    <div class="titleCard__subheader text--upcase">
+      Subheader
+    </div>
+    <div class="titleCard__description text--upcase">
+      Description here
+    </div>
+    <button class="button button--small">Button</button>
+  </div>
+</div>
+```
+*/
+
+// -----------------------------------------------------------------------------
+
+$_borderColor: $black;
+$_borderWidth: $borderWidth--thin;
+
+.cardGroup {
+  display: flex;
+  flex-wrap: wrap;
+
+  .titleCard {
+    padding: $verticalRhythm 0;
+    flex: 1 0 auto;
+    border-bottom: $_borderWidth solid $_borderColor;
+    border-left: 0;
+
+    &:first-child {
+      padding-top: $verticalRhythm;
+    }
+
+    &:last-child {
+      padding-bottom: $verticalRhythm;
+      border-bottom: 0;
+    }
+
+    @include respond-to(medium) {
+      flex: 1 0 50%;
+      max-width: 50%;
+      border-bottom: $_borderWidth solid $_borderColor;
+      padding: $verticalRhythm 0;
+
+      &:nth-child(3) {
+        border-bottom: 0;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+
+    @include respond-to(large) {
+      padding: $verticalRhythm $verticalRhythm / 2;
+      flex: 1 0 25%;
+      max-width: 25%;
+      border-left:$_borderWidth solid $_borderColor;
+
+      &:last-child {
+        border-right:$_borderWidth solid $_borderColor;
+      }
+    }
+  }
+}

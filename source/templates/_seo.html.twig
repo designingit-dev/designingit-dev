@@ -1,0 +1,35 @@
+<title>{{ entry.pageTitle }}</title>
+<meta content="{{ entry.metaDescription }}" name="description"/>
+<meta content="{{ entry.metaDescription }}" name="DC.description"/>
+<meta content="{{ entry.pageTitle }}" name="DC.title"/>
+<meta content="{{ entry.pageTitle }}" property="og:title"/>
+<meta content="{{ entry.metaDescription }}" property="og:description"/>
+
+{% if entry.metaNoIndex %}
+    <meta name="robots" content="noindex" />
+{% endif %}
+
+{% if entry['image'] is defined and entry.image is not null and entry.image.one %}
+    <meta content="{{ entry.image.one.url }}" property="og:image"/>
+    <meta content="{{ entry.image.one.url }}" property="twitter:image"/>
+    <meta content="{{ entry.image.one.url }}" property="twitter:image:src"/>
+{% elseif entry['featuredImage'] is defined and entry.featuredImage is not null and entry.featuredImage.one %}
+    <meta content="{{ entry.featuredImage.one.url }}" property="og:image"/>
+    <meta content="{{ entry.featuredImage.one.url }}" property="twitter:image"/>
+    <meta content="{{ entry.featuredImage.one.url }}" property="twitter:image:src"/>
+{% endif %}
+
+{% if entry.pageAvailableUS %}
+    <link rel="alternate" hreflang="en-us" href="{{ globalSiteConfig.usBaseURL }}/{{ craft.request.getPath() }}">
+{% endif %}
+{% if entry.pageAvailableUK %}
+    <link rel="alternate" hreflang="en-gb" href="{{ globalSiteConfig.ukBaseURL }}/{{ craft.request.getPath() }}">
+{% endif %}
+{% if entry.pageAvailableUS or entry.pageAvailableUK %}
+    <link rel="alternate" hreflang="x-default" href="{{ globalSiteConfig.xdefaultBaseURL }}/{{ craft.request.getPath() }}">
+{% endif %}
+
+{#<meta content="<%= @meta_data[:og_type] %>" property="og:type"/>#}
+
+{#<meta content="<%= @meta_data[:twit_card] %>" name="twitter:card"/>#}
+{#<meta content="<%= @meta_data[:twit_description] %>" name="twitter:description"/>#}

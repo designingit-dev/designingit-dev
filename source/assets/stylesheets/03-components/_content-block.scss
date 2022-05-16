@@ -1,0 +1,171 @@
+$fontSizesContentBlock: (
+  '88': 88px,
+  '64': 64px,
+  '56': 56px,
+  '50': 50px,
+  '48': 48px,
+  '42': 42px,
+  '40': 40px,
+  '36': 36px,
+  '34': 34px,
+  '32': 32px,
+  '28': 28px,
+  '24': 24px,
+  '21': 21px,
+  '20': 20px,
+  '18': 18px,
+  '16': 16px,
+  '14': 14px,
+  '13': 13px,
+  '12': 12px,
+  '11': 11px,
+  '10': 10px
+);
+
+@each $breakpointName, $breakpoint in $breakpoints {
+  // Use respond-to mixin to build grid based on breakpoints
+  @include respond-to($breakpointName) {
+    // Create each grid class for each breakpoint
+    @each $fontSizeLabel,$fontSize in $fontSizesContentBlock {
+      .font--size--#{$breakpointName}--#{$fontSizeLabel} {
+        font-size: $fontSize;
+        line-height: $fontSize;
+      }
+    }
+  }
+}
+
+@each $breakpointName, $breakpoint in $breakpoints {
+  // Use respond-to mixin to build grid based on breakpoints
+  @include respond-to($breakpointName) {
+    // Create each grid class for each breakpoint
+    @each $fontSizeLabel,$fontSize in $fontSizesContentBlock {
+      .line--height--#{$breakpointName}--#{$fontSizeLabel} {
+        line-height: $fontSize;
+      }
+    }
+  }
+}
+
+.contentBlock {
+
+  .column, .columns {
+    margin-bottom: 0;
+  }
+
+  &.container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    @include respond-to(medium){
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .spaced__paragraphs p {
+    margin-bottom: $verticalRhythm;
+  }
+
+  // TODO: Need to make this better. <span> is only being used due to problems with Redactor's handling of <p> elements
+  span {
+    display: inline-grid;
+  }
+
+  &__productReview {
+
+    background-color: $content--block--product--review--background;
+    padding: 20px;
+    min-height: 90px;
+
+    @include respond-to(medium){
+      padding: 30px;
+      min-height: 174px;
+    }
+
+    &__starIcon {
+
+      padding-bottom: 6px;
+
+      img {
+        max-width: 11px;
+        @include respond-to(medium){
+          max-width: 18px;
+        }
+      }
+
+    }
+
+    &__review {
+
+      padding-bottom: 6px;
+      color: $content--block--product--review--review;
+    }
+
+    &__reviewerDetails {
+      color: $content--block--product--review--reviewerDetails;
+    }
+
+  }
+
+  &__productComparison {
+
+    background-color: $content--block--product--review--background;
+    padding: 30px;
+
+    min-height: 90px;
+
+    @include respond-to(medium){
+      padding: 60px;
+    }
+
+    &__productTitle {
+      color: $content--block--product--review--reviewerDetails;
+    }
+
+    &__productImage {
+
+      margin-top: $verticalRhythm--half;
+      margin-bottom: $verticalRhythm--half;
+
+      img {
+        max-width: 200px;
+        @include respond-to(medium) {
+          max-width: 313px;
+        }
+      }
+    }
+
+    &__productFeature {
+
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      &__icon {
+        max-width: 53px;
+        @include respond-to(medium) {
+          max-width: 82px;
+        }
+      }
+
+      &__description {
+        margin-left: 18px;
+        @include respond-to(medium){
+          margin-left: 28px;
+        }
+      }
+
+    }
+
+  }
+
+  .youtube-embed {
+    position: relative;
+  }
+
+}

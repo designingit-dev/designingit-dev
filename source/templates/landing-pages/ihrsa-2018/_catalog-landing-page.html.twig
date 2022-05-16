@@ -1,0 +1,102 @@
+{% extends "_layout" %}
+
+{% block header %}
+  {% include 'headers/_header-logo_with_custom_title' with {
+    'customTitle': 'Product Catalog'
+  } %}
+{% endblock %}
+
+{% block content %}
+
+  <button id="ihrsaNewCatalog__thankYouButton" v-on:click="openModal('ihrsaNewCatalog__thankYou')" class="is--hidden"></button>
+  <vue-modal :active-modal="activeModal" name="ihrsaNewCatalog__thankYou" id="ihrsaNewCatalog__thankYou" v-cloak>
+    <div slot="header">
+      <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('ihrsaNewCatalog__thankYou')"><img src="/assets/images/modal-close-button.png" /> </div>
+      <h2 class="text--red margin--bottom--none">THANK YOU</h2>
+    </div>
+    <div slot="body">
+      <h2>FOR REGISTERING YOUR INTEREST</h2>
+    </div>
+  </vue-modal>
+
+  <main>
+
+    <div class="background--red">
+      <div class="container container--full container--noPad text--alignCenter">
+        <div class="row">
+          <div class="l--medium--12 columns margin--bottom--none ihrsaNewCatalog__heroImage">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container--tight text--alignLeft ihrsaNewCatalog__formIntro">
+      <div class="row">
+        <div class="l--medium--6 columns margin--bottom--none">
+          <h2 class="margin--bottom--none">SUBMIT THE FORM.</h2>
+          <h2 class="text--red margin--bottom--none">GET OUR NEW CATALOG</h2>
+          <h2 class="text--red margin--bottom--none">WHEN IT DEBUTS.</h2>
+        </div>
+        <div class="l--medium--6 columns margin--bottom--none">
+          <p class="margin--bottom--none">
+            <strong>COMING SOON,</strong> our all-new Keiser Catalog is a game-changer — and you can be one of the first
+            to receive it! Fill out the form below and we’ll email you the digital PDF version of the catalog the moment
+            it’s released.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="background--black">
+      <div class="container">
+        <div class="row text--alignLeft">
+          {% set form = craft.sproutForms.form('ihrsa2018NewCatalog') %}
+          <form method="post" action="/forms/ihrsa2018NewCatalog" accept-charset="UTF-8" class="ihrsaNewCatalog__contactForm">
+            <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+            <input type="hidden" name="handle" value="ihrsa2018NewCatalog">
+            {{ redirectInput('/' ~ craft.app.request.segments[0] ~ '?message=thankyouforsubmitting') }}
+            {{ csrfInput() }}
+            <div class="l--medium--6 l--medium--offset--3 columns margin--bottom--none">
+              {{ craft.sproutForms.displayField(form, form.getField('leadName')) }}
+            </div>
+            <div class="l--medium--6 l--medium--offset--3 columns margin--bottom--none">
+              {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+            </div>
+            <div class="l--medium--6 l--medium--offset--3 columns margin--bottom--none">
+              {{ craft.sproutForms.displayField(form, form.getField('industry')) }}
+            </div>
+            <div class="l--medium--6 l--medium--offset--3 columns margin--bottom--none">
+              {{ craft.sproutForms.displayField(form, form.getField('zipCode')) }}
+            </div>
+            <div class="l--medium--6 l--medium--offset--3 columns margin--bottom--none">
+              {{ craft.sproutForms.displayField(form, form.getField('country')) }}
+            </div>
+            <div class="l--medium--6 l--medium--offset--3 columns margin--bottom--none">
+              <input type="submit" class="button" value="GET THE BROCHURE">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="background--darkGrey">
+      <div class="container container--full container--tight">
+        <div class="sharethis-inline-share-buttons"></div>
+        <div class="text--alignCenter">
+          <a href="/" class="button button--reversedTertiary">Visit keiser.com to learn more.</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+{% endblock %}
+
+{% block footerThirdPartyScripts %}
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=58b878e6b5b25f0011bebb6c&product=inline-share-buttons"></script>
+{% endblock %}
+
+{% block footer %}
+  {% include 'footers/_footer-small' %}
+{% endblock %}

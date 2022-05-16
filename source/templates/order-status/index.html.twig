@@ -1,0 +1,45 @@
+{% extends '_layout' %}
+
+{% block content %}
+<div class="container container--tight">
+  <div class="row">
+    <div class="l--medium--12 columns">
+      <h1 class="scale--xXLarge">Track your order</h1>
+      <p>For orders placed on Keiser.com only. For other orders, please <a class="link--underlined" href="/about-us/contact-us">contact your sales representative</a> for information about your order.</p>
+
+      {% set missingOrder = craft.app.session.getFlash('orderNotFound', null, true) %}
+      {% set missingOrderEmail = craft.app.session.getFlash('orderEmail', null, true) %}
+      {% if missingOrder %}
+        <p class="text--red">
+          No order was found for order number <b>{{ missingOrder }}</b> with email <b>{{ missingOrderEmail }}</b>.
+        </p>
+      {% endif %}
+
+      <form class="l--medium--6" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        {{ craft.blitz.csrfInput() }}
+        <input type="hidden" name="action" value="keiser-commerce-helpers/order-status/find">
+
+        <div class="field order-number required margin--bottom">
+          <div class="heading">
+            <label for="fields-order-number">Order Number*</label>
+          </div>
+          <div class="input">
+            <input type="text" name="orderNumber" id="fields-order-number" required="" aria-required="true">
+          </div>
+        </div>
+
+        <div class="field email required margin--bottom">
+          <div class="heading">
+            <label for="fields-email">Billing Email Address*</label>
+          </div>
+          <div class="input">
+            <input type="email" autocomplete="email" name="email" id="fields-email" required="" aria-required="true">
+          </div>
+        </div>
+
+        <button class="button--smallMax--fullWidth" type="submit">Get Order Status</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

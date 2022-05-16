@@ -1,0 +1,37 @@
+{
+    "name": "keiser/download-assets-link",
+    "description": "Adds a download link next to assets. Plugin customised for Keiser by Akshay Agarwal to allow one-click download of assets from S3 rather than just opening them in new tab",
+    "type": "craft-plugin",
+    "version": "1.0.1",
+    "keywords": ["some", "keywords", "here"],
+    "support": {
+        "docs": "https://github.com/stenvdb/download-assets/blob/master/README.md",
+        "issues": "https://github.com/stenvdb/download-assets/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Akshay Agarwal",
+          "homepage": "https://www.keiser.com/"
+        },
+        {
+            "name": "Sten Van den Bergh",
+            "homepage": "http://www.stenvdb.be/"
+        }
+    ],
+    "require": {
+      "craftcms/cms": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+          "keiser\\downloadassets\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Keiser Download Assets",
+        "handle": "download-assets",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "class": "keiser\\downloadassets\\DownloadAssets"
+    }
+}

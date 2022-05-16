@@ -1,0 +1,27 @@
+.productCategoryCard__title {
+  height: 118px;
+  padding: $gutter--half;
+}
+
+.productCategoryCard__title p {
+  font-size: $shopHeadingFontSize;
+}
+
+.productCategoryCard__image {
+  height: 187px;
+  border: 1px solid $red;
+  border-top: none;
+}
+
+.productCategoryCard__image img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.productCategory {
+
+  &__header {
+    background: radial-gradient(circle 1400px at 50% 177%, $blue--light 0%, $blue--medium 50%, $blue--dark 100%);
+  }
+
+}

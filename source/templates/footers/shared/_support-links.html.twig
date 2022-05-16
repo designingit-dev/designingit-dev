@@ -1,0 +1,6 @@
+<div class="footer__sectionLinks">
+  {% set entry = craft.entries.section('supportHomepage').one %}
+  <a href="{{ entry.url }}" class="scale--base">
+    {% include 'shared/_nav-title.html' with {'entry': entry} %}
+  </a>
+</div>

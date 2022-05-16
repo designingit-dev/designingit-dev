@@ -1,0 +1,271 @@
+.ihrsaGuarantee {
+
+  &__header {
+
+    &__smallTitle {
+      color: $grey--light;
+      margin-bottom: 10px;
+      font-size: 18px;
+      line-height: normal;
+
+      @include respond-to(medium){
+        font-size: 25px;
+        line-height: 22.88px;
+      }
+    }
+
+    &__largeTitle {
+      color: $keiser--white;
+      font-size: 31px;
+      line-height: 27px;
+      letter-spacing: normal;
+
+      @include respond-to(medium){
+        font-size: 70px;
+        line-height: 66.45px;
+        letter-spacing: -0.34px;
+      }
+
+      &__red {
+        color: $keiser--red;
+      }
+
+    }
+
+    &__copy {
+      color: $grey--light;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 17px;
+      line-height: normal;
+
+      @include respond-to(medium){
+        font-size: 25px;
+        line-height: 30.9px;
+      }
+    }
+
+  }
+
+  &__offerInclusions {
+
+    &__largeCopy {
+      font-size: 18px;
+
+      @include respond-to(medium){
+        font-size: 28px;
+      }
+    }
+
+    &__satisfactionGuarantee{
+      border-top: solid 2px $keiser--red;
+      border-bottom: solid 2px $keiser--red;
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      div {
+        @include respond-to(medium){
+          display: inline-block;
+        }
+      }
+
+      &__largeTitle {
+        font-size: 37px;
+        margin-bottom: 0;
+
+        @include respond-to(medium){
+          font-size: map-get($fontSizes, xLarger);
+        }
+      }
+
+      &__smallTitle {
+        font-size: 21px;
+        margin-bottom: 0;
+
+        @include respond-to(medium){
+          font-size: map-get($fontSizes, large);
+        }
+      }
+
+      &__rewardsProgramContainer {
+        @include respond-to(medium){
+          position: relative;
+          top: -20px;
+        }
+      }
+
+      &__symbolContainer {
+        margin-left: 15px;
+        margin-right: 15px;
+
+        &__symbol {
+          font-size: 54px;
+          color: $keiser--red;
+          margin-bottom: 0;
+
+          @include respond-to(medium){
+            font-size: 3.8em;
+            position: relative;
+            top: -16px;
+          }
+
+        }
+
+      }
+
+      &__value {
+        font-size: 24px;
+
+        @include respond-to(medium){
+          font-size: 40px;
+        }
+      }
+
+      &__value__red {
+        font-size: 31px;
+
+        @include respond-to(medium){
+          font-size: 52px;
+        }
+      }
+
+      &__actFast {
+        font-size: 21px;
+
+        @include respond-to(medium){
+          font-size: 34px;
+        }
+      }
+
+    }
+  }
+
+  &__demoStation {
+
+    h2 {
+      color: $keiser--red;
+      margin-bottom: 15px;
+      font-size: 30px;
+
+      @include respond-to(medium){
+        font-size: 50px;
+      }
+    }
+
+    p {
+      color: $grey--light;
+      font-size: 18px;
+      line-height: 20px;
+
+      @include respond-to(medium){
+        font-size: 25px;
+        line-height: 26px;
+      }
+    }
+
+    &__warrior img {
+      max-width: 100%;
+      max-height: 550px;
+
+      @include respond-to(medium){
+        max-width: 366px;
+      }
+    }
+  }
+
+  &__equipmentChoices {
+
+    h2 {
+      font-size: 30px;
+    }
+
+    &__clearfix {
+      @include clearfix
+    }
+
+    a.button {
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 100%;
+      vertical-align: bottom;
+    }
+
+    &__equipment {
+      border: 2px solid #a9a8a9;
+      padding-top: 20px;
+
+      img {
+        max-height: 144px;
+        min-height: 144px;
+
+        @include respond-to(medium){
+          max-height: 180px;
+          min-height: 180px;
+        }
+      }
+    }
+
+    &__equipment:hover {
+      background: rgba(209,10,44,0.2);
+      cursor: pointer;
+    }
+
+    &__equipment.active {
+      background: $keiser--red;
+    }
+  }
+
+  &__contact {
+
+    h2 {
+      font-size: 30px;
+    }
+
+    &__clearfix {
+      @include clearfix
+    }
+
+    .field {
+      width: 100%;
+    }
+
+    label {
+      font-size: 19px;
+    }
+
+    input[type="text"],input[type="email"],select {
+      background: $grey--light--alt !important;
+    }
+
+    select {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+
+    input[type="submit"] {
+      margin-top: 32px;
+      padding-top: 9px;
+      padding-bottom: 9px
+    }
+
+  }
+
+  &__statusQuo {
+
+    h2 {
+      font-size: 30px;
+      @include respond-to(medium){
+        font-size: 43px;
+      }
+    }
+
+    p {
+      color: $grey--xLight-alt;
+    }
+
+    &__title__grey {
+      color: #a7a9ab;
+    }
+  }
+
+}

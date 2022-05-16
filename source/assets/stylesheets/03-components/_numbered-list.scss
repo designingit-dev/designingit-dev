@@ -1,0 +1,61 @@
+// Disable linter errors for code documentation
+// scss-lint:disable Comment
+/*doc
+---
+title: Numbered List
+name: numbered-list
+categories: Components - Lists
+---
+
+Use this for a stylized numeric list
+
+```html_example
+<ul class="numberedList">
+  <li class="numberedList__item">Item 1</li>
+  <li class="numberedList__item">Item 2</li>
+  <li class="numberedList__item">Item 3</li>
+</ul>
+```
+
+Add `.numberedList__item--setWidth` to the numbered list items to get a larger
+number and ensure that these are a set width, rather than relying on the width of the
+number value.
+
+```html_example
+<ul class="numberedList">
+  <li class="numberedList__item numberedList__item--setWidth">Item 1</li>
+  <li class="numberedList__item numberedList__item--setWidth">Item 2</li>
+  <li class="numberedList__item numberedList__item--setWidth">Item 3</li>
+</ul>
+```
+*/
+// scss-lint:enable Comment
+
+.numberedList {
+  list-style: none;
+  counter-reset: numbered-list-counter;
+}
+
+.numberedList__item {
+  margin-left: 0;
+
+  &::before {
+    font-family: $sansSerif--black;
+    font-weight: $fontWeight--black;
+    display: inline-block;
+    margin-right: .5em;
+    content: counter(numbered-list-counter);
+    counter-increment: numbered-list-counter;
+    color: $red;
+  }
+
+  &--setWidth {
+
+    &::before {
+      font-size: map-get($fontSizes, large);
+      display: inline-block;
+      width: $gutter;
+    }
+
+  }
+}

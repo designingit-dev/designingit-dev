@@ -1,0 +1,74 @@
+{% set foreignDisplayProps = '' %}
+{% if hideForeign is defined and hideForeign %}
+  {% set foreignDisplayProps = 'data-hideForeign=true' %}
+{% endif %}
+
+{% if section == 'shop' %}
+  <li {{ foreignDisplayProps }} class="navVertical__item {{ class is defined ? class }}">
+    <a href="/shop" class="navVertical__link">
+      SHOP ONLINE
+    </a>
+  </li>
+{% elseif section == "supporthomepage" %}
+  <li {{ foreignDisplayProps }} class="navVertical__item {{ class is defined ? class }}">
+    <a href="/support" class="navVertical__link">
+      SUPPORT
+    </a>
+  </li>
+{% else %}
+  {% for entry in craft.entries.section(section).level(1) %}
+    <li {{ foreignDisplayProps }} class="navVertical__item {{ class is defined ? class }}">
+      <a href="{{ entry.url }}" class="navVertical__link">
+        {% include 'shared/_nav-title.html' with {'entry': entry} %}
+      </a>
+
+      {% if entry.hasDescendants() %}
+        <ul class="navVertical navVertical--secondary">
+
+          {% switch section %}
+            {% case 'solutions' %}
+              <li {{ foreignDisplayProps }} class="navVertical__item navVertical--secondary__item">
+                <a href="/solutions" class="navVertical__link navVertical--secondary__link">
+                  See all solutions
+                </a>
+              </li>
+            {% case 'products' %}
+              <li {{ foreignDisplayProps }} class="navVertical__item navVertical--secondary__item">
+                <a href="/fitness-equipment" class="navVertical__link navVertical--secondary__link">
+                  See all fitness equipment
+                </a>
+              </li>
+          {% endswitch %}
+
+          {% for childEntry in entry.getChildren() %}
+            {% if childEntry.slug != 'contact-us' %}
+              <li {{ foreignDisplayProps }} class="navVertical__item navVertical--secondary__item">
+                <a href="{{ childEntry.url }}" class="navVertical__link navVertical--secondary__link">
+                  {% include 'shared/_nav-title.html' with {'entry': childEntry} %}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if section == 'education' %}
+            {% set theRideLPEntry = craft.entries.section('lp').slug('the-ride-indoor-cycling-workouts').one() %}
+            {% if theRideLPEntry is not empty %}
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="{{ theRideLPEntry.url }}" class="navVertical__link navVertical--secondary__link">
+                  {% include 'shared/_nav-title.html' with {'entry': theRideLPEntry} %}
+                </a>
+              </li>
+            {% endif %}
+            {% set powerEdBlogHomepage = craft.entries.slug('powered-blog-homepage').one() %}
+            {% if powerEdBlogHomepage is not empty %}
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="{{ powerEdBlogHomepage.url }}" class="navVertical__link navVertical--secondary__link">
+                  {% include 'shared/_nav-title.html' with {'entry': powerEdBlogHomepage} %}
+                </a>
+              </li>
+           {% endif %}
+          {% endif %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+{% endif %}

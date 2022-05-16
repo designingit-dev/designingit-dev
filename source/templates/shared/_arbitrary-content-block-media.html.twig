@@ -1,0 +1,24 @@
+{% if block.copy %}
+  {% if not block.mediaColumnWidthOnLaptopHigher %}
+    {% set mediaClasses = mediaClasses ~ " l--small--12 l--medium--6 columns" %}
+  {% else %}
+    {% set mediaClasses = mediaClasses ~ " l--small--12 l--medium--" ~ block.mediaColumnWidthOnLaptopHigher ~" columns" %}
+  {% endif %}
+{% else %}
+  {% set mediaClasses = mediaClasses ~ " l--small--12 columns" %}
+{% endif %}
+{% if block.image and block.image.one %}
+  <div class="{{ mediaClasses }}">
+    {% if block.mediaWithoutTransforms is not defined or not block.mediaWithoutTransforms %}
+      {% include 'shared/_srcset_image.html' with {'image': block.image.one, 'default_size': 'large' } %}
+    {% else %}
+      <img src="{{ block.image.one.url }}">
+    {% endif %}
+  </div>
+{% elseif block.videoEmbed %}
+  <div class="{{ mediaClasses }}">
+  <div class="videoEmbed">
+    {{ block.videoEmbed | raw }}
+  </div>
+  </div>
+{% endif %}

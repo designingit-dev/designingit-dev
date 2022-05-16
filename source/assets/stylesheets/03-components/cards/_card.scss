@@ -1,0 +1,104 @@
+// -----------------------------------------------------------------------------
+// !-- Card
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Card
+name: 03-Card
+category: Components - Cards
+---
+
+This is created by combining the [Title Card][01-titleCard] component above
+with an image to create a Card.
+
+Wrap the elements in an `.card` class. The actual image should have the class
+`.card__image` on it. Then include the `.titleCard` component for the title
+and description.
+
+_Note: do not copy the containing `.sg--wrapper--narrow` class. It it just for
+styleguide templating purposes._
+
+``` html_example
+<div class="sg--wrapper--narrow">
+  <div class="card">
+    <img class="card__image" src="http://placehold.it/300x300">
+    <div class="titleCard">
+      <div class="titleCard__title scale--large">
+        Title
+      </div>
+      <div class="titleCard__description">
+        Description
+      </div>
+    </div>
+  </div>
+</div>
+```
+*/
+
+/*doc
+---
+title: Background Image Card
+name: 04-backgroundImageCard
+category: Components - Cards
+---
+
+Rectangular block element with an image as the background and text
+sitting in the center.
+
+Create a `div` with classes `.card` and `.card--backgroundImage` and include the
+background image as an inline style (not ideal, but this is the only way we can
+use images from the Craft database as backgrounds).
+
+The text should include the `.scale--large` class for appropriate
+sizing and the `.l--noMargin` class to remove the margin so the text
+sits in the center.
+
+_Note: do not copy the containing `.sg--wrapper--narrow` class. It it just for
+styleguide templating purposes._
+
+``` html_example
+<div class="sg--wrapper--narrow">
+  <div class="card card--backgroundImage"
+       style="background-image:url(http://placehold.it/300x300)">
+    <div class="scale--large l--noMargin">Title</div>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.card {
+  $borderColor: $grey--light;
+  $height: pem(300px);
+  $imageHeight: pem(200px);
+  $paddingTop: pem(140px);
+
+  &__imageWrapper {
+    overflow: hidden;
+    height: $imageHeight;
+    border: $borderWidth--thin solid $borderColor;
+    border-bottom: 0;
+    background: $white;
+  }
+
+  &__image {
+    display: block;
+    max-height: $imageHeight;
+    margin: auto;
+  }
+
+  &--backgroundImage {
+    height: $height;
+    margin-bottom: $gutter--narrow * 2; // to match the left/right padding on the grid
+    padding-top: $paddingTop;
+    text-align: center;
+    color: $white;
+    background-position: center;
+    background-size: cover;
+  }
+
+  &--backgroundImageSmall {
+    height: $height / 2;
+    padding-top: $paddingTop / 2;
+  }
+}

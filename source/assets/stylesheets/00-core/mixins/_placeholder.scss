@@ -1,0 +1,17 @@
+// ----------------------------------------------------------------------------
+// Placeholder
+//
+// Example usage:
+//
+//    input {
+//      @include placeholder {
+//        font-family: sans-serif;
+//        color: red;
+//      }
+//    }
+//
+// ----------------------------------------------------------------------------
+
+@mixin placeholder {
+  &::placeholder { @content };
+}

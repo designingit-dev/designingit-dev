@@ -1,0 +1,52 @@
+// -----------------------------------------------------------------------------
+// Table of Contents - Readmore component
+//
+// - Readmore
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// !-- Readmore
+// -----------------------------------------------------------------------------
+
+.link--readMore {
+  $paddingTop: pem(5px);
+
+  margin-bottom: $verticalRhythm;
+  padding-top: $paddingTop;
+  border-top: $borderWidth--thin solid $grey--light;
+}
+
+/*doc
+---
+title: Readmore
+name: 01-readmore
+category: Components - Readmore
+---
+
+This add expanding read more functionality. **Use a div or section** if you are wrapping rich text.
+
+Often you'll be wrapping something like `entry.body`. Readmore [docs](http://jedfoster.com/Readmore.js/).
+Settings for these blocks live in `javascripts/readmore.js`
+
+``` html_example
+<div class="js--readmore--medium">
+  <p>Pivot earned media fund agile human-centered design cortado Steve Jobs paradigm engaging convergence pitch deck iterate. Affordances paradigm parallax agile sticky note entrepreneur convergence viral bootstrapping unicorn sticky note. Viral entrepreneur food-truck quantitative vs. qualitative minimum viable product bootstrapping 360 campaign disrupt quantitative vs. qualitative pitch deck. Big data food-truck bootstrapping workflow pivot ideate sticky note quantitative vs. qualitative actionable insight venture capital fund. Physical computing physical computing user centered design pitch deck big data workflow piverate responsive thinker-maker-doer human-centered design.</p>
+  <p>Entrepreneur ideate responsive unicorn user centered design experiential cortado venture capital innovate. Quantitative vs. qualitative moleskine earned media hacker Steve Jobs convergence sticky note venture capital prototype pitch deck quantitative vs. qualitative SpaceTeam big data latte. Entrepreneur driven long shadow latte 360 campaign experiential big data quantitative vs. qualitative bootstrapping disrupt unicorn. Human-centered design pitch deck workflow personas big data co-working co-working integrate engaging 360 campaign.</p>
+  <p>Fund experiential sticky note quantitative vs. qualitative integrate co-working workflow fund thinker-maker-doer physical computing thought leader piverate. Steve Jobs minimum viable product physical computing grok big data pitch deck co-working venture capital experiential. 360 campaign fund pivot piverate viral grok ideate latte responsive SpaceTeam 360 campaign actionable insight workflow. Grok pair programming engaging innovate convergence unicorn Steve Jobs driven paradigm agile viral.</p>
+  <p>Integrate cortado waterfall is so 2000 and late user centered design hacker user story user story 360 campaign physical computing integrate user story big data experiential intuitive. Waterfall is so 2000 and late physical computing Steve Jobs thinker-maker-doer Steve Jobs waterfall is so 2000 and late entrepreneur big data big data pivot thinker-maker-doer physical computing responsive. Cortado pair programming ideate responsive grok entrepreneur thought leader piverate sticky note long shadow. Long shadow SpaceTeam convergence sticky note physical computing 360 campaign earned media ideate user centered design earned media venture capital.</p>
+  <p>Pitch deck venture capital experiential integrate responsive innovate innovate convergence cortado. Affordances responsive unicorn long shadow disrupt human-centered design latte parallax waterfall is so 2000 and late bootstrapping personas latte SpaceTeam. Pitch deck ship it grok pair programming minimum viable product big data disrupt driven convergence co-working user centered design waterfall is so 2000 and late co-working. Disrupt parallax entrepreneur prototype grok responsive quantitative vs. qualitative user centered design piverate fund engaging hacker Steve Jobs minimum viable product. Entrepreneur thinker-maker-doer personas prototype disrupt co-working personas affordances.</p>
+</div>
+```
+
+
+``` html_example
+<div class="js--readmore--large">
+  <p>Pivot earned media fund agile human-centered design cortado Steve Jobs paradigm engaging convergence pitch deck iterate. Affordances paradigm parallax agile sticky note entrepreneur convergence viral bootstrapping unicorn sticky note. Viral entrepreneur food-truck quantitative vs. qualitative minimum viable product bootstrapping 360 campaign disrupt quantitative vs. qualitative pitch deck. Big data food-truck bootstrapping workflow pivot ideate sticky note quantitative vs. qualitative actionable insight venture capital fund. Physical computing physical computing user centered design pitch deck big data workflow piverate responsive thinker-maker-doer human-centered design.</p>
+  <p>Entrepreneur ideate responsive unicorn user centered design experiential cortado venture capital innovate. Quantitative vs. qualitative moleskine earned media hacker Steve Jobs convergence sticky note venture capital prototype pitch deck quantitative vs. qualitative SpaceTeam big data latte. Entrepreneur driven long shadow latte 360 campaign experiential big data quantitative vs. qualitative bootstrapping disrupt unicorn. Human-centered design pitch deck workflow personas big data co-working co-working integrate engaging 360 campaign.</p>
+  <p>Fund experiential sticky note quantitative vs. qualitative integrate co-working workflow fund thinker-maker-doer physical computing thought leader piverate. Steve Jobs minimum viable product physical computing grok big data pitch deck co-working venture capital experiential. 360 campaign fund pivot piverate viral grok ideate latte responsive SpaceTeam 360 campaign actionable insight workflow. Grok pair programming engaging innovate convergence unicorn Steve Jobs driven paradigm agile viral.</p>
+  <p>Integrate cortado waterfall is so 2000 and late user centered design hacker user story user story 360 campaign physical computing integrate user story big data experiential intuitive. Waterfall is so 2000 and late physical computing Steve Jobs thinker-maker-doer Steve Jobs waterfall is so 2000 and late entrepreneur big data big data pivot thinker-maker-doer physical computing responsive. Cortado pair programming ideate responsive grok entrepreneur thought leader piverate sticky note long shadow. Long shadow SpaceTeam convergence sticky note physical computing 360 campaign earned media ideate user centered design earned media venture capital.</p>
+  <p>Pitch deck venture capital experiential integrate responsive innovate innovate convergence cortado. Affordances responsive unicorn long shadow disrupt human-centered design latte parallax waterfall is so 2000 and late bootstrapping personas latte SpaceTeam. Pitch deck ship it grok pair programming minimum viable product big data disrupt driven convergence co-working user centered design waterfall is so 2000 and late co-working. Disrupt parallax entrepreneur prototype grok responsive quantitative vs. qualitative user centered design piverate fund engaging hacker Steve Jobs minimum viable product. Entrepreneur thinker-maker-doer personas prototype disrupt co-working personas affordances.</p>
+</div>
+```
+
+*/

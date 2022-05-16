@@ -1,0 +1,17 @@
+{% set caseStudies = craft.entries.section('caseStudies').orderBy('field_caseStudyDisplayOrder').all() %}
+
+{% extends '_layout' %}
+
+{% block content %}
+
+  {% include "case-studies/_pageTitle" with {
+    pageTitle: 'Success Stories'
+  } %}
+
+  {% include "case-studies/_filters" %}
+
+  {% include "case-studies/_entries" with {
+    caseStudies: caseStudies
+  } %}
+
+{% endblock %}

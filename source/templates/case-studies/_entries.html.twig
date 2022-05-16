@@ -1,0 +1,91 @@
+<div class="container">
+  {% for caseStudy in caseStudies %}
+    {% if not loop.first %}
+      <hr class="background--red pageDivider pageDivider--narrow margin--bottom">
+    {% endif %}
+    <div class="row caseStudy {{ not loop.first ? 'margin--top' }}">
+      <div class="l--medium--12 columns margin--bottom--none">
+        <div>
+          <img class="caseStudy__logo" src="{{ caseStudy.caseStudyLogo.one.getUrl() }}">
+        </div>
+        <div>
+          <h4 class="text--red text--uppercase margin--top margin--bottom--none">{{ caseStudy.caseStudySource }}</h4>
+          <h2 class="margin--top--veryNarrow margin--bottom">{{ caseStudy.caseStudyHeadline | nl2br }}</h2>
+        </div>
+      </div>
+      <div class="l--medium--8 columns caseStudy__heroThumbnail" style="background-image:url('{{ caseStudy.caseStudyHeroThumbnail.one.getUrl() }}')" v-on:click="openModal('case-study-{{ caseStudy.slug }}')">
+        <div class="caseStudy__heroThumbnail__separator is--hidden is--visible--medium">
+          <svg height="500" width="60" class="caseStudy__heroThumbnail__separator__container">
+            <polygon points="0,250 60,0 60,500" class="caseStudy__heroThumbnail__separator__triangle"></polygon>
+          </svg>
+        </div>
+        <div>
+          <div class="caseStudy__heroThumbnail__playButtonOverlay"></div>
+        </div>
+      </div>
+      <div class="l--small--12 columns margin--bottom--none is--hidden--medium caseStudy__heroThumbnail__separator__mobile">
+        <svg class="caseStudy__heroThumbnail__separator__container__mobile" viewBox="0 0 90 10" preserveAspectRatio="none">
+          <polygon points="0,10 45,0 90,10"></polygon>
+        </svg>
+      </div>
+      <div class="l--medium--4 columns background--red caseStudy__storyTime ">
+        <h3 class="text--white margin--bottom text--larger">In This Story</h3>
+        {% for storyTime in caseStudy.caseStudyStoryTime %}
+          {% set time = craft.keiserCommerceHelpers.getStoryTimeInSeconds(storyTime.storyTime) %}
+          <div class="margin--bottom--half">
+            <div class="caseStudy__storyTime__storyTime display--inline--block" v-on:click="openModal('case-study-{{ caseStudy.slug }}-{{ time }}')">{{ storyTime.storyTime }}  : </div>
+            <div class="display--inline--block caseStudy__storyTime__cta" v-on:click="openModal('case-study-{{ caseStudy.slug }}-{{ time }}')">{{ storyTime.storyTimeCTA }}</div>
+          </div>
+          <vue-modal :show.sync="showModal" :active-modal="activeModal" name="case-study-{{ caseStudy.slug }}-{{ time }}">
+            <div slot="header">
+              <div class="container container--noPad">
+                <div class="row">
+                  <div class="l--extraSmall--10 l--small--11 columns"></div>
+                  <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+                    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('case-study-{{ caseStudy.slug }}-{{ time }}')"><img src="/assets/images/modal-close-button.png" /> </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div slot="body" class="videoEmbed" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+              youtubeLink: caseStudy.caseStudyYoutubeLink ~ '?autoplay=true&start=' ~ time
+            } %}'>
+            </div>
+            <div slot="footer"></div>
+          </vue-modal>
+        {% endfor %}
+      </div>
+      <div class="l--medium--8 columns">
+        {% for highlight in caseStudy.caseStudyHighlight %}
+          <p class="text--bold margin--bottom--narrow">{{ highlight.header }}</p>
+          <div class="caseStudy__highlight__description">{{ highlight.description }}</div>
+        {% endfor %}
+      </div>
+      <div class="l--medium--4 columns">
+        <h3 class="text--larger">Equipment Lines</h3>
+        <ul class="caseStudy__equipmentLines">
+          {% for equipmentLine in caseStudy.caseStudyEquipmentLines %}
+            <li>{{ equipmentLine.title }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <vue-modal :show.sync="showModal" :active-modal="activeModal" name="case-study-{{ caseStudy.slug }}">
+      <div slot="header">
+        <div class="container container--noPad">
+          <div class="row">
+            <div class="l--extraSmall--10 l--small--11 columns"></div>
+            <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+              <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('case-study-{{ caseStudy.slug }}')"><img src="/assets/images/modal-close-button.png" /> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="body" class="videoEmbed lazyload" v-html.literal='{% include 'case-studies/_youtubeIframe' with {
+        youtubeLink: caseStudy.caseStudyYoutubeLink ~ '?autoplay=true'
+      } %}'>
+      </div>
+      <div slot="footer"></div>
+    </vue-modal>
+  {% endfor %}
+</div>

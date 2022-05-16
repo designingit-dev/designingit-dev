@@ -1,0 +1,174 @@
+{#
+ # Parts commerce page template
+ # ---------------
+ #
+ #}
+{% set page = product %}
+
+{% if product.defaultVariant is defined and featureFlags.activateCommerce %}
+  {% set variant = product.defaultVariant %}
+{% endif %}
+
+{% extends "_layout" %}
+
+{% set category = product.commerceProductCategory.one %}
+
+{% block breadcrumb %}
+  <div class="background--white is--hidden is--visible--medium">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--medium--12 columns navigation-breadcrumb">
+          <a href="{{ url('/') }}">Home</a> / <a href="/shop">Shop</a> / <a href="{{ category.url }}">{{ category.title }}</a> / {{ product.title }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% cache %}
+
+<div itemscope itemtype="http://schema.org/Product">
+  <div class="constrain" id="commerceProductContainer">
+    <div class="row">
+      <div class="l--medium--6 columns margin--bottom--none">
+        <h1 class="text--black text--sansSerif--black">{{ product.title }}</h1>
+        {% if product.defaultVariant.onSale %}
+          <p class="text--large is--hidden--medium margin--bottom--none"><s>{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</s></p>
+          <p class="text--xLarge text--red is--hidden--medium">{{ product.defaultVariant.salePrice | commerceCurrency(cart.currency) }}</p>
+        {% else %}
+          <p class="text--xLarge text--red is--hidden--medium">{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</p>
+        {% endif %}
+        {% if product.image.one %}
+          {% include "shop/products/shared/_gallery.html" with {
+            gallery: product.imageAndVideoGallery,
+            primaryImage: product.image.one,
+          } %}
+          </a>
+        {% else %}
+          <img src="{{ about.imageUnavailable.one.getURL("medium") }}">
+        {% endif %}
+      </div>
+
+      {% include 'shop/products/shared/seo/_productProperties' with {
+        'product': product
+      } %}
+
+      <div class="l--medium--6 columns margin--bottom--none">
+        {% if product.defaultVariant.onSale %}
+          <p class="text--large is--hidden is--visible--medium margin--bottom--none" ><s>{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</s></p>
+          <p class="text--xLarge text--red is--hidden is--visible--medium">{{ product.defaultVariant.salePrice | commerceCurrency(cart.currency) }}</p>
+        {% else %}
+          <p class="text--xLarge text--red is--hidden is--visible--medium" id="commerceProductPrice">{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</p>
+        {% endif %}
+        {% if product.freeShippingToContinentalUS %}
+          {% include "shop/products/shared/_feature.html" with {'image': 'free-shipping-to-continental-us.png', 'title': 'Free Shipping to Continental US'} %}
+        {% endif %}
+        {% if product.madeInTheUsa %}
+          {% include "shop/products/shared/_feature.html" with {'image': 'made-in-the-usa.png', 'title': 'Designed & Assembled in California'} %}
+        {% endif %}
+        {% include "shop/products/shared/_feature.html" with {'image': 'product-support-message.png', 'title': commerce.productSupportMessage} %}
+        {% if product.productSellersNotes is empty %}
+          <hr class="background--lightGrey pageDivider--narrow">
+        {% endif %}
+      </div>
+    </div>
+    {% set addToCartMargin = '' %}
+    {% if product.productSellersNotes is empty and product.productDescription is empty %}
+      {% set addToCartMargin = 'margin--bottom' %}
+    {% elseif product.productSellersNotes is empty and product.productDescription is not empty %}
+      {% set addToCartMargin = 'margin--bottom--half' %}
+    {% endif %}
+    <div class="row {{ addToCartMargin }}">
+      <div class="l--medium--6 l--medium--offset--6 columns margin--bottom--none">
+        <div class="row">
+          <div class="l--medium--3 l--extraSmall--4 l--extraSmall--offset--4 l--medium--offset--3 columns textCenter background--lightGrey margin--bottom--half quantityContainer">
+            {% include 'shop/products/shared/_quantity.html' with {
+              variant: product.defaultVariant
+            } %}
+          </div>
+          <div class="l--medium--6 columns addToCartContainer">
+            {% include "shared/_add_to_cart.html" with {
+              product: product,
+              buttonText: product.addToCartCta ?: "Add to Cart",
+              buttonClasses: "flexGrowLinks__link flexGrowLinks__link--last l--centered",
+              useAjax: 'ajaxAddToCart'
+            } %}
+          </div>
+          <div class="l--medium--9 l--medium--offset--3 columns margin--bottom--half is--hidden proceedToCheckout" for="form{{ product.defaultVariant.id }}">
+            <a href="/cart" class="button button--red">Proceed to Checkout</a>
+          </div>
+          <div class="l--medium--9 l--medium--offset--3 columns is--hidden maxQtyAlert" for="qty{{ product.defaultVariant.id }}">
+            <a href="/about-us/contact-us#find-your-rep">For volume discounts, click here</a>
+          </div>
+          {% if product.addToCartMessage is not empty %}
+            <div class="l--medium--9 l--medium--offset--3 columns margin--bottom--half margin--top--narrow">
+              <span class="text--small text--red">{{ product.addToCartMessage }}</span>
+            </div>
+          {% endif %}
+
+          {% set outOfStock = true %}
+          {% if product.defaultVariant.hasUnlimitedStock or product.defaultVariant.stock > 0 %}
+            {% set outOfStock = false %}
+          {% endif %}
+          {% if outOfStock and product.outOfStockMessage is not empty %}
+            <div class="l--extraSmall--12 columns margin--bottom--half margin--top--narrow">
+              <span class="text--small text--red">{{ product.outOfStockMessage |nl2br }}</span>
+            </div>
+          {% endif %}
+
+        </div>
+        {% if product.productSellersNotes is not empty %}
+          <hr class="background--lightGrey pageDivider--narrow">
+          <div class="l--extraSmall--12 columns textLeft background--lightGrey is--hidden--medium">
+            <p class="text--small margin--top--narrow margin--bottom--narrow">{{ product.productSellersNotes }}</p>
+          </div>
+        {% endif %}
+      </div>
+  </div>
+  <div class="row" id="commerceProductContainer__productDescriptionContainer">
+    {% if product.productDescription is not empty %}
+      <div class="l--medium--6 columns">
+        {{ product.productDescription }}
+      </div>
+    {% endif %}
+    {% if product.productSellersNotes is not empty %}
+      <div class="l--medium--6 columns textLeft background--lightGrey {{ product.productDescription is empty ? 'l--medium--offset--6' }} is--hidden is--visible--medium">
+        <p class="text--small margin--top--narrow margin--bottom--narrow">{{ product.productSellersNotes }}</p>
+      </div>
+    {% endif %}
+  </div>
+
+  </div>
+
+</div>
+  {% if product is not null %}
+    <script type="text/javascript">
+      ga('keisergtm.require', 'ec');
+
+      ga('keisergtm.ec:addProduct', {
+        'id': '{{ variant.sku }}',
+        'name': '{{ variant.title }}',
+        'category': '{{ product.analyticsCategory.one() }}'
+      });
+
+      ga('keisergtm.ec:setAction', 'detail');
+
+      ga('keisergtm.send', 'event', 'ecommerce', 'Detail', {'nonInteraction': true});
+
+      rudderanalytics.track('Product Viewed', {
+        product_id: '{{ variant.sku }}',
+        sku: '{{ variant.sku }}',
+        category: '{{ product.analyticsCategory.one() }}',
+        name: '{{ variant.title }}',
+        brand: 'Keiser',
+        price: {{ product.defaultVariant.onSale ? product.defaultVariant.salePrice : product.defaultVariant.price }},
+        currency: 'USD',
+        url: '{{ product.url }}',
+        image_url: '{{ product.image.one ? product.image.one.url : '' }}',
+        site: window.location.hostname
+      });
+    </script>
+  {% endif %}
+  {% endcache %}
+{% endblock %}

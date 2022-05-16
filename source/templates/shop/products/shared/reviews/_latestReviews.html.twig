@@ -1,0 +1,24 @@
+<div class="container container--noPadBottom">
+  <div class="row">
+    <div class="l--medium--12 columns">
+      <h2>Product Reviews</h2>
+    </div>
+    {% include 'shop/products/shared/reviews/_aggregateRating.html' with {
+    'product': product,
+    'productReviews': productReviews,
+    'shopButton': false
+    } %}
+  </div>
+  {% for review in productReviews|slice(0,commerce.reviewsCountOnProductPage) %}
+    {% include 'shop/products/shared/reviews/_entry.html' with {
+      'review': review
+    } %}
+  {% endfor %}
+  {% if productReviews.count() > commerce.reviewsCountOnProductPage %}
+    <div class="row">
+      <div class="l--medium--12 columns textCenter">
+        <a class="button" id="commerceProductReview__readAll" href="{{ product.url }}/reviews">READ ALL REVIEWS</a>
+      </div>
+    </div>
+  {% endif %}
+</div>

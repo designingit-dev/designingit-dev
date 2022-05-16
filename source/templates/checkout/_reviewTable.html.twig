@@ -1,0 +1,147 @@
+{% include "cart/_cartHeader" %}
+
+{% set whiteGloveDeliveryFees = 0 %}
+
+{% for item in referralObject.lineItems %}
+  {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+    {% set whiteGloveDeliveryFees = whiteGloveDeliveryFees + (item.purchasable.product.whiteGloveDeliveryFee * item.qty) %}
+  {% endif %}
+  <div class="row">
+    <div class="l--6 columns">
+      <div class="text--bold">{{ item.description }}</div>
+      <div class="text--small">
+        <div>
+          SKU: {{ item.sku }}
+        </div>
+        {% if item.options.productSellersNotes is defined %}
+          <div>
+            {{ item.options.productSellersNotes }}
+          </div>
+          {% if item.note and item.options.productSellersNotes %}<hr />{% endif %}
+        {% endif %}
+
+        {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+          <div>
+            M Series Assembly & Maintenance Kit included with White Glove Assembly
+          </div>
+        {% endif %}
+
+        {% if item.note %}
+          <strong>Notes: </strong>{{ item.note }}
+        {% endif %}
+        {% if item.options.tShirtSize is defined %}
+          <div>
+            Free T-Shirt: {{ item.options.tShirtSize }}
+          </div>
+        {% endif %}
+        {% if item.options.promoItem is defined %}
+          <div>
+            Free Promotional Item: {{ craft.keiserCommerceHelpers.getProductTitleBySKU(item.options.promoItem) }}
+          </div>
+        {% endif %}
+        {% if item.purchasable.clothingSize is defined and item.purchasable.clothingSize is not empty %}
+          <div>
+            {{ item.purchasable.product.clothingSizeLabel }}: {{ item.purchasable.clothingSize|upper }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="l--2 columns">
+      <div class="itemList__data">
+        {% if item.onSale %}
+          <div class="text--bold">{{ item.salePrice|commerceCurrency(cart.currency) }}</div>
+          <div class="text--small"><strike>{{ item.price|commerceCurrency(cart.currency) }}</strike></div>
+        {% else %}
+          {{ item.price|commerceCurrency(cart.currency) }}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="l--2 columns text--alignCenter">
+      {{ item.qty }}
+    </div>
+
+    <div class="l--2 columns">
+      <div class="text--alignRight">
+        <div class="itemList__data">
+          {{ item.subtotal|commerceCurrency(cart.currency) }}
+        </div>
+        {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+          <div class="itemList__data text--alignRight">
+            <div class="whiteGlove__cart__total">
+              <p class="margin--bottom--veryNarrow margin--top--veryNarrow">White Glove Assembly</p>
+              <p class="margin--bottom--none">+ {{ (item.purchasable.product.whiteGloveDeliveryFee * item.qty) | commerceCurrency(cart.currency) }}</p>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% for adjustment in referralObject.adjustments %}
+  {% set isFreebie = false %}
+  {% if (adjustment.type == 'discount' and adjustment.amount == 0) %}
+  {% set isFreebie = true %}
+  {% endif %}
+
+  <div class="row">
+    <div class="l--6 columns margin--bottom--narrow">
+      {% if isFreebie %}
+        <strong>{{ adjustment.name|title }}</strong>{% if adjustment.description %} ({{ adjustment.description }}){% endif %}
+      {% else %}
+        {{ adjustment.type|title }}
+      {% endif %}
+    </div>
+
+    <div class="l--3 columns margin--bottom--narrow">
+      <div class="itemList__data">
+      {% if isFreebie is same as(false) %}
+        <strong>{{ adjustment.name|title }}</strong>{% if adjustment.description %} ({{ adjustment.description }}){% endif %}
+      {% endif %}
+      </div>
+    </div>
+
+    <div class="l--3 columns margin--bottom--narrow">
+      <div class="itemList__data text--alignRight">
+      {% if isFreebie is same as(false) %}
+        {% if adjustment.type == 'shipping' %}
+          {{ (adjustment.amount - whiteGloveDeliveryFees) |commerceCurrency(cart.currency) }}
+        {% else %}
+          {{ adjustment.amount|commerceCurrency(cart.currency) }}
+        {% endif %}
+      {% endif %}
+      </div>
+    </div>
+
+  </div>
+{% endfor %}
+
+<hr class="margin--bottom">
+
+<div class="row">
+  {% if showAddresses == true %}
+    <div class="l--6 l--medium--4 columns">
+      <h4>Shipping Address</h4>
+      {% include '/checkout/addresses/_address' with {'address': referralObject.shippingAddress} %}
+    </div>
+    <div class="l--6 l--medium--4 columns">
+      <h4>Billing Address</h4>
+      {% if referralObject.billingAddress %}
+        {% include '/checkout/addresses/_address' with {'address': referralObject.billingAddress} %}
+      {% else %}
+        <p>No billing address selected.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="l--medium--4 columns text--alignRight float--right">
+    <div class="cart__summaryItem">Item Sub Total: {{ (referralObject.itemSubTotal + whiteGloveDeliveryFees) |commerceCurrency(referralObject.currency) }}</div>
+    <div class="cart__summaryItem">Total Shipping: {{ (referralObject.getAdjustmentsTotalByType('shipping') - whiteGloveDeliveryFees)|commerceCurrency(referralObject.currency) }}</div>
+    <div class="cart__summaryItem">Total Discount: {{ referralObject.getAdjustmentsTotalByType('discount')|commerceCurrency(referralObject.currency) }}</div>
+    <h4 class="cart__summaryItem">Order Sub Total: {{ (referralObject.itemSubTotal + referralObject.getAdjustmentsTotalByType('discount') + referralObject.getAdjustmentsTotalByType('shipping'))|commerceCurrency(referralObject.currency) }}</h4>
+    <div class="cart__summaryItem">Total Tax: {{ referralObject.getAdjustmentsTotalByType('tax')|commerceCurrency(referralObject.currency) }}</div>
+
+    <h3 class="cart__total">Total Payment: {{ referralObject.totalPrice |commerceCurrency(referralObject.currency) }}</h3>
+  </div>
+</div>

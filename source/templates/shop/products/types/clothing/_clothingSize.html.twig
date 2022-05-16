@@ -1,0 +1,38 @@
+<div class="flex flex--items--center margin--bottom">
+  <img class="lazyload margin--right--half width--icon--large" data-src="/assets/images/icon-size.svg" alt="" />
+  <div class="flex flex--wrap flex--items--center position--relative">
+    <p class="text--large text--black text--extraBold margin--bottom--none">
+      {{ product.clothingSizeLabel }}
+    </p>
+    <div class="is--hidden is--visible--medium margin--left">&nbsp;</div>
+    <div class="flex flex--items--center">
+        <ul class="flex text--grey list--noBullets" data-clothing-size-list="{{ product.defaultVariant.id }}" for="{{ product.defaultVariant.id }}">
+        {% for variant in product.variants if variant.enabled %}
+          {% set allowedQty = allowedQuantity(variant) %}
+          {% set outOfStock = allowedQty > 0 ? '' : 'disabled' %}
+          <li class="margin--left--none margin--bottom--none textCenter clothingSize__list__size__option {{ outOfStock }}"
+              data-purchasableId="{{ variant.id }}"
+              data-allowedQty="{{ allowedQty }}"
+              data-product-name="{{ variant.title }}"
+              data-sku="{{ variant.sku }}"
+              data-price="{{ variant.price|number_format('2', '.', '') }}"
+              >
+            {{ variant.clothingSize|upper }}
+          </li>
+        {% endfor %}
+      </ul>
+      <a class="margin--left" v-on:click="openModal('sizingChart__modal')">
+        Sizing
+      </a>
+    </div>
+    <p class="is--hidden text--small" id="clothingSize__error">
+      <svg class="clothingSize__error__mark" viewBox="0 0 19 19">
+        <path fill="currentColor" transform="rotate(45 8 10)" d="M3 3 15 3 3 15z"/>
+        <path fill="#fff" transform="rotate(45 8 11)" d="M3 4 15 4 3 16z"/>
+      </svg>
+      <b class="clothingSize__error__icon" aria-label="Error!">!</b> Please select a size.
+    </p>
+  </div>
+</div>
+
+{% include 'products/modals/_sizingChart' %}

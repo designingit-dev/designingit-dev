@@ -1,0 +1,7 @@
+.element.linked .label {
+    margin-right: 1em;
+}
+
+.element .download:hover {
+    color: blue;
+}

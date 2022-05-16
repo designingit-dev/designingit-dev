@@ -1,0 +1,115 @@
+{% cache %}
+<article>
+
+  {% include "support/_header-block.html" %}
+
+  <div class="container">
+    <div class="row">
+      {% for block in entry.twoColumnBlockWithHeaders %}
+        <div class="titleBlock">
+          <h3 class="titleBlock__title">
+            {{ block.smallHeader }}
+          </h3>
+          <h1 class="titleBlock__subTitle">
+            {{ block.largeHeader }}
+          </h1>
+        </div>
+
+        <div class="twoColumns">
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.copyBlockLeft }}
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.copyBlockRight }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% for block in entry.videoBlockHero %}
+    <div id="watch" class="container--full container--tight container--noPadSides container--noPadBottom">
+      <div class="videoBlockHero">
+        <div class="videoBlockHero__image lazyload" data-bg="{{ block.videoBlockHeroImage.one.getURL }}"></div>
+
+        <div class="videoBlockHero__content">
+          <div class="graphicHeader">
+            <div class="graphicHeader__title">
+              {{ block.videoBlockHeroTitle }}
+            </div>
+            <div class="graphicHeader__subtitle">
+              {{ block.videoBlockHeroSubTitle }}
+            </div>
+          </div>
+        </div>
+
+        <div class="videoBlockHero__moreIndicator">
+          <div class="videoBlockHero__action">
+            <a class="button" v-on:click="openModal('video-block-hero-{{ block.id }}')">{{ block.videoBlockHeroButton }}</a>
+          </div>
+        </div>
+
+        <vue-modal :show.sync="showModal" :active-modal="activeModal" name="video-block-hero-{{ block.id }}">
+          <div class="videoEmbed" slot="body" v-html.literal='{{ block.videoBlockHeroEmbed }}'>
+          </div>
+        </vue-modal>
+      </div>
+    </div>
+
+  </div>
+
+  {% endfor %}
+
+  <div class="background--darkGrey">
+    <div class="container">
+      <h1>
+        Industry partners
+      </h1>
+
+      <div class="row">
+        {% for block in entry.industryPartners %}
+          <div class="l--small--6 l--medium--4 l--large--3 columns">
+            <div class="card">
+              <div class="card__imageWrapper">
+                <img class="card__image" src="{{ block.image.one.getURL("small") }}"/>
+              </div>
+              <div class="titleCard titleCard--black">
+                <div class="height--small">
+                  <h3 class="titleCard__title">
+                    {{ block.partnerName }}
+                  </h3>
+                  <p class="titleCard__description">
+                    {{ block.partnerCopy }}
+                  </p>
+                </div>
+                <button v-on:click="openModal('{{ block.id }}')" class="button--fullWidth">Read More</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="background--white">
+            <vue-modal :active-modal="activeModal" name="{{ block.id }}">
+              <div slot="body">
+
+                <div class="iconBlock">
+                  <div class="row">
+                    <div class="l--small--12 l--medium--3 columns l--mobileMargin">
+                      <img class="card__image" src="{{ block.image.one.getURL("small") }}"/>
+                    </div>
+                    <div class="l--small--12 l--medium--9 columns l--noMargin">
+                      <div class="iconBlock__copy">
+                        <h3>{{ block.partnerName }}</h3>
+                        <p>{{ block.partnerCopy }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </vue-modal>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</article>
+{% endcache %}

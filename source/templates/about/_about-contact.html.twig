@@ -1,0 +1,146 @@
+<div class="background--darkGrey">
+  <div class="container container--tight">
+    <div class="row">
+      <div class="l--small--12 l--medium--12 columns l--noMargin">
+        <div class="titleBlock">
+          <h1 class="titleBlock__subTitle">
+            {{ entry.title }}
+          </h1>
+        </div>
+        <div>
+          {{ entry.body }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="background--white">
+  <div class="container">
+
+    <div class="row">
+      <div class="l--medium--12 columns">
+        <h2>Contact us by email</h2>
+        <strong>To assist you as quickly as possible, please tell us what you need.</strong>
+      </div>
+    </div>
+
+    <div class="row">
+      <a href="#" class="contactUs__formAnchor" v-on:click="openModal('contactUs__customerSupport')">
+        <div class="l--medium--4 columns text--alignCenter">
+          <img src="/assets/images/contact-us/contact-customer-support.svg" />
+          <h3>Customer support</h3>
+          <p class="margin--bottom--none">I need help with a Keiser product I've purchased.</p>
+        </div>
+      </a>
+      <a class="contactUs__formAnchor commercialSalesModal" v-on:click="openModal('contactUs__sales')">
+        <div class="l--medium--4 columns text--alignCenter">
+          <img src="/assets/images/contact-us/contact-sales.svg" />
+          <h3>Sales</h3>
+          <p class="margin--bottom--none">I'm considering a Keiser product purchase.</p>
+        </div>
+      </a>
+      <a class="contactUs__formAnchor" v-on:click="openModal('contactUs__keiserApps')">
+        <div class="l--medium--4 columns text--alignCenter">
+          <img src="/assets/images/contact-us/contact-keiser-apps.svg" />
+          <h3>Keiser Tech</h3>
+          <p class="margin--bottom--none">I have a question or comment about Keiser apps, connectivity or capability.</p>
+        </div>
+      </a>
+      <a class="contactUs__formAnchor" v-on:click="openModal('contactUs__publicRelations')">
+        <div class="l--medium--4 columns text--alignCenter">
+          <img src="/assets/images/contact-us/contact-public-relations.svg" />
+          <h3>Public relations</h3>
+          <p class="margin--bottom--none">I’d like to contact a spokesperson for Keiser.</p>
+        </div>
+      </a>
+      <a class="contactUs__formAnchor" v-on:click="openModal('contactUs__educationServices')">
+        <div class="l--medium--4 columns text--alignCenter">
+          <img src="/assets/images/contact-us/contact-education-services.svg" />
+          <h3>Education services</h3>
+          <p class="margin--bottom--none">I have a question or comment about Keiser's education offerings.</p>
+        </div>
+      </a>
+      <a class="contactUs__formAnchor" href="/order-status">
+        <div class="l--medium--4 columns text--alignCenter">
+          <img src="/assets/images/contact-us/order-status.svg" />
+          <h3>Order status</h3>
+          <p class="margin--bottom--none">I'd like to check the status of an order I placed on Keiser.com</p>
+        </div>
+      </a>
+    </div>
+    <div class="row background--lightGrey margin--top">
+      <div class="l--medium--12 columns margin--top contactUs__otherTopic">
+        <h2>Need something else?</h2>
+        <p class="margin--bottom--none"><strong>If your question or concern doesn’t fit any topics above, we can still help you.</strong></p>
+        <a v-on:click="openModal('contactUs__generalMailbox')" class="button button--black">Contact us by email</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="background--lightGrey">
+  <div class="container container--tight">
+    <div class="row contactUs__options">
+      <div class="l--medium--12 columns">
+        <h2>Contact a representative</h2>
+        <strong>Support hours: Monday - Friday, 9am - 5pm Pacific Time</strong>
+        <p class="margin--bottom--none">Current: {{ 'now' | date('g:i a', 'America/Los_Angeles') }} Pacific Time</p>
+      </div>
+      <div class="text--alignCenter contactUs__options__icon">
+        <img src="/assets/images/contact-us/contact-us-via-phone.png" />
+      </div>
+      <div class="contactUs__options__anchor">
+        <p class="margin--bottom--none">Speak to a live representative</p>
+        <a href="tel:{{ about.phoneNumber }}"><strong>{{ about.phoneNumber }}</strong></a>
+      </div>
+      <div class="text--alignCenter contactUs__options__icon">
+        <img src="/assets/images/contact-us/contact-us-via-chat.png" />
+      </div>
+      <div class="contactUs__options__anchor">
+        <p class="margin--bottom--none">Live chat</p>
+        <a onClick="chatButton.onClick();"><strong>Click here</strong></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="contactRepButton" v-on:click="openModal('contactUs__contactRep')" class="is--hidden"></button>
+<button id="contactCustomerSupportButton" v-on:click="openModal('contactUs__customerSupport')" class="is--hidden"></button>
+<button id="contactSalesButton" v-on:click="openModal('contactUs__sales')" class="is--hidden"></button>
+<button id="contactKeiserAppsButton" v-on:click="openModal('contactUs__keiserApps')" class="is--hidden"></button>
+<button id="contactPublicRelationsButton" v-on:click="openModal('contactUs__publicRelations')" class="is--hidden"></button>
+<button id="contactEducationServicesButton" v-on:click="openModal('contactUs__educationServices')" class="is--hidden"></button>
+<button id="contactGeneralMailboxButton" v-on:click="openModal('contactUs__generalMailbox')" class="is--hidden"></button>
+<button id="contactCommercialSalesButton" v-on:click="[openModal('contactUs__commercialSales'),trackFormAnchor('Contact Us (Sales)', 'contactUsPageContactSales')]" class="is--hidden"></button>
+<button id="contactCommercialSalesSimplifiedButton" v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor('Get a Commercial Quote', 'contactUsPageContactSales')]" class="is--hidden"></button>
+
+<div class="background--grey">
+  <div class="container container--tight">
+    <div class="row contactUs__maps">
+      <div class="l--medium--12 columns">
+        <h2>Location</h2>
+        <address>
+          2470 S. CHERRY AVE.
+          <br>
+          FRESNO, CA 93706
+        </address>
+        <iframe class="margin--top margin--bottom" frameborder="0"
+                src="https://www.google.com/maps/embed/v1/place?key={{ craft.keiserContactHelpers.getEnvironmentVariable('GOOGLE_MAPS_API_KEY') }}&q=place_id:ChIJ90eEMtFflIARlfz1rBZpPvM">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'about/contact-us/modals/_customerSupport' %}
+{% include 'about/contact-us/modals/_sales' %}
+{% include 'about/contact-us/modals/_consumerSales' %}
+{% include 'about/contact-us/modals/_commercialSales' %}
+{% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+{% include 'about/contact-us/modals/_educationServices' %}
+{% include 'about/contact-us/modals/_publicRelations' %}
+{% include 'about/contact-us/modals/_keiserApps' %}
+{% include 'about/contact-us/modals/_generalMailbox' %}
+{% include 'about/contact-us/modals/_contactRep' %}

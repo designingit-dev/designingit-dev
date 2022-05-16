@@ -1,0 +1,17 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: "MailChimp List ID",
+    instructions: "",
+    id: 'mailChimpListID',
+    name: 'mailChimpListID',
+    value: field.mailChimpListID
+}) }}
+
+{{ forms.lightswitchField({
+    label: "Require Double Opt-In",
+    instructions: "",
+    id: 'requireDoubleOptIn',
+    name: 'requireDoubleOptIn',
+    on: field.requireDoubleOptIn ? true : false
+}) }}

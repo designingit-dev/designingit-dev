@@ -1,0 +1,84 @@
+{% if block.image and block.image.one or block.videoEmbed %}
+  {% if not block.copyColumnWidthOnLaptopHigher %}
+    {% set copyClasses = "l--small--12 l--medium--6 columns" %}
+  {% else %}
+    {% set copyClasses = "l--small--12 l--medium--" ~ block.copyColumnWidthOnLaptopHigher ~ " columns" %}
+  {% endif %}
+{% else %}
+  {% set copyClasses = "l--small--12 columns" %}
+{% endif %}
+
+{% set mediaClasses = '' %}
+{% set copyPosition = block.copyPosition %}
+
+{% if block.flipCopyPositionOnMobile %}
+  {% if block.copyPosition == "right" %}
+    {% set copyClasses = copyClasses ~ ' l--medium--push--6' %}
+    {% set mediaClasses = mediaClasses ~ ' l--medium--pull--6' %}
+    {% set copyPosition = 'left' %}
+  {% else %}
+    {% set copyClasses = copyClasses ~ ' l--medium--pull--6' %}
+    {% set mediaClasses = mediaClasses ~ ' l--medium--push--6' %}
+    {% set copyPosition = 'right' %}
+  {% endif %}
+{% endif %}
+
+{% if block.copyNoMarginBottom %}
+  {% set copyClasses = copyClasses ~ ' margin--bottom--none' %}
+{% endif %}
+
+{% if block.topMarginForMediaOnMobile %}
+  {% set mediaClasses = mediaClasses ~ ' arbitraryContentBlock__topMarginOnMobile' %}
+{% endif %}
+
+{% set backgroundClass = block.colorScheme == "dark" ? "background--black" : "" %}
+
+{% if not block.containerType.value %}
+  {% set containerClass = 'container' %}
+{% else %}
+  {% set containerClass = block.containerType %}
+{% endif %}
+
+{% if block.topRedBar %}
+  <hr class="background--red pageDivider">
+{% endif %}
+<div class="{{ backgroundClass }} arbitraryContentBlock" id="{{ block.blockId is defined and block.blockId ? block.blockId }}">
+  <div class="{{ containerClass }}">
+    <div class="row {{ block.constrainLayout is not defined or block.constrainLayout ? 'constrain' }}">
+      {% if copyPosition == "right" %}
+        {% include 'shared/_arbitrary-content-block-media.html' with { 'block': block } %}
+      {% endif %}
+      <div class="{{ copyClasses }}">
+        {{ block.copy | parseRefs | raw }}
+        {% if block.ctaCopy and (block.ctaLink or block.ctaOpenModal is not empty) %}
+
+          {% set target = '' %}
+          {% set additionalAttributes = '' %}
+
+          {% if block.ctaLink and block.ctaOpenModal is empty %}
+            {% set href = block.ctaLink|parseRefs|raw %}
+            {% set target = block.openInNewTab ? 'target="_blank"' %}
+          {% endif %}
+
+          {% if block.ctaOpenModal is not empty %}
+            {% set href = "javascript:" %}
+            {% switch block.ctaOpenModal %}
+              {% case 'commercialSalesSimplified' %}
+                {% set additionalAttributes = 'v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor(\'Get a Commercial Quote\', \'getACommercialQuoteArbitraryContentBlock\')]"' %}
+            {% endswitch %}
+          {% endif %}
+
+          <div>
+            <a class="button" href="{{ href }}" {{ target|raw }} {{ additionalAttributes|raw }}>{{ block.ctaCopy }}</a>
+          </div>
+        {% endif %}
+      </div>
+      {% if copyPosition == "left" %}
+        {% include 'shared/_arbitrary-content-block-media.html' with { 'block': block, 'mediaClasses': mediaClasses } %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% if block.bottomRedBar %}
+  <hr class="background--red pageDivider">
+{% endif %}

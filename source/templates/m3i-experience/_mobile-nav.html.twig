@@ -1,0 +1,244 @@
+<div id="siteMenu" class="siteWrapper__mobileNav" aria-hidden="true"  v-bind:class="{ 'is--showing': menuOpen }">
+      <div class="container container--xTight web-only">
+        <div class="textCenter">
+          <div class="cta--buttons">
+            <button class="cta--button quote commercialSalesModal" v-on:click="[openModal('contactUs__commercialSales', 'M3i INDOOR BIKE'),trackFormAnchor('Contact Us (Sales)', 'm3iPage')]">Get a Commercial Quote</button>
+            <a href="{{ url('shop/cardio-equipment/m3i-indoor-bike') }}" target="_blank" class="button cta--button">Shop for Home</a>
+            {# {% if product is not null %}
+              <form target="_blank" method="POST">
+                <input type="hidden" name="action" value="/commerce/cart/update-cart">
+                {{ redirectInput(''/cart') }}
+                <input type="hidden" name="purchasableId" value="{{ product.defaultVariant.purchasableId }}">
+                <input type="hidden" name="qty" value="1">
+                <button class="cta--button" type="submit">Shop Now</button>
+              </form>
+            {% endif %} #}
+          </div>
+        </div>
+      </div>
+
+      <div class="container container--xTight">
+        <ul class="navVertical">
+
+          <li class="navVertical__item">
+            <a href="#v-shape-frame" class="navVertical__link js--scrollto">
+              V-SHAPE FRAME
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#v-shape-frame-industry-first" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Industry First
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#v-shape-frame-matches-all-riders" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Matches All Riders
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#rear-wheel-design" class="navVertical__link js--scrollto">
+              REAR-WHEEL DESIGN
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#rear-wheel-design-industry-first" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Industry First
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#rear-wheel-design-drive-train-protection" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Drive-Train Protection
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#magnetic-resistance" class="navVertical__link js--scrollto">
+              MAGNETIC RESISTANCE
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#magnetic-resistance-quality-control" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Quality Control
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#magnetic-resistance-true-power-readings" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  TÜV EN957-10 Certification
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#magnetic-resistance-immediate-ride-data" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Immediate Ride Data
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#drive-train" class="navVertical__link js--scrollto">
+              DRIVE-TRAIN
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#drive-train-drive-train-design" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Drive-Train Design
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#drive-train-maintenance-free" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Maintenance-Free
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#drive-train-automotive-quality" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Automotive Quality
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#q-factor" class="navVertical__link js--scrollto">
+              Q FACTOR
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#q-factor-curved-crank-arms" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Curved Crank Arms
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#the-pedals" class="navVertical__link js--scrollto">
+              THE PEDALS
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-pedals-for-spd-riders" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  For SPD Riders
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#the-digital-system" class="navVertical__link js--scrollto">
+              THE DIGITAL SYSTEM
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-digital-system-computer-display" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Computer Display
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#m-series-app" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  M Series App
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#the-details" class="navVertical__link js--scrollto">
+              THE DETAILS
+            </a>
+
+            {# <ul class="navVertical navVertical--secondary">
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-simple-maintenance" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Simple Maintenance
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-media-tray" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Media Tray
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-shifter" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Shifter
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-water-bottle-holder" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Water Bottle Holder
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-handlebars" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Handlebars
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-easy-adjustments" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Easy Adjustments
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-stretch-pad" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Stretch Pad
+                </a>
+              </li>
+
+              <li class="navVertical__item navVertical--secondary__item">
+                <a href="#the-details-easy-transport" class="navVertical__link navVertical--secondary__link js--scrollto">
+                  Easy Transport
+                </a>
+              </li>
+            </ul> #}
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#why-the-m3i" class="navVertical__link js--scrollto">
+              Reviews
+            </a>
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#technology" class="navVertical__link js--scrollto">
+              Projection System
+            </a>
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#keiser-education" class="navVertical__link js--scrollto">
+              Keiser Education
+            </a>
+          </li>
+
+          <li class="navVertical__item">
+            <a href="#videos" class="navVertical__link js--scrollto">
+              Videos
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>

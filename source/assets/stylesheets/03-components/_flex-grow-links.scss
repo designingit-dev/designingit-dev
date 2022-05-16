@@ -1,0 +1,47 @@
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Flex Grow Links
+name: flex-grow-links
+category: Components - Flex Grow Links
+---
+
+Block of buttons that grow to fill the container.
+
+Add class `.flexGrowLinks` around all the links and `.flexGrowLinks__link`
+on the link.
+
+Do not copy the `.sg--wrapper--narrow` class, just the stuff inside it.
+
+``` html_example
+<div class="sg--wrapper--narrow">
+  <div class="flexGrowLinks">
+    <a href="" class="button flexGrowLinks__link l--centered">Link</a>
+    <a href="" class="button flexGrowLinks__link l--centered">Long Link Text</a>
+    <a href="" class="button flexGrowLinks__link l--centered">Other Link</a>
+    <a href="" class="button flexGrowLinks__link l--centered">Linkzzz</a>
+    <a href="" class="button flexGrowLinks__link l--centered">OH BOY!</a>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.flexGrowLinks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-right: -14px;
+}
+
+.flexGrowLinks__link {
+  margin-right: $gutter--narrow;
+  padding: $gutter--narrow;
+
+  flex-grow: 1;
+}
+
+.flexGrowLinks__link--last {
+  width: 100%;
+}

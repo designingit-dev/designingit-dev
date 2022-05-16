@@ -1,0 +1,48 @@
+
+// -----------------------------------------------------------------------------
+// !-- Title Block
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Title Block
+name: title-block
+category: Components - Title Block
+---
+
+Wrap a title block element within `.titleBlock` class.
+
+The first item in the title block is the title and should have the `.titleBlock__title`
+class as well as the `.scale--large` class for sizing.
+
+The second item is the subtitle and should have the
+`.titleBlock__subTitle` class as well as the `.scale--xXLarge` class for sizing.
+
+```html_example
+<div class="titleBlock">
+  <h3 class="titleBlock__title">Title</h3>
+  <h1 class="titleBlock__subTitle">Subtitle</h1>
+</div>
+```
+
+These will work on both dark and light backgrounds.
+
+``` html_example
+<div class="background--darkGrey">
+  <div class="titleBlock">
+    <h3 class="titleBlock__title">Title</h3>
+    <h1 class="titleBlock__subTitle">Subtitle</h1>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.titleBlock {
+  $color: $grey--light;
+
+  &__title {
+    margin-bottom: 0;
+    color: $color;
+  }
+}

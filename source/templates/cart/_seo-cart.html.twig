@@ -1,0 +1,14 @@
+{#
+This partial sets the title for the cart because Craft
+Commerce checkout pages do not have entries or categories.
+
+The rest of the site uses a page's entry or category to drive
+page title. Some form-only pages use the slug. We are following
+the form-only mechanism through setting the title and DC.title
+tags here and including this template in the seo block.
+
+#}
+
+{% set cartTitle = siteName~" Cart" %}
+<title>{{ cartTitle }}</title>
+<meta content="{{ cartTitle }}" name="DC.title"/>

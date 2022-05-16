@@ -1,0 +1,134 @@
+{% extends '_layout' %}
+
+{% block content %}
+  {% cache %}
+
+    <div class="background--black ihrsaGuarantee__header fibo2018__header">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--12 columns margin--bottom--none">
+            <h1 class="margin--bottom--none ihrsaGuarantee__header__largeTitle ihrsaGuarantee__header__largeTitle__red">Buy Keiser.</h1>
+            <h1 class="margin--bottom--none ihrsaGuarantee__header__largeTitle">Get 5 Solutions in 1.</h1>
+            <h1 class="margin--bottom--none ihrsaGuarantee__header__largeTitle ihrsaGuarantee__header__largeTitle__red">Maximize your ROI.</h1>
+            <p class="text--larger ihrsaGuarantee__header__copy">
+              With traditional iron resistance, you can only train one way: slow and steady. With our pneumatic resistance
+              technology, only Keiser can deliver <strong>five different training solutions in every one of our strength machines.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="background--red pageDivider" />
+
+    <div class="background--white fibo2018__specialities">
+      <div class="container container--noPadBottom">
+        <div class="row">
+          <div class="l--medium--12 columns">
+            <p>
+              Capitalize on this unrivaled versatility and ROI by taking advantage of
+              <strong>The Keiser 5-in-1 Advantage</strong> and introduce your health club’s members to:
+            </p>
+          </div>
+          <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+            <img src="/assets/images/landing-pages/fibo-2018/1.png" />
+          </div>
+          <div class="l--extraSmall--10 l--medium--11 columns">
+            <h3>Traditional Training</h3>
+            <p>
+              Train slowly like you would with a traditional iron resistance-based machine.
+            </p>
+          </div>
+          <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+            <img src="/assets/images/landing-pages/fibo-2018/2.png" />
+          </div>
+          <div class="l--extraSmall--10 l--medium--11 columns">
+            <h3>Power Training</h3>
+            <p>
+              Train for power with controlled eccentric phase followed by rapid explosive phase.
+            </p>
+          </div>
+          <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+            <img src="/assets/images/landing-pages/fibo-2018/3.png" />
+          </div>
+          <div class="l--extraSmall--10 l--medium--11 columns">
+            <h3>Eccentric Training</h3>
+            <p>
+              Train for far greater muscle fatigue and stimulation, maximizing eccentric effects, resulting in
+              increased strength gains over a shorter period of time.
+            </p>
+          </div>
+          <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+            <img src="/assets/images/landing-pages/fibo-2018/4.png" />
+          </div>
+          <div class="l--extraSmall--10 l--medium--11 columns">
+            <h3>Speed Training</h3>
+            <p>
+              Train for far greater central nervous system stimulation with explosive concentric phase followed by fairly
+              quick eccentric phase, resulting in increased speed development even at lower resistance levels.
+            </p>
+          </div>
+          <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+            <img src="/assets/images/landing-pages/fibo-2018/5.png" />
+          </div>
+          <div class="l--extraSmall--10 l--medium--11 columns">
+            <h3>High-intensity Interval Training</h3>
+            <p>
+              Train for far greater cardiovascular response while taxing muscles with explosive concentric phase
+              followed by fairly quick eccentric phase — a safer method of HIIT for all ages.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="pageDivider background--red">
+
+    <div class="background--black">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--12 columns margin--bottom--none fibo2018__5in1Contact">
+            <h2 class="margin--bottom--none">Contact a Keiser Rep To Learn About The</h2>
+            <h2 class="text--red">Keiser 5-in-1 Advantage Today</h2>
+            <button v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor('Get a Commercial Quote', '5In1LandingPage')]">Contact Us</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="background--darkGrey ihrsaGuarantee__statusQuo">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--6 columns">
+            <h2 class="margin--bottom--none">Keiser <span class="text--red">vs</span></h2>
+            <h2 class="ihrsaGuarantee__statusQuo__title__grey">The Status Quo</h2>
+            <p>
+              Watch our video to learn the benefits of Keiser pneumatic-resistance machines when compared to traditional
+              iron resistance strength training.
+            </p>
+            <a href="/science" class="button">LEARN MORE</a>
+          </div>
+          <div class="l--medium--6 columns text--alignRight">
+            <div class="imageVideo">
+              <div class="imageVideo__image">
+                <img src="/assets/images/landing-pages/ihrsa-2018/keiser-vs-status-quo-thumbnail.png">
+              </div>
+              <div class="imageVideo__buttonOverlay" v-on:click="openModal('video-keiser-vs-status-quo')"></div>
+            </div>
+            <vue-modal :show.sync="showModal" :active-modal="activeModal" name="video-keiser-vs-status-quo">
+              <h3 slot="header">
+                Keiser vs The Status Quo
+              </h3>
+              <div class="videoEmbed" slot="body" v-html.literal='<iframe width="560" height="315" src="https://www.youtube.com/embed/NUPAJAJPRyo?rel=0&enablejsapi=1" frameborder="0" allowfullscreen></iframe>'>
+              </div>
+            </vue-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+    {% include 'about/contact-us/modals/_commercialSales' %}
+    {% include 'about/contact-us/modals/_customerSupport' %}
+  {% endcache %}
+{% endblock %}

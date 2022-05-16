@@ -1,0 +1,71 @@
+{% cache %}
+<article>
+
+  {% include "support/_header-block.html" %}
+
+  <div class="container">
+    <h2 class="margin--bottom">
+      How can we help you?
+    </h2>
+    <div class="row">
+      {% for block in entry.linkBlockWithIcon %}
+        <div class="l--small--12 l--medium--6 l--large--4 columns">
+          <div class="titleCard titleCard--withIcon">
+            <div class="row">
+              <div class="l--small--4 columns l--noMargin">
+                <div class="titleCard__iconBlock">
+                  <img class="titleCard__icon"
+                       src="{{ block.icon.one.getURL("small") }}"
+                       srcset="
+                        {{ block.icon.one.getURL("xsmall") }} 320w,
+                        {{ block.icon.one.getURL("small") }} 480w,
+                        {{ block.icon.one.getURL("medium") }} 640w,
+                        {{ block.icon.one.getURL("large") }} 960w,
+                        {{ block.icon.one.getURL("xlarge") }} 1280w">
+                </div>
+              </div>
+              <div class="l--small--8 columns l--noMargin">
+                <div class="titleCard__flexItems titleCard__flexItems--flexEnd">
+                  <h3 class="titleCard__title">
+                    {{ block.blockTitle }}
+                  </h3>
+                  <a href="{{ block.linkDestination }}" class="button button--fullWidth">
+                    {{ block.linkText }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="container">
+    <h2 class="margin--bottom">
+      Parts - Order Forms
+    </h2>
+    <div class="row">
+      {% for block in entry.copyBlockWithLink %}
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                {{ block.blockTitle }}
+              </h3>
+              <div class="titleCard__description">
+                {{ block.blockDescription }}
+              </div>
+              <a href="{{ block.linkDestination }}" class="button button--fullWidth">
+                {{ block.linkText }}
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>
+{% endcache %}

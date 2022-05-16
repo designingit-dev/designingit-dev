@@ -1,0 +1,117 @@
+{% extends "_layout" %}
+
+{% block content %}
+  {% cache %}
+  <article>
+
+    {% if entry.title or entry.body %}
+      <div class="background--darkGrey">
+        <div class="container container--tight">
+          <div class="row">
+            <div class="l--medium--12 columns l--noMargin">
+              <div class="titleBlock">
+                <h1 class="titleBlock__subTitle">
+                  {{ entry.title }}
+                </h1>
+              </div>
+              <div class="">
+                {{ entry.body }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+  {% endcache %}
+
+  {% if entry.contentBlocks is defined %}
+    {% include 'shared/content-block/layout/_customCSS' with {
+      'blocks': entry.contentBlocks
+    } %}
+    {% for block in entry.contentBlocks.level(1) %}
+      {% include 'shared/content-block/_content-block' with {
+        'block': block
+      } %}
+    {% endfor %}
+
+    {% if entry.contentBlockCustomCSS is not empty %}
+      {% css %}
+        {{ entry.contentBlockCustomCSS|raw }}
+      {% endcss %}
+    {% endif %}
+  {% endif %}
+
+    {% cache %}
+
+    {% if entry.twoColumnBlockWithHeaders is defined and entry.twoColumnBlockWithHeaders is not empty %}
+      <div class="container container--tight">
+        <div class="row">
+          {% for block in entry.twoColumnBlockWithHeaders %}
+            <div class="titleBlock">
+              <h3 class="titleBlock__title">
+                {{ block.smallHeader }}
+              </h3>
+              <h1 class="titleBlock__subTitle">
+                {{ block.largeHeader }}
+              </h1>
+            </div>
+
+            <div class="twoColumns">
+              <div class="l--small--12 l--medium--6 columns l--noMargin">
+                {{ block.copyBlockLeft }}
+              </div>
+              <div class="l--small--12 l--medium--6 columns l--noMargin">
+                {{ block.copyBlockRight }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if entry.copyBlockWithImage is defined and entry.copyBlockWithImage is not empty %}
+      {% for promo in entry.copyBlockWithImage %}
+        {% include "_commerce_promo_block.html" %}
+      {% endfor %}
+    {% endif %}
+
+    {% if entry.arbitraryContentBlocks is defined %}
+      {% for block in entry.arbitraryContentBlocks %}
+        {% include 'shared/_arbitrary-content-block.html' with { 'block': block } %}
+      {% endfor %}
+    {% endif %}
+
+    {% if entry.copyBlockWithLink is defined and entry.copyBlockWithLink is not empty %}
+      <div class="container container--tight">
+        <div class="row">
+          {% for block in entry.copyBlockWithLink %}
+            <div class="l--small--6 l--medium--4 columns">
+              <div class="titleCard titleCard--constrain">
+                <div class="titleCard__flexItems titleCard__flexItems--constrain">
+                  <h3 class="titleCard__title">
+                    {{ block.blockTitle }}
+                  </h3>
+                  <div class="titleCard__description">
+                    {{ block.blockDescription }}
+                  </div>
+                  <a href="{{ block.linkDestination }}" class="button button--fullWidth">
+                    {{ block.linkText }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+  </article>
+
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+
+  {% endcache %}
+
+{% endblock %}

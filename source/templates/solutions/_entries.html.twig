@@ -1,0 +1,293 @@
+<article>
+  {% cache %}
+  <div class="background--black">
+    <div class="constrain">
+      {% for block in entry.copyBlockWithImage %}
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns padding--top">
+            <div class="titleBlock">
+              <h3 class="titleBlock__title">{{ block.smallTitle }}</h3>
+              <h1 class="titleBlock__subTitle">{{ block.largeTitle }}</h1>
+            </div>
+
+            <p>{{ block.bodyCopy }}</p>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set solutionImage = block.image.one %}
+              {% include 'shared/_srcset_image.html' with {'image': solutionImage, 'default_size': 'large' } %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if entry.exosTestimonialBlock is not empty %}
+
+    {% set testimonial = {} %}
+    {% set stats = [] %}
+    {% set video = {} %}
+    {% for block in entry.exosTestimonialBlock %}
+      {% switch block.type %}
+        {% case 'testimonial' %}
+          {% set testimonial = block %}
+        {% case 'stats' %}
+          {% set stats = stats | merge([block]) %}
+        {% case 'video' %}
+          {% set video = block %}
+      {% endswitch %}
+    {% endfor %}
+
+    <div class="partnerTestimonial">
+
+      <div class="container is--hidden is--visible--medium">
+        <div class="row">
+          <div class="l--medium--1 columns">
+            <span class="partnerTestimonial__blockQuote">&ldquo;</span>
+          </div>
+          <div class="l--medium--3 columns text--alignRight partnerTestimonial__bioContainer">
+            <img class="partnerTestimonial__image" src="{{ testimonial.expertImage.one.getUrl() }}" />
+            <p class="text--red text--large margin--bottom--none partnerTestimonial__text"><i>{{ testimonial.expertComment }}</i></p>
+            <p class="text--small text--bold margin--bottom--none partnerTestimonial__name">{{ testimonial.expertName }}</p>
+            <p class="text--small text--bold margin--bottom--none partnerTestimonial__position">{{ testimonial.expertDesignation }}</p>
+          </div>
+          <div class="l--medium--7 columns partnerTestimonial__contentContainer">
+            <div class="titleBlock">
+              <h3 class="text--upcase titleBlock__title">{{ testimonial.smallTitle }}</h3>
+              <h1 class="titleBlock__subTitle">{{ testimonial.largeTitle }}</h1>
+            </div>
+            <p class="partnerTestimonial__content">{{ testimonial.bodyCopy }}</p>
+            <a href="{{ testimonial.linkURL }}" target="_blank" class="text--bold partnerTestimonial__link">{{ testimonial.linkText }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--10 l--medium--offset--1 columns margin--bottom--none ">
+            {% for stat in stats %}
+              {% set extraClass = '' %}
+              {% if stat.statCount|length > 3 %}
+                {% set extraClass = 'extraWidth' %}
+              {% elseif stat.statCount|length <= 2 %}
+                {% set extraClass = 'lessWidth' %}
+              {% endif %}
+              <div class="text--alignCenter partnerTestimonial__stat {{ extraClass }}">
+                <p class="text--bold text--xxxLarge text--upcase margin--bottom--none">{{ stat.statCount }}</p>
+                <p class="text--bold margin--bottom--none">{{ stat.statDescription }}</p>
+              </div>
+              {% if not loop.last %}
+                <div class="partnerTestimonial__crossIconContainer">
+                  <img class="partnerTestimonial__crossIcon" src="/assets/images/solutions/cross-icon.png" />
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--1 l--medium--offset--11 margin--bottom--none text--alignRight columns padding--bottom">
+            <span class="partnerTestimonial__blockQuote partnerTestimonial__blockQuote__closingQuote">&rdquo;</span>
+          </div>
+        </div>
+      </div>
+      <div class="container is--hidden--medium partnerTestimonial__mobile">
+        <div class="row">
+          <div class="l--extraSmall--12 columns">
+            <span class="partnerTestimonial__blockQuote">&ldquo;</span>
+          </div>
+          <div class="l--extraSmall--12 columns partnerTestimonial__mobile__contentContainer">
+            <div class="titleBlock">
+              <h3 class="text--upcase titleBlock__title">{{ testimonial.smallTitle }}</h3>
+              <h1 class="titleBlock__subTitle">{{ testimonial.largeTitle }}</h1>
+            </div>
+            <p class="partnerTestimonial__content">{{ testimonial.bodyCopy }}</p>
+            <a href="{{ testimonial.linkURL }}" target="_blank" class="text--bold partnerTestimonial__link">{{ testimonial.linkText }}</a>
+          </div>
+        </div>
+        <div class="row partnerTestimonial__mobile__statsContainer">
+          {% for stat in stats %}
+            <div class="l--extraSmall--5 l--small--2 text--alignCenter columns">
+              <p class="text--bold text--xxxLarge text--upcase margin--bottom--none">{{ stat.statCount }}</p>
+              <p class="text--bold margin--bottom--none">{{ stat.statDescription }}</p>
+            </div>
+            {% if loop.index % 2 == 1 %}
+              <div class="l--extraSmall--2 l--small--1 text--alignCenter columns is--hidden--small partnerTestimonial__mobile__statsSeparator">
+                <img class="partnerTestimonial__crossIcon" src="/assets/images/solutions/cross-icon.png" />
+              </div>
+            {% endif %}
+            {% if not loop.last %}
+              <div class="l--small--1 text--alignCenter columns is--hidden is--visible--small is--hidden--medium partnerTestimonial__mobile__statsSeparator">
+                <img class="partnerTestimonial__crossIcon" src="/assets/images/solutions/cross-icon.png" />
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="row partnerTestimonial__mobile__bioContainer">
+          <div class="l--extraSmall--4 l--small--3 columns text--alignCenter margin--bottom--none partnerTestimonial__mobile__imageContainer">
+            <img src="{{ testimonial.expertImage.one.getUrl() }}" />
+          </div>
+          <div class="l--extraSmall--8 l--small--8 columns margin--bottom--none partnerTestimonial__mobile__textContainer">
+            <p class="text--red text--large margin--bottom--none partnerTestimonial__text"><i>{{ testimonial.expertComment }}</i></p>
+            <p class="text--small text--bold margin--bottom--none is--hidden is--visible--small is--hidden--medium">{{ testimonial.expertName }}</p>
+            <p class="text--small text--bold text--upcase margin--bottom--none is--hidden is--visible--small is--hidden--medium">{{ testimonial.expertDesignation }}</p>
+          </div>
+        </div>
+        <div class="row is--hidden--small partnerTestimonial__mobile__designationContainer">
+          <div class="l--extraSmall--12 columns margin--bottom--none">
+            <p class="text--small text--bold margin--bottom--none">{{ testimonial.expertName }}</p>
+            <p class="text--small text--bold text--upcase margin--bottom--none">{{ testimonial.expertDesignation }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--extraSmall--12 margin--bottom--none text--alignRight columns padding--bottom partnerTestimonial__mobile__closingQuoteContainer">
+            <span class="partnerTestimonial__blockQuote">&rdquo;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+
+  {% if entry.testimonialVideoBlockHero is not empty %}
+  {% for block in entry.testimonialVideoBlockHero %}
+
+  <div class="background--red">
+       <figure class="videoBlockHero exosVideoBlockHero">
+          <div class="videoBlockHero__image" style="background-image: url({{ block.videoBlockHeroImage.one.getURL }})"></div>
+
+          <div class="videoBlockHero__content">
+            <div class="partnerTestimonial__blockQuote">&ldquo;</div>
+            <div class="graphicHeader">
+            {% if block.videoBlockHeroPreTitle is not empty %}
+              <div class="graphicHeader__subtitle is--hidden is--visible--small">
+                {{ block.videoBlockHeroPreTitle }}
+              </div>
+            {% endif %}
+              <div class="graphicHeader__title">
+                {{ block.videoBlockHeroTitle }}
+              </div>
+            {% if block.videoBlockHeroSubTitle is not empty %}
+              <div class="graphicHeader__subtitle is--hidden is--visible--small">
+                {{ block.videoBlockHeroSubTitle }}
+              </div>
+            {% endif %}
+              <div class="graphicHeader__logos">
+                <div class="graphicHeader__logos__keiserLogo">
+                  <img src="/assets/images/solutions/keiser-logo-white-transparent.png" />
+                </div>
+                <div class="graphicHeader__logos__separator">
+                  <img src="/assets/images/solutions/video-hero-logo-separator.png" />
+                </div>
+                <div class="graphicHeader__logos__exosLogo">
+                  <img src="{{ block.videoBlockHeroLogo.one.getURL }}" />
+                </div>
+              </div>
+            </div>
+            <a class="button" v-on:click="openModal('video-block-hero-{{ block.id }}')">{{ block.videoBlockHeroButton }}</a>
+          </div>
+
+
+          <figcaption>
+            <h4>{{ block.videoBlockHeroCaptionTitle }}</h4>
+            <div>{{ block.videoBlockHeroCaptionPosition }}</div>
+          </figcaption>
+
+          <vue-modal :show.sync="showModal" :active-modal="activeModal" name="video-block-hero-{{ block.id }}">
+            <div class="videoEmbed" slot="body" v-html.literal='{{ block.videoBlockHeroEmbed }}'>
+            </div>
+          </vue-modal>
+        </figure>
+  </div>
+
+  {% endfor %}
+  {% endif %}
+
+  <div class="background--darkGrey">
+    <div class="container">
+      {% for block in entry.twoColumnBlockWithHeaders %}
+        <div class="titleBlock">
+          <h3 class="titleBlock__title">{{ block.smallHeader }}</h3>
+          <h1 class="titleBlock__subTitle">{{ block.largeHeader }}</h1>
+        </div>
+
+        <div class="row">
+          <div class="twoColumns">
+            <div class="l--small--12 l--medium--6 columns l--noMargin">
+              {{ block.copyBlockLeft }}
+            </div>
+            <div class="l--small--12 l--medium--6 columns l--noMargin">
+              {{ block.copyBlockRight }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% endcache %}
+
+  {% if entry.caseStudyMarkets is not empty %}
+    {% set caseStudies = craft.entries.section('caseStudies').relatedTo(entry.caseStudyMarkets.one).orderBy('field_caseStudyDisplayOrder').all() %}
+    {% if caseStudies|length > 1 %}
+      <div class="caseStudy__solutions__bigBannerSlider">
+        {% for caseStudy in caseStudies %}
+          {% include 'case-studies/_bigBanner.html' with {
+            caseStudy: caseStudy
+          } %}
+        {% endfor %}
+      </div>
+    {% else %}
+      {% for caseStudy in caseStudies %}
+        {% include 'case-studies/_bigBanner.html' with {
+          caseStudy: caseStudy
+        } %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+
+  {% cache %}
+  <div class="container">
+    <div class="titleBlock">
+      <h3 class="titleBlock__title">KEISER</h3>
+      <h1 class="titleBlock__subTitle">Benefits</h1>
+    </div>
+
+    <div class="margin--top">
+      {% for block in entry.copyBlockWithIcon %}
+        <div class="iconBlock">
+          <div class="row">
+            <div class="l--small--2 columns">
+              <div class="iconBlock__iconWrapper background--darkGrey">
+                <img class="iconBlock__icon" src="{{ block.icon.one.getURL("small") }}">
+              </div>
+            </div>
+            <div class="l--small--10 columns">
+              <div class="iconBlock__copy">
+                <h3>{{ block.titleBlock }}</h3>
+                <p class="l--noMargin">{{ block.copyBlock | raw }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% include "shared/_ctaCard-fullWidth.html" with {
+      'getPricingCTA': 'Get pricing'
+    } %}
+
+
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="container">
+    {% for entry in craft.entries.section("homepage") %}
+      {% include "shared/_products-block.html" %}
+    {% endfor %}
+  </div>
+
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+
+  {% endcache %}
+</article>

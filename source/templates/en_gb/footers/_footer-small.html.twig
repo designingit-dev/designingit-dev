@@ -1,0 +1,34 @@
+<footer class="background--blpgrey">
+  <div class="container container--tight">
+    <div class="footer footer--secondary">
+      <div class="row">
+        <div class="l--small--12 l--medium--2 columns l--noMargin">
+          <img data-src="/assets/images/keiser-logo.svg" alt="Keiser" class="footer__logo lazyload">
+        </div>
+        <div class="l--small--12 l--medium--7 columns l--noMargin footer--secondary__right">
+          <div>Keiser UK Ltd. | Unit 3, Hampton Industrial Estate | Tetbury, Gloucestershire, GL8 8LD</div>
+          <div>
+            &copy; {{ "now" | date("Y") }} Keiser. All Rights Reserved |
+            {% for entry in craft.entries.section("termsAndConditions") %}
+              <a href="{{ entry.url }}">
+                {% include 'shared/_nav-title.html' with {'entry': entry} %}
+              </a> |
+            {% endfor %}
+
+            {% for entry in craft.entries.section("privacyPolicy") %}
+              <a href="{{ entry.url }}">
+                {% include 'shared/_nav-title.html' with {'entry': entry} %}
+              </a>
+            {% endfor %}
+
+            {% for entry in craft.entries.section("userGeneratedContentTermsAndConditions") %}
+              | <a href="{{ entry.url }}">
+                {% include 'shared/_nav-title.html' with {'entry': entry} %}
+                </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

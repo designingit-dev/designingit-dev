@@ -1,0 +1,126 @@
+<div class="cart">
+  {% include "cart/_cartHeader" %}
+
+  <ul class="itemList itemList--cart">
+    {% set whiteGloveDeliveryFees = 0 %}
+    {% for item in cart.lineItems %}
+        {% include "cart/_line_item.html" with {
+          item: item
+        } %}
+      {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+        {% set whiteGloveDeliveryFees = whiteGloveDeliveryFees + (item.purchasable.product.whiteGloveDeliveryFee * item.qty) %}
+      {% endif %}
+    {% endfor %}
+
+  {% include 'checkout/_shippingLeadTimeMessage' %}
+
+  </ul>
+
+  <div class="row">
+    <div class="l--medium--12 columns">
+      {% include 'shared/_additionalTransitTimeMessage' with {
+        'includeAsterisk': true,
+        'includeModals': true
+      } %}
+    </div>
+
+    <div class="l--medium--5 columns">
+      <div class="margin--bottom">
+        {# Update Coupon form uses the single update controller action: #}
+        {% if cart.getFirstError('couponCode') %}<span>{{ cart.getFirstError('couponCode') }}</span>{% endif %}
+        <form method="POST">
+          <input type="hidden" name="action" value="commerce/cart/update-cart">
+          {{ redirectInput('/cart') }}
+          {{ csrfInput() }}
+
+          <div class="cart__coupon">
+            <span class="field__input {% if cart.getFirstError('couponCode') %}has-error{% endif %}">
+              <input type="text" name="couponCode" width="11" class="{% if cart.getFirstError('couponCode') %}has-error{% endif %}" value="{{ cart.couponCode }}" placeholder="{{ "Coupon Code"|t }}">
+            </span>
+          </div>
+          <input class="margin--top--none" type="submit" value="{% if cart.couponCode %}Change{% else %}Apply{% endif %}"/>
+        </form>
+      </div>
+
+      {# Add a new discount code to the admin panel and enter it to get this block to appear #}
+      {% if cart.adjustments | length %}
+        <div class="cart__adjustments">
+          {% for adjustment in cart.adjustments %}
+          {% if adjustment.type == 'Discount' %} {# Only show discount type cart adjustments here #}
+            <div>
+              <div class="margin--bottom--narrow"><strong>{{ adjustment.name }}</strong></div>
+              {% if adjustment.description is not null %}
+              <p class="margin--bottom--narrow">
+                <span class="text--red">Description:</span> {{ adjustment.description }}
+              </p>
+              {% endif %}
+            </div>
+            {% if adjustment.amount > 0 %}
+            <div>
+              <span class="text--red">Amount:</span>
+              {{ adjustment.amount|commerceCurrency(cart.currency) }}
+            </div>
+            {% endif %}
+          {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="l--medium--4 columns l--pullRight">
+      <div class="text--alignRight">
+        <div class="text--alignRight">
+          <div class="cart__summaryItem">Item Sub Total: {{ (cart.itemSubTotal + whiteGloveDeliveryFees)|commerceCurrency(cart.currency) }}</div>
+          <div class="cart__summaryItem">Total Discount: {{ cart.getAdjustmentsTotalByType('discount')|commerceCurrency(cart.currency) }}</div>
+          <h3 class="cart__total">Order Sub Total: {{ (cart.itemSubTotal + cart.getAdjustmentsTotalByType('discount') + whiteGloveDeliveryFees )|commerceCurrency(cart.currency) }}</h3>
+          <p class="margin--bottom--half">Shipping &amp; Tax Calculated at Checkout</p>
+          {% if craft.commerce.gateways.allCustomerEnabledGateways|length %}
+            {% for gateway in craft.commerce.gateways.allCustomerEnabledGateways %}
+              {% switch gateway.handle %}
+                {% case 'affirm' %}
+                  <p class="affirm-as-low-as text--small margin--top--half" data-page-type="cart" data-amount="{{ (cart.itemSubTotal + cart.getAdjustmentsTotalByType('discount') +  + whiteGloveDeliveryFees)| commerceCurrency(cart.currency,convert=true,format=false) | round(2) * 100 }}"></p>
+                {% case 'klarna' %}
+                <klarna-placement
+                        data-key="credit-promotion-badge"
+                        data-locale="{{ craft.keiserContactHelpers.getEnvironmentVariable('SITE_LOCALE') }}"
+                        data-purchase-amount="{{ (cart.itemSubTotal + cart.getAdjustmentsTotalByType('discount') +  + whiteGloveDeliveryFees)| commerceCurrency(cart.currency,convert=true,format=false) | round(2) * 100 }}"
+                ></klarna-placement>
+              {% endswitch %}
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="text--alignRight">
+          <a class="button js--checkoutBtn" href="{{ url('/checkout') }}">Checkout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns l--pullRight">
+      <div class="text--alignRight">
+        <label>
+          <input type="checkbox" name="terms_and_conditions" class="js--toggleCheckout" checked="checked" />
+          I agree to the <a href="{{ url('/pages/keiser-terms-conditions') }}" target="_blank">terms and conditions</a> and <a href="{{ url('/pages/keiser-purchase-agreement') }}" target="_blank">purchase agreement</a>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  {% set suggestedAccessories = craft.keiserCommerceHelpers.getSuggestedAccesoriesForCart() %}
+  {% if suggestedAccessories is not empty %}
+    <div class="row">
+      <div class="l--medium--12 columns background--lightGrey margin--bottom--half">
+        <h2 class="margin--top--half margin--bottom--half">Recommended Accessories</h2>
+      </div>
+      <div class="l--medium--12 columns margin--bottom--half">
+        <p>Customers who purchased this product, also added some of these popular, complementary items.</p>
+      </div>
+    </div>
+    {% for accessory in suggestedAccessories %}
+      {% include 'shop/products/shared/_optional_accessory' with {
+        'product': accessory
+      } %}
+    {% endfor %}
+  {% endif %}
+
+</div>

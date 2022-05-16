@@ -1,0 +1,227 @@
+{% set product = entry.sellableEquipment.one() %}
+
+{% set productReviewsAvailable = false %}
+{% if product and product.displayReviews and commerce.reviewsCountOnProductPage > 0  %}
+    {% set productReviews = craft.sproutForms.entries.formHandle('productReview').productSlug(product.slug).moderationStatus('published').orderBy('sproutforms_entries.dateCreated desc') %}
+    {% if productReviews is not empty %}
+        {% set productReviewsAvailable = true %}
+    {% endif %}
+{% endif %}
+
+{% if product.defaultVariant is defined and featureFlags.activateCommerce %}
+    {% set variant = product.defaultVariant %}
+{% endif %}
+
+{% extends "_layout" %}
+
+{% block content %}
+
+    <article>
+        <div class="constrain">
+            <div class="row">
+                <div class="l--small--12 l--medium--6 columns l--pullRight padding--top--thin">
+
+                    {% if entry.image.one %}
+                        {% include "products/_gallery.html" with {
+                            gallery: entry.imageAndVideoGallery,
+                            primaryImage: entry.image.one,
+                        } %}
+                    {% else %}
+                        <img src="{{ about.imageUnavailable.one.getURL("medium") }}">
+                    {% endif %}
+                </div>
+
+                <div class="l--small--12 l--medium--6 columns">
+                    <div class="padding--top">
+                        <div class="titleBlock products__new">
+                            <h1 class="titleBlock__subTitle margin--bottom--none product__title">
+                                {{ entry.title }}
+                            </h1>
+                            <p class="margin--top--none margin--bottom--half text--uppercase model__number"><strong>{{ entry.productModelNumber }}</strong></p>
+                        </div>
+
+                        <div class="margin--top margin--bottom products__new">
+                            <strong class="text--sansSerif--black product__headline">{{ entry.productHeadline|nl2br }}</strong>
+                        </div>
+
+                        <div>{{ entry.body }}</div>
+
+                        <div class="flexGrowLinks">
+                            <a href="javascript:"
+                               class="button flexGrowLinks__link l--centered commercialSalesModal"
+                               v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor('Get a Commercial Quote', 'getACommercialQuoteStrengthMppOld')]">
+                                {{ getPricingCTA }}
+                            </a>
+                            {% for block in entry.additionalCtas %}
+                                {% if not featureFlags.activateCommerce or (featureFlags.activateCommerce and ('shop.keiser.com' not in block.ctaLink|parseRefs|raw)) %}
+                                    <a href="{{ block.ctaLink|parseRefs|raw }}" class="button flexGrowLinks__link l--centered" {{ block.openInNewTab ? 'target="_blank"' }}>{{ block.ctaText }}</a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if product is not null %}
+                                <a data-hideForeign="true" class="button button--secondary flexGrowLinks__link flexGrowLinks__link--last l--centered shopForHomeButton" href="{{ product.url }}">{{ entry.addToCartCta ?: "Buy Now" }}</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for block in entry.arbitraryContentBlocks %}
+            {% include 'shared/_arbitrary-content-block.html' with { 'block': block } %}
+        {% endfor %}
+
+        {% for productFeatureContentBlockEntry in entry.productFeatureContentBlocks %}
+            {% include 'shared/content-block/layout/_customCSS' with {
+                'blocks': productFeatureContentBlockEntry.contentBlocks
+            } %}
+            {% for block in productFeatureContentBlockEntry.contentBlocks.level(1) %}
+                {% include 'shared/content-block/_content-block' with {
+                    'block': block
+                } %}
+            {% endfor %}
+        {% endfor %}
+
+        {# Currently limiting them to 1 promo block per product at
+     a time via admin, but this is an artificial constraint as
+     the following code will loop through more if available.
+        #}
+        {% include 'products/_promo-block.html' with { 'promoBlocks': entry.promoBlocks, 'separator': entry.showSeparatorAbovePromoBlocks } %}
+
+        {% if entry.arbitraryContentBlocks and entry.promoBlocks is empty %}
+            <hr class="background--red pageDivider">
+        {% endif %}
+
+        {% if entry.copyBlockWithImage %}
+            {% for block in entry.copyBlockWithImage %}
+                <div class="background--black">
+                    <div class="container">
+                        <div class="row">
+                            <div class="l--small--12 l--medium--6 columns l--noMargin">
+                                <div class="image--fullBleed">
+                                    {% set designImage = block.image.one %}
+                                    {% include 'shared/_srcset_image.html' with {'image': designImage, 'default_size': 'large' } %}
+                                </div>
+                            </div>
+                            <div class="l--small--12 l--medium--6 columns padding--top">
+                                <div class="titleBlock">
+                                    <h3 class="titleBlock__title">{{ block.smallTitle }}</h3>
+                                    <h1 class="titleBlock__subTitle">{{ block.largeTitle }}</h1>
+                                </div>
+                                <p>{{ block.bodyCopy }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if entry.copyBlockWithImage|length > 0 %}
+            <hr class="background--red pageDivider">
+        {% endif %}
+
+
+        {% if entry.mppCaseStudies is not empty %}
+
+            {% if entry.mppCaseStudies|length > 1 %}
+                <div class="caseStudy__solutions__bigBannerSlider margin--bottom">
+                    {% for caseStudy in entry.mppCaseStudies %}
+                        {% include 'case-studies/_bigBanner.html' with {
+                            caseStudy: caseStudy
+                        } %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% for caseStudy in entry.mppCaseStudies %}
+                    <div class="margin--bottom">
+                        {% include 'case-studies/_bigBanner.html' with {
+                            caseStudy: caseStudy
+                        } %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <hr class="background--red pageDivider">
+        {% endif %}
+
+        {% if productReviewsAvailable %}
+
+            {% include "products/_reviewAndRating.html" with {
+                entry: entry,
+                product: product,
+                productReviews: productReviews,
+            } %}
+
+            <hr class="background--red pageDivider">
+        {% endif %}
+
+        {% if entry.technicalSpecifications or entry.features %}
+            <div class="container">
+                {% include "products/_specsAndFeatures.html" with {
+                    'getAQuoteEnabled': true,
+                    'getPricingCTA': getPricingCTA
+                } %}
+            </div>
+        {% endif %}
+
+        {% if entry.installationOptions is not empty %}
+            {% set block = entry.installationOptions.one() %}
+            {% include "products/_installationOptions.html" with {'block': block} %}
+        {% endif %}
+
+        {% if entry.frequentlyAskedQuestions.count > 0 %}
+            <hr class="background--red pageDivider">
+            <div class="container">
+                {% include "products/_faqs.html" %}
+            </div>
+        {% endif %}
+
+        {% if entry.rackPlatforms is not empty %}
+            {% include 'products/_rackPlatforms' with {
+                'rackPlatforms': entry.rackPlatforms
+            } %}
+        {% endif %}
+
+        {# Van Demo Module #}
+        <div data-hideForeign="true">
+            {% include "shared/_van-demo_home.html" %}
+        </div>
+
+        <div class="container">
+            {% if entry.displayRequired or
+                entry.airSystemRequired or
+                entry.customColorsAvailable or
+                entry.partsAndAccessories.one or
+                entry.partsAndAccessoriesOptional.one %}
+                {% include "products/_partsAndAccessories.html" %}
+            {% endif %}
+
+            {% include "shared/_ctaCard-fullWidth.html" with {
+                'getPricingCTA': getPricingCTA
+            } %}
+        </div>
+
+    </article>
+
+    {% if product is not null %}
+        <script type="text/javascript">
+            ga('keisergtm.require', 'ec');
+
+            ga('keisergtm.ec:addProduct', {
+                'id': '{{ variant.sku }}',
+                'name': '{{ variant.title }}',
+                'category': '{{ product.analyticsCategory.one() }}'
+            });
+
+            ga('keisergtm.ec:setAction', 'detail');
+
+            ga('keisergtm.send', 'event', 'ecommerce', 'Detail', {'nonInteraction': true});
+        </script>
+    {% endif %}
+
+    {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+    {% include 'about/contact-us/modals/_commercialSales' %}
+    {% include 'about/contact-us/modals/_customerSupport' %}
+
+{% endblock %}

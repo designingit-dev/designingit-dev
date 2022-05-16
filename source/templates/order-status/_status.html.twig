@@ -1,0 +1,94 @@
+{% extends '_layout' %}
+
+{% set order = craft.orders().shortNumber(shortNumber).one() %}
+
+{% if not order %}
+  {% redirect 404 %}
+{% endif %}
+
+{% macro statusMark(completed) %}
+  {% if completed -%}
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="auto" class="width--icon height--auto" viewBox="0 0 19 17" aria-label="Complete"><path fill="none" stroke="#3c9832" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4" d="M17 2 7 14 2 9"/></svg>
+  {% else %}
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="width--icon height--icon" viewBox="0 0 20 20" aria-label="Incomplete"><circle cx="10" cy="10" r="10" fill="#8a8a8d" /></svg>
+  {% endif %}
+{% endmacro %}
+
+{% set orderStatus = order.orderStatus.handle ~ "" %}
+{% set statuses = {
+  'received': {
+    'label': 'Order received',
+    'completeStatuses': ['notesReviewRequired', 'notesAddressReviewRequired', 'manualReviewRequired',
+                          'processing', 'orderProcessed', 'shipped']
+  },
+  'inProduction': {
+    'label': 'Order is in production',
+    'completeStatuses': ['orderProcessed', 'shipped'] 
+  },
+  'shipped': {
+    'label': 'Order has shipped',
+    'completeStatuses': ['shipped']
+  }
+} %}
+
+{% block content %}
+<div class="container container--tight">
+  <div class="row">
+    <div class="l--medium--12 columns">
+      <h1 class="scale--xXLarge">Your order</h1>
+      <p class="text--bold margin--bottom--none">
+        Order number:
+        <span class="text--uppercase">{{ order.getShortNumber() }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="row row--flex--column--reverse row--medium--block">
+    <section class="l--medium--6 columns">
+      <h2 class="scale--larger">Items in your order</h2>
+      {% if orderStatus not in statuses['shipped']['completeStatuses'] and order.scheduledShipDate -%}
+        <p class="margin--bottom--half">Scheduled Ship Date: {{ order.scheduledShipDate|date('Y-m-d') }}</p>
+      {%- endif %}
+
+      {% if order.lineItems|length %}
+        <ul class="itemList margin--top">
+          {% set itemBoxClasses = [
+            'background--lighterGrey',
+            'margin--left--none margin--bottom',
+            'padding--top--half padding--bottom--half',
+            'padding--left--half padding--right--half'
+          ]|join(' ') %}
+          {% for item in order.lineItems %}
+            <li class="{{ itemBoxClasses }}">
+              <h4 class="margin--bottom--half scale--baseLg">{{ item.description }}</h4>
+              <p class="margin--bottom--none">SKU: {{ item.sku }}</p>
+              {% if item.options.productSellersNotes is defined -%}
+                <p class="margin--top margin--bottom--none">{{ item.options.productSellersNotes }}</p>
+              {%- endif -%}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+    <section class="l--medium--6 columns">
+      <h2 class="scale--larger">Order status</h2>
+      <ol class="itemList">
+        {% for key, status in statuses %}
+          {% set complete = order.orderStatus.handle ~ "" in status.completeStatuses %}
+          <li class="margin--left--none display--flex flex--items--center flex--wrap padding--left">
+            <span class="display--flex flex--items--center flex--no-shrink margin--left--negative">
+              {{ _self.statusMark(complete) }}
+              <span class="display--block margin--left--narrow margin--right--narrow text--bold nowrap">{{ status.label }}</span>
+            </span>
+            {% if key == 'shipped' and complete %}
+              {% set trackingLink = shipmentTrackingLink(order.shipmentTrackingNumbers|first) %}
+              {% if trackingLink %}
+                <a target="_blank" rel="noopener noreferrer" class="nowrap  link--underlined" href="{{ trackingLink }}">Track your shipment</a>
+              {% endif %}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  </div>
+</div>
+{% endblock %}

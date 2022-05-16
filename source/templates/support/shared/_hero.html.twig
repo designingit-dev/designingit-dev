@@ -1,0 +1,18 @@
+<div class="background--darkGrey">
+  <div class="container container--noPadTop">
+    <div class="row">
+      <div class="l--medium--6 padding--top columns">
+        <h1 id="supportPageTitle">{{ entry.title }} {{ entry.slug == 'support' ? '' : 'support'}}</h1>
+        {% if entry.supportHeroSubheading is not empty %}
+          <p>{{ entry.supportHeroSubheading }}</p>
+        {% endif %}
+        <br>
+        <br>
+        <a href="/about-us/contact-us" class="button" id="serviceRequestButton">Submit a service request</a>
+      </div>
+      <div class="l--medium--6 columns" id="supportOptionsContainer__top">
+        {% include 'support/shared/_agentSupportChannels' %}
+      </div>
+    </div>
+  </div>
+</div>

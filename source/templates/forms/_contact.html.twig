@@ -1,0 +1,100 @@
+{# Prepare our error macro #}
+{% macro errorList(errors) %}
+    {# To display errors, you want to make sure errors exist,
+         and then you can loop through and display them #}
+    {% if errors %}
+        <ul class="errors">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% from _self import errorList %}
+
+{# Get our Form data #}
+{% set form = craft.sproutForms.form('contactUs') %}
+
+{# Get our Form Entry data to manage error states and re-populating field values #}
+{% set submittedEntry = craft.sproutForms.getEntry(form) %}
+
+
+<form method="post" accept-charset="utf-8" enctype="multipart/form-data" id="contactUs-form" class="contactUs-form">
+  {{ craft.blitz.csrfInput() }}
+    <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+    <input type="hidden" name="handle" value="{{ form.handle }}">
+    {{ redirectInput(form.redirectUri) }}
+
+    {% for tab in form.getFieldLayout().getTabs() %}
+    <div class="form__tab">
+        <h3 class="text--upcase">{{ tab.name }}</h3>
+
+        {% set fields = tab.getFields() %}
+
+        {% for field in fields %}
+            {% set required = field.required %}
+            {% set tabId = field.tabId %}
+
+            {% set field = field.getField() %}
+
+            <div id="fields-{{ field.handle }}-field" class="field {{ field.type|lower }} {{ field.handle }}-field{% if required %} required{% endif %}">
+                {% if field.type == 'SproutFields_EmailSelect' %}
+                    <p class="noMargin">{{ field.name|raw }}</p>
+                {% endif %}
+                <div class="field__heading">
+                {% if field.type != 'SproutFields_EmailSelect' %}
+                    <label for="fields-{{ field.handle }}">{{ field.name }}</label>
+                {% endif %}
+                {% if field.instructions %}
+                    <div class="field__help">{{ field.instructions }}</div>
+                {% endif %}
+                </div>
+
+                <div class="field__input{% if field.type == 'SproutFields_EmailSelect' %} radios{% endif %}">
+                {% switch field.type %}
+                    {% case "SproutFields_EmailSelect" %}
+                        <div id="fields-{{ field.handle }}" class="{{ field.handle }}">
+                            {% for option in field.settings.options %}
+                                <label for="fields-{{ field.handle }}-{{ loop.index }}" class="label--plain">
+                                <input type="radio" id="fields-{{ field.handle }}-{{ loop.index }}" name="fields[{{ field.handle }}]" value="{{ loop.index0 }}"{% if (option.default != false) or (attribute(submittedEntry, field.handle) == option.value) %} checked="checked"{% endif %}{% if required %} required=""{% endif%}>&nbsp;{{ option.label|raw }}</label>
+                            {% endfor %}
+                        </div>
+
+                    {% case "SproutFields_Email" %}
+                        <input type="email" id="fields-{{ field.handle }}" class="{{ field.handle }}" name="fields[{{ field.handle }}]"{% if required %} required=""{% endif%} value="{{ attribute(submittedEntry, field.handle) }}">
+
+                    {% case "Checkboxes" %}
+                        <div id="fields-{{ field.handle }}" class="{{ field.handle }}">
+                            <input type="hidden" name="fields[{{ field.handle }}]" value="">
+                            {% for option in field.settings.options %}
+                                <label for="fields-{{ field.handle }}-{{ loop.index }}">
+                                <input type="checkbox" id="fields-{{ field.handle }}-{{ loop.index }}" name="fields[{{ field.handle }}][]" value="{{ option.value }}"{% if (option.default != false) or (attribute(submittedEntry, field.handle) == option.value) %} checked="checked"{% endif %}>&nbsp;{{ option.label }}</label>
+                            {% endfor %}
+                        </div>
+
+                    {% default %}
+                        {% if field.settings.multiline %}
+                        <textarea id="fields-{{ field.handle }}" class="{{ field.handle }}" name="fields[{{ field.handle }}]" rows="{{ field.settings.initialRows }}"{% if required %} required=""{% endif%}>{{ attribute(submittedEntry, field.handle) }}</textarea>
+                        {% else %}
+                        <input type="text" id="fields-{{ field.handle }}" class="{{ field.handle }}" name="fields[{{ field.handle }}]"{% if required %} required=""{% endif%} value="{{ attribute(submittedEntry, field.handle) }}">
+                        {% endif %}
+
+                {% endswitch %}
+                    {% if submittedEntry is defined %}
+                    <div class="error">
+                        {{ errorList(submittedEntry.getErrors(field.handle)) }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+
+    <div class="submit">
+        <input type="submit" value="{{ form.submitButtonText is not empty ? form.submitButtonText : 'Submit' }}">
+    </div>
+
+</form>

@@ -1,0 +1,24 @@
+{% for promoBlock in promoBlocks %}
+  {% for block in promoBlock.copyBlockWithImage %}
+    {% if separator %}
+    <hr class="background--red pageDivider">
+    {% endif %}
+    <div class="container">
+      <div class="row constrain">
+        <div class="l--small--7 columns">
+          <h2>{{ block.largeTitle }}</h2>
+          {% if block.smallTitle %}
+            <h3>{{ block.smallTitle }}</h3>
+          {% endif %}
+          <div>
+            {{ block.bodyCopy }}
+          </div>
+        </div>
+        <div class="l--small--5 columns">
+          {% include 'shared/_srcset_image.html' with {'image': block.image.one, 'default_size': 'large' } %}
+        </div>
+      </div>
+    </div>
+    <hr class="background--red pageDivider">
+  {% endfor %}
+{% endfor %}

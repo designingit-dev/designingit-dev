@@ -1,0 +1,24 @@
+<div class="container">
+  <h2 class="margin--bottom">
+    {{ copyBlockWithLink.sectionTitle }}
+  </h2>
+  <div class="row">
+    {% for block in copyBlockWithLink.supportCopyBlockWithLink %}
+      <div class="l--small--6 l--medium--4 columns">
+        <div class="titleCard titleCard--constrain">
+          <div class="titleCard__flexItems titleCard__flexItems--constrain">
+            <h3 class="titleCard__title">
+              {{ block.title }}
+            </h3>
+            <div class="titleCard__description">
+              {{ block.supportBlockCopy }}
+            </div>
+            <a href="{{ block.linkURL|parseRefs|raw }}" class="button button--fullWidth">
+              {{ block.supportLinkText }}
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

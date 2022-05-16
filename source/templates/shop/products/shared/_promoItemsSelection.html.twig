@@ -1,0 +1,18 @@
+<div class="dropdown margin--bottom">
+  <div class="heading text--bold margin--bottom--narrow margin--top--half">
+    Select your Free Promotional Item
+  </div>
+  <div class="input">
+    <select class="product__promoItem" for="promoItem{{ product.defaultVariant.productId }}">
+      <option value="">Select Option</option>
+      {% for item in product.promoItems %}
+        <option value="{{ item.defaultVariant.sku }}">{{ item.title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="row background--black textCenter is--hidden tShirtSize__error margin--top--narrow" id="product__promoItem__error">
+    <div class="l--medium--12 columns margin--bottom--none">
+      <img src="/assets/images/keiser-alert-icon.png" class="inline--block" /> <p class="inline--block margin--bottom--none text--small">Select Promotional Item</p>
+    </div>
+  </div>
+</div>

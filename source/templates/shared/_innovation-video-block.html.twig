@@ -1,0 +1,18 @@
+{% for block in entry.innovationSection %}
+  <div class="row">
+    <div class="l--small--12 l--medium--6 columns">
+      {% include "shared/_block-section-heading.html" %}
+      <p>{{ block.innovationCopy }}</p>
+      <a href="{{ block.linkDestination}}" class="button">{{ block.linkText }}</a>
+      <a data-hideForeign="true" href="{{ block.buyButtonDestination }}" class="button button--secondary">{{ block.buyButtonText }}</a>
+    </div>
+    <div class="l--small--12 l--medium--6 columns">
+      <div class="videoEmbed">
+        {% include 'shared/_youtube-lazy-embed' with {
+          videoid: block.innovationVideo,
+          videothumbnail: block.innovationVideoThumbnail.one.getUrl()
+        } %}
+      </div>
+    </div>
+  </div>
+{% endfor %}

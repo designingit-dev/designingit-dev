@@ -1,0 +1,29 @@
+<vue-modal :active-modal="activeModal" name="whiteGloveUnavailable__modal" class="contactUs__modal" v-cloak id="whiteGloveUnavailable__modal">
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--extraSmall--10 columns margin--bottom--none">
+          <h4>White Glove Delivery And Assembly</h4>
+        </div>
+        <div class="l--extraSmall--2 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('whiteGloveUnavailable__modal')"><img src="/assets/images/modal-close-button.png" /> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad margin--top">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <h3 class="text--red">Only Available in the Continental US</h3>
+          <p>Unfortunately, your shipping address is not eligible for White Glove services. We have removed these services from your cart and you can continue with Standard Freight Shipping</p>
+        </div>
+      </div>
+
+      <div class="l--medium--6 columns">
+        <button class="text--uppercase text--alignCenter" v-on:click="closeModal('whiteGloveUnavailable__modal')">Close - Return to Checkout</button>
+      </div>
+    </div>
+  </div>
+  <div slot="footer"></div>
+</vue-modal>

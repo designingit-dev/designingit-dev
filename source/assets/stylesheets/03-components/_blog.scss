@@ -1,0 +1,78 @@
+.blog {
+
+  &__author__description {
+
+    &__image img {
+      max-height: 118px;
+    }
+
+    &__about {
+      color: $blog--about--author;
+    }
+
+    &__name {
+      font-size: map-get($fontSizesPx, 28);
+    }
+
+  }
+
+  &__module__title {
+    font-size: map-get($fontSizesPx, 28);
+  }
+
+  &__articleList {
+    &__title h3 {
+      font-size: map-get($fontSizesPx, 20);
+      font-weight: $fontWeight--bold;
+    }
+  }
+
+  &__article {
+
+    &__title {
+      font-size: map-get($fontSizesPx, 28);
+    }
+
+    &__video {
+
+      &__title {
+        font-size: map-get($fontSizesPx, 20);
+      }
+
+      &__description {
+        p {
+          margin-bottom: $verticalRhythm--half;
+        }
+      }
+
+      &__container {
+        width: 100%;
+      }
+
+    }
+
+  }
+
+  &__promo {
+
+    &__container {
+      margin-left: -$verticalRhythm--half;
+      margin-right: -$verticalRhythm--half;
+    }
+
+  }
+
+  &__social__share__button {
+    margin-right: $verticalRhythm--narrow;
+  }
+
+  .field.email.email-field {
+    width: 95%;
+  }
+
+  .button {
+    font-family: $sansSerif;
+  }
+
+
+}

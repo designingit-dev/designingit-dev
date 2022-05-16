@@ -1,0 +1,424 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Container
+//  - Items
+//  - Links
+//  - Sub Navigation
+//
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Horizontal Nav
+name: horizontal-nav
+category: Components - Nav
+---
+
+```html_example
+<ul class="navHorizontal">
+  <li class="navHorizontal__item"><a href="#" class="navHorizontal__link">Link 1</a></li>
+  <li class="navHorizontal__item"><a href="#" class="navHorizontal__link">Link 2</a></li>
+  <li class="navHorizontal__item"><a href="#" class="navHorizontal__link is--active">Link 3 .is--active</a></li>
+  <li class="navHorizontal__item"><a href="#" class="navHorizontal__link">Link 4</a></li>
+</ul>
+```
+
+*/
+
+.navHorizontal {
+// -----------------------------------------------------------------------------
+// !-- Variables
+// -----------------------------------------------------------------------------
+  $border-offset: 4px;
+  $subNavClearingDistance: 14px; // Magic number to ensure box doesn't clear nav
+  $shadowDistance: 8px;
+
+// -----------------------------------------------------------------------------
+// !-- Container
+// -----------------------------------------------------------------------------
+  @include clearfix();
+  margin: 0 0 pem(($border-offset + 1px) * -1);
+  padding: pem($border-offset + 1px) 0;
+  list-style: none;
+  white-space: nowrap;
+
+  &--alignRight {
+    @include clearfix;
+    float: right;
+  }
+
+  &--alignCenter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-top: -4px;
+  }
+
+  &.siteHeader__mainNav {
+
+    .navHorizontal__item.item--has--dropdown:hover,
+    .navHorizontal__item.item--has--dropdown:focus,
+    .navHorizontal__item.item--has--dropdown.dropdown--active
+    {
+
+      .dropdown--icon {
+        filter: brightness(0) invert(1);
+      }
+
+    }
+
+
+
+    .navHorizontal__link:hover, 
+    .navHorizontal__link:focus, 
+    .navHorizontal__link:active, 
+    .navHorizontal__link.is--active
+    {
+      color: $keiser--white;
+      text-decoration: underline;
+    }
+  }
+
+  &.siteHeader__mainNav {
+
+    .dropdown--icon {
+      top: 5px;
+      right: 12px;
+    }
+  
+  }
+
+// -----------------------------------------------------------------------------
+// !-- Items
+// -----------------------------------------------------------------------------
+
+  &__item {
+    float: left;
+    margin: 0;
+    padding: 0 pem(12px);
+
+    &.shopNav {
+      display: none;
+  
+      @include respond-to(medium) {
+        display: block;
+      }
+  
+    }
+
+    &.search--dropdown--item,
+    &.item--has--dropdown
+    {
+      position: relative;
+
+      &:before {
+        content:'';
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 12px solid $blp--grey;
+        position: absolute;
+        display: none;
+      }
+
+    }
+
+    &.search--dropdown--item {
+
+      &:before {
+        bottom: -5px;
+        left: 20px;
+      }
+
+      &.dropdown--active, 
+      &:hover
+      {
+
+        filter: brightness(0) invert(1);
+
+      }
+
+    }
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &--iconed {
+      height: pem(20px);
+    }
+
+    &.dropdown--active {
+      &:before {
+        display: block;
+      }
+    }
+
+    &.item--has--dropdown {
+      position: relative;
+
+      &:before {
+        bottom: -19px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .navHorizontal__link {
+        position: relative;
+        padding-right: $gutter--half;
+      }
+
+    }
+
+  }
+
+  &__item--knockout {
+    border-color: $white;
+  }
+
+// -----------------------------------------------------------------------------
+// !-- Links
+// -----------------------------------------------------------------------------
+
+  &__link {
+    position: relative;
+    z-index: map-get($z-index, nav--subNav);
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $blp--grey--medium;
+    font-weight: $fontWeight--semiBold;
+
+    &:hover,&.is--active {
+      color: $keiser--red;
+      text-decoration: none;
+    }
+
+    .navHorizontal__item--iconed & {
+      line-height: 0;
+    }
+  }
+
+  &__link--knockout {
+    color: $white;
+  }
+
+  &__link--black {
+    color: inherit;
+  }
+
+  &__linkImage {
+    width: 1em;
+    height: 1em;
+  }
+
+// -----------------------------------------------------------------------------
+// !-- Sub Navigation
+// -----------------------------------------------------------------------------
+  &__subNav {
+    position: absolute;
+    width: 100vw;
+    z-index: map-get($z-index, hidden);
+    display: none;
+    transition-timing-function: $ease-in-out;
+    transition-duration: $duration--long;
+    transition-property: opacity, y;
+    transform: translateY(pem($subNavClearingDistance * -1));
+    white-space: normal;
+    opacity: 0;
+    box-shadow: 0 4px 6px -2px $keiser--black;
+
+    .container--xTight {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &.open {
+      z-index: map-get($z-index, nav--subNav);
+      left: 0;
+      display: block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    &__mega {
+      width: 20%;
+
+      &__linkContainer {
+        display: flex;
+        justify-content: center;
+
+        &__link {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 100%;
+          height: 60px;
+        }
+
+      }
+    }
+
+    &--background {
+      background: $blp--grey;
+      padding-top: $verticalRhythm--half;
+      padding-bottom: $verticalRhythm--half;
+      @include respond-to(medium){
+        padding-top: $verticalRhythm;
+        padding-bottom: $verticalRhythm;
+      }
+
+      @include respond-to-max(medium) {
+        background: transparent;
+        
+        .container--xTight {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
+    }
+  }
+
+}
+
+.all--equipments {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $gutter;
+  margin-bottom: $gutter;
+}
+
+.extended--link {
+  font-weight: $fontWeight--semiBold;
+  color: $keiser--red;
+  text-transform: uppercase;
+  font-size:map-get($fontSizesPx, 12);
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  padding-right: $gutter--narrow;
+
+  .dropdown--icon {
+    top: 2.5px;
+    right: 0;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+}
+
+.showroom--section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.showroom--section--text {
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+
+  img {
+    width: 85px;
+  }
+
+  .extended--link {
+    margin-left: 10px;
+  }
+
+  span {
+    font-weight: $fontWeight--normal;
+    font-size:map-get($fontSizesPx, 12);
+    margin: 0;
+
+    b {
+      font-weight: $fontWeight--extraBold;
+    }
+
+  }
+
+}
+
+.extended--strong {
+  font-weight: $fontWeight--extraBold;
+  color: $header--top--container--back;
+  font-size:map-get($fontSizesPx, 12);
+  margin-bottom: 4px;
+}
+
+.siteHeader__container {
+
+  &.is--sticky {
+
+    .navHorizontal__item {
+
+
+
+      &.item--has--dropdown,
+      &.search--dropdown--item
+      {
+
+        &:before {
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 8px solid $blp--grey;
+        }
+
+      }
+
+      &.search--dropdown--item {
+
+        &:before {
+          bottom: 0;
+          left: 25px;
+        }
+
+      }
+
+      &.item--has--dropdown {
+
+        &:before {
+          bottom: -14px;
+        }
+
+      }
+
+
+    }
+
+  }
+
+}
+
+.navHorizontal__link {
+  font-family:$sansSerif;
+  font-weight:$fontWeight--semiBold;
+  font-size: map-get($fontSizesPx, 12);
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $blp--grey--medium;
+  line-height: map-get($fontSizesPx, 12);
+
+  &.navHorizontal--secondary__link {
+    color: $header--top--container--back;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+  }
+
+}

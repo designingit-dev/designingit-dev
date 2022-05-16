@@ -1,0 +1,32 @@
+{% for entry in craft.entries.section("science") %}
+  <div class="scale--base margin--bottom">
+    <a href="{{ entry.url }}">
+      {% include 'shared/_nav-title.html' with {'entry': entry} %}
+    </a>
+  </div>
+{% endfor %}
+
+<div class="footer__sectionLinks">
+  {% for entry in craft.entries.section("about").level(1) %}
+    <a href="{{ entry.url }}" class="scale--base">
+      {% include 'shared/_nav-title.html' with {'entry': entry} %}
+    </a>
+  {% endfor %}
+
+  <ul class="list--tight">
+    {% for entry in craft.entries.section("about").level(2) %}
+      {% if entry.id == 344 %} <li>
+        <a href="{{ entry.url }}">
+          {% include 'shared/_nav-title.html' with {'entry': entry} %}
+        </a>
+      </li> {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+{% set entry = craft.entries.section('allCaseStudies').one() %}
+<div class="scale--base margin--bottom">
+  <a href="{{ entry.url }}">
+    {% include 'shared/_nav-title.html' with {'entry': entry} %}
+  </a>
+</div>

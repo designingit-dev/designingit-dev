@@ -1,0 +1,30 @@
+{# local variables of `image` and `default_size` #}
+{% if maxSize is not defined %}
+  {% set maxSize = 'xlarge' %}
+{% endif %}
+
+{% set srcset = image.getURL("xsmall") ~ ' 320w,' %}
+{% if maxSize != 'xsmall' %}
+{% set srcset = srcset ~ image.getURL("small")  ~ ' 480w,' %}
+  {% if maxSize != 'small' %}
+    {% set srcset = srcset ~ image.getURL("medium")  ~ ' 640w,' %}
+    {% if maxSize != 'medium' %}
+      {% set srcset = srcset ~ image.getURL("large")  ~ ' 960w,' %}
+      {% if maxSize != 'large' %}
+        {% set srcset = srcset ~ image.getURL("xlarge")  ~ ' 1280w,' %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% set classes = '' %}
+{% if loadAfterPageLoaded is defined and loadAfterPageLoaded %}
+  {% set classes = 'loadAfterPageLoaded' %}
+{% endif %}
+
+{% if lazyload is not defined or not lazyload %}
+<img {% if prop is defined %} {{ prop|raw }}{% endif %} class="{{ classes }}" src="{{ image.getUrl(default_size) }}"
+      srcset="{{ srcset }}">
+{% else %}
+  <img {% if prop is defined %} {{ prop|raw }}{% endif %} class="lazyload {{ classes }}" data-src="{{ image.getUrl(default_size) }}" data-srcset="{{ srcset }}">
+{% endif %}

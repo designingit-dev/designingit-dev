@@ -1,0 +1,113 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+{% include 'blog/shared/_hero' %}
+
+<section class="container container--tight">
+    <div class="row">
+        <div class="l--small--9 columns">
+
+            <article>
+                <h1 class="blog__article__title">{{ entry.title }}</h1>
+                <p class="margin--bottom--half">By <a href="/education/resources/authors/{{ entry.author.firstName|lower }}-{{ entry.author.lastName|lower }}">{{ entry.author.firstName ~ ' ' ~ entry.author.lastName }}</a>, {{ entry.postDate|date('M d, Y')  }} </p>
+
+                {% include 'blog/shared/_socialMediaSharing' %}
+
+                <div>
+                    {{ entry.body|raw }}
+                </div>
+
+                {% if entry.powerEdBlogVideos|length == 1 %}
+                    <div class="row">
+                        <div class="l--extraSmall--12 columns">
+                            {% include 'blog/shared/_videoEmbed' with {
+                                'video': entry.powerEdBlogVideos.first()
+                            } %}
+                        </div>
+                    </div>
+                {% elseif entry.powerEdBlogVideos|length > 1 %}
+                    <div class="row">
+                    {% for video in entry.powerEdBlogVideos %}
+                        <div class="l--small--6 columns">
+                            {% include 'blog/shared/_videoEmbed' with {
+                                'video': video
+                            } %}
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </article>
+
+            <div class="margin--top--double">
+                {% include 'blog/shared/_authorDescription' with {
+                    'author': entry.author,
+                    'showAboutHeading': true,
+                    'showArticlesByHeading': true
+                } %}
+            </div>
+
+        </div>
+        <div class="l--small--3 columns">
+
+            {% include 'blog/shared/_sidebar_article_list' with {
+                'listTitle': 'By format',
+                'categorySlug': 'poweredBlogArticleFormats'
+            } %}
+            {% include 'blog/shared/_sidebar_article_list' with {
+                'listTitle': 'By topic',
+                'categorySlug': 'powerEdBlogArticleTopics'
+            } %}
+            {% include 'blog/shared/_sidebar_powered_authors' %}
+            {% include 'blog/shared/_sidebar_newsletter_subscription' with {
+                'form': craft.sproutForms.form('poweredblogsubscription')
+            } %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block headerThirdPartyScripts %}
+    {# TODO: Use truncate twig filter (available in Craft 3.5.1 onwards) to limit headline to 110 chars #}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "{{ entry.title|slice(0,109) }}",
+            "image": [
+                "{{ entry.featuredImage is defined and entry.featuredImage is not null and entry.featuredImage.one ? entry.featuredImage.one.url :  '' }}"
+            ],
+            "datePublished": "{{ entry.dateCreated.iso8601 }}",
+            "dateModified": "{{ entry.dateUpdated.iso8601 }}",
+            "author": [{
+                "@type": "Person",
+                "name": "{{ entry.author.fullName }}",
+                "url": "{{ getenv('EN_SITE_URL') }}/education/resources/authors/{{ entry.author.firstName|lower }}-{{ entry.author.lastName|lower }}"
+            }],
+            "publisher": {
+                "@type": "Organization",
+                "name": "Keiser Corporation",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.keiser.com/assets/images/keiser-logo.svg"
+                },
+                "sameAs": [
+                     "http://www.facebook.com/KeiserFitness",
+                    "https://www.instagram.com/keiserfitness/",
+                    "https://www.linkedin.com/company/keiser-international",
+                    "https://plus.google.com/b/115625138589410060516/",
+                    "https://twitter.com/KeiserFitness",
+                    "https://www.youtube.com/c/KeiserFitness"
+                ]
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block footerThirdPartyScripts %}
+
+    <script src="https://player.vimeo.com/api/player.js"></script>
+
+{% endblock %}

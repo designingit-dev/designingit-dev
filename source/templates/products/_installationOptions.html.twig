@@ -1,0 +1,109 @@
+{% set numCols = block.option3Title != '' ? '4' : '6' %}
+<hr class="background--red pageDivider">
+
+<div class="background--white">
+  <div class="container">
+
+    <div class="row">
+
+      <div class="l--medium--12 columns installationOptions__titleContainer">
+        <h2 class="text--black text--alignCenter installationOptions__title">{{ block.installationOptionsTitle }}</h2>
+        {{ block.description }}
+      </div>
+
+      <div class="l--medium--{{ numCols }} columns margin--bottom--none text--alignCenter installationOptions__option">
+        <div class="row">
+          <div class="l--extraSmall--12 columns text--alignCenter">
+            <img src="{{ block.option1Image.one.url }}">
+          </div>
+          <div class="l--extraSmall--12 columns">
+            <div class="display--inline--block text--alignLeft">
+              <h4 class="text--red">{{ block.option1Title }}</h4>
+              <h2 class="margin--bottom">Specifications</h2>
+              <dl class="definitionList">
+                {% for specification in block.option1Specifications %}
+                  <div>
+                    <dt class="definitionList__label definitionList__label--red">
+                      {{ specification.label }}:
+                    </dt>
+                  </div>
+                  <div>
+                    <dd class="definitionList__value">
+                      {{ specification.description }}
+                    </dd>
+                  </div>
+                {% endfor %}
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l--medium--{{ numCols }} columns margin--bottom--none text--alignCenter installationOptions__option installationOptions__option__border">
+        <div class="row">
+          <div class="l--extraSmall--12 columns">
+            <img src="{{ block.option2Image.one.url }}">
+          </div>
+          <div class="l--extraSmall--12 columns">
+            <div class="display--inline--block text--alignLeft">
+              <h4 class="text--red">{{ block.option2Title }}</h4>
+              <h2 class="margin--bottom">Specifications</h2>
+              <dl class="definitionList">
+                {% for specification in block.option2Specifications %}
+                  <div>
+                    <dt class="definitionList__label definitionList__label--red">
+                      {{ specification.label }}:
+                    </dt>
+                  </div>
+                  <div>
+                    <dd class="definitionList__value">
+                      {{ specification.description }}
+                    </dd>
+                  </div>
+                {% endfor %}
+              </dl>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      {% if block.option3Title != '' %}
+      <div class="l--medium--{{ numCols }} columns margin--bottom--none text--alignCenter installationOptions__option installationOptions__option__border">
+        <div class="row">
+          <div class="l--extraSmall--12 columns">
+            <img src="{{ block.option3Image.one.url }}">
+          </div>
+          <div class="l--extraSmall--12 columns">
+            <div class="display--inline--block text--alignLeft">
+              <h4 class="text--red">{{ block.option3Title }}</h4>
+              <h2 class="margin--bottom">Specifications</h2>
+              <dl class="definitionList">
+                {% for specification in block.option3Specifications %}
+                  <div>
+                    <dt class="definitionList__label definitionList__label--red">
+                      {{ specification.label }}:
+                    </dt>
+                  </div>
+                  <div>
+                    <dd class="definitionList__value">
+                      {{ specification.description }}
+                    </dd>
+                  </div>
+                {% endfor %}
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="row">
+      <div class="l--medium--12 columns margin--top margin--bottom--none">
+        {{ block.footnotes }}
+      </div>
+    </div>
+
+  </div>
+</div>

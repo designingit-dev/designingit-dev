@@ -1,0 +1,323 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+  {% if entry.appLandingHeaderWithImage is not empty %}
+    {% set appLandingHeader = entry.appLandingHeaderWithImage.one() %}
+    <div class="background--darkGrey appLanding__headerWithImage">
+      <div class="container">
+        <div class="row">
+          <div class="l--extraSmall--3 l--small--2 l--medium--2 columns margin--bottom--none">
+            <img class="appLanding__headerWithImage__icon" src="{{ appLandingHeader.appIcon.one().url }}" >
+          </div>
+          <div class="l--extraSmall--9 l--small--10 l--medium--6 columns margin--bottom--none">
+            {% if appLandingHeader.smallHeading %}
+              <h2 class="text--red is--hidden--extraSmall is--hidden--small is--visible--medium appLanding__headerWithImage__smallHeading">{{ appLandingHeader.smallHeading }}</h2>
+              <h3 class="text--red is--hidden--medium appLanding__headerWithImage__smallHeading">{{ appLandingHeader.smallHeading }}</h3>
+            {% endif %}
+            {% if appLandingHeader.largeHeading %}
+              <h1 class="appLanding__headerWithImage__largeHeading appLanding__headerWithImage__largeHeading__groupClass">{{ appLandingHeader.largeHeading|nl2br }}</h1>
+            {% endif %}
+            {% if appLandingHeader.description %}
+              <p class="margin--bottom--narrow is--hidden is--visible--medium appLanding__headerWithImage__description">{{ appLandingHeader.description }}</p>
+            {% endif %}
+            {% if entry.appLandingAppStoreBlock %}
+              {% set appStoreBlock = entry.appLandingAppStoreBlock.one() %}
+              <div class="row is--hidden is--visible--medium">
+                <div class="l--extraSmall--6 l--medium--6 columns margin--bottom--none">
+                  <a href="{{ appStoreBlock.appleLink }}"><img class="appLanding__headerWithImage__appStoreIcon" src="{{ appStoreBlock.appleImage.one().url }}"></a>
+                </div>
+                <div class="l--extraSmall--6 l--medium--6 margin--bottom--none">
+                  <a href="{{ appStoreBlock.googleLink }}"><img class="appLanding__headerWithImage__appStoreIcon" src="{{ appStoreBlock.googleImage.one().url }}"></a>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+          <div class="l--extraSmall--12 columns is--hidden--medium">
+            {% if appLandingHeader.description %}
+              <p class="margin--bottom--narrow appLanding__headerWithImage__description">{{ appLandingHeader.description }}</p>
+            {% endif %}
+          </div>
+          {% if entry.appLandingAppStoreBlock %}
+            {% set appStoreBlock = entry.appLandingAppStoreBlock.one() %}
+            <div class="row is--hidden--medium">
+              <div class="l--extraSmall--6 l--small--5 l--small--offset--1 columns margin--bottom--none">
+                <a href="{{ appStoreBlock.appleLink }}"><img class="appLanding__headerWithImage__appStoreIcon" src="{{ appStoreBlock.appleImage.one().url }}"></a>
+              </div>
+              <div class="l--extraSmall--6 l--small--5 columns margin--bottom--none">
+                <a href="{{ appStoreBlock.googleLink }}"><img class="appLanding__headerWithImage__appStoreIcon" src="{{ appStoreBlock.googleImage.one().url }}"></a>
+              </div>
+            </div>
+          {% endif %}
+          {% if appLandingHeader.image is not empty %}
+            <div class="l--medium--4 margin--bottom--none is--hidden is--visible--medium">
+              <img src="{{ appLandingHeader.image.one().url }}">
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingTwoColumnBlockWithImage is not empty %}
+    {% set appLandingTwoColumnBlockWithImage = entry.appLandingTwoColumnBlockWithImage.one() %}
+    <div class="background--black">
+      <div class="container container--noPad">
+        <div class="row">
+          <div class="l--extraSmall--12 l--medium--6 columns margin--bottom--none appLanding__twoColumnBlockWithImage__leftColumn">
+            {% if appLandingTwoColumnBlockWithImage.largeHeading %}
+              <h2 class="margin--bottom--none appLanding__twoColumnBlockWithImage__largeHeading">{{ appLandingTwoColumnBlockWithImage.largeHeading }}</h2>
+            {% endif %}
+            {% if appLandingTwoColumnBlockWithImage.smallHeading %}
+              <h3 class="text--red margin--bottom">{{ appLandingTwoColumnBlockWithImage.smallHeading }}</h3>
+            {% endif %}
+            {% if appLandingTwoColumnBlockWithImage.description %}
+              <div class="is--hidden is--visible--medium">
+                {{ appLandingTwoColumnBlockWithImage.description | raw }}
+              </div>
+            {% endif %}
+          </div>
+          <div class="l--extraSmall--6 l--small--7 columns is--hidden--medium">
+            {% if appLandingTwoColumnBlockWithImage.description %}
+              {{ appLandingTwoColumnBlockWithImage.description | raw }}
+            {% endif %}
+          </div>
+          {% if appLandingTwoColumnBlockWithImage.image %}
+            <div class="l--extraSmall--6 l--small--5 l--medium--6 columns margin--top margin--bottom--none text--alignCenter">
+              <img class="appLanding__twoColumnBlockWithImage__image" src="{{ appLandingTwoColumnBlockWithImage.image.one.url }}">
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingTwoColumnBlockWithInfographic is not empty %}
+    {% set appLandingTwoColumnBlockWithInfographic = entry.appLandingTwoColumnBlockWithInfographic.one() %}
+    <div class="background--darkGrey">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--12 columns">
+            <h2 class="margin--bottom--none appLanding__twoColumnBlockWithInfographic__largeHeading">{{ appLandingTwoColumnBlockWithInfographic.largeHeadingWhite }}</h2>
+            <h2 class="text--red appLanding__twoColumnBlockWithInfographic__largeHeading">{{ appLandingTwoColumnBlockWithInfographic.largeHeadingRed }}</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--5 columns margin--bottom--none appLanding__twoColumnBlockWithInfographic__description">
+            {{ appLandingTwoColumnBlockWithInfographic.description }}
+          </div>
+          <div class="l--medium--1 columns">
+
+          </div>
+          <div class="l--medium--5 columns margin--bottom--none">
+            <img src="{{ appLandingTwoColumnBlockWithInfographic.infographic.one.url }}">
+            <div class="appLanding__twoColumnBlockWithInfographic__footnotes">
+              {{ appLandingTwoColumnBlockWithInfographic.footnotes }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container">
+    <div class="row">
+      {% if entry.appLandingDescription %}
+        <div class="l--medium--7 columns margin--bottom--none appLanding__description">
+          {{ entry.appLandingDescription }}
+        </div>
+      {% endif %}
+      <div class="l--medium--1 columns margin--bottom--none"></div>
+      {% if entry.appLandingScreenshots is not empty %}
+        <div class="l--medium--4 columns margin--bottom--none">
+          {% for screenshot in entry.appLandingScreenshots %}
+            <div class="margin--bottom--half">
+              <strong class="text--red">{{ screenshot.screenshotTitle }}</strong>
+              <img class="appLanding__screenshot__image" src="{{ screenshot.image.one().url }}">
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if entry.appLandingRichText %}
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          {{ entry.appLandingRichText | raw }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingInstructions is not empty %}
+    {% set appLandingInstructions = entry.appLandingInstructions.one() %}
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--extraSmall--3 l--small--2 l--small--offset--1 columns text--alignCenter is--hidden--medium">
+          <img src="{{ appLandingInstructions.icon.one.url }}">
+        </div>
+        <div class="l--extraSmall--9 l--small--8 l--medium--12 columns margin--bottom--none">
+          <h2 class="appLanding__instructions__title">{{ appLandingInstructions.appLandingInstructionsTitle }}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="l--medium--1 columns text--alignCenter is--hidden is--visible--medium">
+          <img src="{{ appLandingInstructions.icon.one.url }}">
+        </div>
+        <div class="l--medium--11 columns margin--bottom--narrow">
+          {% for instructionStep in entry.appLandingInstructionStep %}
+            <div class="appLanding__instructionStep is--hidden is--visible--medium">
+              <img class="appLanding__instructionStep__icon" src="{{ instructionStep.icon.one.url }}"><span class="appLanding__instructionStep__description">{{ instructionStep.description }}</span>
+            </div>
+            <div class="row margin--top--half is--hidden--medium">
+              <div class="l--extraSmall--1 l--small--1 l--small--offset--1 columns margin--bottom--narrow">
+                <img class="appLanding__instructionStep__icon" src="{{ instructionStep.icon.one.url }}">
+              </div>
+              <div class="l--extraSmall--11 l--small--10 columns margin--bottom--narrow">
+                <p class="margin--bottom--none appLanding__textLightGrey margin--left--half">{{ instructionStep.description }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="l--medium--12 columns">
+          {{ appLandingInstructions.description }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingRichTextAlt %}
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          {{ entry.appLandingRichTextAlt | raw }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingBanner is not empty %}
+    {% set appLandingBanner = entry.appLandingBanner.one() %}
+    <div class="background--black">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--12 columns">
+            <h2 class="appLanding__largeHeading text--white margin--bottom--none">{{ appLandingBanner.largeHeadingWhite }}</h2>
+            <h2 class="appLanding__largeHeading text--red">{{ appLandingBanner.largeHeadingRed }}</h2>
+            <div class="appLanding__textLightGrey--alt">{{ appLandingBanner.description }}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--extraSmall--3 l--small--3 l--small--offset--1 l--medium--1 columns">
+            <img src="{{ appLandingBanner.icon.one.url }}">
+          </div>
+          <div class="l--extraSmall--9 l--small--8 l--medium--4 columns margin--bottom--none">
+            <h3 class="appLanding__mediumHeading text--red margin--bottom--none">{{ appLandingBanner.smallHeadingRed }}</h3>
+            <h3 class="appLanding__mediumHeading text--white">{{ appLandingBanner.smallHeadingWhite }}</h3>
+            <div class="margin--bottom--none appLanding__textLightGrey--alt">{{ appLandingBanner.smallDescription }}</div>
+          </div>
+          <div class="l--medium--3 columns is--hidden is--visible--medium">
+            <img src="{{ appLandingBanner.smallImage1.one.url }}">
+          </div>
+          <div class="l--medium--3 columns is--hidden is--visible--medium">
+            <img src="{{ appLandingBanner.smallImage2.one.url }}">
+          </div>
+        </div>
+        <div class="row is--hidden--medium">
+          <div class="l--extraSmall--6 l--small--5 l--small--offset--1 columns">
+            <img src="{{ appLandingBanner.smallImage1.one.url }}">
+          </div>
+          <div class="l--extraSmall--6 l--small--5 columns">
+            <img src="{{ appLandingBanner.smallImage2.one.url }}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--12 columns margin--bottom--none">
+            <img src="{{ appLandingBanner.largeImage.one.url }}">
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingIconReel is not empty %}
+    {% for iconReel in entry.appLandingIconReel %}
+      <div class="background--darkGrey">
+        <div class="container">
+          <div class="row">
+            <div class="l--medium--12 columns">
+              {{ iconReel.blockContent }}
+            </div>
+            {% for icon in iconReel.icons %}
+              <div class="l--extraSmall--6 l--medium--3 columns text--alignCenter appLanding__iconReel">
+                <span class="appLanding__iconReel__helper"></span><img src="{{ icon.url }}">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <hr class="background--red pageDivider pageDivider--narrow">
+    {% endfor %}
+  {% endif %}
+
+  {% if entry.appLandingTwoColumnBlockWithImageAlt is not empty %}
+    {% set appLandingTwoColumnBlockWithImageAlt = entry.appLandingTwoColumnBlockWithImageAlt.one() %}
+    <div class="background--white">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--7 columns margin--top margin--bottom--none">
+            {{ appLandingTwoColumnBlockWithImageAlt.blockContent }}
+          </div>
+          <div class="l--medium--1 columns"></div>
+          <div class="l--medium--4 columns margin--bottom--none text--alignCenter">
+            <img src="{{ appLandingTwoColumnBlockWithImageAlt.image.one.url }}">
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingAppStoreBlock is not empty %}
+    {% set appStoreBlock = entry.appLandingAppStoreBlock.one() %}
+    <div class="background--black">
+      <div class="container">
+        <div class="row">
+          <div class="l--extraSmall--6 l--medium--6 columns text--alignCenter appLanding__appStoreBlock__appleColumn">
+            <a href="{{ appStoreBlock.appleLink }}"><img class="appLanding__appStoreBlock__appStoreIcon" src="{{ appStoreBlock.appleImage.one().url }}"></a>
+          </div>
+          <div class="l--extraSmall--6 l--medium--6 columns text--alignCenter">
+            <a href="{{ appStoreBlock.googleLink }}"><img class="appLanding__appStoreBlock__appStoreIcon" src="{{ appStoreBlock.googleImage.one().url }}"></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--medium--12 columns text--alignCenter text--red margin--bottom--none">
+            <h2 class="appLanding__appStoreBlock__description">{{ appStoreBlock.description }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingModalCta is not empty %}
+    {% set contactModalCTA = entry.appLandingModalCta.one() %}
+    <div class="background--darkGrey">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--6 columns margin--bottom--none">
+            <h2 class="appLanding__modalCTA__description">{{ contactModalCTA.description }}</h2>
+          </div>
+          <div class="l--medium--1 columns"></div>
+          <div class="l--medium--5 columns margin--bottom--none">
+            <button class="commercialSalesModal text--alignLeft text--larger appLanding__modalCTA__cta" v-on:click="openModal('{{ contactModalCTA.modalName }}')" class="button">{{ contactModalCTA.ctaTitle }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include contactModalCTA.modalTemplatePath %}
+  {% endif %}
+
+{% endblock %}

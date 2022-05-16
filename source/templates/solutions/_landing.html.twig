@@ -1,0 +1,162 @@
+<article>
+  {% cache %}
+  <div class="container">
+    <h1>{{ entry.title }}</h1>
+    <p>{{ entry.body }}</p>
+  </div>
+
+  <div class="background--black">
+    {% set healthClubsID = 608 %}
+    {% for block in entry.entryBlockWithImage.id(healthClubsID) %}
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns padding--top l--pullRight">
+            <h2>{{ block.blockTitle }}</h2>
+            <p class="margin--bottom">{{ block.blockDescription }}</p>
+
+            <a href="/{{ block.linkToEntry.one.uri }}" class="button">Learn More</a>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set solutionImage = block.entryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': solutionImage, 'default_size': 'large' } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endcache %}
+
+  <div class="background--red">
+    <div class="container container--tight">
+      {% include "shared/_didYouKnow.html" %}
+    </div>
+  </div>
+
+  {% cache %}
+  <div class="background--black">
+    {% set proPerformanceID = 609 %}
+    {% for block in entry.entryBlockWithImage.id(proPerformanceID) %}
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns padding--top">
+            <h2>{{ block.blockTitle }}</h2>
+            <p class="margin--bottom">{{ block.blockDescription }}</p>
+
+            <a href="/{{ block.linkToEntry.one.uri }}" class="button">Learn More</a>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set solutionImage = block.entryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': solutionImage, 'default_size': 'large' } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="background--black">
+    {% set seniorLivingID = 610 %}
+    {% for block in entry.entryBlockWithImage.id(seniorLivingID) %}
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns padding--top l--pullRight">
+            <h2>{{ block.blockTitle }}</h2>
+            <p class="margin--bottom">{{ block.blockDescription }}</p>
+
+            <a href="/{{ block.linkToEntry.one.uri }}" class="button">Learn More</a>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set solutionImage = block.entryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': solutionImage, 'default_size': 'large' } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="background--black">
+    {% set medicalRehabID = 611 %}
+    {% for block in entry.entryBlockWithImage.id(medicalRehabID) %}
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns padding--top">
+            <h2>{{ block.blockTitle }}</h2>
+            <p class="margin--bottom">{{ block.blockDescription }}</p>
+
+            <a href="/{{ block.linkToEntry.one.uri }}" class="button">Learn More</a>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set solutionImage = block.entryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': solutionImage, 'default_size': 'large' } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="background--black">
+    {% set governmentID = 612 %}
+    {% for block in entry.entryBlockWithImage.id(governmentID) %}
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns padding--top l--pullRight">
+            <h2>{{ block.blockTitle }}</h2>
+            <p class="margin--bottom">{{ block.blockDescription }}</p>
+
+            <a href="/{{ block.linkToEntry.one.uri }}" class="button">Learn More</a>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set solutionImage = block.entryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': solutionImage, 'default_size': 'large' } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endcache %}
+
+  <div class="background--red">
+    <div class="container container--tight">
+      {% include "shared/_testimonial.html" %}
+    </div>
+  </div>
+
+  {% cache %}
+  <div class="background--black">
+    {% set hospitalityID = 613 %}
+    {% for block in entry.entryBlockWithImage.id(hospitalityID) %}
+      <div class="constrain">
+        <div class="row">
+          <div class="l--small--12 l--medium--6 columns padding--top">
+            <h2>{{ block.blockTitle }}</h2>
+            <p class="margin--bottom">{{ block.blockDescription }}</p>
+
+            <a href="/{{ block.linkToEntry.one.uri }}" class="button">Learn More</a>
+          </div>
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            <div class="image--fullBleed">
+              {% set solutionImage = block.entryImage.one %}
+              {% include 'shared/_srcset_image.html' with {'image': solutionImage, 'default_size': 'large' } %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endcache %}
+</article>

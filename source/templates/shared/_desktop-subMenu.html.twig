@@ -1,0 +1,154 @@
+{% set foreignDisplayProps = '' %}
+{% if hideForeign is defined and hideForeign %}
+    {% set foreignDisplayProps = 'data-hideForeign=true' %}
+{% endif %}
+
+{% if section != "products" %}
+    {% for entry in craft.entries.section(section).level(1) %}
+        {% if entry.hasDescendants() %}
+            <div id="subMenu-{{ entry.slug }}" class="navHorizontal__subNav">
+                {% if section == "about" or section == "science" or section == "education" %}
+                    <div class="navHorizontal__subNav--background">
+                        <div class="container container--xTight">
+                            <ul class="navHorizontal navHorizontal--alignCenter">
+
+                                <li {{ foreignDisplayProps }} class="navHorizontal__item navHorizontal--secondary__item">
+                                    <a href="{{ entry.url }}" class="navHorizontal__link navHorizontal--secondary__link">
+                                        {{ entry.navTitle|capitalize }}
+                                    </a>
+                                </li>
+
+                                {% for childEntry in entry.getChildren() %}
+                                    {% if childEntry.slug != 'contact-us' %}
+                                        <li {{ foreignDisplayProps }} class="navHorizontal__item navHorizontal--secondary__item">
+                                            <a href="{{ childEntry.url }}" class="navHorizontal__link navHorizontal--secondary__link">
+                                                {% include 'shared/_nav-title.html' with {'entry': childEntry} %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if section == 'education' %}
+                                    {% set theRideLPEntry = craft.entries.section('lp').slug('the-ride-indoor-cycling-workouts').one() %}
+                                    {% if theRideLPEntry is not empty %}
+                                        <li class="navHorizontal__item navHorizontal--secondary__item">
+                                            <a href="{{ theRideLPEntry.url }}" class="navHorizontal__link navHorizontal--secondary__link">
+                                                {% include 'shared/_nav-title.html' with {'entry': theRideLPEntry} %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% set powerEdBlogHomepage = craft.entries.slug('powered-blog-homepage').one() %}
+                                    {% if powerEdBlogHomepage is not empty %}
+                                        <li class="navHorizontal__item navHorizontal--secondary__item">
+                                            <a href="{{ powerEdBlogHomepage.url }}" class="navHorizontal__link navHorizontal--secondary__link">
+                                                {% include 'shared/_nav-title.html' with {'entry': powerEdBlogHomepage} %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+
+                {% elseif section == "solutions" %}
+                    <div class="navHorizontal__subNav--background">
+                        <div class="container container--xTight">
+                            <ul class="navHorizontal navHorizontal--alignCenter">
+
+                                <li class="navHorizontal__item navHorizontal--secondary__item">
+                                    <a href="{{ entry.url }}" class="navHorizontal__link navHorizontal--secondary__link">
+                                        <u>See all solutions</u>
+                                    </a>
+                                </li>
+
+                                {% for homepage in craft.entries.section('homepage').limit(1) %}
+                                    {% for block in homepage.industrySection.type("industryImageBlock") %}
+                                        <li class="navHorizontal__item navHorizontal--secondary__item">
+                                            <a href="{{ block.linkToEntry.one.url }}" class="navHorizontal__link navHorizontal--secondary__link">
+                                                {{ block.header }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% elseif section == "products" %}
+    {% for entry in craft.entries.section('fitnessEquipment').limit(1) %}
+
+        <div id="subMenu-{{ entry.slug }}" class="navHorizontal__subNav">
+            <div class="navHorizontal__subNav--background">
+                <div class="container container--xTight">
+                    <ul class="navHorizontal navHorizontal--alignCenter">
+
+                        <li {{ foreignDisplayProps }} class="navHorizontal__item navHorizontal--secondary__item">
+                            <a href="/fitness-equipment" class="navHorizontal__link navHorizontal--secondary__link">
+                                <u>See all fitness equipment</u>
+                            </a>
+                        </li>
+
+                        {% for entry in craft.categories.group('productTypes') %}
+                            {# The entry slug sometimes mysteriosuly vanishes only for this section so we check basis title #}
+                            {% switch entry.title %}
+                                {% case 'Keiser Strength Equipment' %}
+                                    {% set url = '/fitness-equipment/strength-training' %}
+                                {% case 'Keiser Cardio Equipment' %}
+                                    {% set url = '/fitness-equipment/cardio-training' %}
+                                {% case 'Functional Equipment' %}
+                                    {% set url = '/fitness-equipment/functional-training' %}
+                                {% case 'Racks' %}
+                                    {% set url = '/fitness-equipment/racks' %}
+                                {% case 'Specialty Equipment' %}
+                                    {% set url = '/fitness-equipment/specialty-equipment' %}
+                                {% default %}
+                                    {% set url = entry.url %}
+                            {% endswitch %}
+
+                            <li class="navHorizontal__item navHorizontal--secondary__item">
+                                <a href="{{ url }}" class="navHorizontal__link navHorizontal--secondary__link">
+                                    {% include 'shared/_nav-title.html' with {'entry': entry} %}
+                                </a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+
+                    <div class="all--equipments">
+                        <a href="#" class="extended--link">All fitness equipment</a>
+                    </div>
+
+                    <div class="showroom--section">
+
+                        <img src="/assets/images/thumb-mobile-showroom.png" alt="">
+
+                        <div class="showroom--section--text">
+
+                            <strong class="extended--strong">TRY OUR EQUIPMENT. WE’LL BRING IT TO YOU. </strong>
+
+                            <span>
+                                <b>Anywhere</b> in the U.S. or Canada  
+                                <a href="#" class="extended--link">
+                                    More
+                                    <svg class="dropdown--icon">
+                                        <use xlink:href="#cta-link-chevron-12"></use>
+                                    </svg>
+                                </a>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endif %}

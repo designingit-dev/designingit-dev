@@ -1,0 +1,388 @@
+{% set strengthMppSharedContentEntry = craft.entries.section('strengthMppMarketSpecificModals').one() %}
+
+{% extends "_layout" %}
+
+{% block bodyClasses %}strengthMpp__new{% endblock %}
+
+{% block content %}
+
+    <div id="productOffers__stickyOptions" class="l--medium--12 text--alignCenter padding--left padding--right product__offers__options" aria-hidden="true" style="display: none">
+        <div class="product__offers__options__option text--uppercase text--bold" v-on:click="[openCommercialEnquiryModal('strengthMppGetPricing'),trackFormAnchor('Get Pricing', 'getPricingSticky')]">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.getPricingCta|replace('%productTitle%', entry.title) }}</div>
+        <div class="product__offers__options__option text--uppercase text--bold" v-on:click="[openCommercialEnquiryModal('strengthMppBookAConsultation'),trackFormAnchor('Book a Consultation', 'bookAConsultationSticky')]">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.bookAConsultationCta|replace('%productTitle%', entry.title) }}</div>
+    </div>
+    <div data-toggle="productOffers__stickyOptions" class="button button--fullWidth text--alignCenter product__offers__button" id="productOffers__stickyButton" style="display: none" aria-hidden="true">
+        <span class="product__offers__button__cta">Get Pricing</span>
+        <img class="product__offers__button__arrow" src="/assets/images/svg/product-offers-rounded-corner-arrow-icon.svg">
+    </div>
+
+    <article class="products__new">
+
+        <!-- Start Product Hero -->
+        <div class="constrain" id="strengthMpp__productHero">
+
+            <div class="row">
+                <div class="padding--top">
+                    <div class="l--extraSmall--12 l--small--6 columns margin--bottom--none">
+                        <div class="titleBlock">
+                            <h1 class="titleBlock__subTitle margin--bottom--none product__title">
+                                {{ entry.title }}
+                            </h1>
+                            <p class="margin--top--none margin--bottom--none text--uppercase model__number"><strong>{{ entry.productModelNumber }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="l--extraSmall--12 l--small--6 l--small--push--6 columns product__primary__image">
+                    <div class="margin--top margin--bottom">
+                        {% if entry.strengthMppPrimaryImage.one %}
+                            {% include "shared/_srcset_image" with {
+                                image: entry.strengthMppPrimaryImage.one,
+                                maxSize: 'medium',
+                                default_size: 'medium'
+                            } %}
+                        {% else %}
+                            <img src="{{ about.imageUnavailable.one.getURL("medium") }}">
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="l--extraSmall--12 l--small--6 l--small--pull--6 columns">
+                    <div class="margin--top margin--bottom">
+                        <strong class="text--sansSerif--black product__headline">{{ entry.strengthMppProductHeadline|typogrify }}</strong>
+                    </div>
+
+                    <div class="is--hidden is--visible--small">{{ entry.productInformation |typogrify|raw }}</div>
+
+                    <div class="show__more__wrapper is--hidden--small">
+                        <a href="#productInformationShow" id="productInformationShow" class="show__more__anchor">
+                            Show More
+                        </a>
+                        <div class="show__more__panel">{{ entry.productInformation |typogrify|raw }}</div>
+                        <div class="show__more__fade"></div>
+                    </div>
+
+                    <div class="l--medium--12 button text--alignCenter product__offers__button productOffers__notStickyButton" id="product__offers__button" data-toggle="productOffers__options">
+                        <span class="product__offers__button__cta">Get Pricing</span> <img class="product__offers__button__arrow" src="/assets/images/svg/product-offers-rounded-corner-arrow-icon.svg">
+                    </div>
+                    <div class="l--medium--12 text--alignCenter padding--left padding--right product__offers__options" id="productOffers__options" aria-hidden="true">
+                        <div class="product__offers__options__option text--uppercase text--bold" v-on:click="[openCommercialEnquiryModal('strengthMppGetPricing'),trackFormAnchor('Get Pricing', 'getPricing')]">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.getPricingCta|replace('%productTitle%', entry.title) }}</div>
+                        <div class="product__offers__options__option text--uppercase text--bold" v-on:click="[openCommercialEnquiryModal('strengthMppBookAConsultation'),trackFormAnchor('Book a Consultation', 'bookAConsultation')]">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.bookAConsultationCta|replace('%productTitle%', entry.title) }}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- End Product Hero -->
+
+        <!-- Start Product Features -->
+        <div class="container">
+            <div class="row">
+                <div class="l--extraSmall--12 l--small--6 columns">
+                    {% include "products/_gallery.html" with {
+                        gallery: entry.strengthMppImageAndVideoGallery,
+                        primaryImage: entry.strengthMppProductFeaturesPrimaryImage.one,
+                    } %}
+                </div>
+                <div class="l--extraSmall--12 l--small--6 columns margin--bottom--none">
+                    <h2 class="text--xLarge margin--bottom product__features__title">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.productGalleryTitle|replace('%productTitle%', entry.title)|typogrify }}</h2>
+                    <ul class="product__features__featureList is--hidden is--visible--small">
+                        {% for feature in entry.strengthMppProductFeatures %}
+                            <li>{{ feature.productFeatureDescription|parseRefs|typogrify|raw }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="show__more__wrapper is--hidden--small">
+                        <a href="#productFeaturesShow" id="productFeaturesShow" class="show__more__anchor">
+                            Show More
+                        </a>
+                        <div class="show__more__panel">
+                            <ul class="product__features__featureList">
+                                {% for feature in entry.strengthMppProductFeatures %}
+                                    <li>{{ feature.productFeatureDescription|parseRefs|typogrify|raw }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="show__more__fade"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Product Features -->
+
+        <!-- Start Modal Anchors -->
+        {% set strengthMPPModalAnchorsEntry = craft.entries.section('sharedContentBlocks').slug('strength-mpp-modal-anchors').one() %}
+        {% include 'shared/content-block/layout/_customCSS' with {
+            'blocks': strengthMPPModalAnchorsEntry.contentBlocks
+        } %}
+        {% for block in strengthMPPModalAnchorsEntry.contentBlocks.level(1) %}
+            {% include 'shared/content-block/_content-block' with {
+                'block': block
+            } %}
+        {% endfor %}
+        <!-- End Modal Anchors -->
+
+        <!-- Start Product Collapsible -->
+        <div class="container">
+            <div class="row">
+                <div class="l--small--12 columns">
+                    <h2 class="text--xLarge">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.productCollapsibleFeatureSectionTitle|replace('%productTitle%', entry.title)|typogrify }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="l--small--4 l--medium--4 columns">
+                    {% if entry.strengthMppCollapsibleProductFeatureImage.one %}
+                        {% include "shared/_srcset_image" with {
+                            image: entry.strengthMppCollapsibleProductFeatureImage.one,
+                            maxSize: 'medium',
+                            default_size: 'medium'
+                        } %}
+                    {% else %}
+                        <img src="{{ about.imageUnavailable.one.getURL("medium") }}">
+                    {% endif %}
+                </div>
+                <div class="l--small--8 l--medium--8 columns margin--bottom--none">
+                    {% for collapsibleFeature in entry.strengthMppCollapsibleProductFeatures %}
+                        <div class="faq">
+                            <div class="faq__iconWrapper">
+                                <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+                            </div>
+                            <div class="faq__content">
+                                <div class="faq__question">
+                                    {{ collapsibleFeature.title|typogrify }}
+                                </div>
+                                <div class="faq__answer" aria-hidden="true">
+                                    {{ collapsibleFeature.supportFAQAnswer|replace({'%productTitle%': entry.title|title})|parseRefs|typogrify|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        <!-- End Product Collapsible -->
+
+        <!-- Start Digital Resistance Control  -->
+        {% set digitalResistanceControlEntry = craft.entries.section('sharedContentBlocks').slug('control-resistance-with-digital-convenience-and-precision').one() %}
+        {% include 'shared/content-block/layout/_customCSS' with {
+            'blocks': digitalResistanceControlEntry.contentBlocks
+        } %}
+        {% for block in digitalResistanceControlEntry.contentBlocks.level(1) %}
+            {% include 'shared/content-block/_content-block' with {
+                'block': block
+            } %}
+        {% endfor %}
+        <!-- End Digital Resistance Control -->
+
+        <!-- Start Business Advantages -->
+        <div class="container product__advantages">
+            <div class="row">
+                <div class="l--small--12 columns">
+                    <h3 class="text--xLarge">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.businessAdvantagesTitle|replace('%productTitle%', entry.title)|typogrify }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="l--small--4 l--medium--4 columns">
+                    {% include "shared/_srcset_image" with {
+                        image: entry.strengthMppPrimaryImage.one,
+                        maxSize: 'medium',
+                        default_size: 'medium'
+                    } %}
+                </div>
+                <div class="l--small--8 l--medium--8 columns">
+
+                        <div class="l--small--6 columns text--alignCenter">
+                            <div class="product__advantages__advantage">
+                                <h4 class="text--uppercase">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.healthClubsMarketTitle|replace('%productTitle%', entry.title)|typogrify }}</h4>
+                                <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.healthClubsMarketDescription|replace('%productTitle%', entry.title)|typogrify)|raw }}</p>
+                                <a v-on:click="openModal('healthClubsmarketSpecificBenefits__modal')">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.marketSpecificsModalCta|replace('%productTitle%', entry.title) }}</a>
+                            </div>
+                        </div>
+
+                        <div class="l--small--6 columns text--alignCenter">
+                            <div class="product__advantages__advantage">
+                                <h4 class="text--uppercase">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.sportsPerformanceMarketTitle|replace('%productTitle%', entry.title)|typogrify }}</h4>
+                                <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.sportsPerformanceMarketDescription|replace('%productTitle%', entry.title)|typogrify)|raw }}</p>
+                                <a v-on:click="openModal('sportsPerformancemarketSpecificBenefits__modal')">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.marketSpecificsModalCta|replace('%productTitle%', entry.title) }}</a>
+                            </div>
+                        </div>
+
+                        <div class="l--small--6 columns text--alignCenter">
+                            <div class="product__advantages__advantage">
+                                <h4 class="text--uppercase">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.medicalRehabMarketTitle|replace('%productTitle%', entry.title) }}</h4>
+                                <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.medicalRehabMarketDescription|replace('%productTitle%', entry.title)|typogrify)|raw }}</p>
+                                <a v-on:click="openModal('medicalRehabmarketSpecificBenefits__modal')">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.marketSpecificsModalCta|replace('%productTitle%', entry.title) }}</a>
+                            </div>
+                        </div>
+
+                        <div class="l--small--6 columns text--alignCenter">
+                            <div class="product__advantages__advantage">
+                                <h4 class="text--uppercase">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.olderAdultMarketTitle|replace('%productTitle%', entry.title) }}</h4>
+                                <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.olderAdultMarketDescription|replace('%productTitle%', entry.title)|typogrify)|raw }}</p>
+                                <a v-on:click="openModal('olderAdultmarketSpecificBenefits__modal')">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.marketSpecificsModalCta|replace('%productTitle%', entry.title) }}</a>
+                            </div>
+                        </div>
+
+                    <div class="l--small--12 columns product__advantages__performance__coach">
+                        <h3 class="text--large">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.talkToPerformanceCoachTitle|replace('%productTitle%', entry.title)|typogrify }}</h3>
+                        <div class="l--small--3 columns">
+                            <img src="{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.performanceCoachImage.one.url }}">
+                        </div>
+                        <div class="l--small--9 columns">
+                            <p class="text--sansSerif--black product__advantages__performance__coach__title margin--bottom--half">
+                                {{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.performanceCoachTitle|replace('%productTitle%', entry.title)|typogrify)|raw }}
+                            </p>
+                            <p class="margin--bottom--half">
+                                {{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.performanceCoachDescription|replace('%productTitle%', entry.title)|typogrify)|raw }}
+                            </p>
+                            <a id="product__offers__setup__conversation__button" href="#" class="button productOffers__notStickyButton" v-on:click="[openCommercialEnquiryModal('strengthMppTalkToAPerformanceCoach'),trackFormAnchor('Talk to a Performance Coach', 'setUpAConversation')]">
+                                {{ strengthMppSharedContentEntry.strengthMppSharedContent.one.performanceCoachCta|replace('%productTitle%', entry.title) }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Business Advantages -->
+
+<!-- Start Demo Van Banner -->
+        {% set demoVanBannerEntry = entry.strengthMppDemoVanBanner.one() %}
+        {% if demoVanBannerEntry %}
+            {% include 'shared/content-block/layout/_customCSS' with {
+                'blocks': demoVanBannerEntry.contentBlocks
+            } %}
+            {% for block in demoVanBannerEntry.contentBlocks.level(1) %}
+                {% include 'shared/content-block/_content-block' with {
+                    'block': block
+                } %}
+            {% endfor %}
+        {% endif %}
+        <!-- End Demo Van Banner -->
+
+        <!-- Start Specifications -->
+        <div class="container padding--top--none">
+            <div class="row">
+                <div class="l--extraSmall--12 columns">
+                    <h2 class="text--xLarge">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.specificationsTitle|replace('%productTitle%', entry.title)|typogrify }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="l--small--12 l--medium--4 columns">
+                    <div class="l--extraSmall--12 l--small--6 l--medium--12 columns margin--bottom--none">
+                        <p class="margin--bottom--veryNarrow text--sansSerif--black text--uppercase product__specifications__title">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.specificationsPoint1Title|replace('%productTitle%', entry.title)|typogrify }}</p>
+                        <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.specificationsPoint1Description|replace('%productTitle%', entry.title)|typogrify)|raw }}</p>
+                    </div>
+                    <div class="l--extraSmall--12 l--small--6 l--medium--12 columns">
+                        <p class="margin--bottom--veryNarrow text--sansSerif--black text--uppercase product__specifications__title">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.specificationsPoint2Title|replace('%productTitle%', entry.title)|typogrify }}</p>
+                        <p>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.specificationsPoint2Description|replace('%productTitle%', entry.title)|typogrify)|raw }}</p>
+                        {% if entry.productSheet.one() %}
+                            <a href="{{ entry.productSheet.one.url() }}" target="_blank">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.downloadProductSheetCta|replace('%productTitle%', entry.title) }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="l--small--6 l--medium--4 columns text--alignCenter">
+                    <img src="{{ entry.strengthMppProductSpecificationsSet1Image.one.getUrl() }}">
+                    {% for specification in entry.strengthMppProductSpecificationsSet1 %}
+                        <p class="margin--bottom--veryNarrow">{{ specification.specification|typogrify }}</p>
+                    {% endfor %}
+                </div>
+                <div class="l--small--6 l--medium--4 columns text--alignCenter">
+                    <img src="{{ entry.strengthMppProductSpecificationsSet2Image.one.getUrl() }}">
+                    {% for specification in entry.strengthMppProductSpecificationsSet2 %}
+                        <p class="margin--bottom--veryNarrow">{{ specification.specification|typogrify }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- End Specifications -->
+
+        <!-- Start Product Customisation Options -->
+        {% set productCustomisationOptionEntry = entry.strengthMppProductCustomisationOption.one() %}
+        {% if productCustomisationOptionEntry %}
+            {% include 'shared/content-block/layout/_customCSS' with {
+                'blocks': productCustomisationOptionEntry.contentBlocks
+            } %}
+            {% for block in productCustomisationOptionEntry.contentBlocks.level(1) %}
+                {% include 'shared/content-block/_content-block' with {
+                    'block': block
+                } %}
+            {% endfor %}
+        {% endif %}
+        <!-- End Product Customisation Options -->
+
+        <!-- Start Space Design -->
+        {% set spaceDesignEntry = entry.strengthMppSpaceDesign.one() %}
+        {% if spaceDesignEntry %}
+            {% include 'shared/content-block/layout/_customCSS' with {
+                'blocks': spaceDesignEntry.contentBlocks
+            } %}
+            {% for block in spaceDesignEntry.contentBlocks.level(1) %}
+                {% include 'shared/content-block/_content-block' with {
+                    'block': block
+                } %}
+            {% endfor %}
+        {% endif %}
+        <!-- End Space Design -->
+
+    </article>
+
+    {% include 'products/modals/_commercialEnquiry' with {
+        formDescriptionEntrySlug: 'get-pricing',
+        formSlug: 'strengthMppGetPricing',
+        showRepInfo: true
+    } %}
+    {% include 'products/modals/_commercialEnquiry' with {
+        formDescriptionEntrySlug: 'book-a-consultation',
+        formSlug: 'strengthMppBookAConsultation',
+        showRepInfo: true
+    } %}
+    {% include 'products/modals/_commercialEnquiry' with {
+        formDescriptionEntrySlug: 'talk-to-a-design-pro',
+        formSlug: 'strengthMppTalkToADesignPro',
+        showRepInfo: false
+    } %}
+    {% include 'products/modals/_commercialEnquiry' with {
+        formDescriptionEntrySlug: 'talk-to-a-performance-coach',
+        formSlug: 'strengthMppTalkToAPerformanceCoach',
+        showRepInfo: false
+    } %}
+    {% include 'about/contact-us/modals/_customerSupport' %}
+    {% include 'demo-van/shared/_demoVanModal' %}
+    {% include 'products/modals/_commercialGradeWarranty' %}
+    {% include 'products/modals/_madeInTheUSA' %}
+    {% include 'products/modals/_marketSpecificBenefits' with {
+        market: 'healthClubs',
+        modalTitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.healthClubModalTitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        modalSubtitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.healthClubModalSubtitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        productTitle: entry.title,
+        productImage: entry.strengthMppPrimaryImage.one,
+        collapsibleBenefits: strengthMppSharedContentEntry.strengthMppHealthClubsMarketCollapsibleFeatures
+    } %}
+    {% include 'products/modals/_marketSpecificBenefits' with {
+        market: 'sportsPerformance',
+        modalTitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.sportsPerformanceModalTitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        modalSubtitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.sportsPerformanceModalSubtitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        productTitle: entry.title,
+        productImage: entry.strengthMppPrimaryImage.one,
+        collapsibleBenefits: strengthMppSharedContentEntry.strengthMppSportsPerformanceMarketCollapsibleFeatures
+    } %}
+    {% include 'products/modals/_marketSpecificBenefits' with {
+        market: 'medicalRehab',
+        modalTitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.medicalRehabModalTitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        modalSubtitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.medicalRehabModalSubtitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        productTitle: entry.title,
+        productImage: entry.strengthMppPrimaryImage.one,
+        collapsibleBenefits: strengthMppSharedContentEntry.strengthMppMedicalRehabMarketCollapsibleFeatures
+    } %}
+    {% include 'products/modals/_marketSpecificBenefits' with {
+        market: 'olderAdult',
+        modalTitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.olderAdultModalTitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        modalSubtitle: strengthMppSharedContentEntry.strengthMppSharedContent.one.olderAdultModalSubtitle|replace('%productTitle%', entry.title|title)|typogrify|raw,
+        productTitle: entry.title,
+        productImage: entry.strengthMppPrimaryImage.one,
+        collapsibleBenefits: strengthMppSharedContentEntry.strengthMppOlderAdultMarketCollapsibleFeatures
+    } %}
+
+{% endblock %}

@@ -1,0 +1,146 @@
+// -----------------------------------------------------------------------------
+// !-- Social Feed
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Social Feed
+name: social-feed
+category: Components - Social Feed
+---
+
+This Social Feed component is leveraging a third-party service called
+[Juicer](https://www.juicer.io). We're leaning on most of Juicer's styling and
+modifying as needed to fit out design. This explains the oddly heavy use of
+`!important` tags as well as the odd class names and nesting. These are all
+required to override stying that we're seeing come in from Juicer.
+
+``` html_example
+<script src="//assets.juicer.io/embed.js" type="text/javascript"></script>
+<link href="//assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" />
+<ul class="juicer-feed" data-feed-id="keiserfitness" data-per="6" data-style="modern"></ul>
+```
+*/
+
+// -----------------------------------------------------------------------------
+
+// scss-lint:disable ImportantRule
+.juicer-feed {
+  background-color: $grey--xLight;
+}
+
+.j-stacker-wrapper {
+  @include layoutConstrain;
+  margin: auto !important; // overrides some inline styling applied via JS
+}
+
+.j-filters {
+  background-color: $black;
+
+  .j-twitter,
+  .j-instagram,
+  .j-facebook,
+  .j-youtube,
+  .all {
+    background-color: $black !important;
+  }
+
+  li::before {
+    padding: .5em;
+    background-color: $red;
+  }
+
+  li::after {
+    background-color: transparent !important;
+  }
+
+  li:hover,
+  .highlight {
+    background-color: $red !important;
+  }
+}
+
+.juicer-button {
+  color: $red !important;
+  border-color: $red !important;
+
+  &:hover {
+    color: $white !important;
+    background-color: $red !important;
+  }
+}
+
+.j-loading {
+  border-color: $red !important;
+}
+
+// scss-lint:enable ImportantRule
+
+.crt-feed-container {
+  margin: 0 auto;
+  background-color: $grey--xLight;
+
+
+  .crt-filter-sources {
+    @include layoutConstrain;
+  }
+
+  .crt-filter {
+    background-color: $black;
+    margin: 0;
+    padding: 0;
+  }
+  .crt-sources {
+
+    background-color: $black;
+    display: table !important;
+    width: 100%;
+
+    li {
+      display: table-cell !important;
+      background-color: $black !important;
+      width: 33%;
+
+      a {
+        color: $white !important;
+        transition: none !important;
+
+        i {
+          padding: .5em;
+          background-color: $red;
+        }
+      }
+
+      &.active,
+      &:hover {
+        padding: 0;
+
+        a {
+          padding: 1.0em;
+          color: $white;
+          font-weight: bold;
+          background-color: $red !important;
+          transition: none !important;
+        }
+      }
+
+    }
+
+
+
+    .crt-filter-label {
+      display: none !important;
+    }
+
+
+  }
+
+  .crt-feed-scroll {
+    @include layoutConstrain;
+
+    margin-top: 25px;
+  }
+
+  .crt-post-share {
+    display: none;
+  }
+}

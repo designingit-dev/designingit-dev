@@ -1,0 +1,29 @@
+<div class="background--darkGrey">
+  <div class="container container--tight">
+    <div class="row">
+      <div class="l--small--12 l--medium--8 columns l--noMargin">
+        <div class="titleBlock">
+          <h1 class="titleBlock__subTitle">
+            {{ entry.title }}
+          </h1>
+        </div>
+        <div class="">
+          {{ entry.body }}
+        </div>
+      </div>
+      <div class="l--small--12 l--medium--4 columns l--noMargin">
+        <div class="ctaCard background--black text--alignLeft">
+          <div class="row">
+            <div class="l--small--12 l--noMargin columns">
+              <div class="ctaCard__text">
+                Please direct all resumes and applications to:
+              </div>
+
+              {{ entry.addressBlock|nl2br }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

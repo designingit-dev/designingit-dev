@@ -1,0 +1,99 @@
+{% macro errorList(errors) %}
+    {% if errors %}
+        <ul class="errors">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% from _self import errorList %}
+
+<vue-share-page inline-template form-submit-label="M3i Experience">
+  <div>
+    <form method="post"
+          v-if="!hasSubmittedForm"
+          accept-charset="utf-8"
+          enctype="multipart/form-data"
+          id="sharePage-form"
+          @submit.prevent="handleFormSubmit"
+          v-el:form
+          class="sharePage-form">
+
+      <div v-if="hasFormErrors" transition="slide-down" class="margin--bottom--half">
+        <strong>All fields are required.</strong>
+      </div>
+
+      {{ craft.blitz.csrfInput() }}
+      <input type="hidden" name="action" value="contactForm/send-message">
+      {{ redirectInput('/contact/thanks') }}
+
+      <div id="fields-yourName-field" class="field plaintext yourName-field required">
+        <div class="field__heading">
+          <label for="fields-yourName">Your Name</label>
+        </div>
+        <div class="field__input">
+          <input type="text" id="fields-yourName" class="yourName" name="fromName" required="" value="{% if message is defined %}{{ message.fromName }}{% endif %}">
+          <div class="error">{{ message is defined and message ? errorList(message.getErrors('fromName')) }}</div>
+        </div>
+      </div>
+
+      <div id="fields-yourEmail-field" class="field email-field yourEmail-field required">
+        <div class="field__heading">
+          <label for="fields-yourEmail">Your Email</label>
+        </div>
+        <div class="field__input">
+          <input type="text" id="fields-yourEmail" class="yourEmail" name="fromEmail" required="" value="{% if message is defined %}{{ message.fromEmail }}{% endif %}">
+          <div class="error">{{ message is defined and message ? errorList(message.getErrors('fromEmail')) }}</div>
+        </div>
+      </div>
+
+      <div id="fields-toEmail-field" class="field email-field toEmail-field required">
+        <div class="field__heading">
+          <label for="fields-toEmail">To Email</label>
+        </div>
+        <div class="field__input">
+          <input type="text" id="fields-toEmail" class="toEmail" name="toEmail" required="" value="{% if message is defined %}{{ message.toEmail }}{% endif %}">
+          <div class="error">{{ message is defined and message ? errorList(message.getErrors('toEmail')) }}</div>
+        </div>
+      </div>
+
+      <div id="fields-subject-field" class="field plaintext subject-field required">
+        <div class="field__heading">
+          <label for="fields-subject">Subject</label>
+        </div>
+        <div class="field__input">
+          <input type="text" id="fields-subject" class="subject" name="subject" required="" value="{% if message is defined %}{{ message.subject }}{% else %}Have a look at the Keiser M3i Experience Site{% endif %}">
+          <div class="error">{{ message is defined and message ? errorList(message.getErrors('subject')) }}</div>
+        </div>
+      </div>
+
+      <div id="fields-yourMessage-field" class="field plaintext yourMessage-field required">
+        <div class="field__heading">
+        <label for="fields-yourMessage">Your Message</label>
+        </div>
+        <div class="field__input">
+          <textarea id="fields-yourMessage" class="yourMessage" name="message[]" rows="4" required=""></textarea>
+          <div class="error">{{ message is defined and message ? errorList(message.getErrors('message')) }}</div>
+        </div>
+      </div>
+
+
+      <div class="submit">
+        <input type="hidden" name="message[]" value="
+          Have a look at the M3i Indoor Bike at {{ url('m3i-experience') }}
+        ">
+
+        <input type="hidden" id="them3iexperience" name="them3iexperience" value="">
+        {# input type="button" is a workaround for mobile iOS. DO NOT change to type="submit" #}
+        <input @click="handleFormSubmit" type="button" class="button" value="Send">
+      </div>
+    </form>
+
+    <div v-if="hasSubmittedForm" v-cloak>
+      <h2>Thank You</h2>
+      <p>Thank you for sharing the M3i Experience page with a friend.</p>
+    </div>
+  </div>
+</vue-share-page>

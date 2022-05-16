@@ -1,0 +1,101 @@
+<!-- Begin Google Analytics{% if checkoutStep is not defined %} and Impact {% endif %} -->
+<script type="text/javascript">
+   ga('keisergtm.require', 'ec');
+   var products = [];
+
+  // Order Items
+{% for item in order.lineItems %}
+  ga('keisergtm.ec:addProduct', {
+    'id': '{{ item.sku }}',
+    'name': '{{ item.description }}',
+    'category': '{{ item.purchasable.product.analyticsCategory.one() }}',
+    'price': '{% if item.onSale %}{{ item.salePrice|number_format(2, '.', '') }}{% else %}{{ item.price|number_format(2, '.', '') }}{% endif %}',
+    'quantity': {{ item.qty }}
+  });
+  products.push({
+      product_id: '{{ item.sku }}',
+      sku: '{{ item.sku }}',
+      name: '{{ item.description }}',
+      price: {% if item.onSale %}{{ item.salePrice|number_format(2, '.', '') }}{% else %}{{ item.price|number_format(2, '.', '') }}{% endif %},
+      quantity: {{ item.qty }},
+      category: '{{ item.purchasable.product.analyticsCategory.one() }}',
+      url: '{{ item.purchasable.product.url() }}',
+      image_url: '{{ item.purchasable.product.image.one ? item.purchasable.product.image.one.url : ''  }}'
+  });
+{% endfor %}
+
+  {% if checkoutStep is not defined %}
+   // Order Totals
+    ga('keisergtm.ec:setAction', 'purchase', {
+      'id': '{{ order.number[:7]|upper }}',
+      'affiliation': 'Keiser.com',
+      'revenue': '{{ order.totalPrice |number_format(2, '.', '') }}',
+      'tax': '{{ order.getAdjustmentsTotalByType('tax')|number_format(2, '.', '') }}',
+      'shipping': '{{ order.getAdjustmentsTotalByType('shipping')|number_format(2, '.', '') }}',
+      'coupon': '{{ order.couponCode }}'
+    });
+
+    // Send details to GA
+    ga('keisergtm.send', 'event', 'ecommerce', 'purchase', {'nonInteraction': true});
+
+    rudderanalytics.track('Order Completed', {
+        checkout_id: '{{ order.number[:7]|upper }}',
+        order_id: '{{ order.number[:7]|upper }}',
+        affiliation: 'Keiser.com',
+        total: {{ order.totalPrice |number_format(2, '.', '') }},
+        revenue: {{ order.totalPrice |number_format(2, '.', '') }},
+        shipping: {{ order.getAdjustmentsTotalByType('shipping')|number_format(2, '.', '') }},
+        tax: {{ order.getAdjustmentsTotalByType('tax')|number_format(2, '.', '') }},
+        coupon: '{{ order.couponCode }}',
+        currency: 'USD',
+        products: products,
+        site: window.location.hostname
+    });
+
+  //Start Impact "online sale" event type tag upon receipt
+  var items = []; 
+
+  {% for item in order.lineItems %}
+    items.push({
+      subTotal: {% if item.onSale %}{{ item.salePrice*item.qty|number_format(2, '.', '') }}{% else %}{{ item.price*item.qty|number_format(2, '.', '') }}{% endif %},
+      category: "{{ item.purchasable.product.analyticsCategory.one() }}",
+      sku: "{{ item.sku }}",
+      quantity: {{ item.qty }},
+      name: "{{ item.description }}"
+    });
+  {% endfor %}
+
+  ire('trackConversion', 27843, {
+      orderId: '{{ order.number[:7]|upper }}',
+      customerId: '',
+      customerEmail: '',
+      customerStatus: '',
+      currencyCode: 'USD',
+      orderPromoCode: '{{ order.couponCode }}',
+      orderDiscount: '{{ order.getAdjustmentsTotalByType('discount') |abs |number_format(2, '.', '') }}',
+      orderShipping: {{ order.getAdjustmentsTotalByType('shipping')|number_format(2, '.', '') }},
+      orderTax: {{ order.getAdjustmentsTotalByType('tax')|number_format(2, '.', '') }},
+      items: items
+  },
+  {
+    verifySiteDefinitionMatch:true
+  }
+  );
+  //End Impact "online sale" event type tag
+
+  {% else %}
+    ga('keisergtm.ec:setAction','checkout', {
+      'step': {{ checkoutStep }},
+    });
+
+    // Send details to GA
+    ga('keisergtm.send', 'event', 'ecommerce', 'checkout', {'nonInteraction': true});
+
+    rudderanalytics.track('Checkout Step Viewed', {
+      checkout_id: '{{ order.number[:7]|upper }}',
+      step: {{ checkoutStep }},
+      site: window.location.hostname
+    });
+  {% endif %}
+</script>
+<!-- End Google Analytics{% if checkoutStep is not defined %} and Impact {% endif %} -->

@@ -1,0 +1,283 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Visibility
+//  - Links
+//  - Text
+//  - Alignment
+//  - Fonts
+//  - Media
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Visibility
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Is Hidden
+name: is-hidden
+categories: Overrides - Hidden
+---
+
+```html_example_table
+<div class="is--hidden">Always hidden</div>
+
+<div class="is--hidden--small">Hidden above small screens</div>
+
+<div class="is--hidden--medium">Hidden above medium screens</div>
+
+<div class="is--hidden--large">Hidden above large screens</div>
+
+<div class="is--hidden--extraLarge">Hidden above extra large screens</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.is--hidden {
+  display: none;
+
+  @each $breakpointName, $breakpoint in $breakpoints {
+    @include respond-to($breakpointName) {
+      &--#{$breakpointName} {
+        display: none;
+      }
+    }
+  }
+}
+
+.is--visible {
+  display: block;
+
+  @each $breakpointName, $breakpoint in $breakpoints {
+    @include respond-to($breakpointName) {
+      &--#{$breakpointName} {
+        display: block;
+      }
+    }
+  }
+}
+
+.display--inline--block {
+  display: inline-block;
+}
+
+// scss-lint:disable PropertyUnits
+.anchor::before {
+  display: block;
+  visibility: hidden;
+  height: 100px;
+  margin-top: -100px;
+  content: " ";
+}
+// scss-lint:enable PropertyUnits
+
+// -----------------------------------------------------------------------------
+// !-- Links
+// -----------------------------------------------------------------------------
+
+.noHoverEffects {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.link--disableClick {
+  pointer-events: none;
+}
+
+.link--underlined {
+  text-decoration: underline;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Text
+// -----------------------------------------------------------------------------
+
+.text {
+  &--small {
+    font-size: map-get($fontSizes, small);
+  }
+
+  &--spaced {
+    margin: $verticalRhythm / 2;
+  }
+
+  &--grey {
+    color: $grey--medium;
+  }
+
+  &--grey-alt {
+    color: $grey--medium-alt;
+  }
+
+  &--greyLight {
+    color: $grey--light;
+  }
+
+  &--greyxLight-alt {
+    color: $grey--xLight-alt;
+  }
+
+  &--red {
+    color: $red;
+  }
+
+  &--white {
+    color: $white;
+  }
+
+  &--black {
+    color: $keiser--black;
+  }
+
+  &--upcase {
+    text-transform: uppercase;
+  }
+
+  &--alignLeft {
+    text-align: left;
+  }
+
+  &--alignRight {
+    text-align: right;
+  }
+
+  &--alignCenter {
+    text-align: center;
+  }
+
+  &--bold {
+    font-weight: $fontWeight--bold;
+  }
+
+  &--medium {
+    font-weight: $fontWeight--medium;
+  }
+
+  &--extraBold {
+    font-weight: $fontWeight--extraBold;
+  }
+
+  &--lineTight {
+    line-height: 0.9;
+  }
+
+  &--lineBase {
+    line-height: 1;
+  }
+
+  &--underline {
+    text-decoration: underline;
+  }
+
+  &--sansSerif{
+    font-family: $sansSerif;
+  }
+
+  &--sansSerif--black {
+    font-family: $sansSerif--black;
+    font-weight: $fontWeight--black;
+  }
+
+  &--sansSerif-light {
+    font-family: $sansSerif--light;
+    font-weight: $fontWeight--light;
+  }
+
+  &--sansSerif--bold {
+    font-family: $sansSerif--bold;
+    font-weight: $fontWeight--bold;
+  }
+
+  &--serif {
+    font-family: $serif;
+  }
+
+  &--transform--none {
+    text-transform: none;
+  }
+
+  &--nowrap {
+    white-space: nowrap;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Alignment
+// -----------------------------------------------------------------------------
+
+.float--right {
+  float: right;
+}
+
+.float--left {
+  float: left;
+}
+
+.float--none {
+  float: none;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Fonts
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Media
+// -----------------------------------------------------------------------------
+
+.image {
+  &--full {
+    width: 100%;
+  }
+
+  &--noMax {
+    @include respond-to(extraLarge) {
+      max-width: none;
+    }
+  }
+}
+
+.centerContent {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vertical--align {
+
+  &--bottom {
+    vertical-align: bottom;
+  }
+
+  &--baseline {
+    vertical-align: baseline;
+  }
+
+  &--middle {
+    vertical-align: middle;
+  }
+
+}
+
+.electron-only {
+  display: none !important;
+}
+
+
+// -----------------------------------------------------------------------------
+// !-- Border
+// -----------------------------------------------------------------------------
+
+.border--bottom--light--grey {
+  border-bottom: solid 1px $blp--grey;
+}
+
+.border--bottom--medium--grey {
+  border-bottom: solid 1px $blp--grey--medium;
+}
+
+.border--bottom--dark--grey {
+  border-bottom: solid 1px $blp--grey--dark;
+}

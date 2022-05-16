@@ -1,0 +1,11 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: 'Keiser Tax API Key',
+    instructions: 'Enter the API key for the Keiser Tax API',
+    id: 'keiserTaxApiKey',
+    name: 'keiserTaxApiKey',
+    value: settings['keiserTaxApiKey'],
+    errors: settings.getErrors('keiserTaxApiKey')
+    })
+}}

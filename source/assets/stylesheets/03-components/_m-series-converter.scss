@@ -1,0 +1,59 @@
+.mSeriesConverter {
+
+  .pageDivider {
+    height: 5px;
+  }
+
+  h2 {
+    font-size: map-get($fontSizes, xXLarge);
+  }
+
+  &__compatibleWith {
+
+    &__logoContainer {
+      margin-top: $verticalRhythm;
+
+      @include respond-to(medium){
+        margin-top: 0;
+      }
+    }
+
+    &__logo {
+      max-width: 144px;
+    }
+
+  }
+
+  &__whatsIncluded__list {
+
+    li {
+      font-weight: $fontWeight--bold;
+      list-style-image: url(/assets/images/app-landing/red-bullet.png);
+    }
+
+  }
+
+}
+
+.multi--line {
+
+  &--h1 {
+    font-size: map-get($fontSizes, xXLarge);
+    line-height: 36px;
+  }
+
+  &--h2 {
+    font-size: map-get($fontSizes, xLarger);
+  }
+
+}
+
+#mSeriesConverter--ecommerce--module {
+
+  .columns {
+    @include respond-to(medium){
+      margin-bottom: 0;
+    }
+  }
+
+}

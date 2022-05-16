@@ -1,0 +1,32 @@
+{% cache %}
+  <article>
+
+    <div class="background--black">
+      <div class="constrain padding--top">
+        <div class="row">
+          <div class="l--medium--6 columns l--pullRight">
+            {% set trainingImage = entry.images.one %}
+            {% if trainingImage %}
+              <a href="{{ entry.href }}"><img
+                    src="{{ trainingImage.getURL("large") }}"
+                    srcset="
+                    {{ trainingImage.getURL("xsmall") }} 320w,
+                    {{ trainingImage.getURL("small") }} 480w,
+                    {{ trainingImage.getURL("medium") }} 640w,
+                    {{ trainingImage.getURL("large") }} 960w,
+                    {{ trainingImage.getURL("xlarge") }} 1280w"></a>
+            {% endif %}
+          </div>
+          <div class="l--medium--6 columns l--pullRight">
+            <div class="l--medium--11 margin--bottom">
+              <h2 class="scale--xXLarge">{{ entry.altTitle }}</h2>
+              {{ entry.richText }}
+              <a href="{{ entry.href }}" class="button">{{ entry.callToAction }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+{% endcache %}

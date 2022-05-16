@@ -1,0 +1,34 @@
+{
+    "name": "keiser/search-helpers",
+    "description": "Aloglia integration for CraftCMS",
+    "version": "1.0.0",
+    "type": "craft-plugin",
+    "keywords": ["some", "keywords", "here"],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Akshay Agarwal",
+            "homepage": "https://10xmanagement.com"
+        }
+    ],
+    "support": {
+        "email": "info@akshayagarwal.in",
+        "issues": "https://keiser.com/about-us/contact-us",
+        "source": "https://keiser.com/about-us/contact-us",
+        "docs": "https://keiser.com/about-us/contact-us"
+    },
+    "require": {
+        "craftcms/cms": "^3.7",
+        "craftcms/commerce": "^3.4",
+        "algolia/algoliasearch-client-php": "^1.25"
+    },
+    "autoload": {
+        "psr-4": {
+            "keiser\\searchhelpers\\": "src/"
+        }
+    },
+    "extra": {
+        "handle": "keiser-search-helpers",
+        "name": "Keiser Search Helpers"
+    }
+}

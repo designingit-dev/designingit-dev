@@ -1,0 +1,303 @@
+{% set contactLink = craft.entries.type("aboutContact").one.url %}
+
+<header class="siteHeader">
+  <div id="absoluteTopBannersContainer"></div>
+
+  <!-- Start Top Secondary Navigation -->
+  <nav class="siteHeader__topContainer is--hidden is--visible--medium">
+    <div class="container container--xTight">
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none text--alignRight">
+          <div class="siteHeader__topContainer__inner text--smaller">
+
+            <ul class="siteHeader__topMenu">
+
+              <li class="topMenu__item">
+                <a href="tel:{{ about.phoneNumber }}" class="navHorizontal__link">{{ about.phoneNumber }}</a>
+              </li>
+
+              <li class="topMenu__item">
+                <a href="/about-us/contact-us" class="topMenu__item__link navHorizontal__link">Contact us</a>
+              </li>
+
+              <li class="topMenu__item topMenu--item--dropDown">
+                <a href="/about-us/contact-us" class="topMenu__item__link navHorizontal__link">About us</a>
+                <svg class="dropdown--icon">
+                  <use xlink:href="#icon-topnav-dropdown"></use>
+                </svg>
+
+                <ul>
+                  <li><a href="#">OUR TEAM</a></li>
+                  <li><a href="#">OUR HISTORY</a></li>
+                  <li><a href="#">OUR PROCESS</a></li>
+                  <li><a href="#">EQUIPMENT FINANCING</a></li>
+                  <li><a href="#">ENVIRONMENTAL COMMITMENT</a></li>
+                  <li><a href="#">CAREERS</a></li>
+                </ul>
+
+              </li>
+
+              <li class="topMenu__item topMenu--item--dropDown">
+                <a href="#" class="topMenu__item__link navHorizontal__link">Education</a>
+                <svg class="dropdown--icon">
+                  <use xlink:href="#icon-topnav-dropdown"></use>
+                </svg>
+
+                <ul>
+                  <li><a href="#">GROUP CARDIO EDUCATION</a></li>
+                  <li><a href="#">KEISER CERTIFICATION</a></li>
+                  <li><a href="#">OUR TRAINERS</a></li>
+                  <li><a href="#">THE RIDE</a></li>
+                  <li><a href="#">EDUCATION RESOURCES</a></li>
+                </ul>
+                
+              </li>
+
+              <li class="topMenu__item">
+                <a href="#" class="topMenu__item__link navHorizontal__link">Support</a>
+              </li>
+
+              <li class="topMenu__item">
+                <a href="#" class="topMenu__item__link navHorizontal__link link--highlight">Ask about leasing</a>
+              </li>
+
+              <li class="topMenu__item">
+                <a href="/demo" data-hideForeign="true" class="topMenu__item__link navHorizontal__link link--highlight">Try our equipment</a>
+              </li>
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- End Top Secondary Navigation -->
+
+  {% if craft.app.request.getParam('message') == 'thankyou' %}
+    <div class="notice">Thanks! We'll be in touch with you soon.</div>
+  {% endif %}
+
+  <!-- Start Top Main Navigation -->
+  <div class="container siteHeader__container js--stickyHeader">
+    <div class="row">
+      <div class="l--medium--12 columns margin--bottom--none siteHeader__container__inner">
+        <div class="siteHeader__logo">
+          <a href="{{ siteUrl }}" class="logo__link stack--level--higher siteHeader__logoLink">
+            <img src="/assets/images/keiser-logo.svg" alt="Keiser" class="logo__image">
+          </a>
+        </div>
+
+        <div class="made--in--block">
+          <a href="#">
+            <span>Made in USA</span>
+          </a>
+        </div>
+
+        <a href="#siteMenu" class="menuButton siteHeader__menuButton is--hidden--medium" @click="openMenu(object, $event)">
+          <span class="menuButton__icon" v-bind:class="{ 'is--active': menuOpen }"></span>
+        </a> 
+
+        <nav class="siteHeader__nav">
+
+          <div class="row">
+            <div class="l--small--12 columns l--noMargin">
+              <ul class="navHorizontal navHorizontal--alignCenter siteHeader__mainNav">
+
+                {#
+                  {% include 'shared/_desktop-nav-item.html' with {'section': 'science'} %}
+                  {% include 'shared/_desktop-nav-item.html' with {'section': 'solutions'} %}
+                  {% include 'shared/_desktop-nav-item.html' with {'section': 'about'} %}
+                  {% include 'shared/_desktop-nav-item.html' with {'section': 'shop', 'class': 'shopNav', 'hideForeign': true} %}
+                #}
+                {% include 'shared/_desktop-nav-item.html' with {'section': 'products'} %}
+                {% include 'shared/_desktop-nav-item.html' with {'section': 'industry'} %}
+
+
+                <li class="navHorizontal__item search--dropdown--item">
+                  <a data-toggle="dropdown" data-target="#subMenu-search" class="navHorizontal__link navHorizontal__link--black">
+                    <svg>
+                      <use xlink:href="#icon-topnav-search"></use>
+                    </svg>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="nav--right--item">
+
+          <ul>
+
+            {% include 'shared/_desktop-nav-item.html' with {'section': 'shop', 'class': 'shopNav', 'hideForeign': true} %}
+
+            <li>
+
+              <a href="/cart" class="cart__link menuButton siteHeader__menuButton cartIconContainer" data-hideforeign="true">
+                <svg class="icon">
+                  <use xlink:href="#icon-topnav-view-cart"></use>
+                </svg>
+                <div class="cart__qty is--hidden"></div>
+              </a>
+
+            </li>
+
+          </ul>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {% include 'shared/_desktop-subMenu.html' with {'section': 'science'} %}
+  {% include 'shared/_desktop-subMenu.html' with {'section': 'products'} %}
+  {% include 'shared/_desktop-subMenu.html' with {'section': 'solutions'} %}
+  {% include 'shared/_desktop-subMenu.html' with {'section': 'education'} %}
+  {% include 'shared/_desktop-subMenu.html' with {'section': 'about'} %}
+  {% include 'shared/_desktop-subMenu.html' with {'section': 'shop', 'class': 'shopNav', 'hideForeign': true} %}
+
+  <div id="subMenu-search" class="navHorizontal__subNav">
+    <div class="navHorizontal__subNav--background">
+      <div class="container container--xTight globalSearchBoxContainer">
+        <div class="row">
+          <div class="l--medium--12 columns margin--bottom--none">
+            <div class="algoliaSearchBoxContainer">
+
+              <div class="algoliaSearchBox--wrapper">
+
+                <label>Search</label>
+
+                <div class="algoliaSearchBox--wrapper__inner">
+
+                  <span class="algolia--delete algoliaClearSearch is--hidden">
+                    <svg>
+                      <use xlink:href="#icon-topnav-search-clear"></use>
+                    </svg>
+                  </span>
+  
+                  <input type="text" class="algoliaSearchBox" placeholder="What are you looking for?" name="algolia-search" />
+  
+                  <span class="algoliaSearchAgain algolia--serchBtn">
+                    <svg>
+                      <use xlink:href="#icon-topnav-search"></use>
+                    </svg>
+                  </span>
+  
+                  <div class="background--white is--hidden algolia--dropdown--search">
+                    <div class="container container--noPad globalSearchResultsContainer"></div>
+                  </div>
+
+                </div>
+
+              </div>  
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<div id="js--stickyHeaderSpacer">
+</div>
+
+<!-- End Top Main Navigation -->
+
+<!-- Start Mobile Navigation -->
+<div id="siteMenu" class="siteWrapper__mobileNav background--blpgrey" aria-hidden="true" v-bind:class="{ 'is--showing': menuOpen }">
+
+  <div class="navHorizontal__subNav--background">
+    <div class="container container--xTight globalSearchBoxContainer">
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+
+          <div class="algoliaSearchBoxContainer">
+
+            <div class="algoliaSearchBox--wrapper">
+
+              <label>Search</label>
+
+              <div class="algoliaSearchBox--wrapper__inner">
+
+                <span class="algolia--delete algoliaClearSearch is--hidden">
+                  <svg>
+                    <use xlink:href="#icon-topnav-search-clear"></use>
+                  </svg>
+                </span>
+
+                <input type="text" class="algoliaSearchBox" placeholder="What are you looking for?" name="algolia-search" />
+
+                <span class="algoliaSearchAgain algolia--serchBtn">
+                  <svg>
+                    <use xlink:href="#icon-topnav-search"></use>
+                  </svg>
+                </span>
+
+                <div class="background--white is--hidden algolia--dropdown--search">
+                  <div class="container container--noPad globalSearchResultsContainer"></div>
+                </div>
+
+              </div>
+
+            </div>  
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container container--xTight">
+      <div class="textCenter bottomSecondaryLinks">
+  
+        <div class="top--mobile--contacts">
+          <div>
+            <a href="tel:{{ about.phoneNumber }}">{{ about.phoneNumber }}</a>
+          </div>
+    
+          <div>
+            <a href="/about-us/contact-us">Contact Us</a>
+          </div>
+        </div>
+
+        <a href="/demo" class="button button--red" data-hideForeign="true">
+          Ask About Leasing
+        </a>
+  
+        <a href="/demo" class="button button--red" data-hideForeign="true">
+          Try our equipment
+        </a>
+  
+        <a data-showForeign="true" href="/global-distributor-network" class="button button--red is--hidden">
+          Find My Distributor
+        </a>
+  
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container container--xTight">
+
+    <ul class="navVertical">
+        {% include 'shared/_mobile-nav-item.html' with {'section': 'shop', 'class': 'shopNav', 'hideForeign': true} %}
+        {% include 'shared/_mobile-nav-item-products.html' %}
+        {% include 'shared/_mobile-nav-item.html' with {'section': 'about'} %}
+        {% include 'shared/_mobile-nav-item.html' with {'section': 'education'} %}
+        <li class="navVertical__item">
+          <a href="#" class="navVertical__link">
+            Support
+          </a>
+        </li>
+    </ul>
+  </div>
+
+</div>
+<!-- End Mobile Navigation -->
+

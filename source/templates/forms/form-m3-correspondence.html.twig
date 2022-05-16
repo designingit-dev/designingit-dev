@@ -1,0 +1,72 @@
+{% extends "_layout" %}
+
+{% set slug = craft.request.getSegment(2) %}
+
+{% block seo %}
+  {% include "_seo-slug" %}
+{% endblock %}
+
+{% block content %}
+
+{% set form = craft.sproutForms.form(slug) %}
+{% set options = {
+    "class": "form",
+    "errorClass": "form--error"
+} %}
+
+{% if not form %}
+  {% redirect siteUrl %}
+{% endif %}
+
+<div class="row container">
+  <h1>{{ form.name }}</h1>
+	
+  <article>
+    {#
+        
+        Set The Password
+
+    #}
+    {% set m3Password = "FDNExam" %}
+    
+    {#
+        
+        Valid Password - Display the Form
+
+    #}
+    {% if craft.app.request.getBodyParam("password") == m3Password or (getCookie(craft.request.getSegment(2)) == m3Password) %}
+      
+      {{ setCookie(craft.request.getSegment(2), m3Password, now | date_modify("+1 hour").timestamp ) }}
+
+      {{ craft.sproutForms.displayForm("m3CorrespondenceExam", options) }}
+
+    {#
+        
+        Invalid Password or Initial Page Load
+    #}
+    {% else %}
+      <p>In order to access the Keiser Correspondence Exam, you must have purchased and completed our on-line Foundations course. Please <a href="https://www.keiser.com/education">contact us</a> and we can help you get started. Otherwise, please enter the password to continue.</p>
+
+      <form action="/{{ craft.app.request.pathInfo }}" class="form{% if craft.app.request.getBodyParam("password") %} errors{% endif %}" method="post">
+        <div id="fields-password-field" class="field plaintext fullName-field required">
+          <div class="field__heading">
+            <label for="fields-password">Password</label>
+          </div>
+          <div class="field__input">
+            <input type="password" id="fields-password" name="password" required />
+          </div>
+          {% if craft.app.request.getBodyParam("password") %}
+            <ul class="errors"><li>Invalid password</li></ul>
+          {% endif %}
+        </div>
+        <div class="submit">
+            <input type="submit" value="Ok">
+            <a class="textRight text--small text--spaced" href="/about-us/education">CANCEL</a>
+        </div>
+      </form>
+    {% endif %}
+    
+  </article>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<h2>Need immediate help?</h2>
+<a href="tel:{{ about.phoneNumber }}">
+  <img src="/assets/images/contact-us/contact-customer-support-50x50.svg" />
+  <h3 class="text--larger margin--bottom--none">{{ about.phoneNumber }}</h3>
+  <small class="text--small">Speak to a support specialist</small>
+</a>
+<a onClick="chatButton.onClick();">
+  <img src="/assets/images/contact-us/live-chat-50x50.svg" />
+  <h3 class="text--larger margin--bottom--none">Live chat</h3>
+  <small class="text--small">Chat with a representative</small>
+</a>
+<a href="/order-status">
+  <img src="/assets/images/contact-us/order-status-50x50.svg" />
+  <h3 class="text--larger margin--bottom--none">Order status</h3>
+  <small class="text--small">For orders placed on Keiser.com</small>
+</a>
+<p class=" margin--bottom--none">Support hours: Monday - Friday, 9am - 5pm Pacific Time<br>
+  <small class="textCenter text--small">Current: {{ 'now' | date('g:i a', 'America/Los_Angeles') }} Pacific Time</small></p>
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <!-- Google Tag Manager Data Layer -->
+  <script type="text/javascript">
+      dataLayer = [];
+  </script>
+  <!-- End Google Tag Manager Data Layer -->
+  {% block headerThirdPartyScripts %}
+
+  {% endblock %}
+  {% include "_head" %}
+
+  {% set pageTitle = entry.pageTitle %}
+  {% set metaDescription = entry.metaDescription %}
+
+  <title>{{ pageTitle }}</title>
+  <meta content="{{ metaDescription }}" name="description"/>
+  <meta content="{{ metaDescription }}" name="DC.description"/>
+  <meta content="{{ pageTitle }}" name="DC.title"/>
+  <meta content="{{ pageTitle }}" property="og:title"/>
+  <meta content="{{ metaDescription }}" property="og:description"/>
+
+  {% if entry.metaNoIndex %}
+    <meta name="robots" content="noindex" />
+  {% endif %}
+
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/application.css">
+  <link href="https://cloud.webtype.com/css/84f7ac02-0c59-44b8-b45b-1355f8cd00ba.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body>
+{% include "shared/_bodyThirdPartyScripts" %}
+
+  <script type="text/javascript">
+    var algoliaApplicationId = '{{ craft.keiserSearchHelpers.getSettings().algoliaApplicationId }}';
+    var algoliaSearchApiKey = '{{ craft.keiserSearchHelpers.getSettings().algoliaSearchApiKey }}';
+    var algoliaIndexPrefix = '{{ craft.keiserSearchHelpers.getSettings().algoliaIndexPrefix }}';
+    var serverTimestamp = {{ now.getTimestamp() }};
+  </script>
+
+  {% block content %}
+    <p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+    <p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+  {% endblock %}
+
+  {% include "footers/_footer-small" %}
+
+  <div id="js--vueModalTarget">
+  </div>
+  {% include "_footer-scripts" %}
+</body>
+</html>

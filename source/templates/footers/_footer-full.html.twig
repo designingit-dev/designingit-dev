@@ -1,0 +1,206 @@
+<div class="footer background--black">
+  <div class="container">
+    <div class="row">
+        <div class="l--small--6 l--medium--3 columns l--noMargin">
+          {% include "footers/shared/_product-links.html" %}
+          {% include "footers/shared/_science-and-about.html" %}
+        </div>
+        <div class="l--small--6 l--medium--3 columns l--noMargin">
+          {% include "footers/shared/_solutions-links.html" %}
+          {% include "footers/shared/_education-links.html" %}
+        </div>
+        <div class="l--small--6 l--medium--3 columns l--noMargin">
+          {% include "footers/shared/_support-links.html" %}
+          {% include "footers/shared/_contact-links.html" %}
+          <div data-hideForeign="true">
+            <div class="scale--base margin--bottom">
+              <a href="/shop" class="text--uppercase">
+                Shop
+              </a>
+            </div>
+            <div class="scale--base margin--bottom">
+              <a href="/demo" class="text--uppercase">
+                Mobile Showroom
+              </a>
+            </div>
+          </div>
+          <div data-showForeign="true" class="is--hidden">
+            {% include "footers/shared/_keiserNorthAmerica.html" %}
+          </div>
+        </div>
+        <div class="l--small--6 l--medium--3 columns l--noMargin">
+          {% include "footers/shared/_contact.html" %}
+        </div>
+    </div>
+  </div>
+</div>
+
+{% include "footers/_footer-small" %}
+
+{% if featureFlags.distributorRedirect %}
+<button id="distributorRedirect__trigger" v-on:click="openModal('distributorRedirect__modal')" class="is--hidden"></button>
+<vue-modal :active-modal="activeModal" name="distributorRedirect__modal" id="distributorRedirect__modal" v-cloak>
+  <div slot="header">
+    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('distributorRedirect__modal')"><img src="/assets/images/modal-close-button.png" /> </div>
+    <h3 class="margin--bottom--none">FIND MY LOCAL DISTRIBUTOR</h3>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad">
+      <div class="row distributorRedirect__contactInfo">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <p class="margin--bottom--half">Are you looking for your local distributor?</p>
+        </div>
+        <div class="l--medium--4 l--extraSmall--6 columns">
+          <button class="button distributorRedirect__yes" v-on:click="populateDistributorInfo()">YES</button>
+        </div>
+        <div class="l--medium--2 l--extraSmall--6 columns text--alignRight">
+          <button class="button--black distributorRedirect__no" v-on:click="closeModal('distributorRedirect__modal')">NO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="footer" class="background--lightGrey">
+    <div class="container container--tight">
+      <div class="row">
+        <div class="l--small--12 l--medium--6 columns l--noMargin" id="productReviewThankYou__footer">
+          <img data-src="/assets/images/keiser-logo.svg" alt="Keiser" class="footer__logo lazyload">
+          <img data-src="/assets/images/footer-slogan.svg" alt="Because Good Enough Isn't" class="footer__slogan lazyload">
+        </div>
+      </div>
+    </div>
+  </div>
+</vue-modal>
+{% endif %}
+
+<button id="northAmericaShopConfirmation__trigger" v-on:click="openModal('northAmericaShopConfirmation__modal')" class="is--hidden"></button>
+<vue-modal :active-modal="activeModal" name="northAmericaShopConfirmation__modal" id="northAmericaShopConfirmation__modal" v-cloak>
+  <div slot="header">
+    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('northAmericaShopConfirmation__modal')"><img src="/assets/images/modal-close-button.png" /> </div>
+    <h3 class="margin--bottom--none">AVAILABLE FOR US & CANADIAN CUSTOMERS ONLY</h3>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <p class="margin--bottom--half">
+            Please note, online shopping at Keiser.com is only available to US and Canadian customers. To find your
+            local distributor, please <a href="/global-distributor-network">click here</a>. Any incentives, special pricing, free shipping or
+            other Keiser.com offers do not apply to any international sales. Exporting any piece of Keiser equipment
+            from the US or Canada without the expressed knowledge and approval of Keiser Corporation International Sales
+            is prohibited and will void the warranty on the equipment.
+          </p>
+        </div>
+        <div class="l--medium--4 l--extraSmall--12 columns">
+          <a href="/global-distributor-network" class="button">My Local Distributor</a>
+        </div>
+        <div class="l--medium--4 l--extraSmall--12 columns">
+          <a v-on:click="shopNoticeConfirmation()" class="button button--black">I Agree, Continue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="footer" class="background--lightGrey">
+    <div class="container container--tight">
+      <div class="row">
+        <div class="l--small--12 l--medium--6 columns l--noMargin" id="productReviewThankYou__footer">
+          <img data-src="/assets/images/keiser-logo.svg" alt="Keiser" class="footer__logo lazyload">
+          <img data-src="/assets/images/footer-slogan.svg" alt="Because Good Enough Isn't" class="footer__slogan lazyload">
+        </div>
+      </div>
+    </div>
+  </div>
+</vue-modal>
+
+<button id="northAmericaDemoConfirmation__trigger" v-on:click="openModal('northAmericaDemoConfirmation__modal')" class="is--hidden"></button>
+<vue-modal :active-modal="activeModal" name="northAmericaDemoConfirmation__modal" id="northAmericaDemoConfirmation__modal" v-cloak>
+  <div slot="header">
+      <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('northAmericaDemoConfirmation__modal')"><img src="/assets/images/modal-close-button.png" /> </div>
+      <h3 class="margin--bottom--none">AVAILABLE FOR US & CANADIAN CUSTOMERS ONLY</h3>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <p class="margin--bottom--half">
+            Please Note: The following page presents Mobile Showrooms available in US and Canada. To find a Mobile Showroom in your location, <a href="/global-distributor-network">click here</a> to find your local distributor
+          </p>
+        </div>
+        <div class="l--medium--4 l--extraSmall--12 columns">
+          <a href="/global-distributor-network" class="button">My Local Distributor</a>
+        </div>
+        <div class="l--medium--4 l--extraSmall--12 columns">
+          <a v-on:click="demoNoticeConfirmation()" class="button button--black">I Understand, Continue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="footer" class="background--lightGrey">
+    <div class="container container--tight">
+      <div class="row">
+        <div class="l--small--12 l--medium--6 columns l--noMargin" id="productReviewThankYou__footer">
+          <img data-src="/assets/images/keiser-logo.svg" alt="Keiser" class="footer__logo lazyload">
+          <img data-src="/assets/images/footer-slogan.svg" alt="Because Good Enough Isn't" class="footer__slogan lazyload">
+        </div>
+      </div>
+    </div>
+  </div>
+</vue-modal>
+
+{% set countryRedirectEnabledForPage = true %}
+{% if entry.enableCountryRedirect is defined and entry.enableCountryRedirect is not null and not entry.enableCountryRedirect %}
+  {% set countryRedirectEnabledForPage = false %}
+{% endif %}
+
+{% if countryRedirectEnabledForPage %}
+  {% set countryRedirectEntries = craft.entries.section('countryRedirects') %}
+  <script type="text/javascript">
+      window.countryRedirectEnabled = true;
+      window.countryRedirectList = [];
+      {% for countryEntry in countryRedirectEntries %}
+      window.countryRedirectList.push('{{ countryEntry.distributorISO }}');
+      {% endfor %}
+  </script>
+
+  {% set geolocation = craft.keiserContactHelpers.getVisitorGeolocation() %}
+  {% set countryRedirect = countryRedirectEntries.distributorISO(geolocation.country).first() %}
+  {% if countryRedirect is defined and countryRedirect is not null  %}
+    {% set homeCountryRedirectLabel = globalSiteConfig.homeCountryRedirectLabel %}
+    <button id="countryRedirectModal__trigger" v-on:click="openModal('countryRedirectModal')" class="is--hidden"></button>
+    <vue-modal :active-modal="activeModal" :close-modal-on-outside-click="false" name="countryRedirectModal" id="countryRedirectModal" v-cloak>
+      <div slot="header">
+        <h3 class="margin--bottom--none">HELLO!</h3>
+      </div>
+      <div slot="body">
+        <div class="container container--noPad">
+          <div class="row">
+            <div class="l--medium--12 columns margin--bottom--none margin--top--half">
+              <h3 class="margin--bottom--half">LOOKS LIKE YOU ARE IN:</h3>
+              <h3 class="margin--bottom--half">{{ countryRedirect.title }}</h3>
+              <p class="margin--bottom--half">{{ countryRedirect.redirectModalText }}</p>
+            </div>
+            <div class="l--medium--12 columns">
+              <a href="{{ countryRedirect.distributorWebsite }}" class="button">{{ countryRedirect.redirectModalCTA }}</a>
+              <br>
+              <br>
+              <a v-on:click="closeModal('countryRedirectModal')">{{ homeCountryRedirectLabel }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="footer" class="background--lightGrey">
+        <div class="container container--tight">
+          <div class="row">
+            <div class="l--small--12 l--medium--6 columns l--noMargin" id="productReviewThankYou__footer">
+              <img data-src="/assets/images/keiser-logo.svg" alt="Keiser" class="footer__logo lazyload">
+              <img data-src="/assets/images/footer-slogan.svg" alt="Because Good Enough Isn't" class="footer__slogan lazyload">
+            </div>
+          </div>
+        </div>
+      </div>
+    </vue-modal>
+  {% endif %}
+{% else %}
+  <script type="text/javascript">
+      window.countryRedirectEnabled = false;
+  </script>
+{% endif %}

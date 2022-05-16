@@ -1,0 +1,8 @@
+<h2 class="titleBlock__subTitle scale--xXLarge">Testimonials</h2>
+{% set randomTestimonial = craft.entries.section(['testimonials']).orderBy('RAND()').one() %}
+<blockquote>
+  {{ randomTestimonial.quote }}
+  <footer>
+    <cite>{{ randomTestimonial.citation}}</cite>
+  </footer>
+</blockquote>

@@ -1,0 +1,153 @@
+<li class="itemList__item">
+  <div class="row">
+    <div class="l--6 columns">
+      <h3 class="itemList__title">{{ item.description }}</h3>
+      <div class="itemList__additional">
+        <small>({{ item.sku }})</small>
+
+        <div class="itemList__remove">
+          <form method="POST" action="">
+            {{ actionInput('commerce/cart/update-cart') }}
+            {{ redirectInput('/cart') }}
+            {{ csrfInput() }}
+            <input type="hidden" name="lineItems[{{ item.id }}][remove]" value="1"/>
+            <input class="button button--small button--submitLink" type="submit" value="Remove"/>
+          </form>
+        </div>
+
+        {% if item.purchasable.clothingSize is defined and item.purchasable.clothingSize is not empty %}
+          <div class="margin--top--narrow">
+            <div class="margin--bottom--narrow">{{ item.purchasable.product.clothingSizeLabel }}: {{ item.purchasable.clothingSize|upper }}</div>
+          </div>
+        {% endif %}
+
+        {% if item.options.productSellersNotes is defined %}
+          <div class="margin--top--narrow">
+            <div class="margin--bottom--narrow">{{ item.options.productSellersNotes }}</div>
+          </div>
+        {% endif %}
+
+        {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+          <div class="margin--top--narrow">
+            <div class="margin--bottom--narrow">M Series Assembly & Maintenance Kit included with White Glove Assembly</div>
+          </div>
+        {% endif %}
+
+        {% if item.options.tShirtSize is defined %}
+          <div class="margin--top--narrow">
+            <div class="margin--bottom--narrow">Free T-Shirt: {{ item.options.tShirtSize }}</div>
+          </div>
+        {% endif %}
+
+        {% if item.options.promoItem is defined %}
+          <div class="margin--top--narrow">
+            <div class="margin--bottom--narrow">Free Promotional Item: {{ craft.keiserCommerceHelpers.getProductTitleBySKU(item.options.promoItem) }}</div>
+          </div>
+        {% endif %}
+
+        {% if item.purchasable.product.enableWhiteGloveDelivery %}
+          {% include "cart/_whiteGloveDeliverySelection.html" %}
+        {% endif %}
+
+        <hr />
+
+        <div class="margin--top--narrow">
+
+          <div class="margin--bottom--narrow">{{ item.note }}</div>
+
+          <button class="button button--submitLink button--noAnimation js--showCartNote">
+            {% if item.note %}Edit {% else %}Add {% endif %}Notes
+          </button>
+
+          <div class="js--cartNoteExpanded is--hidden">
+
+            <form method="POST">
+              <input type="hidden" name="action" value="commerce/cart/update-cart">
+              {{ redirectInput('/cart') }}
+              {{ csrfInput() }}
+
+              {# We need to submit both the qty and note for each of their displayed forms #}
+              <input class="is--hidden" type="number" name="lineItems[{{ item.id }}][qty]" min="1" value="{{ item.qty }}">
+
+              <h4 class="text--upcase text--bold margin--bottom--none">{% if item.note %}Edit {% else %}Add {% endif %}Notes</h4>
+
+              <textarea type="text" class="margin--bottom--narrow" placeholder="My Note" name="lineItems[{{ item.id }}][note]">{{ item.note }}</textarea>
+
+              <span class="button--submitLink js--cancelNotes">Cancel</span>
+              <input class="button button--small" type="submit" value="Save Note" />
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+
+      {# We are not currently exposing options, but we might as #}
+      {# well enumerate potential options just in case they're added #}
+      {# in admin later. #}
+      {% if item.options|length %}
+        <ul class="itemList__options">
+          {% for optionName, optionValue in item.options %}
+          {% if not optionName == 'productSellersNotes' %}
+            <li>
+              <strong>{{ optionName }}</strong>: {{ optionValue }}
+            </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="l--2 columns">
+      <div class="itemList__data">
+        {% if item.onSale %}
+          <div><s>{{ item.price|commerceCurrency(cart.currency) }}</s></div>
+          <div>{{ item.salePrice|commerceCurrency(cart.currency) }}</div>
+        {% else %}
+          <div>{{ item.price|commerceCurrency(cart.currency) }}</div>
+          {% if item.discount != 0 %}
+            <div>{{ item.discount|commerceCurrency(cart.currency) }}</div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="l--2 columns text--alignCenter">
+      <form method="POST">
+        <input type="hidden" name="action" value="commerce/cart/update-cart">
+        {{ redirectInput('/cart') }}
+        {{ csrfInput() }}
+
+        {# We need to submit both the qty and note for each of their displayed forms #}
+        <input class="is--hidden" type="text" placeholder="My Note" size="20" name="lineItems[{{ item.id }}][note]" value="{{ item.note }}" />
+
+        <div class="field l--centeredColumn">
+          <div class="field__input">
+            <span {% if item.getFirstError('qty') %}class="has-error"{% endif %}>
+              <input type="number" name="lineItems[{{ item.id }}][qty]" min="1" value="{{ item.qty }}" />
+            </span>
+          </div>
+        </div>
+
+
+
+        <input class="button button--submitLink" type="submit" value="Update"/>
+      </form>
+    </div>
+
+    <div class="l--2 columns">
+      <div class="itemList__data text--alignRight">
+        <div>{{ item.total|commerceCurrency(cart.currency) }}</div>
+      </div>
+      {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+        <div class="itemList__data text--alignRight">
+          <div class="whiteGlove__cart__total">
+            <p class="margin--bottom--veryNarrow margin--top--veryNarrow">White Glove Assembly</p>
+            <p class="margin--bottom--none">+ {{ (item.purchasable.product.whiteGloveDeliveryFee * item.qty) | commerceCurrency(cart.currency) }}</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</li>

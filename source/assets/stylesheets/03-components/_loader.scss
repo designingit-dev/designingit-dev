@@ -1,0 +1,132 @@
+// -----------------------------------------------------------------------------
+// Table of Contents - Loading animation
+//
+//
+//  - Product Detail Main Info
+//
+//  Notes: [1] - Stolen from [here](http://codepen.io/AsLittleDesign/pen/ZbVVwa)
+//
+
+$loader__width: 250px;
+$loader-dot__size: 20px;
+
+.loader__container {
+  $loader__container-height: 100px;
+  $loader__container-width: 255px;
+  position: relative;
+  width: $loader__container-height;
+  height: $loader__container-height;
+}
+
+.loader__loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: $loader__width;
+  height: $loader-dot__size;
+  margin: auto;
+
+  &-dot {
+    position: absolute;
+    width: $loader-dot__size;
+    height: $loader-dot__size;
+    animation: {
+      name: loader;
+      duration: 3s;
+      timing-function: ease-in-out;
+      iteration-count: infinite;
+    };
+    border: 2px solid $white;
+    border-radius: 100%;
+    background-color: $black;
+
+    &:first-child {
+      animation-delay: .5s;
+      background-color: $keiser--red;
+    }
+
+    &:nth-child(2) {
+      animation-delay: .4s;
+      background-color: $keiser--red;
+    }
+
+    &:nth-child(3) {
+      animation-delay: .3s;
+      background-color: $keiser--red;
+    }
+
+    &:nth-child(4) {
+      animation-delay: .2s;
+      background-color: $keiser--red;
+    }
+
+    &:nth-child(5) {
+      animation-delay: .1s;
+      background-color: $keiser--red;
+    }
+
+    &:nth-child(6) {
+      animation-delay: 0s;
+      background-color: $keiser--red;
+    }
+  }
+
+  &-text {
+    position: absolute;
+    top: 200%;
+    right: 0;
+    left: 0;
+    width: 4rem;
+    margin: auto;
+
+    &::after {
+      font-weight: bold;
+      content: "Loading";
+      animation: {
+        name: loading-text;
+        duration: 3s;
+        iteration-count: infinite;
+      };
+    }
+  }
+}
+
+@keyframes loader {
+  15% {
+    transform: translateX(0);
+  }
+
+  45% {
+    transform: translateX($loader__width - $loader-dot__size);
+  }
+
+  65% {
+    transform: translateX($loader__width - $loader-dot__size);
+  }
+
+  95% {
+    transform: translateX(0);
+  }
+}
+
+
+@keyframes loading-text {
+  0% {
+    content: "Loading";
+  }
+
+  25% {
+    content: "Loading.";
+  }
+
+  50% {
+    content: "Loading..";
+  }
+
+  75% {
+    content: "Loading...";
+  }
+}
+

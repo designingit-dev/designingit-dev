@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  {% block seo %}
+    {% if entry is defined and page is not defined %}
+        {% include "_seo" with {'entry' : entry } %}
+    {% elseif category is defined and page is not defined %}
+        {% include "_seo" with {'entry' : category } %}
+    {% elseif page is defined %}
+      {% include "_seo" with {'entry' : page } %}
+    {% endif %}
+  {% endblock %}
+
+  <!-- Google Tag Manager Data Layer -->
+  <script type="text/javascript">
+      dataLayer = [];
+  </script>
+  <!-- End Google Tag Manager Data Layer -->
+
+  {% block headerThirdPartyScripts %}{% endblock %}
+
+  {% include "_head" %}
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
+  </noscript>
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/application.css">
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/uk-stylesheet.css">
+</head>
+
+<body class="{% block bodyClasses %}{% endblock %}">
+<div class="is--hidden">
+<!-- inject:svgsprite -->
+<!-- endinject-->
+</div>
+
+{% include "shared/_bodyThirdPartyScripts" %}
+
+  {% if featureFlags.activateCommerce %}
+    {# get the cart once per page load and make it available globally #}
+    {% set cart = craft.commerce.carts.cart %}
+  {% endif %}
+
+  <div class="siteWrapper {{ craft.request.path == 'checkout' ? 'siteWrapper--white siteWrapper--checkout' : '' }}">
+
+    {% block header %}
+      {% include 'headers/_header-full' %}
+    {% endblock %}
+
+    {% if craft.request.path == 'checkout' %}
+      <div class="container container--tight">
+    {% else %}
+      <div id="container" class="siteWrapper__content js--siteContent" v-bind:class="{ 'is--hiding': menuOpen }">
+    {% endif %}
+
+      <main id="content" role="main">
+
+        <div id="belowTopNavigationBannersContainers"></div>
+
+        {% block breadcrumb %}
+        {% endblock %}
+
+        {% block content %}
+          <p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+          <p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+        {% endblock %}
+      </main>
+
+      {% if craft.request.path == 'checkout' %}
+        </div>
+      {% endif %}
+
+      {% block footer %}
+        {% include 'footers/_footer-full' %}
+      {% endblock %}
+
+      {% if craft.request.path != 'checkout' %}
+        </div>
+      {% endif %}
+
+  </div>
+
+  <div id="js--vueModalTarget">
+  </div>
+
+  {# Magic Zoom Plus for Zoom on Product Image #}
+  <div id="zoom-placeholder"></div>
+
+  {% for jsFlash in craft.app.session.getJsFlashes() %}
+    <script type="text/javascript">
+      {{ jsFlash[0]|raw }}
+    </script>
+  {% endfor %}
+  {% include "_footer-scripts" %}
+  {% block footerThirdPartyScripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "_layout" %}
+
+{% switch entry.type %}
+	{% case "education" %}
+		{# set contact link in header with a query value so the form is prepopulated with that value  #}
+		{% set contactLinkQuery = "?fields-pleaseSelectAnInquiryOption=3" %}
+{% endswitch %}
+
+{% block content %}
+
+  {% switch entry.type %}
+    {% case "education" %}
+      {% include "education/_education.html" %}
+    {% case "educationTrainers" %}
+      {% include "education/_education-trainers.html" %}
+    {% case "educationTraining" %}
+      {% include "education/_education-training.html" %}
+  {% endswitch %}
+
+{% endblock %}

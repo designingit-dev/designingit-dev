@@ -1,0 +1,27 @@
+{% set results = craft.keiserCommerceHelpers.getAbandonedCarts() %}
+
+{{ craft.sproutReports.addHeaderRow([
+  'Order Number',
+  'Cart Created',
+  'Cart Last Updated',
+  'Email',
+  'First Name',
+  'Last Name',
+  'SKU',
+  'Cart Value',
+]) }}
+
+{% for result in results %}
+  {% do craft.sproutReports.addRow([
+    result.shortNumber,
+    result.dateCreated,
+    result.dateUpdated,
+    result.email,
+    result.firstName,
+    result.lastName,
+    result.sku,
+    result.total
+  ]) %}
+{% endfor %}
+
+

@@ -1,0 +1,121 @@
+// ------------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Footer
+//
+// ------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------
+// !-- Footer
+// ------------------------------------------------------------------------------
+
+.footer {
+
+  a {
+    color: $white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  a:not(.footer__contactLink) {
+    text-decoration: none;
+  }
+
+  &__contact {
+    text-align: center;
+    padding-top: 30px;
+    border-top: solid 1px $keiser--white;
+    @include respond-to(medium) {
+      padding-top: 0;
+      border-top: none;
+    }
+  }
+
+  &__sectionLinks {
+    margin-bottom: $verticalRhythm; // needed so there's margin between the next link item
+
+    ul.list--tight {
+      margin-top: $verticalRhythm--veryNarrow;
+    }
+
+    li {
+      list-style: none;
+      margin-left: 0;
+
+      a {
+        color: $blp--footer--nav--item;
+        font-weight: $fontWeight--medium;
+      }
+
+    }
+
+  }
+
+  // scss-lint:disable NestingDepth
+  &__socialLinks {
+    a {
+      margin-right: $gutter / 2;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &__icon {
+      display: inline;
+      height: 23px;
+      width: 23px;
+    }
+  }
+  // scss-lint:enable NestingDepth
+
+  &__logo {
+    width: 160px;
+  }
+
+  &__slogan {
+    float: left;
+    width: 55%;
+    margin-left: $gutter--narrow;
+    padding-left: $gutter--narrow;
+    border-left: $borderWidth--medium solid $grey--light;
+  }
+
+  &--secondary {
+    font-size: map-get($fontSizesPx, 12);
+    color: $blp--footer--nav--secondary--item;
+    a {
+      color: $blp--footer--nav--secondary--item;
+    }
+
+    &__right {
+      margin-top: $verticalRhythm--half;
+      @include respond-to(medium){
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+#distributorRedirect__modal {
+
+  .modal__wrapper {
+    max-width: 48em;
+  }
+
+  .distributorRedirect__website {
+    color: $keiser--black;
+    text-decoration: underline;
+  }
+
+  .distributorRedirect__phone,.distributorRedirect__email {
+    color: $keiser--black;
+  }
+
+}

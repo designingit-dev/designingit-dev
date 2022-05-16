@@ -1,0 +1,11 @@
+{% set buttonFullWidth = contentElement.contentBlockButtonFullWidth ? 'button--fullWidth' : '' %}
+
+<div class="{{ craft.keiserCommerceHelpers.getCustomCSSClasses(contentElement)|join(' ') }}" id="{{ contentElement.contentBlockID ? contentElement.contentBlockID : 'div'~contentElement.id }}">
+    {% if contentElement.contentBlockButtonAnchorUrl is not empty %}
+        <a href="{{ contentElement.contentBlockButtonAnchorUrl }}" target="{{ contentElement.contentBlockButtonAnchorUrlOpenLocation }}" class="button {{ buttonFullWidth }}">{{ contentElement.contentBlockButtonCtaText|raw }}</a>
+    {% elseif contentElement.contentBlockButtonModalOpen is not empty %}
+        <button class="button {{ buttonFullWidth }}" v-on:click="{{ contentElement.contentBlockButtonModalOpen == 'contactUs__commercialSalesSimplified' ? "openCommercialSalesSimplifiedModal()" : "openModal('" ~ contentElement.contentBlockButtonModalOpen ~ "')"}}">{{ contentElement.contentBlockButtonCtaText|raw }}</button>
+    {% else %}
+        <button class="button {{ buttonFullWidth }}">{{ contentElement.contentBlockButtonCtaText|raw }}</button>
+    {% endif %}
+</div>

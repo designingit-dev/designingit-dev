@@ -1,0 +1,60 @@
+{% extends "_layout" %}
+
+{% block seo %}
+  {% set title = craft.app.request.getParam('q') ~ " - " ~ siteName ~ " Search" %}
+  <title>{{ title }}</title>
+  <meta content="{{ title }}" name="DC.title"/>
+{% endblock %}
+
+{% block content %}
+  {% include "support/_header-block.html" %}
+
+  <div class="container container--xTight">
+    <div class="row">
+      <div class="l--medium--12 columns  margin--top--half margin--bottom--half">
+        <div class="background--white" id="searchAgainContainer">
+          <input type="text" id="searchAgainInput" class="text--large" />
+          <img class="is--hidden" id="searchAgainImage" src="/assets/images/search/search-again.png" />
+        </div>
+      </div>
+      <div class="l--medium--12 columns">
+        <h1 id="searchPageTitle"></h1>
+        <p id="totalResultsCount" class="margin--bottom--none"></p>
+      </div>
+      <div class="l--extraSmall--12 columns is--hidden--medium">
+        <div class="faq" id="searchResultsFilterMobile">
+          <div class="faq__iconWrapper">
+            <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+          </div>
+          <div class="faq__content">
+            <div class="faq__question">
+              <h4 class="margin--bottom--none">REFINE YOUR RESULTS</h4>
+            </div>
+            <div class="faq__answer" aria-hidden="true">
+              <div class="searchResultsFilters">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l--medium--4 columns is--hidden--extraSmall is--hidden--small is--visible--medium">
+        <h3>REFINE YOUR RESULTS</h3>
+        <div class="searchResultsFilters">
+
+        </div>
+      </div>
+      <div class="l--medium--8 columns">
+        <div id="algoliaResultsContainer">
+
+        </div>
+        <div class="l--medium--8 l--extraSmall--10 l--medium--offset--1 l--extraSmall--offset--2 columns" id="searchResultsPagination">
+
+        </div>
+        <div class="l--medium--3 columns" id="algoliaLogoContainer">
+          <img src="/assets/images/search/search-by-algolia.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

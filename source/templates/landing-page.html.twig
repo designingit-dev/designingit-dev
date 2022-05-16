@@ -1,0 +1,90 @@
+{% extends '_layout' %}
+
+{% set variant = craft.keiserCommerceHelpers.getLandingPageVariant(entry) %}
+
+{% block header %}
+  {% switch variant %}
+    {% case 0 %}
+      {% include 'headers/_headerSelection' with {
+        'headerOption': entry.contentBlockHeader,
+        'customTitle': entry.contentBlockHeaderCustomTitle
+      } %}
+    {% case 1 %}
+      {% include 'headers/_headerSelection' with {
+        'headerOption': entry.contentBlockHeaderVariant2,
+        'customTitle': entry.contentBlockHeaderCustomTitleVariant2
+      } %}
+    {% case 2 %}
+      {% include 'headers/_headerSelection' with {
+        'headerOption': entry.contentBlockHeaderVariant3,
+        'customTitle': entry.contentBlockHeaderCustomTitleVariant3
+      } %}
+  {% endswitch %}
+{% endblock %}
+
+{% block content %}
+
+  {% switch variant %}
+    {% case 0 %}
+      {% include 'shared/content-block/layout/_customCSS' with {
+        'blocks': entry.contentBlocks
+      } %}
+      {% for block in entry.contentBlocks.level(1) %}
+        {% include 'shared/content-block/_content-block' with {
+          'block': block
+        } %}
+      {% endfor %}
+    {% case 1 %}
+      {% include 'shared/content-block/layout/_customCSS' with {
+        'blocks': entry.contentBlocksVariant2
+      } %}
+      {% for block in entry.contentBlocksVariant2.level(1) %}
+        {% include 'shared/content-block/_content-block' with {
+          'block': block
+        } %}
+      {% endfor %}
+    {% case 2 %}
+      {% include 'shared/content-block/layout/_customCSS' with {
+        'blocks': entry.contentBlocksVariant3
+      } %}
+      {% for block in entry.contentBlocksVariant3.level(1) %}
+        {% include 'shared/content-block/_content-block' with {
+          'block': block
+        } %}
+      {% endfor %}
+  {% endswitch %}
+
+  {% if entry.contentBlockCustomCSS is not empty %}
+    {% css %}
+      {{ entry.contentBlockCustomCSS|raw }}
+    {% endcss %}
+  {% endif %}
+
+  {% if entry.contentBlockOptimizeExperimentID is not empty %}
+    {% include 'shared/_optimizeExperimentHit' with {
+      experimentId: entry.contentBlockOptimizeExperimentID,
+      variationId: variant
+    } %}
+  {% endif %}
+
+{% endblock %}
+
+{% block footer %}
+  {% switch variant %}
+  {% case 0 %}
+    {% include 'footers/_footerSelection' with {
+      'footerOption': entry.contentBlockFooter
+    } %}
+  {% case 1 %}
+    {% include 'footers/_footerSelection' with {
+      'footerOption': entry.contentBlockFooterVariant2
+    } %}
+  {% case 2 %}
+    {% include 'footers/_footerSelection' with {
+      'footerOption': entry.contentBlockFooterVariant3
+    } %}
+  {% endswitch %}
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+{% endblock %}

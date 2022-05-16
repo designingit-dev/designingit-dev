@@ -1,0 +1,193 @@
+// -----------------------------------------------------------------------------
+// !-- Title Card
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Title Card
+name: 01-titleCard
+category: Components - Cards
+---
+
+This is a title and description block that exists on the dark grey background.
+
+Wrap everything in `.titleCard`. The title should have the `.titleCard__title`
+and `.scale--large` classes for sizing. The description should have the
+`.titleCard__description` class.
+
+``` html_example
+<div class="titleCard">
+  <div class="titleCard__title scale--large">
+    Title
+  </div>
+  <div class="titleCard__description">
+    Description
+  </div>
+</div>
+```
+
+```html_example
+<div class="titleCard titleCard--red">
+  <div class="titleCard__title scale--large l--noMargin">
+    Red Title Card - usually has no description
+  </div>
+</div>
+```
+
+``` html_example
+<div class="titleCard titleCard--black">
+  <div class="titleCard__title scale--large">
+    Title
+  </div>
+  <div class="titleCard__description">
+    Description
+  </div>
+</div>
+```
+
+``` html_example
+<div class="titleCard titleCard--cta">
+  <div class="titleCard__title text--upcase">
+    Better
+  </div>
+  <div class="titleCard__subheader text--upcase">
+    Subheader
+  </div>
+  <div class="titleCard__description text--upcase">
+    Description here
+  </div>
+  <a href="#" class="button">Button Link</a>
+</div>
+```
+*/
+
+/*doc
+---
+title: Title Card with Icon
+name: 02-title-card-with-icon
+category: Components - Cards
+---
+
+This is a modified version of the Title Card component above. These include an
+icon and have the text sitting to the right of the icon. They also don't have a
+description and instead include a button or the title only.
+
+The containing element has both `.titleCard` and `.titleCard--withIcon` classes.
+
+The icon has the `.titleCard__icon` class and the title is created using the
+`.titleCard__title` and `.scale--large` classes just like above.
+
+``` html_example
+<div class="titleCard titleCard--withIcon">
+  <img class="titleCard__icon" src="http://placehold.it/100x100">
+  <div class="titleCard__title scale--large">
+    Title
+  </div>
+  <button>See more</button>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.titleCard {
+  $padding: $gutter--half;
+  $maxIconSize: 5em;
+  $mediumHeight: 140px; // makes the items all sit at the same height, regardless of content
+  $smallHeight: 240px; // items need to grow taller as browser shrinks to mobile
+  $constrainHeight: 180px; // because we can't control the amount of content in the blocks
+  $flexHeight: 100px; // needed for flex items to have accurate spacing
+
+  padding: $padding;
+  color: $white;
+  background: $grey;
+
+  .titleCard--cta & {
+    padding: $padding / 2;
+
+    @include respond-to(small) {
+      padding: $padding;
+    }
+  }
+
+  &__description {
+    font-size: map-get($fontSizes, small);
+    margin-bottom: $verticalRhythm--narrow;
+
+    .titleCard--cta & {
+      font-size: .9em;
+      color: $grey--light;
+    }
+  }
+
+  &__subheader {
+    margin-bottom: 0;
+
+    .titleCard--cta & {
+      font-family: $sansSerif--black;
+      font-weight: $fontWeight--black;
+      font-size: 2.45em;
+      line-height: .9;
+    }
+  }
+
+  &__title {
+    .titleCard--cta & {
+      font-family: $sansSerif--black;
+      font-weight: $fontWeight--black;
+      font-size: 3.25em;
+      line-height: .65;
+    }
+  }
+
+  &--red {
+    margin-bottom: $verticalRhythm;
+    background: $red;
+  }
+
+  &--black {
+    background: $black;
+  }
+
+  &--constrain {
+    height: pem($constrainHeight);
+  }
+
+  &--withIcon {
+    @include clearfix;
+    height: pem($smallHeight);
+
+    @include respond-to(small) {
+      height: pem($mediumHeight);
+    }
+  }
+
+  &--cta {
+    text-align: center;
+  }
+
+  &__flexItems {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: pem($flexHeight);
+
+    &--constrain {
+      height: pem($mediumHeight);
+    }
+
+    &--flexEnd {
+      justify-content: flex-end;
+    }
+  }
+
+  &__iconBlock {
+    width: $maxIconSize;
+    margin: auto;
+    text-align: center;
+  }
+
+  &__icon {
+    max-width: $maxIconSize;
+    max-height: $maxIconSize;
+    margin-top: $gutter--narrow;
+  }
+}

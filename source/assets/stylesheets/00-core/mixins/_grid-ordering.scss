@@ -1,0 +1,17 @@
+// -----------------------------------------------------------------------------
+// !-- Grid Ordering
+//
+// Change the column ordering inside a grid easily
+// -----------------------------------------------------------------------------
+
+@mixin grid-pull($target, $context: map-get($grid, columns)) {
+  right: percentage($target / $context);
+}
+
+@mixin grid-push($target, $context: map-get($grid, columns)) {
+  left: percentage($target / $context);
+}
+
+@mixin grid-offset($target, $context: map-get($grid, columns)) {
+  margin-left: percentage($target / $context);
+}

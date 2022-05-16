@@ -1,0 +1,29 @@
+{% set showCTA = (banner.siteWideInfoBannerCTALink and banner.siteWideInfoBannerCTALabel) ? true : false %}
+{% if not showCTA or '/' ~ craft.request.path != banner.siteWideInfoBannerCTALink  %}
+<div class="background--{{ banner.siteWideInfoBannerBackgroundColor }} siteWideInfoBanner" data-banner-id="{{ banner.id }}">
+  <div class="container container--noPad padding--top--half padding--bottom--half">
+    <div class="siteWideInfoBanner__container">
+      <div class="siteWideInfoBanner__info {{ not banner.siteWideInfoBannerAllowDismissingBanner ? 'siteWideInfoBanner__info__fullWidth' : '' }}">
+        <div class="siteWideInfoBanner__info__message">
+          {{ banner.siteWideInfoBannerInfo }}
+        </div>
+        {% if showCTA %}
+          <div class="text--alignCenter siteWideInfoBanner__cta is--hidden is--visible--medium">
+            <a class="text--bold" href="{{ banner.siteWideInfoBannerCTALink }}">{{ banner.siteWideInfoBannerCTALabel }}</a>
+          </div>
+        {% endif %}
+      </div>
+      {% if banner.siteWideInfoBannerAllowDismissingBanner %}
+        <div class="padding--left--half text--alignRight siteWideInfoBanner__close" data-banner-id="{{ banner.id }}" data-is-absolute-top-banner="{{ isAbsoluteTopBanner }}">
+          <img src="/assets/images/close-button-sitewide-information-banner.png">
+        </div>
+      {% endif %}
+    </div>
+    {% if showCTA %}
+      <div class="is--hidden--medium text--alignCenter margin--top--narrow siteWideInfoBanner__cta">
+        <a class="text--bold" href="{{ banner.siteWideInfoBannerCTALink }}">{{ banner.siteWideInfoBannerCTALabel }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,35 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+<div class="background--darkGrey">
+  <div class="container container--tight">
+    <div class="row">
+      <div class="l--small--12 l--medium--12 columns l--noMargin">
+        <div class="titleBlock">
+          <h1 class="titleBlock__subTitle">
+            {{ entry.title }}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="background--white">
+  <div class="container">
+    <div class="row">
+      <div class="l--medium--12 columns margin--bottom--none contactUs__thankyou__body">
+        {% if craft.request.getParam('thankYouMsg') %}
+          <strong>{{ craft.request.getParam('thankYouMsg') }}</strong>
+        {% else %}
+          {{ entry.body }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'shared/_productsLineHighlight' with { 'entry': entry } %}
+
+{% endblock %}

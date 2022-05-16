@@ -1,0 +1,52 @@
+{%- set static = (static is defined ? static : false) %}
+{%- set cols = (cols is defined ? cols : []) %}
+{%- set rows = (rows is defined ? rows : []) -%}
+
+<table id="{{ id }}" class="shadow-box editable">
+  <thead>
+    <tr>
+      {% for col in cols %}
+        <th scope="col" class="header">{{ col.heading ? col.heading : ' ' }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for rowId, row in rows %}
+      <tr data-id="{{ rowId }}">
+        {% for colId, col in cols %}
+          {% set cellName = name~'['~rowId~']['~col.handle~']' %}
+          {% set value = (row[col.handle] is defined ? row[col.handle] : null) %}
+          {% set textual = (col.type in ['singleline','multiline','number']) %}
+          <td class="{% if textual %}textual{% endif %} {% if col.class is defined %}{{ col.class }}{% endif %}"{% if col.width is defined %} width="{{ col.width }}"{% endif %}>
+            {%- if col.type == 'select' -%}
+              {% include "_includes/forms/select" with {
+                class:    'small',
+                name:     cellName,
+                options:  col.options,
+                value:    value,
+                disabled: static
+              } only %}
+            {%- elseif col.type == 'checkbox' -%}
+              <input type="hidden" name="{{ cellName }}">
+              <input type="checkbox" name="{{ cellName }}" value="1"{% if value %} checked{% endif %}{% if static %} disabled{% endif %}>
+            {%- elseif col.handle == 'zoneId' -%}
+              <input type="hidden" name="{{ cellName }}" value="{{ value }}">
+              <textarea rows="1" disabled>{{ zones[value] }}</textarea>
+            {%- else -%}
+              <textarea name="{{ cellName }}" rows="1">{{ value }}</textarea>
+            {%- endif -%}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if not static and (initJs is not defined or initJs) %}
+  {% js %}
+    new Craft.EditableTable(
+      "{{ id   | namespaceInputId   | e('js') }}",
+      "{{ name | namespaceInputName | e('js') }}",
+      {{ cols|json_encode|raw }});
+  {% endjs %}
+{% endif %}

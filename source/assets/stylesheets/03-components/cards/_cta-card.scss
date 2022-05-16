@@ -1,0 +1,207 @@
+// -----------------------------------------------------------------------------
+// !-- CTA Card
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: CTA Card
+name: 05-CTACard
+category: Components - Cards
+---
+
+``` html_example
+<div class="ctaCard background--black">
+  <h2 class="ctaCard__title">
+    Need immediate help?
+  </h2>
+  <div class="row">
+    <div class="l--small--6 columns">
+      <div class="ctaCard__left">
+
+        <div class="ctaCard__text">
+          Submit a Service Request
+        </div>
+        <a href="" class="button">
+          Get Started
+        </a>
+      </div>
+    </div>
+    <div class="l--small--6 columns">
+      <div class="ctaCard__right">
+        <div class="ctaCard__text">
+          Give us a call
+        </div>
+
+        <div class="ctaCard__number">
+          International: <a href="tel:867-5309">867-5309</a>
+        </div>
+
+        <div class="ctaCard__number">
+          US-Only: <a href="tel:867-5309">867-5309</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+This is a modification of the `.ctaCard` above. It exists at 100% of the
+container.
+
+``` html_example
+<div class="ctaCard ctaCard--fullWidth background--darkGrey">
+  <div class="row">
+    <div class="l--small--12 l--medium--4 columns l--noMargin">
+      <h2 class="ctaCard__title l--noMargin">
+        Talk to a sales rep today
+      </h2>
+    </div>
+    <div class="l--small--12 l--medium--4 columns l--noMargin">
+      <div class="ctaCard--fullWidth__left">
+        <div class="ctaCard__number">
+          International: <a href="tel:867-5309">867-5309</a>
+        </div>
+
+        <div class="ctaCard__number">
+          US-Only: <a href="tel:867-5309">867-5309</a>
+        </div>
+      </div>
+    </div>
+    <div class="l--small--12 l--medium--4 columns l--noMargin">
+      <div class="ctaCard--fullWidth__right">
+        <a href="" class="button">
+          Get A Quote
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.ctaCard {
+  $horizontalSpacing: $gutter / 2;
+  $marginTop: pem(5px);
+
+  @include clearfix;
+  padding: ($gutter / 2) $gutter--narrow;
+  text-align: center;
+
+  &__left {
+    @include respond-to(small) {
+      padding-right: $horizontalSpacing;
+      border-right: $borderWidth--thick solid $white;
+    }
+  }
+
+  &__right {
+    @include respond-to(small) {
+      text-align: left;
+    }
+  }
+
+  &__title {
+    color: $grey--light;
+
+    &--left {
+
+      @include respond-to(medium) {
+        margin-left: $gutter;
+        text-align: left;
+      }
+    }
+  }
+
+  &__text {
+    font-weight: $fontWeight--bold;
+  }
+
+  &__number, &__chat {
+    display: inline-block;
+    margin-top: $marginTop;
+    margin-left: ($marginTop * 2);
+    margin-right: ($marginTop * 2);
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+    img {
+      float: left;
+      width: 32px;
+      margin-right: ($marginTop * 2);
+    }
+    h3 {
+      font-size: 1.35em;
+      margin-bottom: 0;
+      display: inline;
+    }
+    div {
+      display: inline-block;
+    }
+    span {
+      display: block;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.56em;
+    }
+  }
+
+  &--fullWidth {
+    $bottomPadding: $verticalRhythm--half;
+
+    &__left {
+      padding-bottom: pem($bottomPadding);
+
+      @include respond-to(medium) {
+        text-align: left;
+        border-right: $borderWidth--medium solid $white;
+      }
+    }
+    &__right {
+      text-align: center;
+    }
+  }
+
+  > a {
+    width: 155px;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    img {
+      width: 50px;
+    }
+  }
+}
+
+.cta-full {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  padding: $gutter/2 $gutter;
+  a, h2 {
+    margin: $gutter/2 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 100%;
+    @include respond-to(small) {
+      width: 275px;
+    }
+  }
+  h2 { color: $grey--light; }
+  img {
+    width: 40px;
+    margin-right: $gutter--narrow;
+    flex: 0 0 auto;
+  }
+  small {
+    display: block;
+    font-size: 13px;
+  }
+  h3 {
+    margin: 0;
+  }
+  button {
+    align-self: center;
+  }
+}

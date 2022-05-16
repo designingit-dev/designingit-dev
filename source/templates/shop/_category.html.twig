@@ -1,0 +1,50 @@
+{#
+ # Category Listing page template
+ # ---------------
+ #
+ #}
+
+{% extends "_layout" %}
+
+{% block breadcrumb %}
+  <div class="container container--tight background--white navigation-breadcrumb">
+    <a href="{{ url('/') }}">Home</a> / <a href="/shop">Shop</a> / {{ category }}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  {% if category.contentBlockCustomCSS is not empty %}
+    {% css %}
+      {{ category.contentBlockCustomCSS|raw }}
+    {% endcss %}
+  {% endif %}
+
+  {% if category.contentBlocks is defined and category.contentBlocks is not empty %}
+    {% include 'shared/content-block/layout/_customCSS' with {
+      'blocks': category.contentBlocks
+    } %}
+    {% for block in category.contentBlocks.level(1) %}
+      {% include 'shared/content-block/_content-block' with {
+        'block': block
+      } %}
+    {% endfor %}
+  {% endif %}
+
+  {% if category.promoBlocks is not empty %}
+    {% set promo = category.promoBlocks.one.copyBlockWithImage.one %}
+    {% include "_commerce_promo_block.html" %}
+  {% endif %}
+
+  {% set products = craft.products.relatedTo({
+    targetElement: category,
+    field: 'commerceProductCategory'
+  }).orderBy("orderDescending desc,title") %}
+  {% if products is not empty %}
+    {% include 'shop/products/shared/_listing.html' with {
+      'title': "Shop #{category.title}",
+      'containerClasses': 'container container--tight'
+    } %}
+  {% endif %}
+
+{% endblock %}

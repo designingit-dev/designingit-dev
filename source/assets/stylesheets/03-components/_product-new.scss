@@ -1,0 +1,530 @@
+.products__new {
+
+  .column:not(.margin--bottom--none), .columns:not(.margin--bottom--none) {
+    margin-bottom: 15px;
+    @include respond-to(small){
+      margin-bottom: 30px;
+    }
+  }
+
+  .margin--top {
+    margin-top: $verticalRhythm--half;
+    @include respond-to(small){
+      margin-top: $verticalRhythm;
+    }
+  }
+
+  .margin--bottom {
+    margin-bottom: $verticalRhythm--half;
+    @include respond-to(small){
+      margin-bottom: $verticalRhythm;
+    }
+  }
+
+  .product__title {
+    font-size: map-get($fontSizes, xLarge);
+    @include respond-to(small){
+      font-size: map-get($fontSizes, xXLarge);
+    }
+  }
+
+  .model__number {
+    color: $strength--mpp--light--grey--highlight;
+    font-family: $sansSerif--black;
+    font-weight: $fontWeight--black;
+  }
+
+  .product__headline {
+    font-size: map-get($fontSizes, large);
+    line-height: 20px;
+    @include respond-to(small){
+      font-size: map-get($fontSizes, xLarge);
+      line-height: 28px;
+    }
+  }
+
+  .product__advantages {
+
+    padding-bottom: 0;
+
+    &__advantage {
+      padding: 24px 20px;
+      background-color: $strength--mpp--product--advantages--background;
+      min-height: 152px;
+
+      p,h4 {
+        font-size: map-get($fontSizes, small);
+        line-height: 16px;
+      }
+
+      h4 {
+        margin-bottom: 5px;
+      }
+
+      p {
+        margin-bottom: $verticalRhythm--half;
+      }
+    }
+
+    &__performance__coach {
+
+      text-align: center;
+      padding-top: $verticalRhythm;
+
+      @include respond-to(small){
+        border-top: solid 1px $grey--light--alt;
+        text-align: left;
+      }
+
+      &__title {
+        color: $strength--mpp--maroon--color;
+      }
+
+    }
+
+  }
+
+  .product__primary__image {
+    @include respond-to(medium){
+      margin-top: -120px;
+      margin-bottom: 0;
+    }
+  }
+
+  .product__leasing {
+
+    &__primary__div{
+      margin-bottom: $verticalRhythm--half !important;
+      @include respond-to(small){
+        margin-bottom: 0 !important;
+      }
+      @include respond-to(medium){
+        margin-bottom: $verticalRhythm !important;
+      }
+    }
+
+    &__price {
+      font-size: map-get($fontSizes, larger);
+      color: $strength--mpp--show--more;
+    }
+
+    &__qualify__in__few__hours {
+      line-height: 20px;
+    }
+
+    &__special__offer {
+
+      &__container {
+        background: $strength--mpp--product--advantages--background;
+        padding: 30px;
+        margin-top: 30px;
+        @include respond-to(small){
+          margin-top: 0;
+          margin-bottom: $verticalRhythm;
+        }
+        @include respond-to(medium){
+          margin-bottom: 0;
+        }
+      }
+
+      &__title {
+        font-size: 18px;
+      }
+
+      &__wholeGym {
+        line-height: 24px;
+      }
+
+    }
+
+  }
+
+  .product__specifications {
+
+    &__title {
+      color: $strength--mpp--show--more
+    }
+
+  }
+
+  .keiser__benefits__modal__anchor {
+    cursor: pointer;
+  }
+
+}
+
+.product__offers {
+
+  &__options {
+    display: none;
+    background-color: $keiser--white;
+    box-shadow: 1px 0px 6px 0px #777;
+    max-width: $button--maxWidth;
+
+    &__option {
+      padding-top: 24px;
+      padding-bottom: 24px;
+      border-bottom: solid 1px $grey--light--alt;
+    }
+
+    &__option:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__button__cta {
+    vertical-align: middle;
+  }
+
+  &__button__arrow {
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+}
+
+.product__offers__options,.product__offers__button {
+  cursor: pointer;
+  &:hover,&:active {
+    text-decoration: none;
+  }
+}
+
+.product__offers__options {
+  margin-top: -6px;
+  @include respond-to(small){
+    margin-top: 0;
+  }
+}
+
+#productOffers {
+
+  &__stickyOptions {
+    position: fixed;
+    bottom: 50px;
+    z-index: map-get($z-index, stickyHeader);
+    margin-bottom: 0;
+    left: 0;
+    width: 100%;
+
+    @include respond-to(medium){
+      right: $verticalRhythm;
+      width: 320px;
+      left: auto;
+      bottom: 80px;
+    }
+  }
+
+  &__stickyButton {
+    position: fixed;
+    bottom: 0;
+    z-index: map-get($z-index, stickyHeader);
+    margin-bottom: 0;
+    left: 0;
+    width: 100%;
+    animation: grow 0.5s ease-in-out;
+
+    @include respond-to(medium){
+      right: $verticalRhythm;
+      width: 320px;
+      left: auto;
+      box-shadow: 0px 0px 12px 6px rgba(0,0,0,0.25);
+      margin-bottom: $verticalRhythm;
+    }
+
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+}
+
+.product__control__resistance__info {
+
+  ul {
+    margin-top: $verticalRhythm--half;
+    margin-bottom: $verticalRhythm--half;
+  }
+
+  li {
+    margin-bottom: 0;
+  }
+
+}
+
+.leasingOptions__modal {
+
+  &__title {
+    font-size: map-get($fontSizes, xLarge);
+    @include respond-to(small){
+      font-size: map-get($fontSizes, xLarger);
+    }
+  }
+
+  &__secondaryTitle {
+    font-size: 18px;
+  }
+
+  &__specialOffer {
+
+    &__container {
+      padding: 30px;
+      background: $strength--mpp--product--advantages--background;
+    }
+
+    &__innerContainer {
+      text-align: center;
+      margin-bottom: $verticalRhythm;
+      @include respond-to(small){
+        text-align: left;
+        margin-bottom: 0;
+      }
+    }
+
+    &__qualificationCheckContainer {
+      text-align: center;
+      @include respond-to(small){
+        text-align: right;
+      }
+    }
+  }
+
+  &__options {
+
+    &__innerContainer__divider {
+      border-top: solid 1px $grey--light--alt;
+      height: 0;
+      @include respond-to(small){
+        border-right: solid 1px $grey--light--alt;
+        border-top: none;
+        height: 400px;
+      }
+    }
+
+    img {
+      max-height: 240px;
+    }
+
+    &__price {
+      color: $strength--mpp--show--more;
+    }
+
+  }
+
+  &__productImage {
+    max-height: 200px;
+  }
+
+}
+
+#product__offers__button {
+  margin-top: $verticalRhythm;
+  width: 100%;
+  @include respond-to(small){
+    margin-top: revert;
+  }
+}
+
+.products__new .faq,.marketSpecificBenefits__modal .faq {
+  border-top: none;
+  padding-bottom: 15px;
+
+  &:last-child {
+    border: 0;
+  }
+
+  &:hover {
+    background: none;
+  }
+}
+
+.marketSpecificBenefits__modal {
+
+  .modal__header {
+    margin-bottom: 0;
+  }
+
+  &__subtitle {
+    color: $strength--mpp--light--grey--highlight;
+  }
+
+  .faq {
+    padding-left: 0;
+    padding-right: 0;
+
+    &__question {
+      font-size: map-get($fontSizes, base);
+      font-family: $sansSerif--black;
+      font-weight: $fontWeight--black;
+    }
+  }
+}
+
+.products__new .product__features,.commercialGradeWarranty__modal .product__features {
+
+  &__title {
+    margin-top: $verticalRhythm;
+    margin-bottom: $verticalRhythm;
+
+    @include respond-to(small){
+      margin-top: 0;
+      margin-bottom: $verticalRhythm;
+    }
+  }
+
+  &__featureList {
+    list-style: none;
+
+    li {
+      margin-left: 26px;
+      @include respond-to(small){
+        margin-left: 22px;
+      }
+
+      p {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    li:before {
+      content: "";
+      width: 19px;
+      height: 18px;
+      background-image: url("/assets/images/products/product-features-list-icon.png");
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 0px;
+      margin-top: 3px;
+      @include respond-to(small){
+        left: 6px;
+        margin-top: 2px;
+      }
+    }
+  }
+}
+
+.strengthMpp__fullScreen__modal {
+  .modal__header {
+    margin-bottom: 0;
+  }
+
+  &__quote {
+    background: $keiser--white;
+    padding: $verticalRhythm;
+    @include respond-to(medium){
+      padding:$verticalRhythm * 2;
+    }
+  }
+
+  &__close__link {
+    cursor: pointer;
+  }
+}
+
+.commercialGradeWarranty__modal {
+
+  .modal__wrapper {
+    background: $keiser--black;
+    background-image: url("/assets/images/products/dennis-keiser-inspecting-factory-backdrop.jpg");
+    background-position: -362px 0px;
+    background-repeat: no-repeat;
+    background-size: auto 900px;
+    @include respond-to(small){
+      background-position: top right;
+    }
+    @include respond-to(medium){
+      background-position: top center;
+      background-size: auto 1030px;
+    }
+  }
+
+}
+
+.madeInTheUSA__modal {
+
+  .modal__wrapper {
+    background: $keiser--black;
+  }
+
+  &__coverImage {
+    z-index: map-get($z-index, behind);
+
+    img {
+      width: calc(100% + 60px);
+      margin-top: -54px;
+      max-width: calc(100% + 60px);
+      position: relative;
+      left: -30px;
+      @include respond-to(small){
+        width: 100%;
+        max-width: 100%;
+        margin-top: -150px;
+        left: 0px;
+      }
+      @include respond-to(medium){
+        margin-top: -180px;
+      }
+    }
+  }
+
+  &__description {
+    margin-top: 10px;
+    @include respond-to(small){
+      margin-top: -100px;
+    }
+
+    &__nameContainer {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+}
+
+.strengthMpp__commercialEnquiry__modal {
+
+  &__repPhoneTollFree {
+    a {
+      color: $grey--medium-alt;
+    }
+  }
+
+  &__repPhoneTollFree__divider {
+    display: none;
+    @include respond-to(small){
+      display: inline;
+    }
+  }
+
+}
+
+#strengthMpp__commercialEnquiry__modal__repImageColumn {
+
+  margin-bottom: $verticalRhythm--half;
+  @include respond-to(small){
+    margin-bottom: $verticalRhythm;
+  }
+
+  .contactUs__commercialSales__repImage {
+    img {
+      max-height: 100px;
+    }
+  }
+
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+    background: $keiser--red;
+  }
+  50% {
+    transform: scale(1.2);
+    background: #ec0b2e;
+  }
+  100% {
+    transform: scale(1);
+    background: $keiser--red;
+  }
+}

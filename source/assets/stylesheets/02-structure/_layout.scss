@@ -1,0 +1,565 @@
+// ------------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Containers
+//  - Backgrounds
+//  - Spacing Helpers
+//  - Content of Differing Heights
+//
+// ------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------
+// !-- Containers
+// ------------------------------------------------------------------------------
+@mixin layoutConstrain {
+  width: 100%;
+  max-width: $site--maxWidth;
+  margin: auto;
+  padding: 0 $gutter--half;
+
+  @include respond-to(small) {
+    padding: 0 $gutter--half;
+  }
+
+  //@include respond-to(large) {
+  //  padding: 0;
+  //}
+}
+
+.constrain {
+  @include layoutConstrain;
+}
+
+.container {
+  width: 100%;
+  max-width: $site--maxWidth;
+  margin: auto;
+  padding: ($gutter * 2) $gutter--half;
+
+  //@include respond-to(large) {
+  //  padding-right: 0;
+  //  padding-left: 0;
+  //}
+
+  &--tight {
+    padding-top: $gutter;
+    padding-bottom: $gutter;
+  }
+
+  &--tight-alt {
+    padding-top: $gutter;
+    padding-bottom: $gutter * 1.5;
+  }
+
+  &--xTight {
+    padding-top: $gutter--half;
+    padding-bottom: $gutter--half;
+  }
+
+  &--noPad {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &--spaced {
+    padding-top: $gutter * 4;
+    padding-bottom: $gutter * 4;
+  }
+
+  &--noPadBottom {
+    padding-bottom: 0;
+  }
+
+  &--noPadTop {
+    padding-top: 0;
+  }
+
+  &--full {
+    max-width: initial;
+    padding: $gutter--narrow;
+
+    @include respond-to(large) {
+      padding: ($gutter * 2) $gutter;
+
+      &.container--tight {
+        padding-top: $gutter;
+        padding-bottom: $gutter;
+      }
+    }
+
+    &.container--noPadBottom {
+      padding-bottom: 0;
+    }
+
+    &.container--noPadSides {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    &.container--noPad {
+      padding: 0;
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Backgrounds
+// ------------------------------------------------------------------------------
+/*doc
+---
+title: Background Colors
+name: 00-background-colors
+categories: Structure - Backgrounds
+---
+
+These are used throughout the site, and are usually full bleed instead of inside
+a `.container`.
+
+The background classes are set up as `.background--*` with the color as a modifier,
+which controls the background color and font color.
+
+For full bleed background, add the `.background--*` class first and then add a
+`.container` class inside of it.
+
+``` html_example
+<div class="background--red">
+  <div class="container">
+    Content here
+  </div>
+</div>
+```
+
+``` html_example
+<div class="background--darkGrey">
+  <div class="container">
+    Content here
+  </div>
+</div>
+```
+
+``` html_example
+<div class="background--lightGrey">
+  <div class="container">
+    Content here
+  </div>
+</div>
+```
+
+``` html_example
+<div class="background--black">
+  <div class="container">
+    Content here
+  </div>
+</div>
+```
+*/
+// ------------------------------------------------------------------------------
+
+.background--black {
+  color: $white;
+  background: $keiser--black;
+
+  button {
+    color: $white;
+  }
+}
+
+.background--red {
+  color: $white;
+  background: $red;
+}
+
+.background--darkGrey {
+  color: $white;
+  background: $grey;
+}
+
+.background--lightGrey {
+  background: $grey--xLight;
+}
+
+.background--lighterGrey {
+  background: $grey--xxLight;
+}
+
+.background--mediumGrey {
+  background: $grey--medium;
+}
+
+.background--white {
+  background: $white;
+}
+
+.background--yellow {
+  background: $yellow;
+}
+
+.background--grey {
+  background: $grey;
+  color: $white;
+}
+
+.background--blpgrey {
+  background: $blp--grey;
+  color: $keiser--black;
+}
+
+.background--blpblack {
+  background: $blp--homepage--dark--grey;
+  color: $keiser--white;
+}
+
+// ------------------------------------------------------------------------------
+// !-- Spacing Helpers
+// ------------------------------------------------------------------------------
+
+.margin {
+  &--top {
+    margin-top: $verticalRhythm;
+
+    &--half {
+      margin-top: $verticalRhythm--half;
+    }
+
+    &--narrow {
+      margin-top: $verticalRhythm--narrow;
+    }
+
+    &--veryNarrow {
+      margin-top: 5px;
+    }
+
+    &--none {
+      margin-top: 0;
+    }
+
+    &--negative {
+      margin-top: -$verticalRhythm;
+    }
+
+    &--mediumOnly {
+      @include respond-to(medium){
+        margin-top: $verticalRhythm;
+      }
+    }
+
+    &--double {
+      margin-top: $verticalRhythm * 2;
+    }
+  }
+
+  &--bottom {
+    margin-bottom: $verticalRhythm;
+
+    &--half {
+      margin-bottom: $verticalRhythm--half;
+    }
+
+    &--narrow {
+      margin-bottom: $verticalRhythm--narrow;
+    }
+
+    &--veryNarrow {
+      margin-bottom: 5px;
+    }
+
+    &--thin {
+      margin-bottom: $verticalRhythm--narrow / 2;
+    }
+
+    &--none {
+      margin-bottom: 0;
+    }
+
+    &--mediumOnly {
+      @include respond-to(medium){
+        margin-bottom: $verticalRhythm;
+      }
+    }
+
+    &--half--mediumOnly {
+      @include respond-to(medium){
+        margin-bottom: $verticalRhythm--half;
+      }
+    }
+  }
+
+  &--left {
+    margin-left: $verticalRhythm;
+
+    &--half {
+      margin-left: $verticalRhythm--half;
+    }
+
+    &--narrow {
+      margin-left: $verticalRhythm--narrow;
+    }
+
+    &--thin {
+      margin-left: $verticalRhythm--narrow / 2;
+    }
+
+    &--veryNarrow {
+      margin-left: 5px;
+    }
+
+    &--none {
+      margin-left: 0;
+    }
+
+    &--negative {
+      margin-left: -$verticalRhythm;
+    }
+
+    &--mediumOnly {
+      @include respond-to(medium){
+        margin-left: $verticalRhythm;
+      }
+    }
+
+  }
+
+  &--right {
+    margin-right: $verticalRhythm;
+
+    &--half {
+      margin-right: $verticalRhythm--half;
+    }
+
+    &--narrow {
+      margin-right: $verticalRhythm--narrow;
+    }
+
+    &--thin {
+      margin-right: $verticalRhythm--narrow / 2;
+    }
+
+    &--none {
+      margin-right: 0;
+    }
+
+    &--mediumOnly {
+      @include respond-to(medium){
+        margin-right: $verticalRhythm;
+      }
+    }
+
+  }
+}
+
+.padding--top {
+  padding-top: $verticalRhythm;
+
+  //@include respond-to(large) {
+  //  padding-top: $verticalRhythm * 2;
+  //}
+
+  &--half {
+    padding-top: $verticalRhythm--half;
+  }
+
+  &--thin {
+    padding-top: $verticalRhythm;
+  }
+
+  &--narrow {
+    padding-top: $verticalRhythm--narrow;
+  }
+
+  &--none {
+    padding-top: 0;
+  }
+}
+
+.padding--bottom {
+  padding-bottom: $verticalRhythm;
+
+  //@include respond-to(large) {
+  //  padding-bottom: $verticalRhythm * 2;
+  //}
+
+  &--half {
+    padding-bottom: $verticalRhythm--half;
+  }
+
+  &--thin {
+    padding-bottom: $verticalRhythm;
+  }
+
+  &--narrow {
+    padding-bottom: $verticalRhythm--narrow;
+  }
+
+  &--none {
+    padding-bottom: 0;
+  }
+}
+
+.padding--left {
+
+  padding-left: $gutter;
+
+  &--half {
+    padding-left: $gutter--half;
+  }
+
+  &--none {
+    padding-left: 0;
+  }
+
+  &--narrow {
+    padding-left: $verticalRhythm--narrow;
+  }
+
+}
+
+.padding--right {
+
+  padding-right: $gutter;
+
+  &--half {
+    padding-right: $gutter--half;
+  }
+
+  &--none {
+    padding-right: 0;
+  }
+
+}
+
+.padding--half {
+  padding: $gutter--half;
+}
+
+// ------------------------------------------------------------------------------
+// !-- Content of Differing Heights
+// ------------------------------------------------------------------------------
+
+.height {
+
+  &--small {
+    overflow: hidden;
+    height: pem(200px);
+  }
+
+  &--icon {
+    height: 20px;
+  }
+
+  &--auto {
+    height: auto;
+  }
+}
+
+.inline--block {
+  display: inline-block;
+}
+
+.display--block {
+  display: block;
+}
+
+.display--flex {
+  display: flex;
+}
+
+// ------------------------------------------------------------------------------
+// !-- Widths
+// ------------------------------------------------------------------------------
+
+.width {
+
+  &--icon {
+    width: 20px;
+
+    &--large {
+      width: 50px;
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Position
+// ------------------------------------------------------------------------------
+
+.position {
+
+  &--relative {
+    position: relative;
+  }
+
+  &--absolute {
+    position: absolute;
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Top
+// ------------------------------------------------------------------------------
+.top {
+
+  &--negative--full {
+    top: -100%;
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Left
+// ------------------------------------------------------------------------------
+.left {
+
+  &--0 {
+    left: 0;
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Flex
+// ------------------------------------------------------------------------------
+
+.flex {
+  display: flex;
+
+  &--items--center {
+    align-items: center;
+  }
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+
+  &--no-shrink {
+    flex-shrink: 0;
+  }
+
+  &--column {
+    flex-direction: column;
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Stacking Levels
+// ------------------------------------------------------------------------------
+/*doc
+---
+title: Stacking Level
+name: 10-stacking-level
+categories: Structure - Stack Level
+---
+
+The CSS classes stack--level--high (z-index: 10) or stack--level--higher (z-index:100) can be used to
+adjust the stacking level of HTML elements
+
+*/
+// ------------------------------------------------------------------------------
+.stack--level {
+
+  &--high {
+    z-index: 10;
+  }
+
+  &--higher {
+    z-index: 100;
+  }
+
+}

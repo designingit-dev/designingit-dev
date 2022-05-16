@@ -1,0 +1,62 @@
+<div class="row commerceProductReview" itemprop="review" itemscope itemtype="http://schema.org/Review">
+  <div class="l--medium--4 columns margin--bottom--none">
+    <div class="commerceProductReview__ratingContainer margin--bottom--half">
+      <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" class="is--hidden">
+        <meta itemprop="worstRating" content="1">
+        <meta itemprop="ratingValue" content="{{ review.rating }}">
+        <meta itemprop="bestRating" content="5">
+      </div>
+      {{ craft.keiserCommerceHelpers.getRatingStarsHtml(review.rating) | raw  }}
+      <span class="text--small commerceProductReview__date" itemprop="datePublished" content="{{ review.dateCreated | date('Y-m-d') }}">{{ review.dateCreated | date("m/d/Y") }}</span>
+    </div>
+    <h4 class="margin--bottom--narrow commerceProductReview__name" itemprop="author">{{ craft.keiserContactHelpers.shortenFullName(review.nickname) | title }}</h4>
+    {% if review.city is not empty and review.state is not empty %}
+      <p class="commerceProductReview__city">{{ review.city | ucwords }}, {{ review.state | upper }}</p>
+    {% endif %}
+    {% if review.gender is not empty %}
+      <p class="commerceProductReview__gender">{{ review.gender | capitalize }}</p>
+    {% endif %}
+    {% if review.age is not empty %}
+      <p class="margin--bottom--half commerceProductReview__age">{{ review.age }} years old</p>
+    {% endif %}
+    {% if 'yes' in review.recommend %}
+      <p class="commerceProductReview__recommend">
+        <img class="lazyload" data-src="/assets/images/reviews/check.png" /> <span>Would recommend to a friend</span>
+      </p>
+    {% endif %}
+  </div>
+  <div class="l--medium--8 columns margin--bottom--none">
+    <h4 class="margin--bottom--half commerceProductReview__headline" itemprop="name">{{ review.reviewHeadline }}</h4>
+    {% if review.isVerifiedPurchase %}
+      <div class="commerceProductReview__verifiedPurchaseContainer">
+        <img class="lazyload" data-src="/assets/images/reviews/verified-purchase.png"/>
+        <span class="text--red text--small">VERIFIED PURCHASE</span>
+      </div>
+    {% endif %}
+    <div class="margin--bottom--half commerceProductReview__comments" itemprop="description" content="{{ review.comments }}">
+      {{ craft.keiserCommerceHelpers.wordlimit(review.comments, 150, '.commerceProductReview__comments') | raw }}
+    </div>
+    {% if review.moderatorComments is not empty %}
+      <div class="margin--bottom--half background--lightGrey commerceProductReview__moderatorComments">
+        <h4 class="text--red">Keiser responded: </h4>
+        <div class="margin--bottom--none commerceProductReview__moderatorComments__comment">
+          {{ craft.keiserCommerceHelpers.wordlimit(review.moderatorComments, 150, '.commerceProductReview__moderatorComments__comment') | raw }}
+        </div>
+      </div>
+    {% endif %}
+    {% if review.reviewImage is not empty %}
+      <div class="commerceProductReview__imageContainer">
+        <a class="MagicZoom" id="commerceProductReview__image__{{ review.id }}"
+           data-options="zoomMode: off; expandCaption: false; hint: off"
+           data-mobile-options="zoomMode: off"
+           title="{{ review.reviewHeadline }}" href="{{ review.reviewImage.one.getUrl('large') }}">
+          {# Magiczoom Plus applies its own styles to the border with !important that cannot be otherwise overriden #}
+          <img src="{{ review.reviewImage.one.getUrl('xxxsmall') }}" style="border: solid 15px #e0e0e0 !important;"/>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+  <div class="l--medium--12 columns">
+    <hr class="background--lightGrey pageDivider--thin">
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<vue-modal :active-modal="activeModal" name="whiteGloveDeliveryModal" class="contactUs__modal" v-cloak id="whiteGloveDeliveryModal">
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--extraSmall--10 columns margin--bottom--none">
+          <h3 class="text--uppercase">White Glove Delivery And Assembly</h3>
+        </div>
+        <div class="l--extraSmall--2 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('whiteGloveDeliveryModal')"><img src="/assets/images/modal-close-button.png" /> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad margin--top">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <h3 class="text--red text--uppercase text--uppercase">Available Anywhere in the Continental US. Service Includes:</h3>
+          <ul class="margin--top">
+            <li>Delivery by Appointment</li>
+            <li>Mobile Text And/Or Email Updates</li>
+            <li>Fully assembled delivery to the room of your choice</li>
+            <li>Removal of debris</li>
+            <li>Customer satisfaction follow-up</li>
+            <li>Complimentary Assembly & Maintenance Kit (with current promotional items)</li>
+          </ul>
+        </div>
+        <div class="l--medium--12 columns">
+          <p class="margin--bottom--half">Note:</p>
+          <ol>
+            <li>All Accessories & Promotional Items ship free in a separate shipment</li>
+            <li>Shipping to APO/FPO addresses not available at this time</li>
+          </ol>
+        </div>
+      </div>
+      <div class="l--medium--12 columns">
+        <button class="text--uppercase text--alignCenter" v-on:click="closeModal('whiteGloveDeliveryModal')">Close - Return to Product</button>
+      </div>
+    </div>
+  </div>
+  <div slot="footer"></div>
+</vue-modal>

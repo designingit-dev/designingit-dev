@@ -1,0 +1,37 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+<div class="background--darkGrey">
+  <div class="container container--tight">
+    <div class="row">
+      <div class="l--small--12 l--medium--12 columns l--noMargin">
+        <div class="titleBlock">
+          <h1 class="titleBlock__subTitle">
+            {{ entry.title }}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="background--white">
+
+  <div class="container container--noPadBottom">
+    <div class="row">
+      <div class="l--medium--12 columns contactUs__thankyou__body">
+        {{ entry.body }}
+      </div>
+    </div>
+  </div>
+
+  <div class="container container--full container--noPad text--alignCenter">
+    <img src="{{ entry.demoVanThankYouImage.one.getUrl }}" />
+  </div>
+
+</div>
+
+{% include 'shared/_productsLineHighlight' with { 'entry': entry } %}
+
+{% endblock %}

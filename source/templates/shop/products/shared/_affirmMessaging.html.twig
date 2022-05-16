@@ -1,0 +1,11 @@
+{% if craft.commerce.gateways.allCustomerEnabledGateways|length %}
+  {% for gateway in craft.commerce.gateways.allCustomerEnabledGateways %}
+    {% if gateway.handle == 'affirm' %}
+      {% set productPrice = product.defaultVariant.price %}
+      {% if product.defaultVariant.onSale %}
+        {% set productPrice = product.defaultVariant.salePrice %}
+      {% endif %}
+      <p class="affirm-as-low-as text--small {{ placement == 'desktop' ? 'margin--top--half' : 'margin--bottom--half'}}" data-page-type="product" data-amount="{{ productPrice | commerceCurrency(cart.currency,convert=true,format=false) | round(2) * 100 }}"></p>
+    {% endif %}
+  {% endfor %}
+{% endif %}

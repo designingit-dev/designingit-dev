@@ -1,0 +1,133 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Font Stacks
+//  - Font Weights
+//  - Font Sizes
+//  - Text Helpers
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Font Stacks
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Font Stacks
+name: 00-font-stacks
+category: Variables - Fonts
+---
+<p class="sg--item" style="font-family: Interstate", Helmet, Freesans, sans-serif;">
+  <span class="sg--item__variable">$sansSerif</span>
+  "Interstate", Helmet, Freesans, sans-serif
+</p>
+<p class="sg--item" style="font-family: Georgia", "Times New Roman", Times, serif;">
+  <span class="sg--item__variable">$serif</span>
+  Georgia, "Times New Roman", Times, serif
+</p>
+*/
+// -----------------------------------------------------------------------------
+
+$sansSerif: "Inter", Arial, "Helvetica Neue", Freesans, sans-serif;
+$sansSerif--black: $sansSerif;
+$sansSerif--light: $sansSerif;
+$sansSerif--bold: $sansSerif;
+$serif: Georgia, "Times New Roman", Times, serif;
+
+// -----------------------------------------------------------------------------
+// !-- Font Weights
+// -----------------------------------------------------------------------------
+
+$fontWeight--thin: 100;
+$fontWeight--light: 300;
+$fontWeight--normal: 400;
+$fontWeight--medium: 500;
+$fontWeight--semiBold: 600;
+$fontWeight--bold: 700;
+$fontWeight--extraBold: 800;
+$fontWeight--black: 900;
+
+// -----------------------------------------------------------------------------
+// !-- Font Sizes
+// -----------------------------------------------------------------------------
+
+$fontSizes: (
+  xxxxxLarge: 5.5em,
+  xxxxLarge: 4em,
+  xxxLarger: 3.5em,
+  xxxLarge: 3em,
+  xXLarge: 2.5em,
+  xLarger: 2.25em,
+  xLarge: 1.75em,
+  larger: 1.5em,
+  large: 1.25em,
+  baseLg: 1.125em,
+  base: 1em,
+  small: .85em,
+  smaller: .80em,
+  xSmall: .7em,
+  xXSmall: .625em,
+);
+
+$fontSizesPx: (
+  8: 8px,
+  10: 10px,
+  12: 12px,
+  14: 14px,
+  16: 16px,
+  17: 17px,
+  18: 18px,
+  20: 20px,
+  22: 22px,
+  24: 24px,
+  26: 26px,
+  28: 28px,
+  30: 30px,
+  32: 32px,
+  34: 34px,
+  36: 36px,
+  38: 38px,
+  40: 40px,
+  42: 42px,
+  44: 44px,
+  45: 45px,
+  46: 46px,
+  48: 48px,
+  50: 50px,
+  52: 52px,
+  54: 54px,
+);
+
+$shopHeadingFontSize: 22px;
+
+// -----------------------------------------------------------------------------
+// !-- Text Helpers
+// -----------------------------------------------------------------------------
+
+.textCenter {
+  text-align: center;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.textLeft {
+  text-align: left;
+}
+
+.textSansSerif {
+  font-family: $sansSerif;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.newLineWords {
+  white-space: pre-line;
+}
+
+.text--uppercase {
+  text-transform: uppercase;
+}

@@ -1,0 +1,54 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+// - Unordered List
+// - Ordered List
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Unordered List
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Unordered List
+name: unordered-list
+category: Base - Lists
+---
+
+``` html_example
+<ul>
+  <li>List Item 1</li>
+  <li>List Item 2</li>
+  <li>List Item 3</li>
+</ul>
+```
+*/
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Ordered List
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Ordered List
+name: ordered-list
+category: Base - Lists
+---
+
+``` html_example
+<ol>
+  <li>Ordered List Item 1</li>
+  <li>Ordered List Item 2</li>
+  <li>Ordered List Item 3</li>
+</ol>
+```
+*/
+// -----------------------------------------------------------------------------
+
+li {
+  $marginLeft: 18px;
+
+  margin-bottom: $verticalRhythm--half;
+  margin-left: pem($marginLeft);
+}

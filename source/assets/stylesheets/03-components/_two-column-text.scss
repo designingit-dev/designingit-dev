@@ -1,0 +1,39 @@
+
+// -----------------------------------------------------------------------------
+// !-- Two Column Text
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Two Column Text
+name: two-column-text
+category: Components - Two Column Text
+---
+
+This is a two column text block component. In Craft, we have a field set up for two column
+text. The left block will be `block.copyBlockLeft` and the right will be
+`block.copyBlockRight` and these are included inside the `columns`. Here, we have
+plain `<p>` tags to illustrate the styling.
+
+```html_example
+<div class="row">
+  <div class="twoColumns">
+    <div class="l--small--6 columns">
+      <p>Portland godard squid, vegan deep v green juice church-key mustache skateboard. Chicharrones kickstarter blog banh mi literally, bitters mumblecore vice cornhole. Kogi slow-carb ugh narwhal, kinfolk vice franzen wolf YOLO man braid tilde neutra. Single-origin coffee bespoke schlitz, man bun distillery chia shoreditch kogi. Meditation PBR&B meh, marfa iPhone lomo echo park gochujang narwhal celiac man bun. Pabst butcher retro, literally venmo ugh hella tofu deep v narwhal waistcoat polaroid fanny pack roof party hoodie. Scenester brooklyn normcore celiac.</p>
+      <p>Mustache meggings fanny pack mlkshk heirloom, pitchfork fixie gluten-free lo-fi PBR&B synth tofu cronut. Banjo pour-over butcher raw denim meditation ugh tousled. Fap biodiesel cronut kombucha lo-fi, man bun keytar waistcoat ennui knausgaard chillwave paleo health goth mixtape. Narwhal organic disrupt, meh direct trade put a bird on it squid 8-bit pabst austin portland keffiyeh waistcoat chambray. Tofu knausgaard kogi quinoa tote bag scenester, helvetica kinfolk gastropub brooklyn cronut cardigan tacos portland. Gastropub sustainable +1 roof party, meditation thundercats etsy. Williamsburg try-hard twee, plaid cold-pressed shabby chic microdosing 3 wolf moon meh blue bottle disrupt ethical.</p>
+    </div>
+    <div class="l--small--6 columns">
+      <img src="http://placehold.it/300x300">
+      <p>Mustache meggings fanny pack mlkshk heirloom, pitchfork fixie gluten-free lo-fi PBR&B synth tofu cronut. Banjo pour-over butcher raw denim meditation ugh tousled. Fap biodiesel cronut kombucha lo-fi, man bun keytar waistcoat ennui knausgaard chillwave paleo health goth mixtape. Narwhal organic disrupt, meh direct trade put a bird on it squid 8-bit pabst austin portland keffiyeh waistcoat chambray. Tofu knausgaard kogi quinoa tote bag scenester, helvetica kinfolk gastropub brooklyn cronut cardigan tacos portland. Gastropub sustainable +1 roof party, meditation thundercats etsy. Williamsburg try-hard twee, plaid cold-pressed shabby chic microdosing 3 wolf moon meh blue bottle disrupt ethical.</p>
+    </div>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.twoColumns {
+  p { // needed because Craft creates actual <p> tags for Rich Text Fields
+    margin-bottom: $verticalRhythm;
+  }
+}

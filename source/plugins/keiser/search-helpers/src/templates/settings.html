@@ -1,0 +1,31 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+  label: 'Algolia Application ID',
+  instructions: '',
+  id: 'algoliaApplicationId',
+  name: 'algoliaApplicationId',
+  value: settings['algoliaApplicationId'],
+  errors: settings.getErrors('algoliaApplicationId')
+})
+}}
+
+{{ forms.textField({
+  label: 'Algolia Admin API Key',
+  instructions: '',
+  id: 'algoliaAdminApiKey',
+  name: 'algoliaAdminApiKey',
+  value: settings['algoliaAdminApiKey'],
+  errors: settings.getErrors('algoliaAdminApiKey')
+})
+}}
+
+{{ forms.textField({
+  label: 'Algolia Search API Key',
+  instructions: '',
+  id: 'algoliaSearchApiKey',
+  name: 'algoliaSearchApiKey',
+  value: settings['algoliaSearchApiKey'],
+  errors: settings.getErrors('algoliaSearchApiKey')
+})
+}}

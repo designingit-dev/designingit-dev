@@ -1,0 +1,113 @@
+{% extends "_layout" %}
+
+{% block header %}
+  <header class="landingHeader landingHeader--red-bottom-border background--black">
+    <div class="container container--full container--tight powered">
+      <div class="row">
+        <div class="l--small--3 columns columns--noMargin">
+          <div itemscope itemtype="http://schema.org/Organization" class="logo">
+            <a href="/education?utm_campaign=ACSM&utm_source=powered-landing&utm_medium=landing-page&utm_content=education-page&utm_term=PowerED" itemprop="url" class="logo__link">
+              <img src="/assets/images/keiser-logo.svg" itemprop="logo" alt="Keiser" class="logo__image">
+            </a>
+          </div>
+        </div>
+        <div class="l--small--9 columns columns--noMargin">
+          <h1 class="landingHeader__title">
+            <img src="/assets/images/powered-landing-page/PowerED-branding.jpg">
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+
+  <main>
+
+    <div class="background--black">
+      <section class="container container--noPadBottom powered">
+        <div class="row row--background-image row--background-image--bottom-right" style="background-image: url('/assets/images/powered-landing-page/keiser-m3i-female.jpg');">
+          <div class="l--small--7 columns">
+            <h2 class="landingContent__title margin--bottom--none"><span class="text--red">GET POWERED</span></h2>
+            <h3 class="text--xLarge margin--bottom--none"><span class="text--white">REQUEST UPDATES ABOUT KEISER TRAINING</span></h2>
+            <p><span class="text--greyLight">Simply enter your info to receive updates about upcoming Indoor Group Cycling training opportunities and download our Course Options Brochure.</span></p>
+
+            <vue-brochure inline-template download-track-label="PowerED Course Options">
+            <div class="row">
+              <div class="l--small--9 columns">
+                {% set form = craft.sproutForms.form('powerEDCourses') %}
+                <form method="post"
+                      v-if="!hasSubmittedForm"
+                      accept-charset="utf-8"
+                      enctype="multipart/form-data"
+                      id="powerEDCoursesForm"
+                      @submit.prevent="handleFormSubmit"
+                      v-el:form
+                      class="powerEDCoursesForm form--fullWidth js--trackForm--contactRep">
+
+                  <div v-if="hasFormErrors" transition="slide-down" class="margin--bottom--half">
+                    <strong>All fields are required.</strong>
+                  </div>
+
+                  {{ csrfInput() }}
+                  <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+                  <input type="hidden" name="handle" value="{{ form.handle }}">
+                  {{ redirectInput(form.redirectUri) }}
+                  {{ craft.sproutForms.displayTab('powerEDCourses.form') }}
+
+                  {% hook 'sproutForms.modifyForm' %}
+                  {# input type="button" is a workaround for mobile iOS. DO NOT change to type="submit" #}
+                  <input @click="handleFormSubmit" type="button" class="button button--textWrap" value="DOWNLOAD COURSE OPTIONS & REQUEST UPDATES">
+                </form>
+                <div class="powerEDCoursesForm--thank-you" v-if="hasSubmittedForm" v-cloak>
+                  <h2 class="landingContent__heading">Thank You for letting us keep you up to speed</h2>
+                  <a href="/education?utm_campaign=ACSM&utm_source=powered-landing&utm_medium=landing-page&utm_content=education-page&utm_term=PowerED" class="button button--reversedTertiary">DISCOVER MORE AT KEISER.COM</a>
+
+                  <a @click.prevent="handleFormDownload" href="/assets/pdf/Keiser_PowerED_Cardio_Education.pdf" class="button button--reverse">Download Course Options</a>
+                </div>
+              </div>
+            </div>
+            </vue-brochure>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="landingContent">
+      <div class="container container--full container--tight text--alignCenter">
+        <div class="row">
+          <div class="l--small--12 columns">
+            <h1 class="margin--bottom--none text--xXLarge">
+              <span class="text--red">POWER YOUR EDUCATION </span>
+              <span class="text--black">INTO HIGH GEAR</span>
+            </h1>
+            <h3 class="text--xLarge textSansSerif">
+              <span class="text--greyLight">WATCH THE NEW KEISER POWERED TRAILER</span>
+            </h3>
+            <div class="constrain">
+                <div class="videoEmbed">
+                  <div id="player"></div>
+                  <iframe width="853" height="480" src="https://www.youtube.com/embed/bLbEbb7HE8A?rel=0&&enablejsapi=1" frameborder="0" allowfullscreen data-action="Embedded Click"></iframe>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="background--darkGrey">
+      <div class="container container--tight-alt">
+        <div class="sharethis-inline-share-buttons sharethis-inline-vertical-offset"></div>
+      </div>
+    </div>
+  </main>
+
+{% endblock %}
+
+{% block footerThirdPartyScripts %}
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=58b878e6b5b25f0011bebb6c&product=inline-share-buttons"></script>
+{% endblock %}
+
+{% block footer %}
+  {% include 'footers/_footer-small' %}
+{% endblock %}

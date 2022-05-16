@@ -1,0 +1,307 @@
+{#
+ # Refurbished Product page template
+ # ---------------
+ #
+ #}
+{% set page = product %}
+
+{% set category = product.commerceProductCategory.one %}
+{% if product.partsAndAccessoriesOptional is not empty %}
+  {% set suggestedAccessoryAvailable = false %}
+  {% for accessory in product.partsAndAccessoriesOptional %}
+    {% set sellableProduct = accessory.sellableAccessory.one() %}
+    {% if accessory.displayAsSuggestedAccessory %}
+      {% set suggestedAccessoryAvailable = true %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% set productReviewsAvailable = false %}
+{% if product.displayReviews and commerce.reviewsCountOnProductPage > 0  %}
+  {% set productReviews = craft.sproutForms.entries.formHandle('productReview').productSlug(product.slug).moderationStatus('published').orderBy('sproutforms_entries.dateCreated desc') %}
+  {% if productReviews is not empty %}
+    {% set productReviewsAvailable = true %}
+  {% endif %}
+{% endif %}
+
+{% if product.defaultVariant is defined and featureFlags.activateCommerce %}
+  {% set variant = product.defaultVariant %}
+{% endif %}
+
+{% extends "_layout" %}
+
+{% block breadcrumb %}
+  <div class="background--white is--hidden is--visible--medium">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--medium--12 columns navigation-breadcrumb">
+          <a href="{{ url('/') }}">Home</a> / <a href="/shop">Shop</a> / <a href="{{ category.url }}">{{ category.title }}</a> / {{ product.title }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% cache %}
+
+<div itemscope itemtype="http://schema.org/Product">
+  <div class="constrain" id="commerceProductContainer">
+    <div class="row">
+      <div class="l--medium--6 columns margin--bottom--none">
+        <h1 class="text--black text--sansSerif--black">{{ product.title }}</h1>
+        {% endcache %}
+        <div class="is--hidden--medium">
+          <div class="commerceProductPriceContainer">
+            {% if product.defaultVariant.onSale %}
+              <p class="text--large margin--bottom--none"><s>{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</s></p>
+              <p class="text--xLarge text--red">{{ product.defaultVariant.salePrice | commerceCurrency(cart.currency) }}</p>
+            {% else %}
+              <p class="text--xLarge text--red">{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</p>
+            {% endif %}
+          </div>
+          {% if productReviewsAvailable %}
+            {% include "shop/products/shared/reviews/_aggregateRatingCondensed.html" with {
+              productReviews: productReviews
+            } %}
+          {% endif %}
+        </div>
+        {% cache %}
+        {% if product.image.first %}
+          {% include "shop/products/shared/_gallery.html" with {
+            gallery: product.imageAndVideoGallery,
+            primaryImage: product.image.one,
+          } %}
+          </a>
+        {% else %}
+          <img src="{{ about.imageUnavailable.one.getURL("medium") }}">
+        {% endif %}
+      </div>
+
+      {% include 'shop/products/shared/seo/_productProperties' with {
+        'product': product
+      } %}
+
+      <div class="l--medium--6 columns margin--bottom--none">
+        {% endcache %}
+        <div class="is--hidden is--visible--medium {% if productReviewsAvailable %}margin--bottom--half{% endif %}">
+          <div class="commerceProductPriceContainer">
+            {% if product.defaultVariant.onSale %}
+              <p class="text--large margin--bottom--none"><s>{{product.defaultVariant.price | commerceCurrency(cart.currency) }}</s></p>
+              <p class="text--xLarge text--red">{{ product.defaultVariant.salePrice | commerceCurrency(cart.currency) }}</p>
+            {% else %}
+              <p class="text--xLarge text--red" id="commerceProductPrice">{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</p>
+            {% endif %}
+          </div>
+          {% if productReviewsAvailable %}
+            {% include "shop/products/shared/reviews/_aggregateRatingCondensed.html" with {
+              productReviews: productReviews
+            } %}
+          {% endif %}
+        </div>
+        {% cache %}
+        {% if product.freeShippingToContinentalUS %}
+          {% include "shop/products/shared/_feature.html" with {'image': 'free-shipping-to-continental-us.png', 'title': 'Free Shipping to Continental US'} %}
+        {% endif %}
+        {% if product.inHomeAssemblyServices %}
+          {% include "shop/products/shared/_feature.html" with {'image': 'in-home-assembly-services.png', 'title': 'In-home Assembly Services Available'} %}
+        {% endif %}
+        {% if product.madeInTheUsa %}
+          {% include "shop/products/shared/_feature.html" with {'image': 'made-in-the-usa.png', 'title': 'Designed & Assembled in California'} %}
+        {% endif %}
+        {% if product.financingAvailable %}
+          {% include "shop/products/shared/_feature.html" with {'image': 'financing-available.png', 'title': 'Financing Now Available', 'financing': true} %}
+        {% endif %}
+        {% include "shop/products/shared/_feature.html" with {'image': 'product-support-message.png', 'title': commerce.productSupportMessage} %}
+        {% if product.freeTShirt %}
+          {% include "shop/products/shared/_freeTShirt.html" %}
+        {% endif %}
+        {% if product.productSellersNotes is empty %}
+          <hr class="background--lightGrey pageDivider--narrow">
+        {% endif %}
+      </div>
+    </div>
+    {% set addToCartMargin = '' %}
+    {% if product.productSellersNotes is empty and product.productDescription is empty %}
+      {% set addToCartMargin = 'margin--bottom' %}
+    {% elseif product.productSellersNotes is empty and product.productDescription is not empty %}
+      {% set addToCartMargin = 'margin--bottom--half' %}
+    {% endif %}
+    <div class="row {{ addToCartMargin }}">
+      <div class="l--medium--6 l--medium--offset--6 columns margin--bottom--none">
+        <div class="row">
+          <div class="l--medium--3 l--extraSmall--4 l--extraSmall--offset--4 l--medium--offset--3 columns textCenter background--lightGrey margin--bottom--half quantityContainer">
+            {% include 'shop/products/shared/_quantity.html' with {
+              variant: product.defaultVariant
+            } %}
+          </div>
+          <div class="l--medium--6 columns addToCartContainer">
+            {% include "shared/_add_to_cart.html" with {
+              product: product,
+              buttonText: product.addToCartCta ?: "Add to Cart",
+              buttonClasses: "flexGrowLinks__link flexGrowLinks__link--last l--centered",
+              useAjax: 'ajaxAddToCart'
+            } %}
+          </div>
+          <div class="l--medium--9 l--medium--offset--3 columns margin--bottom--half is--hidden proceedToCheckout" for="form{{ product.defaultVariant.id }}">
+            <a href="/cart" class="button button--red">Proceed to Checkout</a>
+          </div>
+          <div class="l--medium--9 l--medium--offset--3 columns is--hidden maxQtyAlert" for="qty{{ product.defaultVariant.id }}">
+            <a href="/about-us/contact-us#find-your-rep">For volume discounts, click here</a>
+          </div>
+          {% if product.addToCartMessage is not empty %}
+            <div class="l--medium--9 l--medium--offset--3 columns margin--bottom--half margin--top--narrow">
+              <span class="text--small text--red">{{ product.addToCartMessage }}</span>
+            </div>
+          {% endif %}
+
+          {% set outOfStock = true %}
+          {% if product.defaultVariant.hasUnlimitedStock or product.defaultVariant.stock > 0 %}
+            {% set outOfStock = false %}
+          {% endif %}
+          {% if outOfStock and product.outOfStockMessage is not empty %}
+            <div class="l--extraSmall--12 columns margin--bottom--half margin--top--narrow">
+              <span class="text--small text--red">{{ product.outOfStockMessage |nl2br }}</span>
+            </div>
+          {% endif %}
+
+        </div>
+        <hr class="background--lightGrey pageDivider--narrow">
+        {% if product.productSellersNotes is not empty %}
+          <div class="l--extraSmall--12 columns textLeft background--lightGrey is--hidden--medium">
+            <p class="text--small margin--top--narrow margin--bottom--narrow">{{ product.productSellersNotes }}</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row" id="commerceProductContainer__productDescriptionContainer">
+      {% if product.productDescription is not empty %}
+        <div class="l--medium--6 columns">
+          {{ product.productDescription }}
+        </div>
+      {% endif %}
+      {% if product.productSellersNotes is not empty %}
+        <div class="l--medium--6 columns textLeft background--lightGrey {{ product.productDescription is empty ? 'l--medium--offset--6' }} is--hidden is--visible--medium">
+          <p class="text--small margin--top--narrow margin--bottom--narrow">{{ product.productSellersNotes }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endcache %}
+
+  {% if product.enableJumplinks %}
+    {% if product.ctaBanner is defined and product.ctaBanner is not empty %}
+      {% include 'shop/products/shared/_jumpLinks.html' with {
+        ctaBanner: product.ctaBanner.first,
+        entry: product
+      } %}
+    {% else %}
+      {% include 'shop/products/shared/_jumpLinks.html' with {
+        entry: product
+      } %}
+    {% endif %}
+  {% endif %}
+
+  {% cache %}
+    {% if product.partsAndAccessories is not empty %}
+      {% include "shop/products/shared/_standard_accessories.html" with {
+        accessories: product.partsAndAccessories
+      } %}
+    {% endif %}
+
+    {% for block in product.arbitraryContentBlocks %}
+      {% include 'shared/_arbitrary-content-block.html' with { 'block': block } %}
+    {% endfor %}
+
+    {% if product.promoBlocks is not empty %}
+      {% set promo = product.promoBlocks.one.copyBlockWithImage.one %}
+      {% include "_commerce_promo_block.html" %}
+    {% endif %}
+
+    {% if product.arbitraryContentBlocks and product.promoBlocks is empty %}
+      <hr class="background--red pageDivider">
+    {% endif %}
+
+    {% if product.partsAndAccessoriesOptional is not empty and suggestedAccessoryAvailable %}
+      {% include 'shop/products/shared/_optional_accessories.html' with {
+        entry: product
+      } %}
+    {% endif %}
+
+    {% if product.technicalSpecifications or product.features %}
+      <div class="background--white">
+        <div class="container">
+          {% include "products/_specsAndFeatures.html" with {
+            entry: product,
+            getAQuoteEnabled: false
+          } %}
+        </div>
+      </div>
+      {% if product.ctaBanner is not defined or product.ctaBanner is empty %}
+        <hr class="background--red pageDivider">
+      {% endif %}
+    {% endif %}
+
+    {% if product.ctaBanner is defined and product.ctaBanner is not empty %}
+      {% include 'shop/products/shared/_ctaBanner.html' with {
+        ctaBanner: product.ctaBanner.one
+      } %}
+    {% endif %}
+  {% endcache %}
+
+  {% if productReviewsAvailable %}
+    <div class="background--white" id="productReviews">
+      {% include "shop/products/shared/reviews/_latestReviews.html" with {
+        productReviews: productReviews,
+        product: product,
+        category: category
+      } %}
+    </div>
+    <hr class="background--red pageDivider">
+  {% endif %}
+
+  {% cache %}
+    {% if product.frequentlyAskedQuestions.count > 0 %}
+      <div class="background--lightGrey">
+        <div class="container">
+          {% include "products/_faqs.html" with {
+            entry: product
+          } %}
+        </div>
+      </div>
+      <hr class="background--red pageDivider">
+    {% endif %}
+</div>
+    {% if product is not null %}
+      <script type="text/javascript">
+          ga('keisergtm.require', 'ec');
+
+          ga('keisergtm.ec:addProduct', {
+              'id': '{{ variant.sku }}',
+              'name': '{{ variant.title }}',
+              'category': '{{ product.analyticsCategory.one() }}'
+          });
+
+          ga('keisergtm.ec:setAction', 'detail');
+
+          ga('keisergtm.send', 'event', 'ecommerce', 'Detail', {'nonInteraction': true});
+
+          rudderanalytics.track('Product Viewed', {
+            product_id: '{{ variant.sku }}',
+            sku: '{{ variant.sku }}',
+            category: '{{ product.analyticsCategory.one() }}',
+            name: '{{ variant.title }}',
+            brand: 'Keiser',
+            price: {{ product.defaultVariant.onSale ? product.defaultVariant.salePrice : product.defaultVariant.price }},
+            currency: 'USD',
+            url: '{{ product.url }}',
+            image_url: '{{ product.image.one ? product.image.one.url : '' }}',
+            site: window.location.hostname
+          });
+      </script>
+    {% endif %}
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+  {% endcache %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% set whiteGloveDeliveryFees = 0 %}
+{% for lineItem in cart.lineItems %}
+  {% if lineItem.options.whiteGloveDelivery is defined and lineItem.options.whiteGloveDelivery %}
+    {% set whiteGloveDeliveryFees = whiteGloveDeliveryFees + (lineItem.purchasable.product.whiteGloveDeliveryFee * lineItem.qty) %}
+  {% endif %}
+{% endfor %}
+{% if not craft.commerce.carts.cart.availableShippingMethods|length %}
+  <p>No shipping methods available.<p><p> <a href="{{ url('/checkout') }}">Go back to Addresses</a> to ensure that you're using a valid address.</p>
+{% else %}
+  {% set availableShippingMethods = craft.commerce.carts.cart.availableShippingMethods %}
+  {% for handle, method in availableShippingMethods %}
+    <div class="margin--bottom--half">
+      <label>
+        <input type="radio"
+               name="shippingMethodHandle"
+               data-summary="{{ method.name }};{{ (method.getPriceForOrder(cart) - whiteGloveDeliveryFees)|commerceCurrency(cart.currency) }}"
+               value="{{ handle }}"
+            {% if loop.index == 1 and not cart.shippingMethodHandle %}
+              checked
+            {% elseif handle == cart.shippingMethodHandle %}
+              checked
+            {% endif %} />
+        <strong>
+          {{ method.name }}
+        </strong>
+
+        <span>
+          {{ (method.getPriceForOrder(cart) - whiteGloveDeliveryFees)|commerceCurrency(cart.currency) }}
+        </span>
+      </label>
+    </div>
+  {% endfor %}
+  <div class="text--small additionalTransitTime__deliveryTimeFrameBlurb">
+    Usually ships within {{ craft.keiserCommerceHelpers.getShippingLeadTimeForCart() }} business days
+    {% if craft.keiserCommerceHelpers.isPreInstalledAccessoryInCart() %}
+      <a data-modal-trigger="cart_needItSooner" class="link--underlined modalTrigger">Need it sooner?</a>
+    {% endif %}
+  </div>
+  <div class="margin--bottom">
+    {% include 'shared/_additionalTransitTimeMessage' with {
+      'includeAsterisk': false,
+      'includeModals': false
+    } %}
+  </div>
+{% endif %}

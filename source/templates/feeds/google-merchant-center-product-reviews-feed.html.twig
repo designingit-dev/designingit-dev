@@ -1,0 +1,65 @@
+{% set products = craft.products().type(['equipment','accessories','parts']).all() %}
+{% header "Content-Type: text/xml; charset=utf-8" %}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation=
+      "http://www.google.com/shopping/reviews/schema/product/2.3/product_reviews.xsd">
+    <version>2.3</version>
+    <publisher>
+        <name>Keiser Corporation</name>
+        <favicon>https://d1xdq93s712gxs.cloudfront.net/websiteassets/images/fav/favicon-16x16-c8d27d970d.png</favicon>
+    </publisher>
+    <reviews>
+        {% for product in products %}
+            {% if product.googleShoppingFeedEnabled is defined and product.googleShoppingFeedEnabled %}
+                {% set productReviews = craft.sproutForms.entries.formHandle('productReview').productSlug(product.slug).moderationStatus('published') %}
+                    {% for review in productReviews %}
+                        <review>
+                            <review_id>{{ review.id }}</review_id>
+                            <reviewer>
+                                <name>{{ craft.keiserContactHelpers.shortenFullName(review.nickname) }}</name>
+                            </reviewer>
+                            <review_timestamp>{{ review.dateUpdated.iso8601 }}</review_timestamp>
+                            <title>{{ review.reviewHeadline|escape('html') }}</title>
+                            <content>{{ review.comments|escape('html') }}</content>
+                            <review_url type="group">{{ product.url}}/reviews</review_url>
+                            <ratings>
+                                <overall min="1" max="5">{{ review.rating }}</overall>
+                            </ratings>
+                            <products>
+                                <product>
+                                    <product_ids>
+                                        {% if product.googleShoppingUPC|length  %}
+                                            <gtins>
+                                                <gtin>{{ product.googleShoppingUPC }}</gtin>
+                                            </gtins>
+                                        {% endif %}
+                                        {% if product.googleShoppingMPN|length %}
+                                            <mpns>
+                                                <mpn>{{ product.googleShoppingMPN }}</mpn>
+                                            </mpns>
+                                        {% endif %}
+                                        <skus>
+                                            <sku>{{ product.defaultVariant.sku }}</sku>
+                                        </skus>
+                                        <brands>
+                                            <brand>Keiser</brand>
+                                        </brands>
+                                        {% if product.googleShoppingASIN|length %}
+                                            <asins>
+                                                <asin>{{ product.googleShoppingASIN }}</asin>
+                                            </asins>
+                                        {% endif %}
+                                    </product_ids>
+                                    <product_name>Keiser {{ product.title|title|replace({'M3I': 'M3i','M7I': 'M7i', 'M5I': 'M5i'})  }}</product_name>
+                                    <product_url>{{ product.url }}</product_url>
+                                </product>
+                            </products>
+                            <is_spam>false</is_spam>
+                        </review>
+                    {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </reviews>
+</feed>

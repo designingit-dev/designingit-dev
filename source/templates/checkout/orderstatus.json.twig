@@ -1,0 +1,9 @@
+{% set cart = craft.commerce.carts.cart %}
+{% if cart.totalQty > 0 and cart.billingAddress|length < 1 %}
+{% set error = craft.keiserCommerceHelpers.setError('Due to inactivity, your session has expired. Please enter your address details again to continue order.') %}
+{% endif %}
+{% header "Content-Type: application/json; charset=utf-8" %}
+{"status": {
+"cart": {% if cart.totalQty > 0 %}1{% else %}0{% endif %},
+"user": {% if cart.billingAddress|length > 0 %}1{% else %}0{% endif %}
+}}

@@ -1,0 +1,91 @@
+{% cache %}
+<article>
+
+  {% include "support/_header-block.html" %}
+
+  <div class="row container">
+    {% for block in entry.blockWithLink.linkBlock %}
+      <div class="l--small--12 l--medium--6 columns l--noMargin">
+        <h2>
+          {{ block.blockTitle }}
+        </h2>
+      </div>
+      <div class="l--small--12 l--medium--6 columns l--noMargin">
+        <a href="{{ block.linkDestination }}" class="button l--noMargin">
+          {{ block.linkText }}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="row container">
+    <h2>MAINTAIN YOUR EQUIPMENT DAILY</h2>
+
+    <div class="l--small--12 l--medium--5 columns">
+      <div class="titleCard">
+        <h3 class="l--noMargin">
+          <div>Strength</div>
+          <div>Equipment</div>
+        </h3>
+      </div>
+
+      <div class="titleList">
+        {% for block in entry.maintenanceBlock.type("strengthMaintenanceBlock") %}
+          <h3 class="titleList__title">
+            {{ block.timeFrame }}
+          </h3>
+          <ul class="list--tight">
+            {% for item in block.maintenanceDescription %}
+              <li class="titleList__item">
+                {{ item.maintenanceDescriptionItem }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="l--small--12 l--medium--5 columns l--pullRight">
+      <div class="titleCard">
+        <h3 class="l--noMargin">
+          <div>M Series</div>
+          <div>Cardio</div>
+        </h3>
+      </div>
+
+      <div class="titleList">
+        {% for block in entry.maintenanceBlock.type("mSeriesMaintenanceBlock") %}
+          <h3 class="titleList__title">
+            {{ block.timeFrame }}
+          </h3>
+          <ul class="list--tight">
+            {% for item in block.maintenanceDescription %}
+              <li class="titleList__item">
+                {{ item.maintenanceDescriptionItem }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="background--darkGrey">
+    <div class="container container--tight">
+      <div class="row">
+        <div class="l--small--12 l--medium--6 columns l--noMargin">
+          <h2>Read the manuals</h2>
+        </div>
+
+        <div class="l--small--12 l--medium--6 columns l--noMargin">
+          <a href="{{ about.manualsSiteLink }}" class="button l--noMargin">
+            View Product Manual Index
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+{% endcache %}

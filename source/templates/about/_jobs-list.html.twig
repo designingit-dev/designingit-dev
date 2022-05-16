@@ -1,0 +1,16 @@
+{% for job in jobs %}
+  <div class="row">
+    <div class="l--small--12 columns">
+
+      <h3 class="titleCard__title">{{ job.title }} - {{ job.postDate|date("m/d/Y") }}</h3>
+      {{ job.body }}
+
+      <p class="margin--bottom--none text--alignRight">
+        {% if job.jobAttachment.one %}
+          <a href="{{ job.jobAttachment.one.url }}" target="_blank">Read More</a><br/><br/>
+        {% endif %}
+        <button v-on:click="openModal('job', '{{ job.title }}')">Apply for this position</button>
+      </p>
+    </div>
+  </div>
+{% endfor %}

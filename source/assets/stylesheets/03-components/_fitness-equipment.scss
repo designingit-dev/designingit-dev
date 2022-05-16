@@ -1,0 +1,12 @@
+.fitnessEquipment {
+
+  &__product {
+
+    &__title {
+      font-size: map-get($fontSizesPx, 26);
+      margin-bottom: $verticalRhythm--veryNarrow;
+    }
+
+  }
+
+}

@@ -1,0 +1,8 @@
+
+<svg>
+	<defs>
+		<g id="img-test-search-icon">
+			<path xmlns="http://www.w3.org/2000/svg" d="M13,23A10,10,0,1,1,23,13,10,10,0,0,1,13,23ZM13,5a8,8,0,1,0,8,8A8,8,0,0,0,13,5Z"/><path xmlns="http://www.w3.org/2000/svg" d="M28,29a1,1,0,0,1-.71-.29l-8-8a1,1,0,0,1,1.42-1.42l8,8a1,1,0,0,1,0,1.42A1,1,0,0,1,28,29Z"/><path xmlns="http://www.w3.org/2000/svg" fill="none" d="M0 0H32V32H0z"/>
+		</g>
+	</defs>
+</svg>

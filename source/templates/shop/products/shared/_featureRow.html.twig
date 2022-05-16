@@ -1,0 +1,39 @@
+{% set featureImage = null %}
+{% if image|default(null) is not empty %}
+  {% set featureImage = "/assets/images/" ~ image %}
+{% elseif feature.images|default(null) is not empty %}
+  {% set featureImage = feature.images.one().getURL({ mode: 'fit', width: 100, height: 100 }) %}
+{% endif %}
+
+{% set featureTitle = null %}
+{% if title|default(null) is not empty %}
+  {% set featureTitle = title %}
+{% elseif feature.title|default(null) is not empty %}
+  {% set featureTitle = feature.title|striptags('<a><em><i>') %}
+{% endif %}
+
+{% set featureBody = null %}
+{% if body|default(null) is not empty %}
+  {% set featureBody = body %}
+{% elseif feature.body|default(null) is not empty %}
+  {% set featureBody = feature.body|striptags('<a><em><i><b><strong>') %}
+{% endif %}
+
+<div class="flex flex--items--center margin--bottom--half">
+  {% if featureImage is not empty -%}
+    <img class="margin--right--half width--icon--large" src="{{ featureImage }}" alt="" />
+  {% else %}
+    <div class="margin--right--half width--icon--large height--icon flex--no-shrink"></div>
+  {% endif %}
+  <p class="flex flex--wrap flex--items--center text--large margin--bottom--none">
+    {% if featureTitle is not empty -%}
+      <b class="display--block text--black text--extraBold">{{ featureTitle|raw }}</b>
+    {% endif %}
+    {% if featureTitle is not empty and featureBody is not empty -%}
+      <span class="is--hidden is--visible--medium">&nbsp;</span>
+    {% endif %}
+    {% if featureBody is not empty -%}
+      <span class="display--block">{{ featureBody|raw }}</span>
+    {% endif %}
+  </p>
+</div>

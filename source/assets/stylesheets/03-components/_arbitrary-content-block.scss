@@ -1,0 +1,11 @@
+.arbitraryContentBlock {
+
+  &__topMarginOnMobile {
+    margin-top: $verticalRhythm;
+
+    @include respond-to(medium){
+      margin-top: 0;
+    }
+  }
+
+}

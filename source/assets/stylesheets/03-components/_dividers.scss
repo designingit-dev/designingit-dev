@@ -1,0 +1,237 @@
+// ------------------------------------------------------------------------------
+// Table of Contents
+//
+// - Link Divider
+// - Divided Blocks
+// - Page Divider
+// - Divided Title
+//
+// Notes: [1] - negative margin so that the divider extends outside container
+//              padding
+// ------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------
+// !-- Link Divider
+// ------------------------------------------------------------------------------
+
+.linkDivider {
+  $linkDivider--margin: pem(-2px); // [1]
+  $borderColor: $white;
+
+  margin: $linkDivider--margin 0;
+  border-right: $borderWidth--medium solid $borderColor;
+}
+
+// ------------------------------------------------------------------------------
+// !-- Divided Blocks
+// ------------------------------------------------------------------------------
+
+.dividedBlock {
+  $padding: 15%;
+  $negativeMargin: pem(-4px); // makes it so the red bars sit on top of one another
+  $dividerColor: $red;
+
+  &__left {
+    padding: $gutter;
+
+    @include respond-to(medium) {
+      padding: 0;
+      padding-left: $padding;
+      border-right: $borderWidth--thick solid $dividerColor;
+    }
+
+    &_alt {
+      @include respond-to(medium) {
+        border-right: none;
+        padding-right: $borderWidth--fat;
+      }
+    }
+
+  }
+
+  &__right {
+    padding: $gutter;
+
+    @include respond-to(medium) {
+      margin-left: $negativeMargin;
+      padding: 0;
+      padding-left: $padding;
+      border-left: $borderWidth--thick solid $dividerColor;
+    }
+
+    &_alt {
+      @include respond-to(medium) {
+        border-right: none;
+        padding-right: $borderWidth--fat;
+      }
+    }
+
+  }
+
+}
+
+/*doc
+---
+title: Divided Blocks
+name: 01-Divided-Blocks
+category: Structure - Dividers
+---
+
+This component is used when we have two blocks that sit next to each other with a
+red divider in between them on desktop. On mobile, the red divider should disappear
+and the elements should sit on top of each other.
+
+The example shown here is built leveraging the grid. Only using the `dividedBlock__left`
+and `__right` classes won't get you 100% of the way there. See example code below.
+
+``` html_example
+<div class="row">
+  <div class="l--small--12 l--medium--6 columns">
+    <div class="dividedBlock__left">
+      Left block
+    </div>
+  </div>
+  <div class="l--small--12 l--medium--4 columns l--pullRight">
+    <div class="dividedBlock__right">
+      Right block
+    </div>
+  </div>
+</div>
+
+```
+*/
+
+// ------------------------------------------------------------------------------
+// !-- Page Divider
+// ------------------------------------------------------------------------------
+
+.pageDivider {
+  height: $verticalRhythm / 2;
+  margin: 0;
+  border: 0;
+
+  &--narrow {
+    height: 2px;
+  }
+
+  &--narrow--alt {
+    height: 3px;
+  }
+
+  &--thin {
+    height: 1px;
+  }
+}
+
+
+/*doc
+---
+title: Page Divider
+name: 01-page-divider
+category: Structure - Dividers
+---
+
+Used as a page divider between sections in a page and should be full width of the
+screen instead of in the container. It is an `hr` element with the
+`.pageDivider` class as well as a `.background--*` class. These will almost
+always be red and therefore using the `.background--red` class.
+
+``` html_example
+<div class="container">
+  Content within the container
+</div>
+
+<hr class="background--red pageDivider">
+
+<div class="container">
+  Content within the container
+</div>
+
+<hr class="background--lightGrey pageDivider">
+
+<div class="container">
+  Content within the container
+</div>
+
+```
+*/
+
+// ------------------------------------------------------------------------------
+// !-- Divided Title
+// ------------------------------------------------------------------------------
+
+.dividedTitle {
+  span {
+    border-top: 2px solid $red;
+    display: block;
+    margin-top: .2em;
+    padding-top: .2em;
+    @include respond-to(medium) {
+        margin-top: 0;
+        padding-top: 0;
+        padding-left: .4em;
+        margin-left: .4em;
+        border-top: none;
+        border-left: 2px solid $red;
+        vertical-align: 33%;
+        letter-spacing: -0.03em;
+        display: inline-block;
+      }
+  }
+  @include respond-to(small) {
+    img {
+      height: 1.4em !important;
+    }
+  }
+}
+
+$borderPositions: (
+  top: top,
+  right: right,
+  bottom: bottom,
+  left: left
+);
+
+$borderStyles: (
+  solid: solid,
+  dotted: dotted
+);
+
+$borderColors: (
+  red: $keiser--red,
+  darkGrey: $grey--border
+);
+
+$borderHeights: (
+  one: 1px,
+  two: 2px,
+  three: 3px,
+  five: 5px,
+  fifteen: 15px
+);
+
+@each $borderPositionLabel,$borderPosition in $borderPositions {
+  @each $borderStyleLabel,$borderStyle in $borderStyles {
+    @each $borderColorLabel,$borderColor in $borderColors {
+      @each $borderHeightLabel,$borderHeight in $borderHeights {
+        .border--#{$borderPositionLabel}--#{$borderStyleLabel}--#{$borderColorLabel}--#{$borderHeightLabel}{
+          border-#{$borderPosition}: $borderStyle $borderHeight $borderColor;
+        }
+      }
+    }
+  }
+}
+
+/*doc
+---
+title: Divided Title
+name: 01-divided-title
+category: Structure - Dividers
+---
+
+Used to divide a page title into two sections, with a red line inbetween.
+
+``` html_example
+        <h1 class="dividedTitle"><img src="logo.svg" /><span>PAGE TITLE</span></h1>
+```
+*/

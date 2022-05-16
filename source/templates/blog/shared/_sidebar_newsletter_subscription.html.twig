@@ -1,0 +1,14 @@
+<aside class="blog__sidebar">
+    <h2 class="blog__module__title">Get our latest tips delivered straight to your inbox.</h2>
+    <form method="post" action="/forms/{{ form.handle }}" accept-charset="UTF-8" enctype="multipart/form-data" class="margin--top" id="strengthMpp__commercialEnquiry__form" v-on:submit="disableSubmit('strengthMpp__commercialEnquiry__form')">
+        <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+        <input type="hidden" name="handle" value="{{ form.handle }}">
+        {{ redirectInput('/about-us/contact-us/thank-you?thankYouMsg=Thankyou%20for%20subscribing%20to%20our%20mailing%20list') }}
+        {{ craft.blitz.csrfInput() }}
+        {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+        {% hook 'sproutForms.modifyForm' %}
+        <input type="submit" class="button text--uppercase" value="Get tips" v-on:click="disableButton()">
+    </form>
+    <p class="margin--top--half">By clicking Get Tips, you agree to receive special offers, announcements, and more through email and personalized ads on digital and social media platforms. You can choose to stop sharing personal data at any time.</p>
+    <a href="/privacy-policy" class="text--small marketingOptIn__privacyPolicyLink">View our Privacy Policy</a>
+</aside>

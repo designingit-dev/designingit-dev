@@ -1,0 +1,14 @@
+{% for banner in banners %}
+  {% switch banner.type %}
+    {% case 'promotionalBanner' %}
+      {% include 'banners/_promotionalBanner' with {
+        'banner': banner,
+        'isAbsoluteTopBanner': isAbsoluteTopBanner
+      } %}
+    {% case 'informationalBanner' %}
+      {% include 'banners/_informationalBanner' with {
+        'banner': banner,
+        'isAbsoluteTopBanner': isAbsoluteTopBanner
+      } %}
+  {% endswitch %}
+{% endfor %}

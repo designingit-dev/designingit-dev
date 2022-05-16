@@ -1,0 +1,343 @@
+$caseStudyHeight: 500px;
+
+.caseStudy {
+
+  &__filters {
+
+    &__toggle {
+      cursor: pointer;
+    }
+
+    &__plusIcon {
+      width: 18px;
+      position: relative;
+      top: 2px;
+      margin-right: 5px;
+    }
+
+    &__crossIcon {
+      transform: rotate(45deg);
+    }
+
+    &__closeIcon {
+      margin-left: 4px;
+      position: relative;
+      top: 2px;
+      width: 16px;
+    }
+
+    &__filter {
+      padding: 10px;
+      border: 1px solid $white;
+      margin-right: 15px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+
+      &.active {
+        background-color: $grey--medium-alt;
+      }
+
+    }
+
+  }
+
+  &__logo {
+    max-width: 200px;
+  }
+
+  &__heroThumbnail {
+    height: 320px;
+    background-size: cover;
+    padding-right: 0;
+    cursor: pointer;
+
+    @include respond-to(medium){
+      height: $caseStudyHeight;
+    }
+
+    &__playButtonOverlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: .8;
+      background-image: url(/assets/images/youtube-color.svg);
+      background-repeat: no-repeat;
+      background-position: 50% 54px;
+      background-size: 3.5em;
+
+      @include respond-to(medium){
+        background-position: 50% 50%;
+        background-size: 4em;
+      }
+    }
+
+    &__playButtonOverlay:hover {
+      opacity: 1;
+      cursor:pointer;
+    }
+
+    &__text {
+      position: relative;
+      top: 108px;
+      padding-left: 0;
+      padding-right: 0;
+
+      h2 {
+        font-size: map-get($fontSizes, large);
+      }
+
+      @include respond-to(medium){
+        top: 320px;
+        padding-left: 18px;
+        padding-right: 60px;
+
+        h2 {
+          font-size: map-get($fontSizes, larger);
+        }
+
+      }
+    }
+
+    &__separator {
+      position: relative;
+      float: right;
+      left: 1px;
+      height: $caseStudyHeight;
+
+      &__container {
+        height: $caseStudyHeight;
+      }
+
+      &__triangle {
+        fill: $keiser--red
+      }
+
+      &__mobile {
+        height: 39px;
+        padding: 0;
+        margin-top: -68px;
+      }
+
+      &__container__mobile {
+        position: absolute;
+        fill: $keiser--red;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  &__storyTime {
+
+    margin-top: -30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    @include respond-to(medium){
+      height: $caseStudyHeight;
+      padding-top: 45px;
+      padding-right: 20px;
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+
+    &__storyTime {
+      width:  20%;
+      vertical-align: top;
+      cursor: pointer;
+    }
+
+    &__cta {
+      width: 78%;
+      text-decoration: underline;
+      vertical-align: top;
+      cursor: pointer;
+    }
+  }
+
+  &__highlight {
+
+    li {
+      margin-bottom: 5px;
+      font-size: 1.15em;
+    }
+
+    &__description {
+      p {
+        margin-bottom: 15px;
+      }
+    }
+
+  }
+
+  &__equipmentLines {
+
+    li {
+      margin-bottom: 5px;
+    }
+
+  }
+
+  &__homePage {
+
+    padding-right: 20px;
+
+    &__thumbnail__container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    &__thumbnail {
+      min-height: 190px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      @include respond-to(medium){
+        min-height: 120px;
+        background-size: cover;
+      }
+    }
+
+    &__thumbnail__overlay {
+      background-size: 3em;
+      background-position: 50% 50%;
+    }
+
+    &__link {
+      width: 100%;
+    }
+
+    &__intrigueSnippet {
+      cursor: pointer;
+    }
+
+    &__modal__thumbnail {
+      height: 76px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      @include respond-to(medium){
+        background-size: cover;
+      }
+    }
+
+    &__modal__overlay {
+      background-size: 2.5em;
+      background-position: 50% 50%;
+      @include respond-to(medium){
+        background-size: 3em;
+      }
+    }
+
+  }
+
+  &__bigBanner {
+
+    &__thumbnail {
+      height: 430px;
+      background-size: cover;
+      padding-right: 0;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      @include respond-to(medium){
+        height: 500px;
+      }
+    }
+
+    &__logo {
+
+      img {
+        max-height: 120px;
+        margin-top: 2px;
+        margin-right: auto;
+        margin-left: auto;
+
+        @include respond-to(medium){
+          max-height: 140px;
+        }
+
+      }
+    }
+
+    &__headline {
+      color: rgba(255,255,255,0.6);
+      position: relative;
+
+      h2 {
+        font-size: 1.5em;
+        font-family: $sansSerif;
+        font-weight: 700;
+        letter-spacing: -2px;
+        @include respond-to(medium){
+          font-size: 2em;
+        }
+      }
+    }
+
+    &__subHeadline {
+      position: relative;
+      bottom: -94px;
+      padding-left: 60px;
+      padding-right: 60px;
+
+      @include respond-to(medium){
+        bottom: -174px;
+      }
+
+      h2 {
+        font-size: 1.75em;
+        @include respond-to(medium){
+          font-size: map-get($fontSizes, xLarger);
+        }
+      }
+    }
+
+    &__playButtonOverlay {
+      background-position-y: 190px;
+      @include respond-to(medium){
+        background-position-y: 50%;
+      }
+    }
+
+  }
+
+  &__pageDivider {
+    height: 2px;
+    margin-bottom: $verticalRhythm;
+  }
+
+  &__solutions__bigBannerSlider {
+
+    &__arrow {
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      top: 50%;
+      fill: $grey--light--alt;
+      z-index: map-get($z-index, overlay);
+      cursor:pointer;
+    }
+
+    &__prevArrow {
+      left: 10px;
+      @include respond-to(medium){
+        left: 60px;
+      }
+    }
+
+    &__nextArrow {
+      right: 10px;
+      @include respond-to(medium){
+        right: 60px;
+      }
+    }
+
+    .slick-slide {
+      margin: 0;
+    }
+
+  }
+
+}

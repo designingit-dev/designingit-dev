@@ -1,0 +1,67 @@
+{% set products = craft.products().type(['equipment','accessories','parts']).all() %}
+{% header "Content-Type: text/xml; charset=utf-8" %}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:g="http://base.google.com/ns/1.0">
+    <channel>
+        <title>{{ systemName }}</title>
+        <link>{{ parseEnv(currentSite.baseUrl) }}</link>
+        {% for product in products %}
+            {% if product.googleShoppingFeedEnabled is defined and product.googleShoppingFeedEnabled %}
+                <item>
+                    <g:id>{{ product.defaultVariant.sku }}</g:id>
+                    <title>Keiser {{ product.title|title|replace({'M3I': 'M3i','M7I': 'M7i', 'M5I': 'M5i'}) }}</title>
+                    {% if product.googleShoppingProductDescription|length %}
+                        <description>{{ product.googleShoppingProductDescription|striptags }}</description>
+                    {% endif %}
+                    <link>{{ product.getUrl() }}</link>
+                    {% set currency = 'USD' %}
+                    {% if craft.commerce.paymentCurrencies.getAllPaymentCurrencies()|length == 1 %}
+                        {% set currency = craft.commerce.paymentCurrencies.getPrimaryPaymentCurrencyIso() %}
+                    {% endif %}
+                    <g:price>{{ product.defaultVariant.price }} {{ currency }}</g:price>
+                    {% if product.defaultVariant.onSale %}
+                        <g:sale_price>{{ product.defaultVariant.salePrice }} {{ currency }}</g:sale_price>
+                    {% endif %}
+                    <g:condition>new</g:condition>
+                    {% if product.defaultVariant.hasUnlimitedStock %}
+                        <g:availability>in stock</g:availability>
+                    {% elseif product.defaultVariant.stock > 0 %}
+                        <g:availability>in stock</g:availability>
+                    {% else %}
+                        <g:availability>out of stock</g:availability>
+                    {% endif %}
+                    {% if product.googleShoppingHeroImage|length %}
+                        <g:image_link>{{ product.googleShoppingHeroImage.one().getUrl() }}</g:image_link>
+                    {% endif %}
+                    {% if product.googleShoppingAdditionalImages|length %}
+                        {% for block in product.googleShoppingAdditionalImages %}
+                            {% if block.type == 'additionalImages' %}
+                                <g:additional_image_link>{{ block.additionalImage.one().getUrl() }}</g:additional_image_link>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <g:brand>Keiser</g:brand>
+                    {% if product.googleShoppingUPC|length %}
+                        <g:gtin>{{ product.googleShoppingUPC }}</g:gtin>
+                    {% endif %}
+                    {% if product.googleShoppingMPN|length %}
+                        <g:mpn>{{ product.googleShoppingMPN }}</g:mpn>
+                    {% endif %}
+                    {% if not product.googleShoppingUPC|length and not product.googleShoppingMPN|length  %}
+                        <g:identifier_exists>no</g:identifier_exists>
+                    {% endif %}
+                    {% if product.googleShoppingProductCategory|length %}
+                        <g:google_product_category>{{ product.googleShoppingProductCategory }}</g:google_product_category>
+                    {% endif %}
+                    {% if product.googleShoppingShippingLabel|length %}
+                        <g:shipping_label>{{ product.googleShoppingShippingLabel }}</g:shipping_label>
+                    {% endif %}
+                    {% for highlight in product.googleShoppingProductHighlights %}
+                        <g:product_highlight>{{ highlight.highlight }}</g:product_highlight>
+                    {% endfor %}
+                </item>
+            {% endif %}
+        {% endfor %}
+    </channel>
+</rss>

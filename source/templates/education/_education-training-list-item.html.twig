@@ -1,0 +1,6 @@
+<li class="list__title">
+  {% if block.itemTitle is not empty %}<span class="list__titleSection text--red">{{ block.itemTitle }}</span>{% endif %}
+  {% if block.itemPrice is not empty %}<span class="list__titleSection text--black">{{ block.itemPrice }}</span>{% endif %}
+  {% if block.itemDuration is not empty %}<span class="list__titleSection text--red">{{ block.itemDuration }}</span>{% endif %}
+  {% if block.itemDescription is not empty %}<div class="list__descriptionSection">{{ block.itemDescription }}</div>{% endif %}
+</li>

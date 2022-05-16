@@ -1,0 +1,26 @@
+{% extends "logviewer/_layouts/base" %}
+
+{% set title = "Log Viewer"|t %}
+
+{% block content %}
+
+{% set logs = craft.logViewer.getLogs() %}
+<div class="select">
+	<select name="log__selector" id="log__selector">
+		<option value="">Select Log File</option>
+		{% for file in logs %}
+		<option value="{{ file.path }}" data-file="{{ file|json_encode() }}" date-modified-date="{{ file.mod|date('m-d-Y') }}" data-filesize="{{ file.size|filesize }}">{{ file.filename }} ({{ file.mod|date('m-d-Y') }}) - {{ file.size|filesize }}</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="viewer__loading">Parsing <span class="filename"></span>, last modified <span class="modified"></span>&hellip;</div>
+
+<div class="viewer__container">
+	<h2 class="filename"></h2>
+	<div class="tableview">
+		<div class="logfile tablecontent"></div>
+	</div>
+</div>
+
+{% endblock %}

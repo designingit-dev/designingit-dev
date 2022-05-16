@@ -1,0 +1,29 @@
+<div class="container padding--top">
+  <div class="row">
+    <div class="l--medium--12 columns">
+      <h2 class="text--larger text--sansSerif--black margin--bottom--none">{{ title }}</h2>
+    </div>
+    {% for product in products %}
+      <div class="l--small--6 columns">
+        <div class="l--small--4 columns padding--left--none">
+          <div class="productList__accessoryImage">
+            <img src="{{ product.image.one.getURL("xsmall") }}" />
+          </div>
+        </div>
+        <div class="l--small--8 columns productList__accessoryNameContainer padding--right--none">
+          <h3 class="text--large text--sansSerif--black margin--bottom--none productList__productTitle">{{ product.title }}</h3>
+          {% if product.defaultVariant.onSale %}
+            <p class="margin--top--narrow margin--bottom--none"><s>{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</s></p>
+            <p class="margin--bottom--narrow text--red">{{ product.defaultVariant.salePrice | commerceCurrency(cart.currency) }}</p>
+          {% else %}
+            <p class="margin--top--narrow margin--bottom--narrow text--red">{{ product.defaultVariant.price | commerceCurrency(cart.currency) }}</p>
+          {% endif %}
+          <a class="button text--uppercase" href="{{ product.url }}">View product</a>
+        </div>
+      </div>
+      {% if loop.index % 2 == 0 %}
+        <div class="clearfix__small clearfix__medium"></div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

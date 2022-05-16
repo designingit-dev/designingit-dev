@@ -1,0 +1,15 @@
+{% if craft.commerce.gateways.allCustomerEnabledGateways|length %}
+    {% for gateway in craft.commerce.gateways.allCustomerEnabledGateways %}
+        {% if gateway.handle == 'klarna' %}
+            {% set productPrice = product.defaultVariant.price %}
+            {% if product.defaultVariant.onSale %}
+                {% set productPrice = product.defaultVariant.salePrice %}
+            {% endif %}
+            <klarna-placement
+                    data-key="credit-promotion-badge"
+                    data-locale="{{ craft.keiserContactHelpers.getEnvironmentVariable('SITE_LOCALE') }}"
+                    data-purchase-amount="{{ productPrice | commerceCurrency(cart.currency,convert=true,format=false) | round(2) * 100 }}"
+            ></klarna-placement>
+        {% endif %}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,46 @@
+{% macro featureBlock(feature, class) %}
+  {% set content %}
+    <h2 class="text--larger text--sansSerif--black featuredHero__title">{{ feature.headline }}</h2>
+    {% if feature.image.one|length -%}
+      <img class="featuredHero__image" src="{{ feature.image.one.getURL('large') }}" alt="" />
+    {%- endif %}
+  {% endset %}
+
+
+  {% set href = '' %}
+  {% switch feature.linkType.value %}
+      {% case "entry" %}
+          {% set href = feature.linkedEntry.one().url %}
+      {% case "category" %}
+          {% set href = feature.linkedCategory.one().url %}
+  {% endswitch %}
+
+  {% if href is not empty %}
+    <a class="featuredHero__ratioBox featuredHero__ratioBox--link {{ class }}" href="{{ href }}">
+      {{ content }}
+      <span class="button text--uppercase featuredHero__button">{{ feature.ctaLabel }}</span>
+    </a>
+  {% else %}
+    <div class="featuredHero__ratioBox">
+      {{ content }}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% if featured|length > 0 %}
+<div class="container padding--top--half padding--bottom--none">
+  <div class="row">
+    <div class="l--medium--8 columns">
+      {{ _self.featureBlock(featured[0]) }}
+    </div>
+    <div class="l--medium--4 columns">
+      {% if featured|length > 1 %}
+        {{ _self.featureBlock(featured[1], 'margin--bottom margin--bottom--half--mediumOnly') }}
+      {% endif %}
+      {% if featured|length > 2 %}
+       {{ _self.featureBlock(featured[2]) }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}

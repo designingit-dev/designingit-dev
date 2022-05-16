@@ -1,0 +1,48 @@
+{% extends "_layout" %}
+
+{% block breadcrumb %}
+  <div class="container padding--bottom--none background--white navigation-breadcrumb">
+    <a href="{{ url('/') }}">Home</a> / Shop
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="container padding--top--half padding--bottom--none">
+    <div class="row">
+      <div class="l--extraSmall--12 columns{% if entry.featuredHero is not empty %} margin--bottom--none{% endif %}">
+        <h1 class="text--xXLarge text--sansSerif--black margin--bottom--none">{{ entry.title }}</h1>
+      </div>
+    </div>
+  </div>
+
+  {% if entry.featuredHero is not empty %}
+    {% include 'shop/products/shared/_featuredHero.html' with {
+      'featured': entry.featuredHero
+    } %}
+  {% endif %}
+
+  {% if entry.sellableProductGrid is not empty %}
+    {% include 'shop/products/shared/_listing.html' with {
+      'products': entry.sellableProductGrid,
+      'title': 'Cardio Machines',
+    }
+    %}
+  {% endif %}
+
+  {% if entry.sellableAccessoriesGrid is not empty %}
+    {% include 'shop/products/shared/_accessoriesListing.html' with {
+      'products': entry.sellableAccessoriesGrid,
+      'title': 'Accessories',
+    }
+    %}
+  {% endif %}
+
+  {% if entry['sellableMerchandiseGrid'] is defined and entry.sellableMerchandiseGrid is not empty %}
+    {% include 'shop/products/shared/_accessoriesListing.html' with {
+      'products': entry.sellableMerchandiseGrid,
+      'title': 'Merchandise',
+    }
+    %}
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,253 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Extends
+//  - Headings
+//  - Header Block
+//  - Paragraphs
+//  - Blockquotes
+//
+//  Notes: [1] - this is needed because H1s have a different font-family
+//               than the others and that doesn't get respected in the
+//               .scale--{$font-size} classes.
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Extends
+// -----------------------------------------------------------------------------
+
+%hN {
+  font-family: $sansSerif--black;
+  font-weight: $fontWeight--black;
+  line-height: 1;
+  margin-bottom: $verticalRhythm / 2;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Headings
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Headings
+name: 01-headings
+category: Base - Text
+---
+
+```html_example
+<h1>H1 Heading Tag</h1>
+<h2>H2 Heading Tag</h2>
+<h3>H3 Heading Tag</h3>
+<h4>H4 Heading Tag</h4>
+<h5>H5 Heading Tag</h5>
+```
+
+### Scaled Heading Classes
+Scaled heading classes can be applied to any element to make it visually appear
+as a specific heading. This allows us to use sematically correct tags while
+styling them to look differently. For example, we can set the article title on
+a list of articles to `%h2`, but add a `.scale--{$fontSize}` class to ensure it looks like
+a top level title. All `h#` tags have the appropriate scale class `@extend`ed
+onto them.
+
+```html_example
+<div class="scale--xXLarge"> Scale xXLarge Class</div>
+<div class="scale--xLarge"> Scale xLarge Class</div>
+<div class="scale--large"> Scale large Class</div>
+<div class="scale--base"> Scale base Class</div>
+<div class="scale--small"> Scale small Class</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+// Heading specific styling
+h1 {
+  @extend %hN;
+  font-family: $sansSerif--black;
+  font-weight: $fontWeight--black;
+  font-size: map-get($fontSizes, xLarge);
+
+  //@include respond-to(large) {
+  //  font-size: map-get($fontSizes, xXLarge);
+  //}
+
+  &.noMargin {
+    margin-bottom: 0;
+  }
+
+  &.padBottom {
+    padding-bottom: $verticalRhythm / 2;
+  }
+}
+
+h2 {
+  @extend %hN;
+  font-size: map-get($fontSizes, xLarge);
+}
+
+h3 {
+  @extend %hN;
+  font-size: map-get($fontSizes, large);
+}
+
+h4 {
+  @extend %hN;
+  font-size: map-get($fontSizes, base);
+}
+
+h5 {
+  @extend %hN;
+  font-size: map-get($fontSizes, small);
+}
+
+// Scaled headings builder
+@each $fontSizeName, $fontSize in $fontSizes {
+  .scale--#{$fontSizeName} {
+    @extend %hN;
+    font-size: map-get($fontSizes, $fontSizeName);
+  }
+}
+
+.scale--xXLarge {
+  font-family: $sansSerif--black; //[1]
+  font-weight: $fontWeight--black;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Paragraph
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Paragraph
+name: Paragraph
+category: Base - Paragraph
+---
+
+```html_example
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta similique quae vel perferendis porro dignissimos, facilis provident eius dolorum illum consequatur recusandae fugiat aspernatur dicta eaque, ratione commodi. Quibusdam, repellendus.
+</p>
+```
+*/
+// -----------------------------------------------------------------------------
+
+p {
+  font-size: 1em;
+  line-height: 1.4em;
+  margin: 0;
+  margin-bottom: $verticalRhythm;
+
+  &.noMargin {
+    margin-bottom: 0;
+  }
+}
+
+// Disable linter errors for code documentation
+// scss-lint:disable Comment
+/*doc
+---
+title: Scaled Text
+name: scaled-text
+categories: Components - Text
+---
+
+Scaled text applies the same font sizing as scaled text, without the additional
+styling associated with headlines.
+
+```html_example_table
+<div class="text--xXLarge">Text xXLarge Class</div>
+
+<div class="text--xLarge">Text xLarge Class</div>
+
+<div class="text--large">Text large Class</div>
+
+<div class="text--base">Text base Class</div>
+
+<div class="text--small">Text small Class</div>
+```
+*/
+// scss-lint:enable Comment
+
+// Scaled headings builder
+@each $fontSizeName, $fontSize in $fontSizes {
+  .text--#{$fontSizeName} {
+    font-size: map-get($fontSizes, $fontSizeName);
+  }
+}
+
+// Disable linter errors for code documentation
+// scss-lint:disable Comment
+/*doc
+---
+title: Colored Text
+name: colored-text
+categories: Components - Text
+---
+
+Allows to define the text color as a class
+
+```html_example_table
+<div class="text--red">Text Red</div>
+
+<div class="text--white">Text White</div>
+
+<div class="text--yellow">Text Yellow</div>
+
+<div class="text--grey">Text Grey</div>
+
+<div class="text--grey--medium">Text Grey Medium</div>
+```
+*/
+// scss-lint:enable Comment
+
+// Colored text builder
+@each $color in $colors {
+  .text--#{$color} {
+    color: $color;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Blockquote
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Blockquote
+name: blockquote
+category: Base - Blockquote
+---
+
+Your basic blockquote. The proper open and closing quotes are applied for you
+per the design, so you don't have to worry about that.
+
+```html_example
+
+<blockquote>
+  <p>I have bean waiting for you, Obi-Wan. We meet again at last. The circle is now complete. When I left you, I was once a learner. Now, I am the master.</p>
+  <footer>
+    <cite>Darth Vader, Sith Lord, Galactic Empire</cite>
+  </footer>
+</blockquote>
+
+```
+*/
+// -----------------------------------------------------------------------------
+
+blockquote {
+
+  p {
+    font-weight: $fontWeight--bold;
+    margin-bottom: $verticalRhythm--narrow;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+
+    &::before {
+      content: open-quote;
+    }
+
+    &::after {
+      content: close-quote;
+    }
+  }
+}

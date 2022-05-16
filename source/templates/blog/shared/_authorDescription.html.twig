@@ -1,0 +1,21 @@
+<div class="row blog__author__description">
+    <div class="l--small--2 columns margin--bottom--none blog__author__description__image">
+        {% if author.photo is not null %}
+            <img src="{{ author.photo.url }}" />
+        {% endif %}
+    </div>
+    <div class="l--small--10 columns margin--bottom--none">
+        {% if showAboutHeading %}
+            <p class="text--uppercase margin--bottom--none text--bold blog__author__description__about">About the author</p>
+        {% endif %}
+        <p class="blog__author__description__name margin--bottom--none text--sansSerif--black">{{ author.firstName }} {{ author.lastName }}</p>
+        <p class="blog__author__description__designation margin--bottom--half">{{ author.powerEdBlogUserDesignation }}</p>
+        {% if showArticlesByHeading %}
+            <a class="text--uppercase text--bold" href="/education/resources/authors/{{ author.firstName|lower }}-{{ author.lastName|lower }}">Articles by {{ author.firstName }} {{ author.lastName }} ></a>
+        {% endif %}
+
+        <div class="margin--top--half">
+            {{ author.powerEdBlogUserDescription }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{%- set required = field.required is defined and field.required ? " required" %}
+
+<div class="row marketingOptIn">
+    <div class="l--medium--12 columns">
+        <h3 class="margin--bottom--half text--uppercase">{{ marketingOptIn.marketingOptInHeadline }}</h3>
+        <p class="margin--bottom--half">{{ marketingOptIn.marketingOptInBody }}</p>
+        <div class="margin--bottom--half marketingOptIn__option">
+            <label>
+                <input type="radio" name="{{ name }}" value="yes" {{- required -}}> {{ marketingOptIn.marketingOptInYesLabel }}
+            </label>
+        </div>
+        <div class="margin--bottom--half marketingOptIn__option">
+            <label>
+                <input type="radio" name="{{ name }}" value="no" {{- required -}}> {{ marketingOptIn.marketingOptInNoLabel }}
+            </label>
+        </div>
+        <p class="margin--bottom--half">{{ marketingOptIn.marketingOptInDisclaimer }}</p>
+        <a class="text--small marketingOptIn__privacyPolicyLink" href="{{ marketingOptIn.marketingOptInPrivacyPolicyURL }}" target="_blank">{{ marketingOptIn.marketingOptInPrivacyPolicyLabel }}</a>
+    </div>
+</div>

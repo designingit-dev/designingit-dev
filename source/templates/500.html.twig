@@ -1,0 +1,58 @@
+{% extends "_layout" %}
+{% set title = '500 - Internal Server Error' %}
+
+{% block seo %}
+  {% set title = "Error 500 (Internal Server Error) | Keiser" %}
+  <title>{{ title }}</title>
+  <meta content="{{ title }}" name="DC.title"/>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="l--small--12 columns">
+        <div class="noticeFull margin--bottom">
+          <h2>Oh, Sorry. Looks like we have run into some internal issues.</h2>
+          <p>
+            Don't worry, it's not your fault. Our team has been notified and they will resolve this at the earliest.
+            If you were facing some issues in placing an order, please call our in-home specialist at 559-256-8020
+        </div>
+
+
+        {% set entry = craft.entries.section(['homepage']).one() %}
+
+        {% include "shared/_industries-block.html" %}
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <script src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js" integrity="sha384-wF7Jc4ZlWVxe/L8Ji3hOIBeTgo/HwFuaeEfjGmS3EXAG7Y+7Kjjr91gJpJtr+PAT" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function(){
+          console.log('DOM Content Loaded');
+          $.ajax({
+              url: '/',
+              method: 'POST',
+              headers: {
+                  'Accept': 'application/json'
+              },
+              data: {
+                  action: '/keiser-contact-helpers/keiser-contact-helpers/get-sentry-last-event-id'
+              },
+              success: function (response) {
+                  if (response.success) {
+                      Sentry.init({ dsn: '{{ craft.keiserContactHelpers.getEnvironmentVariable('SENTRY_DSN') }}' });
+                      Sentry.showReportDialog({
+                          eventId: response.sentryLastEventId
+                      });
+                  }
+              }
+          });
+      });
+  </script>
+
+{% endblock %}

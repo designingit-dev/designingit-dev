@@ -1,0 +1,18 @@
+<div class="row whiteGlove__checkbox margin--bottom--half">
+  <div class="l--extraSmall--2 l--medium--1 columns margin--bottom--none margin--left--narrow productReview__checkbox__input__container">
+    <div class="productReview__checkbox__input whiteGlove__checkbox__input {{ craft.keiserContactHelpers.whiteGloveDeliveryAvailableForRegion() ? 'productReview__checkbox__input__checked' }}" data-for="whiteGlove{{ product.defaultVariant.productId }}"></div>
+    <input type="checkbox" name="product" class="is--hidden" id="whiteGlove{{ product.defaultVariant.productId }}" {{ craft.keiserContactHelpers.whiteGloveDeliveryAvailableForRegion() ? 'checked="checked"' : '' }}>
+  </div>
+  <div class="l--extraSmall--9 l--medium--11 columns margin--bottom--none productReview__checkbox__label__container">
+    <label data-for="whiteGlove{{ product.defaultVariant.productId }}" class="productReview__checkbox__label whiteGlove__checkbox__label">
+      Add White Glove Assembly [{{ product.whiteGloveDeliveryFee | commerceCurrency(cart.currency) }}]
+    </label>
+    <a class="text--red text--bold text--underline whiteGlove__checkbox__helperQueue" v-on:click="openModal('whiteGloveDeliveryModal')">?</a>
+    {% if not craft.keiserContactHelpers.whiteGloveDeliveryAvailableForRegion() %}
+      <p class="margin--bottom--none text--red">(Continental US Only)</p>
+    {% endif %}
+  </div>
+  <div class="l--extraSmall--1 columns margin--bottom--none is--hidden--medium">
+    <a class="text--red text--bold text--underline" v-on:click="openModal('whiteGloveDeliveryModal')">?</a>
+  </div>
+</div>

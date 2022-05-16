@@ -1,0 +1,6 @@
+{# Local variable of `entry` #}
+{% if entry.navTitle is defined and entry.navTitle is not empty %}
+  {{ entry.navTitle }}
+{% else %}
+  {{ entry.title }}
+{% endif %}

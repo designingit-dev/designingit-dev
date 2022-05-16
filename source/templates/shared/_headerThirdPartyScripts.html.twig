@@ -1,0 +1,51 @@
+<!-- Web Only Start -->
+
+<!-- GA command queue container to handle ga() calls before GA has been actually loaded by GTM -->
+<script type="text/javascript">
+window['GoogleAnalyticsObject'] = 'ga';
+window['ga'] = window['ga'] || function() {
+(window['ga'].q = window['ga'].q || []).push(arguments)
+};
+ga.l = +new Date;
+ga("create", "{{ craft.keiserContactHelpers.getEnvironmentVariable('GOOGLE_ANALYTICS_ID') }}", {name: "keisergtm", cookieDomain: "auto"})
+</script>
+<!-- End GA command queue container -->
+
+<!-- Google Tag Manager Snippet -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer',"{{ craft.keiserContactHelpers.getEnvironmentVariable('GOOGLE_TAG_MANAGER_ID') }}");</script>
+<!-- End Google Tag Manager Snippet -->
+
+<!-- Rudderstack Start snippet -->
+<script type="text/javascript">
+    !function(){var e=window.rudderanalytics=window.rudderanalytics||[];e.methods=["load","page","track","identify","alias","group","ready","reset","getAnonymousId","setAnonymousId","getUserId"],e.factory=function(t){return function(){var r=Array.prototype.slice.call(arguments);return r.unshift(t),e.push(r),e}};for(var t=0;t<e.methods.length;t++){var r=e.methods[t];e[r]=e.factory(r)}e.loadJS=function(e,t){var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://d1xdq93s712gxs.cloudfront.net/websiteassets/javascripts/keiser-rs.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a)},e.loadJS(),
+        e.load("{{ craft.keiserContactHelpers.getEnvironmentVariable('RUDDERSTACK_WRITE_KEY') }}","{{craft.keiserContactHelpers.getEnvironmentVariable('RUDDERSTACK_DATA_PLANE_URL')}}"), e.page("","",{'site': window.location.hostname})}();
+</script>
+<!-- End Rudderstack Snippet -->
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "Keiser Corporation",
+  "url": "https://www.keiser.com",
+  "logo": "/assets/images/keiser-logo.svg",
+  "sameAs": [
+    "http://www.facebook.com/KeiserFitness",
+    "https://www.instagram.com/keiserfitness/",
+    "https://www.linkedin.com/company/keiser-international",
+    "https://plus.google.com/b/115625138589410060516/",
+    "https://twitter.com/KeiserFitness",
+    "https://www.youtube.com/c/KeiserFitness"
+  ]
+}
+</script>
+<!-- Impact Universal Tracking Tag Start -->
+<script type="text/javascript">
+(function(a,b,c,d,e,f,g){e['ire_o']=c;e[c]=e[c]||function(){(e[c].a=e[c].a||[]).push(arguments)};f=d.createElement(b);g=d.getElementsByTagName(b)[0];f.async=1;f.src=a;g.parentNode.insertBefore(f,g);})('https://utt.impactcdn.com/A3082306-9bce-4dae-8b1f-1266cb905aac1.js','script','ire',document,window); 
+</script>
+<!-- Impact Universal Tracking Tag End -->
+<!-- Web Only End -->

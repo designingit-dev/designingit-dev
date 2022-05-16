@@ -1,0 +1,266 @@
+.contactUs {
+
+  &__formAnchor {
+    color: $keiser--black;
+
+    img {
+      max-height: 68px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+  }
+
+  &__otherTopic {
+
+    @include respond-to(medium){
+      margin-left: 15px;
+    }
+
+    a.button {
+      margin-top: 20px;
+    }
+
+  }
+
+  &__options {
+
+    &__icon {
+      width: 54px;
+      display: inline-block;
+      margin-bottom: 15px;
+      @include respond-to(medium){
+        margin-bottom: 0;
+      }
+    }
+
+    &__anchor {
+      display: inline-block;
+      margin-left: 6px;
+      vertical-align: top;
+      margin-bottom: 15px;
+      @include respond-to(small){
+        max-width: 180px;
+      }
+      @include respond-to(medium){
+        margin-bottom: 0;
+        margin-right: 40px;
+        max-width: inherit;
+      }
+    }
+
+    a {
+      color: $keiser--black;
+    }
+
+  }
+
+  &__maps {
+
+    iframe {
+      height: 450px;
+      width: 100%;
+      border: 0;
+    }
+
+  }
+
+  &__modal {
+
+    .modal__wrapper {
+      height: 100vh;
+      max-height: 100vh;
+      width: 100vw;
+      max-width: 100%;
+      padding-top: $verticalRhythm * 1.5;
+    }
+
+    &__chatIcon {
+      display: inline-block;
+    }
+
+    &__chatAnchor {
+      display: inline-block;
+      margin-left: 15px;
+    }
+
+    &__subtitle {
+      font-size: 16px;
+    }
+
+    &__fieldName {
+
+      p {
+        margin-bottom: 0;
+      }
+
+    }
+
+    &__optionSmallLabel {
+      display: inline-block;
+      position: relative;
+      top: 3px;
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: $fontWeight--normal;
+      margin-left: 6px;
+    }
+
+    &__optionLargeLabel {
+      margin-left: 35px;
+      text-transform: none;
+      font-size: 18px;
+    }
+
+    &__checkboxLabel &__optionSmallLabel {
+      top: -2px;
+    }
+
+    &__checkboxLabel &__optionLargeLabel {
+      top: -4px;
+    }
+
+    &__errorContainer {
+      color: $keiser--red;
+    }
+
+    &__emailSupport {
+
+      &__heading {
+        color: $keiser--black;
+        font-family: $sansSerif;
+        font-size: map-get($fontSizes, xSmall);
+        font-weight: $fontWeight--bold;
+        line-height: 22px;
+        margin-bottom: 5px;
+      }
+
+      &__body {
+        color: $keiser--black;
+        font-size: map-get($fontSizes, xXSmall);
+        font-weight: $fontWeight--normal;
+        font-family: $sansSerif;
+        line-height: 20px;
+        @include respond-to(medium){
+          line-height: 10px;
+        }
+      }
+
+    }
+
+    &__button {
+      width: 100%;
+      text-align: center;
+      @include respond-to(small){
+        width: auto;
+        text-align: inherit;
+      }
+    }
+
+    #modal-close-button {
+      position: relative;
+      top: -5px;
+      margin-top: 0;
+      margin-right: 0;
+    }
+
+    textarea {
+      height: inherit;
+    }
+
+  }
+
+  &__commercialSales {
+
+    &__interestedProducts {
+
+      &__infoEntryIcon {
+        cursor: pointer;
+        max-width: 40px;
+      }
+
+    }
+
+    &__infoEntries {
+
+      &__image {
+        max-height: 45vh;
+      }
+
+    }
+
+  }
+
+}
+
+#contactUs__commercialSales__geolocationConfirmation__currentLocation {
+  color: $keiser--red;
+}
+
+.contactUs__commercialSales__emailPointer,.contactUs__contactRep__emailPointer {
+  display: inline-block;
+  max-width: 15px;
+  position: relative;
+  top: 1px;
+}
+
+.contactUs__commercialSales__repFirstName,.contactUs__contactRep__repFirstName {
+  font-weight: $fontWeight--bold;
+  text-transform: uppercase;
+}
+
+.typeahead__cancel-button {
+  display: none;
+}
+
+.contactUs__thankyou {
+
+  &__body {
+
+    p {
+      margin-bottom: 0;
+    }
+
+  }
+
+  &__pageDivider {
+
+    &__lightGrey {
+      background-color: $grey--xLight;
+      height: 8px !important;
+    }
+
+  }
+
+}
+
+.chatButton {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform-origin: 100% 0%;
+  transform: rotate(90deg) scale(0.75);
+  z-index: map-get($z-index, front);
+  box-shadow: 0 0 2px #000;
+  border-radius: 0 0 3px 3px;
+  @include respond-to(small){
+    transform: rotate(90deg) scale(1);
+  }
+}
+
+div[id*="b_59157796_"] > div, div[id*="b_d5947c5b_"] > div {
+  transform: scale(0.75);
+  @include respond-to(small){
+    transform: scale(1);
+  }
+}
+
+.globalDistributorNetwork__repContactDetails__repContact {
+  p {
+    margin-bottom: $verticalRhythm--half;
+  }
+}
+
+.pageTitle-field {
+  display: none;
+}

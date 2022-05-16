@@ -1,0 +1,93 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Local Variables
+//  - Purchasable styling
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// !-- local Variables
+// -----------------------------------------------------------------------------
+
+$_borderColor: $grey--light;
+
+// -----------------------------------------------------------------------------
+// !-- Purchasable styling
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Purchasable
+name: purchasable
+category: Components - Purchasables
+---
+
+``` html_example
+
+<div class="background--white purchasable">
+  <div class="container container--tight">
+    <div class="row">
+      <div class="l--small--12 l--medium--6 columns">
+        <div class="purchasable__imageWrapper">
+          <img src="#">
+        </div>
+      </div>
+      <div class="l--small--12 l--medium--6 columns">
+        <div class="titleBlock purchasable__titleBlock">
+          <h3 class="titleBlock__title">Lorem ipsum dolor sit amet, consectetur</h3>
+          <h1 class="titleBlock__subTitle">$1999.00 <sup>*</sup></h1>
+        </div>
+        <div>
+          <p>Suspendisse in leo sodales, consequat augue at, efficitur risus.
+          Nunc pharetra urna eget augue commodo, vel interdum neque iaculis.
+          Ut varius non nibh nec vulputate. Nulla facilisi. Morbi malesuada lobortis augue,
+          at iaculis diam lobortis eu. Nunc euismod facilisis sem ut pellentesque.</p>
+
+          <div class="purchasable__legal-copy">
+            <p>*Suspendisse in leo sodales, consequat augue at, efficitur risus.</p>
+            <p>**Nunc pharetra urna eget augue commodo, vel interdum neque iaculis.</p>
+          </div>
+        </div>
+        <form method="POST" class="purchasable__form">
+          <input type="hidden" name="action" value="/commerce/cart/updateCart">
+          <input type="hidden" name="redirect" value="/cart">
+          <input type="hidden" name="purchasableId" value="1234345">
+          <div class="field field--inline number required">
+            <div class="input">
+              <input type="number" name="qty" class="qty number--narrow" value="1">
+            </div>
+          </div>
+          <input id="submit1234345" class="button" type="submit" value="Add to Cart">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="background--red pageDivider">
+
+```
+*/
+
+.purchasable {
+  &__imageWrapper {
+    padding: 30px;
+  }
+
+  &__titleBlock {
+    padding-top: 30px;
+  }
+
+  &__legal-copy {
+    margin-bottom: 30px;
+    
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  &__form {
+    .button {
+      margin-top: 0;
+    }
+  }
+}

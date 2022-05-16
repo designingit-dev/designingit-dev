@@ -1,0 +1,35 @@
+<vue-job inline-template>
+  <div>
+    <form method="post"
+          v-if="!hasSubmittedForm"
+          accept-charset="utf-8"
+          enctype="multipart/form-data"
+          id="generalApplicationForm"
+          @submit.prevent="handleFormSubmit"
+          v-el:form
+          class="generalApplicationForm">
+
+      <div v-if="hasFormErrors" transition="slide-down" class="margin--bottom--half">
+        <strong>All fields are required.</strong>
+      </div>
+
+      {{ craft.blitz.csrfInput() }}
+
+      <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+      <input type="hidden" name="handle" value="{{ form.handle }}">
+      {{ redirectInput(form.redirectUri) }}
+      {{ formFields }}
+
+      {# Must be here to overwrite the included hidden field #}
+      <input type="hidden" name="fields[jobTitle]" v-model="jobTitle"{% if jobTitle is defined %} value="{{ jobTitle }}"{% endif %}>
+
+      {% hook 'sproutForms.modifyForm' %}
+      {# input type="button" is a workaround for mobile iOS. DO NOT change to type="submit" #}
+      <input @click="handleFormSubmit" type="button" class="button button--reverse" value="Submit Application">
+    </form>
+    <div v-if="hasSubmittedForm">
+      <h2>Thank you</h2>
+      <p>Thank you for your interest in Keiser.</p>
+    </div>
+  </div>
+</vue-job>

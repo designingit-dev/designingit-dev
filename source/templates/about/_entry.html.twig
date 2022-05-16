@@ -1,0 +1,23 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+  {% switch entry.type %}
+    {% case "about" %}
+      {% include "about/_about.html" %}
+    {% case "aboutTrainers" %}
+      {% include "about/_about-trainers.html" %}
+    {% case "aboutEducation" %}
+      {% include "about/_about-education.html" %}
+    {% case "aboutCareers" %}
+      {% include "about/_about-careers.html" %}
+    {% case "aboutFinancing" %}
+      {% include "about/_about-financing.html" %}
+    {% case "aboutEnvironment" %}
+      {% include "about/_about-environment.html" %}
+    {% case "aboutContact" %}
+      {% include "about/_about-contact.html" %}
+  {% endswitch %}
+
+{% endblock %}
+

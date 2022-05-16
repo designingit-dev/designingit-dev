@@ -1,0 +1,10 @@
+// -----------------------------------------------------------------------------
+// !-- Grid Span
+//
+// Make a grid easily
+// -----------------------------------------------------------------------------
+
+@mixin grid-span($target, $context: map-get($grid, columns)) {
+  float: left;
+  width: percentage($target / $context);
+}

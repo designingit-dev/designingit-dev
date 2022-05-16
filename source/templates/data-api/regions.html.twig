@@ -1,0 +1,11 @@
+{% header "Cache-Control: no-cache, must-revalidate" %}
+{% header "Content-type: application/json" %}
+{% spaceless %}
+{"data":[{% set regions = craft.entries.section('regions').orderBy('dropdownOrderAscending', 'slug').limit(10000) %}{% set total = regions.count() %}{% for entry in regions %}
+{
+  "title": "{{ entry.title }}",
+  "slug": "{{ entry.slug }}"
+}{% if not loop.last %},{% endif %}
+{% endfor %}
+],"meta":{"pagination":{"total":{{ total }},"count":{{ total }},"per_page":10000,"current_page":1,"total_pages":1,"links":[]}}}
+{% endspaceless %}

@@ -1,0 +1,37 @@
+<div class="container">
+  <h2 class="margin--bottom">
+    {{ linkBlockWithIcon.sectionTitle }}
+  </h2>
+  <div class="row">
+    {% for block in linkBlockWithIcon.supportLinkBlockWithIcon %}
+      <div class="l--small--12 l--medium--6 l--large--4 columns">
+        <div class="titleCard titleCard--withIcon">
+          <div class="row">
+            <div class="l--small--4 columns l--noMargin">
+              <div class="titleCard__iconBlock">
+                <img class="titleCard__icon"
+                     src="{{ block.supportBlockIcon.one.getURL("small") }}"
+                     srcset="
+                        {{ block.supportBlockIcon.one.getURL("xsmall") }} 320w,
+                        {{ block.supportBlockIcon.one.getURL("small") }} 480w,
+                        {{ block.supportBlockIcon.one.getURL("medium") }} 640w,
+                        {{ block.supportBlockIcon.one.getURL("large") }} 960w,
+                        {{ block.supportBlockIcon.one.getURL("xlarge") }} 1280w">
+              </div>
+            </div>
+            <div class="l--small--8 columns l--noMargin">
+              <div class="titleCard__flexItems titleCard__flexItems--flexEnd">
+                <h3 class="titleCard__title">
+                  {{ block.title }}
+                </h3>
+                <a href="{{ block.linkURL|parseRefs|raw }}" class="button button--fullWidth">
+                  {{ block.supportLinkText }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,60 @@
+{% extends "_layout" %}
+
+{% block content %}
+  {% cache %}
+
+  <article>
+
+    {% if entry.title %}
+      <div class="background--darkGrey">
+        <div class="container container--tight">
+          <div class="row">
+            <div class="l--medium--12 columns l--noMargin">
+              <div class="titleBlock">
+                <h1 class="titleBlock__subTitle">
+                  {{ entry.title }}
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if entry.richTextBody %}
+      <div class="container">
+        {{ entry.richTextBody|parseRefs|raw }}
+      </div>
+    {% endif %}
+
+  </article>
+
+  {% set tags = craft.tags.group('supportTags').relatedTo(entry) %}
+  {% set faqs = entry.supportFAQ %}
+
+  {% if tags is not empty or faqs is not empty %}
+    <div class="container container--tight margin--bottom">
+    {% if tags is not empty %}
+      <div class="l--medium--12 margin--bottom">
+        <span class="text--large"><strong>Related Tags:</strong></span>
+        <ul class="list--inline text--large">
+          {% for tag in craft.tags.group('supportTags').relatedTo(entry) %}
+            <li><a href="{{ url('/support/tags/'~tag.slug) }}">{{ tag.title }}{{ loop.last ? '' : ','}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if faqs is not empty %}
+      <br>
+      <br>
+      {% include 'support/faq/_list' with {
+        'frequentlyAskedQuestions': faqs
+      } %}
+    {% endif %}
+    </div>
+  {% endif %}
+
+  {% include 'support/shared/_supportFooter' %}
+
+  {% endcache %}
+{% endblock %}

@@ -1,0 +1,60 @@
+// -----------------------------------------------------------------------------
+// !-- Icons
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Icons
+name: icons
+category: Components - Icons
+---
+We use SVG icons through the `<use>` tag. The icons will inherit the color of their parent object.
+
+```html_example_table
+<svg class="icon"><use xlink:href="/assets/images/svg-sprite.svg#magnifying-glass"></use></svg>
+```
+
+```html_example_table
+<svg class="icon"><use xlink:href="/assets/images/svg-sprite.svg#video-thumb"></use></svg>
+```
+
+You may also use the large variant
+
+```html_example_table
+<svg class="icon icon--large"><use xlink:href="/assets/images/svg-sprite.svg#magnifying-glass"></use></svg>
+```
+
+```html_example_table
+<svg class="icon icon--thumbnail"><use xlink:href="/assets/images/svg-sprite.svg#video-thumb"></use></svg>
+```
+*/
+// -----------------------------------------------------------------------------
+
+svg {
+  height: 1em;
+  fill: currentColor;
+
+  &:not(:root) {
+    overflow: hidden;
+  }
+}
+
+.icon {
+  $size: pem(22px);
+  $size--large: pem(32px);
+  $size--thumbnail: pem(32px);
+
+  width: $size;
+  height: $size;
+  color: inherit;
+
+  &.icon--large {
+    width: $size--large;
+    height: $size--large;
+  }
+
+  &.icon--thumbnail {
+    width: $size--thumbnail;
+    height: $size--thumbnail;
+    opacity: .7;
+  }
+}

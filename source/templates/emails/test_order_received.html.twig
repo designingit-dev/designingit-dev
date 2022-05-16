@@ -1,0 +1,3 @@
+{% set order = craft.orders.inReverse().one() %}
+
+{% include "emails/order_received" with { order: order } %}

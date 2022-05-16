@@ -1,0 +1,34 @@
+{
+  "name": "keiser/commerce-helpers",
+  "description": "Keiser Commerce Helpers for Craft CMS",
+  "version": "1.0.0",
+  "type": "craft-plugin",
+  "keywords": ["some", "keywords", "here"],
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Akshay Agarwal",
+      "homepage": "https://10xmanagement.com"
+    }
+  ],
+  "support": {
+    "email": "info@akshayagarwal.in",
+    "issues": "https://keiser.com/about-us/contact-us",
+    "source": "https://keiser.com/about-us/contact-us",
+    "docs": "https://keiser.com/about-us/contact-us"
+  },
+  "require": {
+    "craftcms/cms": "^3.7",
+    "craftcms/commerce": "^3.4",
+    "drewm/mailchimp-api": "^2.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "keiser\\commercehelpers\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "keiser-commerce-helpers",
+    "name": "Keiser Commerce Helpers"
+  }
+}

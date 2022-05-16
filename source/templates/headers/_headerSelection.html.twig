@@ -1,0 +1,10 @@
+{% switch headerOption %}
+  {% case 'full' %}
+    {% include 'headers/_header-full' %}
+  {% case 'logoCustomText' %}
+    {% include 'headers/_header-logo_with_custom_title' with {
+      'customTitle': customTitle
+    } %}
+  {% case 'logoOnlyNarrow' %}
+    {% include 'headers/_header-logo_only_narrow' %}
+{% endswitch %}

@@ -1,0 +1,51 @@
+{% set tag = craft.tags.slug(slug).one() %}
+{% set title = "TAG - " ~ tag.title %}
+{% set page = {
+  'pageTitle': title,
+  'metaDescription': 'Entries tagged with ' ~ tag.title
+} %}
+
+{% set entries = craft.entries.relatedTo(tag) %}
+{% extends "_layout" %}
+{% block content %}
+  {% cache %}
+  <div class="background--darkGrey">
+    <div class="container container--tight">
+      <div class="row">
+        <div class="l--medium--12 columns l--noMargin">
+          <div class="titleBlock">
+            <h1 class="titleBlock__subTitle">
+              {{ title }}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row" id="tagEntryListContainer">
+      {% for entry in entries %}
+        <div class="l--medium--12 columns">
+          {% switch (entry.section.handle) %}
+            {% case 'supportFAQ' %}
+              <h3>{{ entry.title }}</h3>
+              {% set content = entry.supportFAQAnswer %}
+              <p>
+                {{ content | striptags | parseRefs| raw }}
+              </p>
+            {% case 'supportArticles' %}
+              <a href="{{ entry.url }}"><h3>{{ entry.title }}</h3></a>
+              {% set content = entry.richTextBody %}
+              <p>
+                {{ content | striptags | parseRefs | raw | slice(0,300) }}
+                {% if content|length > 300 %}
+                  ...
+                {% endif %}
+              </p>
+          {% endswitch %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endcache %}
+{% endblock %}

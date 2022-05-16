@@ -1,0 +1,55 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Z-Index
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Z-Index
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Z-Index
+name: z-index
+category: Variables - Z-Index
+---
+
+<p class="sg--item">
+  <span class="sg--item__variable">map-get($z-index, hidden)</span>
+  -1
+</p>
+<p class="sg--item">
+  <span class="sg--item__variable">map-get($z-index, behind)</span>
+  -1
+</p>
+<p class="sg--item">
+  <span class="sg--item__variable">map-get($z-index, below)</span>
+  1
+</p>
+<p class="sg--item">
+  <span class="sg--item__variable">map-get($z-index, above)</span>
+  2
+</p>
+<p class="sg--item">
+  <span class="sg--item__variable">map-get($z-index, dropdownOptions)</span>
+  500
+</p>
+
+*/
+// -----------------------------------------------------------------------------
+
+$z-index: (
+  hidden: -1,
+  behind: -1,
+  normal: 0,
+  below: 1,
+  above: 2,
+  nav: 3,
+  nav--subNav: 4,
+  stickyHeader: 5,
+  overlay: 10,
+  top: 20,
+  dropdownOptions: 500,
+  front: 1000,
+);

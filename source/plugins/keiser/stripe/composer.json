@@ -1,0 +1,35 @@
+{
+  "name": "keiser/stripe",
+  "description": "Keiser Stripe Payment Gateway Integration for Craft CMS (SCA compliant using PaymentIntents)",
+  "version": "1.0.0",
+  "type": "craft-plugin",
+  "keywords": ["some", "keywords", "here"],
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Akshay Agarwal",
+      "homepage": "https://10xmanagement.com"
+    }
+  ],
+  "support": {
+    "email": "info@akshayagarwal.in",
+    "issues": "https://keiser.com/about-us/contact-us",
+    "source": "https://keiser.com/about-us/contact-us",
+    "docs": "https://keiser.com/about-us/contact-us"
+  },
+  "require": {
+    "craftcms/cms": "^3.7",
+    "craftcms/commerce": "^3.4",
+    "craftcms/commerce-omnipay": "^3.0.2",
+    "stripe/stripe-php": "^6.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "keiser\\stripe\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "keiser-stripe",
+    "name": "Keiser Stripe Gateway"
+  }
+}

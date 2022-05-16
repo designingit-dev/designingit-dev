@@ -1,0 +1,20 @@
+<h2>Frequently Asked Questions</h2>
+<div class="row">
+  <div class="l--small--12 columns l--noMargin">
+    {% for faq in frequentlyAskedQuestions %}
+      <div class="faq">
+        <div class="faq__iconWrapper">
+          <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+        </div>
+        <div class="faq__content">
+          <div class="faq__question">
+            {{ faq.title }}
+          </div>
+          <div class="faq__answer" aria-hidden="true">
+            {{ faq.supportFAQAnswer|parseRefs|raw }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

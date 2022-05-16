@@ -1,0 +1,99 @@
+{% set showDualSpecifications = entry.dualTechnicalSpecifications and entry.dualTechnicalSpecifications.count > 0 %}
+{% set specificationsAvailable = entry.technicalSpecifications or showDualSpecifications %}
+
+<div class="row" id="productSpecsAndFeatures">
+  {% if specificationsAvailable %}
+  <div class="l--small--12 l--medium--6">
+    <div class="dividedBlock__left {{ showDualSpecifications ? 'productSpecsAndFeatures__dual' : ''}}">
+      <h2 class="{{ showDualSpecifications ? 'margin--bottom' : '' }}">Specifications</h2>
+        {% if entry.technicalSpecifications and not showDualSpecifications %}
+          <dl class="definitionList">
+          {% for technicalSpecification in entry.technicalSpecifications %}
+            <dt class="definitionList__label definitionList__label--red">
+              {{ technicalSpecification.label }}
+            </dt>
+            <dd class="definitionList__value">
+              {{ technicalSpecification.description }}
+            </dd>
+          {% endfor %}
+          </dl>
+        {% elseif showDualSpecifications %}
+          {% for block in entry.dualTechnicalSpecifications  %}
+            <div class="row margin--bottom--half--mediumOnly">
+              <div class="l--medium--6 columns margin--bottom--none">
+                <h4 class="text--red">{{ block.variant1ModelName }}</h4>
+                <dl class="definitionList">
+                {% for technicalSpecification in block.variant1Specifications %}
+                  <dt class="definitionList__label definitionList__label--red">
+                    {{ technicalSpecification.label }}
+                  </dt>
+                  <dd class="definitionList__value">
+                    {{ technicalSpecification.description }}
+                  </dd>
+                {% endfor %}
+                </dl>
+              </div>
+              <div class="l--medium--6 columns margin--bottom--none">
+                <h4 class="text--red">{{ block.variant2ModelName }}</h4>
+                <dl class="definitionList">
+                {% for technicalSpecification in block.variant2Specifications %}
+                  <dt class="definitionList__label definitionList__label--red">
+                    {{ technicalSpecification.label }}
+                  </dt>
+                  <dd class="definitionList__value">
+                    {{ technicalSpecification.description }}
+                  </dd>
+                {% endfor %}
+                </dl>
+              </div>
+            </div>
+            {% endfor %}
+        {% else %}
+          <div>
+            No Technical Specifications
+          </div>
+        {% endif %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="l--small--12 l--medium--6 {{ specificationsAvailable ? '' : 'columns' }}">
+    <div class="{{ specificationsAvailable ? 'dividedBlock__right' : '' }}">
+      <h2>Features</h2>
+      {% if entry.features %}
+        <ul class="text--grey">
+          {% for feature in entry.features %}
+            <li>{{ feature.nameOfFeature | raw }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="text--grey">
+          No Features Listed
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if getAQuoteEnabled %}
+  {% if entry.productSheet.one() %}
+  <div class="row {{ specificationsAvailable ? 'row--specs-features' : ''}}">
+    {% if specificationsAvailable %}
+    <div class="l--small--12 l--medium--6">
+      <div class="dividedBlock__left_alt flexGrowLinks product__features__getCommercialQuoteButton {{ showDualSpecifications ? 'product__features__getCommercialQuoteButton__dual' : ''}}">
+        <a class="button flexGrowLinks__link l--centered" v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor('Get a Commercial Quote', 'getACommercialQuoteStrengthMppOldSpecs&Features')]">{{ getPricingCTA }}</a>
+      </div>
+    </div>
+    {% endif %}
+    <div class="l--small--12 l--medium--6 {{ specificationsAvailable ? '' : 'columns' }}">
+      <div class="{{ specificationsAvailable? 'dividedBlock__right_alt' : '' }} flexGrowLinks product__features__getCommercialQuoteButton">
+        <a class="button button--product-sheet flexGrowLinks__link l--centered" href="{{ entry.productSheet.one.getUrl() }}" target="_blank"><span>Full Product Sheet</span></a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="l--centered margin--top">
+    <button class="commercialSalesModal" v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor('Get a Commercial Quote', 'getACommercialQuoteStrengthMppOldSpecs&Features')]">
+      {{ getPricingCTA }}</button>
+  </div>
+  {% endif %}
+{% endif %}

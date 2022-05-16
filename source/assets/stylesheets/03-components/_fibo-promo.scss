@@ -1,0 +1,111 @@
+.fibo2018{
+
+  &__header {
+
+    .ihrsaGuarantee__header__largeTitle {
+      font-size: 36px;
+      line-height: 32px;
+
+      @include respond-to(medium){
+        font-size: 70px;
+        line-height: 66.45px;
+      }
+    }
+
+    .ihrsaGuarantee__header__copy {
+      margin-top: 20px;
+      margin-bottom: -20px;
+
+      @include respond-to(medium){
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+    }
+
+  }
+
+  &__roiContainer {
+    position: relative;
+    top: -13px;
+  }
+
+  &__specialities {
+
+    p {
+      font-size: 16px;
+      margin-bottom: 0;
+
+      @include respond-to(medium){
+        font-size: 25px;
+        margin-bottom: 15px;
+      }
+    }
+
+    h3 {
+      font-size: 21px;
+      margin-bottom: 5px;
+
+      @include respond-to(medium){
+        font-size: 32px;
+        margin-bottom: 5px;
+      }
+    }
+
+    ol {
+      list-style: none;
+
+      li {
+        margin-left: 0;
+      }
+    }
+
+    &__counterContainer {
+      padding-right: 0;
+      width: 48px;
+      @include respond-to(medium){
+        width: 7%;
+      }
+
+      img {
+        max-height: 32px;
+        @include respond-to(medium){
+          max-height: inherit;
+        }
+      }
+    }
+
+    &__contentContainer {
+      padding-left: 0;
+    }
+
+  }
+
+  &__demoStation {
+
+    &__warrior {
+      position: relative;
+      left: -10%;
+      @include respond-to(medium){
+        left: inherit;
+      }
+    }
+
+  }
+
+  &__5in1Contact {
+
+    h2 {
+      font-size: 30px;
+    }
+
+    @include respond-to(medium){
+      text-align: center;
+
+      h2 {
+        font-size: 39px;
+      }
+
+    }
+  }
+
+}

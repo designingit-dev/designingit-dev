@@ -1,0 +1,69 @@
+{% set entry = craft.entries.section('contactForms').slug('contact-customer-support').one() %}
+
+<vue-modal :active-modal="activeModal" name="contactUs__customerSupport" class="contactUs__modal" v-cloak>
+  {% set form = craft.sproutForms.form('contactCustomerSupport') %}
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--extraSmall--2 l--small--1 l--medium--2 l--extraSmall--offset--10 l--small--offset--11 l--medium--offset--10 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('contactUs__customerSupport')"><img src="/assets/images/modal-close-button.png" /> </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <h3 class="margin--top--half contactUs__modal__formName">{{ entry.title }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <form method="post" action="/forms/contactCustomerSupport" accept-charset="UTF-8" enctype="multipart/form-data" id="contactUs__customerSupport__form">
+      <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+      <input type="hidden" name="handle" value="contactCustomerSupport">
+      {{ redirectInput('/about-us/contact-us/thank-you#customer-support') }}
+      {{ craft.blitz.csrfInput() }}
+      <div class="container container--noPad" id="contactUs__modal__fieldsContainer">
+
+        <div class="row modalContentPage">
+          <div class="l--medium--12 columns margin--bottom--half">
+            <div class="contactUs__modal__fieldName">{{ entry.body }}</div>
+          </div>
+          {% for button in entry.linkButtons %}
+            <div class="l--medium--6 columns">
+              <a href="{{ button.linkURL }}" class="button {{ button.backgroundColor == 'black' ? 'button--black' : '' }}" {{ button.linkOpensIn == 'newTab' ? 'target="_blank"' : '' }}>
+                {{ button.linkTitle }}
+              </a>
+            </div>
+          {% endfor %}
+          <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+          <div class="l--medium--6 columns margin--bottom--half">
+            {{ craft.sproutForms.displayField(form, form.getField('fullName')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('phoneNumber')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('serialNum')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('message')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('geoLocation')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('marketingOptIn')) }}
+            {% hook 'sproutForms.modifyForm' %}
+          </div>
+          <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <input class="button contactUs__modal__button" type="submit" value="Send">
+          </div>
+          <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+            <a class="button button--black contactUs__modal__button" v-on:click="closeModal('contactUs__customerSupport')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+            <a class="button button--black" v-on:click="closeModal('contactUs__customerSupport')">Back</a>
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+            <input class="button" type="submit" value="Send">
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>

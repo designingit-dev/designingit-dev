@@ -1,0 +1,32 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//  - v-cloak
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- v-cloak
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: v-cloak
+name: v-cloak
+categories: Overrides - v-cloak
+---
+
+Adding the `v-cloak` attribute to an element hides it until Vue is finished loding and parsing the DOM.
+See [Vue's docs](http://vuejs.org/api/#v-cloak) for additional details.
+
+```html_example
+<div v-cloak>
+  Stuff that should be hidden until Vue loads.
+</div>
+```
+*/
+
+// scss-lint:disable ImportantRule
+[v-cloak] {
+  display: none !important;
+}
+// scss-lint:enable ImportantRule

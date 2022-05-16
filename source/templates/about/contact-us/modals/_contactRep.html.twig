@@ -1,0 +1,73 @@
+<vue-modal :active-modal="activeModal" name="contactUs__contactRep" class="contactUs__modal" v-cloak>
+  {% set form = craft.sproutForms.form('contactRep') %}
+  <div slot="header">
+    <div class="container container--noPad contactUs__modal__headerAction">
+      <div class="row">
+        <div class="l--extraSmall--10 l--small--11 columns margin--bottom--none">
+          <h3 class="margin--top--none contactUs__modal__formName">Contact Keiser Representative</h3>
+        </div>
+        <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('contactUs__consumerSales')"><img src="/assets/images/modal-close-button.png" /> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <form method="post" action="/forms/contactRep" accept-charset="UTF-8" enctype="multipart/form-data" id="contactUs__contactRep__form" v-on:submit="disableSubmit('contactUs__contactRep__form')">
+      <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+      <input type="hidden" name="handle" value="contactRep">
+      {{ redirectInput('/about-us/contact-us/thank-you#contact-rep') }}
+      <input type="hidden" name="fields[repEmail]" value="">
+      <input type="hidden" name="fields[repVPEmail]" value="">
+      <input type="hidden" name="fields[sendToSugarCRM1]" value="true">
+      {{ craft.blitz.csrfInput() }}
+      <div class="container container--noPad" id="contactUs__modal__fieldsContainer">
+
+        <div class="row modalContentPage" id="contactUs__contactRep__contactDetails">
+          <div class="l--medium--12 columns margin--bottom--half">
+            <h3 class="contactUs__modal__fieldName">Thank you for your inquiry. Please use the form below to contact the proper Keiser representative.</h3>
+          </div>
+          <div class="l--medium--5 l--medium--offset--1 columns margin--bottom--half is--hidden--medium">
+            <p class="margin--bottom--none"><strong>YOUR KEISER REPRESENTATIVE</strong></p>
+            <br>
+            <p class="margin--bottom--none contactUs__contactRep__repName"></p>
+            <p class="margin--bottom--none contactUs__contactRep__repContact"></p>
+            <p class="margin--bottom--none">
+              <span class="contactUs__contactRep__repFirstName"></span>
+            </p>
+          </div>
+          <div class="l--medium--6 columns margin--bottom--half">
+            {{ craft.sproutForms.displayField(form, form.getField('fullName')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('phoneNumber')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('message')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('marketingOptIn')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('geoLocation')) }}
+            {{ craft.sproutForms.displayField(form, form.getField('campaignTracking')) }}
+            {% hook 'sproutForms.modifyForm' %}
+          </div>
+          <div class="l--medium--5 l--medium--offset--1 columns margin--bottom--half is--hidden--extraSmall is--visible--medium">
+            <p class="margin--bottom--none"><strong>YOUR KEISER REPRESENTATIVE</strong></p>
+            <br>
+            <p class="margin--bottom--none contactUs__contactRep__repName"></p>
+            <p class="margin--bottom--none contactUs__contactRep__repContact"></p>
+            <p class="margin--bottom--none">
+              <img src="/assets/images/contact-us/email-pointer.png" class="contactUs__contactRep__emailPointer" />
+              <span class="contactUs__contactRep__repFirstName"></span>
+            </p>
+          </div>
+          <div class="clearfix__medium clearfix__large"></div>
+          <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+            <input class="button contactUs__modal__button" type="submit" value="Send" v-on:click="disableButton()">
+          </div>
+          <div class="l--medium--6 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+            <input class="button" type="submit" value="Send" v-on:click="disableButton()">
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>

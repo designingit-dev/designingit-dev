@@ -1,0 +1,9 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+label: "LiveAgent Department ID",
+instructions: "Mention the name of the department this ticket should be assigned. The list of required fields in the form may change depending on this value. Valid values are supportTicket, optOut, partsOrderForm, warrantyRegistration, warrantyPartsRequest, publicRelations, educationServices, softwareIssue, generalEnquiry, homeSales. If not sure, contact website developer or simply use the value as generalEnquiry",
+id: 'liveAgentDepartmentId',
+name: 'liveAgentDepartmentId',
+value: field.liveAgentDepartmentId
+}) }}

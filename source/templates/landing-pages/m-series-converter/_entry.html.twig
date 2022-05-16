@@ -1,0 +1,59 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+{% cache %}
+
+<div class="mSeriesConverter">
+
+{% set block = entry.mSeriesConverterHero.one() %}
+<div class="container container--noPadBottom">
+  <div class="row">
+    <div class="l--medium--6 columns margin--bottom--none">
+      {{ block.copy }}
+    </div>
+    <div class="l--medium--6 columns margin--bottom--none">
+      <img src="{{ block.image.one.url }}">
+    </div>
+  </div>
+</div>
+
+{% set block = entry.mSeriesConverterCompatibility.one() %}
+<div class="background--darkGrey">
+  <div class="container">
+    <div class="row">
+      <div class="l--medium--6 columns l--medium--push--6 margin--bottom--none">
+        {{ block.copy }}
+      </div>
+      <div class="l--medium--6 columns l--medium--pull--6 margin--bottom--none mSeriesConverter__compatibleWith__logoContainer">
+      {% for block in entry.mSeriesConverterCompatibilityLinks %}
+        {% if loop.index0 % 2 == 0 %}
+        <div class="row">
+          {% endif %}
+          <div class="l--extraSmall--6 columns">
+            <a href="{{ block.websiteLink }}" target="_blank">
+              <img class="mSeriesConverter__compatibleWith__logo" src="{{ block.logo.one.getUrl() }}">
+            </a>
+          </div>
+          {% if loop.index0 % 2 != 0 %}
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% for block in entry.arbitraryContentBlocks %}
+  {% include 'shared/_arbitrary-content-block.html' with { 'block': block } %}
+{% endfor %}
+
+</div>
+
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+
+{% endcache %}
+
+{% endblock %}

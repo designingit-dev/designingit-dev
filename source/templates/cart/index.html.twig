@@ -1,0 +1,95 @@
+{% extends "_layout" %}
+
+{% block seo %}
+  {% include "cart/_seo-cart.html" %}
+{% endblock %}
+
+{% block content %}
+  {% if featureFlags.activateCommerce %}
+    {% if not cart.lineItems | length %}
+      <div class="constrain">
+        <h2 class="text--alignCenter container--spaced text--grey">
+          Your shopping cart is empty.
+        </h2>
+      </div>
+      {% set shop = craft.entries.section('shop').one() %}
+      {% if shop is not null and shop.sellableProductGrid is not empty %}
+        {% include 'shop/products/shared/_listing.html' with {
+        'products': shop.sellableProductGrid,
+        'title': 'Featured Products',
+        'containerClasses': 'container container--tight'}
+        %}
+      {% endif %}
+    {% else %}
+      <div class="background--black padding--top--thin">
+        <div class="constrain">
+          <div class="row">
+            <div class="l--small--3 columns margin--bottom--narrow">
+              <h1 class="margin--bottom--none">Cart</h1>
+            </div>
+            <div class="l--small--9 columns">
+              <div class="cart__headerTotal">
+                <h4 class="cart__headerPrice">
+                  {% set whiteGloveDeliveryFees = 0 %}
+                  {% for item in cart.lineItems %}
+                    {% if item.options.whiteGloveDelivery is defined and item.options.whiteGloveDelivery %}
+                      {% set whiteGloveDeliveryFees = whiteGloveDeliveryFees + (item.purchasable.product.whiteGloveDeliveryFee * item.qty) %}
+                    {% endif %}
+                  {% endfor %}
+                  Total: {{ (cart.itemSubtotal + cart.getAdjustmentsTotalByType('discount') + whiteGloveDeliveryFees) |commerceCurrency(cart.currency) }}
+                </h4>
+                <a class="button margin--top--none js--checkoutBtn" href="{{ url('/checkout') }}">Checkout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% set message = craft.app.session.getFlash('error') %}
+      {% if message is not null %}
+      <div class="constrain margin--top notice notice--red">
+        <div class="row">
+          <div class="l--small-12 columns margin--bottom--narrow">
+            <p class="margin--bottom--none"><strong>{{ message }}</strong></p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="background--white">
+        <div class="constrain">
+          {% include "cart/_cart.html" %}
+        </div>
+      </div>
+    {% endif %}
+
+  {% endif %}
+
+  {% include 'shop/products/shared/_whiteGloveDeliveryModal' %}
+
+{% endblock %}
+
+{% block footerThirdPartyScripts %}
+  <script type="text/javascript">
+    var products = [];
+
+    {% for item in cart.lineItems %}
+      products.push({
+        product_id: '{{ item.sku }}',
+        sku: '{{ item.sku }}',
+        name: '{{ item.description }}',
+        price: {% if item.onSale %}{{ item.salePrice|number_format(2, '.', '') }}{% else %}{{ item.price|number_format(2, '.', '') }}{% endif %},
+        quantity: {{ item.qty }},
+        category: '{{ item.purchasable.product.analyticsCategory.one() }}',
+        url: '{{ item.purchasable.product.url() }}',
+        image_url: '{{ item.purchasable.product.image.one ? item.purchasable.product.image.one.url : ''  }}'
+      });
+    {% endfor %}
+
+    rudderanalytics.track('Cart Viewed', {
+      cart_id: '{{ cart.number[:7]|upper }}',
+      products: products,
+      site: window.location.hostname
+    });
+  </script>
+{% endblock %}

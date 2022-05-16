@@ -1,0 +1,135 @@
+{% cache %}
+<article>
+
+  {% include "support/_header-block.html" %}
+
+  <div class="container">
+    <div class="titleCard titleCard--red">
+      <h2 class="titleCard__title l--noMargin">
+        Coverage Details
+      </h2>
+    </div>
+
+    <div class="row">
+      <div class="l--small--12 l--medium--6 columns">
+        <h3>
+          All Product - Limited Warranty
+        </h3>
+
+        <div class="margin--bottom">
+          {% for block in entry.warrantyBlock.type("allItemsCopyBlock") %}
+            <p class="text--small">{{ block.copyBlock }}</p>
+          {% endfor %}
+        </div>
+
+        {% for block in entry.warrantyBlock.type("allItemsWarrantyBlock") %}
+          <dl class="definitionList">
+            <dt class="definitionList__label">
+              {{ block.timeFrame }}
+            </dt>
+            <dd class="definitionList__value definitionList__value--small">
+              {% for row in block.itemsCovered %}
+                <div>{{ row.itemsCovered }}</div>
+              {% endfor %}
+            </dd>
+          </dl>
+        {% endfor %}
+      </div>
+
+      <div class="l--small--12 l--medium--6 columns">
+        <h3>
+          Keiser M Series Cardio Warranty
+        </h3>
+
+        <div class="margin--bottom">
+          {% for block in entry.warrantyBlock.type("mSeriesCopyBlock") %}
+            <p class="text--small">{{ block.copyBlock }}</p>
+          {% endfor %}
+        </div>
+
+        {% for block in entry.warrantyBlock.type("mSeriesWarrantyBlock") %}
+          <dl class="definitionList">
+            <dt class="definitionList__label">
+              {{ block.timeFrame }}
+            </dt>
+            <dd class="definitionList__value definitionList__value--small">
+              {% for row in block.itemsCovered %}
+                <div>{{ row.itemsCovered }}</div>
+              {% endfor %}
+            </dd>
+          </dl>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="titleCard titleCard--red">
+      <h2 class="titleCard__title l--noMargin">
+        Exclusions
+      </h2>
+    </div>
+
+    <div class="row">
+      <div class="l--small--12 l--medium--6 columns">
+        {% for block in entry.warrantyBlock.type("exclusionsBlock") %}
+          <h3>
+            {{ block.exclusionsTitle }}
+          </h3>
+
+          <ul class="text--small">
+            {% for item in block.exclusionsList %}
+              <li class="text--grey">{{ item.exclusionItem }}</li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+
+      <div class="l--small--12 l--medium--6 columns">
+        {% for block in entry.warrantyBlock.type("internationalBlock") %}
+          <h3>
+            {{ block.internationalTitle }}
+          </h3>
+
+          <p class="text--small text--grey">{{ block.internationalCopyBlock }}</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="titleCard titleCard--red">
+      <h2 class="titleCard__title l--noMargin">
+        TERMS &#38; CONDITIONS
+      </h2>
+    </div>
+
+    <div class="row">
+      <div class="twoColumns text--small text--grey">
+        {% for block in entry.twoColumnBlock %}
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.leftColumnBlock }}
+          </div>
+
+          <div class="l--small--12 l--medium--6 columns l--noMargin">
+            {{ block.rightColumnBlock }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {# <div class="background--darkGrey">
+    <div class="container">
+      <div class="row">
+        <div class="l--small--12 l--medium--8 columns l--noMargin">
+          <div class="scale--xLarge">
+            Warranty Parts Request
+          </div>
+        </div>
+        <div class="l--small--12 l--medium--4 columns l--noMargin">
+          <a href="/forms/warrantyPartsRequest" class="button l--noMargin">
+            View Form
+          </a>
+        </div>
+      </div>
+    </div>
+  </div> #}
+</article>
+{% endcache %}

@@ -1,0 +1,87 @@
+$featuredProductCardHeight: 302px;
+
+.featuredProductCard__info {
+  @include respond-to(medium) {
+    height: $featuredProductCardHeight;
+    position: relative;
+  }
+}
+
+.featuredProductCard__info__title {
+  @include respond-to(medium) {
+    position: absolute;
+    top: 21px;
+  }
+}
+
+.featuredProductCard__info__price {
+  @include respond-to(medium) {
+    position: absolute;
+    top: 182px;
+  }
+}
+
+.featuredProductCard__info__salePrice {
+  @include respond-to(medium) {
+    position: absolute;
+    top: 150px;
+  }
+}
+
+.featuredProductCard__info__link {
+  @include respond-to(medium) {
+    position: absolute;
+    top: 240px;
+  }
+}
+
+.featuredProductCard__image {
+  border: 1px solid $black;
+  @include respond-to(medium) {
+    height: $featuredProductCardHeight;
+    white-space: nowrap;
+  }
+}
+
+.featuredProductCard__image__dummySpan {
+  @include respond-to(medium) {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.featuredProductCard__image img {
+  max-height: 240px;
+  @include respond-to(medium) {
+    vertical-align: middle;
+    max-height: $featuredProductCardHeight;
+  }
+}
+
+.productList {
+
+  &__image img {
+    max-height: 320px;
+  }
+
+  &__accessoryImage img {
+    max-height: 130px;
+    @include respond-to(small){
+      max-height: inherit;
+    }
+  }
+
+  &__productTitle {
+    @include respond-to(small){
+      height: 40px;
+    }
+  }
+
+  &__accessoryNameContainer {
+    padding-left: 0;
+    @include respond-to(small){
+      padding-left: $gutter--half;
+    }
+  }
+}

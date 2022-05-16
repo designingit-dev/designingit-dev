@@ -1,0 +1,285 @@
+{# Since we can't preprocess styles, and we need a lot of inline styles in HTML emails,
+lets reduce redundancy by defining some variables #}
+{% set fonts = 'font-family: Roboto, \'Helvetica Neue\',Helmet,Freesans,sans-serif;' %}
+{% set nogaps = 'role=\"presentation\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"' %}
+{% set generictitle = 'New submission from the &ldquo;'~formName~'&rdquo; form on '~siteName %}
+{% set endtable = '<!--[if mso]></td></tr></table><![endif]-->' %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+  <head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width">
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=x-apple-disable-message-reformatting>
+    {# Outlook font fallback (for web fonts). -#}
+    <!--[if mso]>
+      <style>
+        * {
+          font-family: sans-serif !important;
+        }
+      </style>
+    <![endif]-->
+
+    {# All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -#}
+    <!--[if !mso]><!-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    <!--<![endif]-->
+
+    <style>
+      {# Remove spaces around the email design added by some email clients. 
+      Beware: It can remove the padding / margin and add a background color to the compose a reply window. -#}
+      html, body {
+        margin: 0 auto !important;
+        padding: 0 !important;
+        height: 100% !important;
+        width: 100% !important;
+      }
+
+      {# Stop email clients resizing small text -#}
+      * {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      {# Center email on Android 4.4 -#}
+      div[style*="margin: 16px 0"] {
+          margin: 0 !important;
+      }
+
+      {# Use a better rendering method when resizing images in IE. -#}
+      img {
+        -ms-interpolation-mode:bicubic;
+      }
+
+      {# A work-around for email clients meddling in triggered links. -#}
+      *[x-apple-data-detectors], {# iOS #}
+      .x-gmail-data-detectors, {# Gmail #}
+      .x-gmail-data-detectors *,
+      .aBn {
+        border-bottom: 0 !important;
+        cursor: default !important;
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+
+      {# Prevent Gmail from displaying a download button on large, non-linked images. -#}
+      .a6S {
+        display: none !important;
+        opacity: 0.01 !important;
+      }
+
+      {# If the above doesn't work, add a .g-img class to any image in question. -#}
+      img.g-img + div {
+        display: none !important;
+      }
+
+      {# Prevent underlining button link text in Windows 10 -#}
+      .button-link {
+        text-decoration: none !important;
+      }
+
+      {# Remove right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89
+      Create one of these media queries for each additional viewport size you'd like to fix .
+
+      iPhone 4, 4S, 5, 5S, 5C, and 5SE -#}
+      @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+        .email-container {
+          min-width: 320px !important;
+        }
+      }
+      {# iPhone 6, 6S, 7, 8, and X -#}
+      @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+        .email-container {
+          min-width: 375px !important;
+        }
+      }
+      {# iPhone 6+, 7+, and 8+ -#}
+      @media only screen and (min-device-width: 414px) {
+        .email-container {
+          min-width: 414px !important;
+        }
+      }
+
+      {# Hover styles for buttons -#}
+      .button-a {
+        transition: all 100ms ease-in;
+      }
+      .button-a:hover {
+        background: #555555 !important;
+        border-color: #555555 !important;
+      }
+
+    </style>
+
+    {# Make background images in 72ppi Outlook render at correct size. -#}
+    <!--[if gte mso 9]>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:AllowPNG/>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+    {# The title tag shows in email notifications, like Android 4.4. -#}
+    <title>
+      {%- if formName == 'Demo Brochure' -%}
+        Van demo request: {{  attribute(element, 'first_name')  }} {{  attribute(element, 'last_name')  }} 
+        ({{ attribute(element, 'email1') }}) | {{  attribute(element, 'primary_address_postalcode')  }}
+      {%- else -%}
+        {{ generictitle|raw }}
+      {%- endif -%}
+    </title>
+  </head>
+  {# Set email background color in 3 places: <body>; <center> (for webmail); mso conditional for Windows 10 mail -#}
+  <body width="100%" bgcolor="#222222" style="margin: 0; mso-line-height-rule: exactly;">
+    <center style="width: 100%; background: #222222; text-align: left;">
+      <!--[if mso | IE]>
+      <table {{ nogaps|raw }} width="100%" bgcolor="#222222"><tr><td>
+      <![endif]-->
+      {# Preheader text: This will appear in the inbox preview (and Siri will read it), but not the body. -#}
+      {% if formName == 'Demo Brochure' -%}
+      <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; {{ fonts|raw }}">
+          Geolocation: {{ attribute(element, 'description') }}
+      </div>
+      {# Create white space buffer to prevent body content getting into the preheader -#}
+      <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; {{ fonts|raw }}">
+        {% for i in range(1, 40) %}&zwnj;&nbsp;{% endfor %}
+
+      </div>
+      {% endif -%}
+      {# End preheader, begin Full bleed header -#}
+      <table {{ nogaps|raw }} bgcolor="#e0e0e0" align="center" width="100%">
+        <tr>
+          <td valign="top" align="center">
+            <div style="max-width: 680px; margin: auto;" class="email-container">
+              <!--[if mso]>
+              <table {{ nogaps|raw }} width="680" align="center"><tr><td>
+              <![endif]-->
+              <table {{ nogaps|raw }} width="100%">
+                <tr>
+                  <td style="padding: 10px 5px; {{ fonts|raw }} font-size: 15px; line-height: 0; color: #d10a2c;">
+                    <img src="https://www.keiser.com/assets/images/keiser-pdf-logo.png" id="logo" width="170" height="30" alt="{{ siteName }}" border="0" style="height: auto; background: #dddddd; {{ fonts|raw }} font-size: 15px; line-height: 0; color: #d10a2c;">
+                  </td>
+                </tr>
+              </table>
+              {{ endtable|raw }}
+            </div>
+          </td>
+        </tr>
+      </table>
+      {# End header -#}
+
+      {# Set max email width and MSO tags for Outlook -#}
+      <div style="max-width: 680px; margin: auto;" class="email-container">
+        <!--[if mso]>
+        <table {{ nogaps|raw }} width="680" align="center"><tr><td>
+        <![endif]-->
+        {# Email body -#}
+        <table {{ nogaps|raw }} align="center" width="100%" style="max-width: 680px;" class="email-container">
+
+          {# End email body, begin constrained header -#}
+          <tr>
+            <td bgcolor="#282828" valign="middle" style="text-align: center;">
+              <div>
+              <!--[if mso]>
+                <table {{ nogaps|raw }} align="center" width="500"><tr><td align="center" valign="top" width="500">
+              <![endif]-->
+                <table {{ nogaps|raw }} align="center" width="100%" style="max-width:500px; margin: auto;">
+                  <tr>
+                    <td valign="middle" style="padding: 10px; text-align: center; {{ fonts|raw }} font-size: 13px;  color: #999999;">
+                      <p style="margin: 0;"> {{ formName == 'Van Demo Request' ? 'New van demo request' : generictitle|raw }}</p>
+                    </td>
+                  </tr>
+                </table>
+                {{ endtable|raw }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#ffffff">
+              <table {{ nogaps|raw }} width="100%">
+                <tr>
+                  <td style="padding: 40px; {{ fonts|raw }} font-size: 15px; line-height: 140%; color: #555555; text-align: center;">
+                  {% if formName == 'Demo Brochure' -%}
+                    <h1 style="margin: 0; {{ fonts }} font-size: 28px; line-height: 125%; color: #333333; font-weight: normal;">
+                      {{  attribute(element, 'first_name')  }} {{  attribute(element, 'last_name')  }} 
+                      <span style="font-size: 22px;">
+                        (<a href="mailto:{{ attribute(element, 'email1') }}">{{ attribute(element, 'email1') }}</a>)
+                      </span>
+                    </h1>
+                    <h3 style="margin: 5px 0 15px 0; {{ fonts }} font-size: 16px; line-height: 125%; color: #949494; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">Postal code <span style="color: #000000">{{  attribute(element, 'primary_address_postalcode')  }}</span></h3>
+                  {% if attribute(element, 'email_optin_c')|first == 'yes' -%}
+                    <p style="margin: 0 0 20px 0;"><span style="color:#23be23; font-size: 26px; line-height: 0;">✓</span>This user has <strong style="color: #000000; font-weight: 600;">subscribed</strong> to email updates.</p>
+                  {% else -%}
+                    <p style="margin: 0 0 20px 0;"><span style="color:#be2323; font-size: 26px; line-height: 0;">×</span>This user has <strong style="color: #000000; font-weight: 600;">opted out</strong> of email updates.</p>
+                  {% endif -%}
+                    <p style="margin: 0;"><i>The website detected the following location for this request:</i><br> <strong style="color: #000000">{{ attribute(element, 'description') }}</strong></p>
+                  {# anything other than the Van Demo form is generic, for now -#}
+                  {%- else -%}
+                    {# Let's loop through our tabs and fields, rendering the values -#}
+                    {%- for tab in tabs -%}
+                      {%- if tab.name not in ['SEO Meta', 'Hidden'] -%}
+                        {%- if tabs|length > 1 -%}
+                    <h3 style="margin: 5px 0 0 0; {{ fonts }} font-size: 22px; line-height: 125%; color: #333333; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #949494;">{{ tab.name }}</h3>
+                        {% endif -%}
+                        {%- set fields = tab.getFields() -%}
+                        {%- for field in fields -%}
+                          {% set field = field.getField() -%}
+                          {%- set value = attribute(element, field.handle) -%}
+                          {% if value is not empty -%}
+                      <dl style="margin-bottom: 20px;">
+                        <dt style="margin: 0; padding: 0; color: #949494; display:block">{{ field.name|raw }}: </dt>
+                            {% if value is not iterable -%}
+                        <dd style="margin: 0; padding: 0; font-weight: 600; display:block">{{ value }}</dd>
+                            {% else -%}
+                        <dd>
+                          <ul style="margin: 0; padding: 0;">
+                              {% for item in value -%}
+                            <li style="margin: 0; padding: 0;">{{ item }}</li>
+                              {% endfor -%}
+                          </ul>
+                        </dd>
+                            {% endif -%}
+                      </dl>
+                          {% endif -%}
+                        {% endfor %}
+                      {%- endif %}
+                    {%- endfor %}{# End loop #}
+                  {%- endif %}{# End generic form output #}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          {# End email body, begin constrained footer -#}
+          <tr>
+            <td bgcolor="#282828" valign="middle" style="text-align: center;">
+              <div>
+              <!--[if mso]>
+                <table {{ nogaps|raw }} align="center" width="500"><tr><td align="center" valign="top" width="500">
+              <![endif]-->
+                <table {{ nogaps|raw }} align="center" width="100%" style="max-width:500px; margin: auto;">
+                  <tr>
+                    <td valign="middle" style="text-align: center; padding: 20px; {{ fonts|raw }} font-size: 13px; line-height: 140%; color: #999999;">
+                      <p style="margin: 0;">This message was automatically sent from <a href="https://www.keiser.com" style="color: #999999;">Keiser.com</a>.</p>
+                    </td>
+                  </tr>
+                </table>
+                {{ endtable|raw }}
+              </div>
+            </td>
+          </tr>
+          {# End footer -#}
+
+        </table>
+        {# End email body -#}
+        {{ endtable|raw }}
+      </div>
+      {{ endtable|raw }}
+    </center>
+  </body>
+</html>

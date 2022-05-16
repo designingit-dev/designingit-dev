@@ -1,0 +1,227 @@
+// ------------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Full Bleed Image wrapper
+//  - Image Link
+//  - Copy Block with Image
+//  - Full Width Image With Copy
+//
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// !-- Full Bleed Image Wrapper
+// ------------------------------------------------------------------------------
+
+.image--fullBleed {
+  line-height: 0;
+  overflow: hidden;
+  width: 100%;
+  margin: auto;
+}
+
+.image--overlap {
+  max-width: 100%;
+
+  @media #{$breakpoint--screen} and (max-width: 31.1875em) {
+    left: 50%;
+    min-width: 145%;
+    position: relative;
+    transform: translateX(-50%);
+  }
+
+  @media #{$breakpoint--screen} and (min-width: 75em) {
+    max-width: 1200px;
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Image Link
+// ------------------------------------------------------------------------------
+
+.imageLink {
+  $containerHeight: 370px;
+  $wrapperHeight: 250px;
+  $imageHeight: 230px;
+
+  display: flex;
+  flex-direction: column;
+  height: pem($containerHeight);
+  justify-content: flex-end;
+
+  &__imageWrapper {
+    display: flex;
+    height: pem($wrapperHeight);
+  }
+
+  &__image {
+    max-height: pem($imageHeight);
+    margin: auto;
+  }
+}
+
+/*doc
+---
+title: Image Link
+name: 01-Image-Link
+category: Components - Images
+---
+
+``` html_example
+<div class="imageLink">
+  <div class="imageLink__imageWrapper">
+    <img src="http://placehold.it/300x300">
+  </div>
+  <div class="imageLink__copy">
+    <h2>Title</h2>
+    <a href="" class="button">Link</a>
+  </div>
+</div>
+
+```
+*/
+
+// ------------------------------------------------------------------------------
+// !-- Copy Block with Image
+// ------------------------------------------------------------------------------
+
+.imageCopyBlock {
+  $marginBottom: $verticalRhythm--narrow / 2;
+
+  margin-top: $verticalRhythm;
+
+  &__header {
+    margin-bottom: pem($marginBottom);
+  }
+
+  &__copy {
+    margin-top: $verticalRhythm--narrow;
+  }
+}
+
+
+/*doc
+---
+title: Copy Block with Image
+name: 02-CopyBlockWithImage
+category: Components - Images
+---
+
+``` html_example
+
+<div class="imageCopyBlock">
+  <div class="row">
+    <div class="l--small--4 l--medium--3 columns">
+      <img class="imageCopyBlock__image" src="http://placehold.it/300x400">
+    </div>
+
+    <div class="l--small--8 l--medium--9 columns">
+
+      <div class="imageCopyBlock__copyBlock">
+
+        <h2 class="imageCopyBlock__header">Trainer Name</h2>
+        <h4 class="imageCopyBlock__header">Hometown: NEW YORK, NEW YORK</h4>
+        <h4 class="imageCopyBlock__header">Trainer Title - Keiser Performance & Strength Trainer</h4>
+
+        <p class="imageCopyBlock__copy">
+          Trainer Bio - With Keiser since 1998, Paco has presented Keiser indoor cycling programs and trainings in over 20 countries, as well as at most major conventions throughout the world, including IDEA, IHRSA, Club Industry, Can Fit Pro, FIBO and Asia Fit. He also serves as Keiser’s International Director of Education Programs. Outside of training, he’s a Triathlon Level 3 coach, amateur cyclist and long-distance runner.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+*/
+
+
+// ------------------------------------------------------------------------------
+// !-- Full Width Image with Copy
+// ------------------------------------------------------------------------------
+
+.fullImageWithCopy {
+  &__image {
+    width: 100%;
+    margin-bottom: $verticalRhythm;
+  }
+
+  &__copy {
+    margin-bottom: $verticalRhythm;
+  }
+}
+
+/*doc
+---
+title: Copy Block with Full Width Image
+name: 03-CopyBlockWithFullImage
+category: Components - Images
+---
+
+``` html_example
+<div class="fullImageWithCopy">
+  <img class="fullImageWithCopy__image" src="http://placehold.it/500x300">
+
+  <div class="titleBlock">
+    <h3 class="titleBlock__title">
+      Small Title
+    </h3>
+    <h1 class="titleBlock__subTitle">
+      Large Title
+    </h1>
+
+    <div class="fullImageWithCopy__copy">
+      Body Copy - Suspendisse in massa mauris. Pellentesque laoreet pulvinar interdum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam non nulla volutpat, interdum sem sed, posuere ex. Vivamus in nibh lorem.
+    </div>
+  </div>
+
+</div>
+```
+
+*/
+
+// ------------------------------------------------------------------------------
+// !-- Image Video Preview
+// ------------------------------------------------------------------------------
+
+.imageVideo {
+  position: relative;
+  display: inline-block;
+}
+
+.imageVideo__buttonOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: .8;
+  background-image: url("/assets/images/youtube-color.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 3em;
+
+  &.button--image--large {
+    background-size: 4em;
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+}
+
+/*doc
+---
+title: Image Video Preview
+name: image-video-preview
+category: Components - Images
+---
+
+``` html_example
+<div class="imageVideo">
+  <div class="imageVideo__image">
+    <img src="http://placehold.it/280x150">
+  </div>
+  <div class="imageVideo__buttonOverlay"></div>
+</div>
+```
+
+*/

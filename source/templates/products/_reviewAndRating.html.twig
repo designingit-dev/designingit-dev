@@ -1,0 +1,47 @@
+{% set review = craft.sproutForms.entries.formHandle('productReview').productSlug(product.slug).moderationStatus('published').rating(5).isVerifiedPurchase(true).orderBy('sproutforms_entries.dateCreated desc').one() %}
+{% if review %}
+<div class="background--darkGrey">
+  <div class="container container--tight mppReview">
+    <div class="row">
+
+      <div class="l--medium--6 margin--bottom--none mppReview__aggregateRating">
+        <div class="dividedBlock__left">
+          <h2 class="text--red text--xXLarge">&ldquo;{{ review.reviewHeadline }}&rdquo;</h2>
+          {% set avgRating = 0 %}
+          {% for review in productReviews %}
+            {% set avgRating = avgRating + review.rating %}
+          {% endfor %}
+          {% set avgRating = avgRating / productReviews.count() %}
+          <span class="text--red mppReview__aggregateRating__rating">{{ avgRating | round(2, 'ceil') }}</span><span class="mppReview__aggregateRating__label">Average rating</span>
+          <span class="is--hidden">5</span>
+          <span class="is--hidden">{{ productReviews.count() }}</span>
+          <div class="mppReview__aggregateRating__stars">
+            {{ craft.keiserCommerceHelpers.getRatingStarsHtml(avgRating) | raw  }}
+          </div>
+          <p class="margin--bottom--none">{{ productReviews.count() }} Reviews</p>
+        </div>
+      </div>
+
+        <div class="l--medium--6 margin--bottom--none mppReview__latestReview">
+          <div class="dividedBlock__right">
+            <div>
+              <p class="margin--bottom--none mppReview__latestReview__label">Verified Purchase</p>
+              <div class="mppReview__latestReview__stars">
+                {{ craft.keiserCommerceHelpers.getRatingStarsHtml(review.rating) | raw }}
+              </div>
+              <span class="text--large">{{ craft.keiserContactHelpers.shortenFullName(review.nickname)}}</span>
+              {% if review.city is not empty and review.state is not empty %}
+                <span class="text--large">, {{ review.city | ucwords }}, {{ review.state }}</span>
+              {% endif %}
+              <div class="margin--bottom--half mppReview__latestReview__review" content="{{ review.comments }}">
+                {{ craft.keiserCommerceHelpers.wordlimit(review.comments, 150, '', false) | raw }}
+              </div>
+              <a href="{{ product.url }}/reviews">Read More Reviews</a>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+{% endif %}

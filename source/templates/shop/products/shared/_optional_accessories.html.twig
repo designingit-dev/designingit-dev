@@ -1,0 +1,23 @@
+{% if suggestedAccessoryAvailable %}
+  <div class="background--white">
+    <div class="container container--tight" id="suggestedAccessoriesContainer">
+      <div class="row margin--top--half">
+        <div class="l--medium--12 columns">
+          <h2 class="text--sansSerif--black text--xLarge">Suggested accessories</h2>
+          <hr class="background--lightGrey pageDivider--narrow">
+        </div>
+        <div class="l--medium--12 columns">
+        {% for accessory in entry.partsAndAccessoriesOptional %}
+          {% set product = accessory.sellableAccessory.one() %}
+          {% if product and accessory.displayAsSuggestedAccessory %}
+            {% include 'shop/products/shared/_optional_accessory' with {
+              'product': product
+            } %}
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="background--red pageDivider">
+{% endif %}

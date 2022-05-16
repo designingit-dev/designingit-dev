@@ -1,0 +1,34 @@
+// -----------------------------------------------------------------------------
+// !-- Logo
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Logo
+name: logo
+category: Components - Logo
+---
+
+The logo is designed to respond to the width of it's container.
+
+```html_example
+<div itemscope itemtype="http://schema.org/Organization" class="logo">
+  <a href="http://keiser.com" itemprop="url" class="logo__link">
+    <img src="/assets/images/keiser-logo.svg" itemprop="logo" alt="Keiser" class="logo__image">
+  </a>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.logo {
+  line-height: 0;
+
+  &__link:hover,
+  &__link:focus {
+    opacity: .9;
+  }
+
+  &__image {
+    width: 100%;
+  }
+}

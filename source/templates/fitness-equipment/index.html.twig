@@ -1,0 +1,29 @@
+{% set entry = craft.entries.section('fitnessEquipment').first() %}
+{% extends "_layout" %}
+
+{% block content %}
+  {% cache %}
+  <div class="background--black">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--small--12 l--medium--6 columns l--mobileMargin">
+          <div class="padding--top">
+            <h1>{{ entry.title }}</h1>
+            <p>{{ entry.body }}</p>
+            <button class="commercialSalesModal" v-on:click="[openCommercialSalesSimplifiedModal(),trackFormAnchor('Get a Commercial Quote', 'getACommercialQuoteFitnessEquipmentIndex')]">Get A Commercial Quote</button>
+          </div>
+        </div>
+
+        <div class="l--small--12 l--medium--6 columns l--noMargin">
+          <div class="image--fullBleed">
+            {% set entryImage = entry.image.one %}
+            {% include 'shared/_srcset_image.html' with {'image': entryImage, 'default_size': 'large' } %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endcache %}
+
+  {% include 'shared/_productsLineHighlight' with {'entry': entry} %}
+{% endblock %}

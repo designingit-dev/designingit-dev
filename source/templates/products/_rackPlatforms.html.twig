@@ -1,0 +1,36 @@
+<div class="container">
+
+{% set rackPlatformsDescription = craft.entries.slug('rack-platforms-description').one() %}
+{% if rackPlatformsDescription %}
+  <div class="row">
+    <div class="l--medium--12 columns margin--bottom--none">
+      <h3 class="titleBlock__title">{{ rackPlatformsDescription.title }}</h3>
+      <h2 class="titleBlock__subTitle">{{ rackPlatformsDescription.altTitle }}</h2>
+      <div class="text--grey">{{ rackPlatformsDescription.body | parseRefs | raw }}</div>
+    </div>
+  </div>
+{% endif %}
+
+  <div class="row">
+    <div class="l-small--12 columns margin--bottom--half">
+      <h3 class="margin--bottom--none">Compatible with this rack</h3>
+    </div>
+    {% for rackPlatform in rackPlatforms %}
+      <div class="l--extraSmall--12 l--small--6 columns">
+        <div>
+          <img class="rackPlatforms__image" src="{{ rackPlatform.image.one.url('small') }}">
+        </div>
+        <div>
+          <div><strong>{{ rackPlatform.title }}</strong></div>
+          <div><strong>{{ rackPlatform.productModelNumber }}</strong></div>
+          <div class="text--grey">
+          {% for specification in rackPlatform.technicalSpecifications %}
+            <p class="margin--bottom--none">{{ specification.label }}: {{ specification.description }}</p>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>

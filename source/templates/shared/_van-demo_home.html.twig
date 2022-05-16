@@ -1,0 +1,11 @@
+{% set vanDemoEntry = craft.entries.section('sharedContentBlocks').slug('demo-van-7-machines-in-60-minutes').one() %}
+{% if vanDemoEntry %}
+  {% include 'shared/content-block/layout/_customCSS' with {
+    'blocks': vanDemoEntry.contentBlocks
+  } %}
+  {% for block in vanDemoEntry.contentBlocks.level(1) %}
+    {% include 'shared/content-block/_content-block' with {
+      'block': block
+    } %}
+  {% endfor %}
+{% endif %}

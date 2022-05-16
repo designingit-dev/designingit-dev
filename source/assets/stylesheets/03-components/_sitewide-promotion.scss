@@ -1,0 +1,40 @@
+$siteWidePromoHeight: 64px;
+$marginForConstrainedDiv: calc( (100% - 960px)/ 2 );
+$siteWidePromoCol2Height: calc(100% - (100% - 960px)/2 - (100%/12));
+
+#siteWidePromotion p {
+  margin-bottom: 0px;
+  line-height: 1em;
+}
+
+#siteWidePromotion p sup {
+  font-size: 0.6em;
+}
+
+#siteWidePromoCol1 {
+  align-self: flex-end;
+  height: $siteWidePromoHeight;
+  flex-grow: 0;
+  padding-right: $gutter--half;
+  padding-left: $gutter--half;
+}
+
+#siteWidePromoCol2 {
+  align-self: center;
+  height: $siteWidePromoHeight;
+  background: $keiser--red;
+  flex-grow: 1;
+}
+
+#siteWidePromoFullWidthCol {
+  width: 100%;
+  height: $siteWidePromoHeight;
+}
+
+#siteWidePromotion a {
+  color: $keiser--white;
+}
+
+#siteWidePromoCol1 .titleBlock__subTitle__single {
+  margin-top: 8px;
+}

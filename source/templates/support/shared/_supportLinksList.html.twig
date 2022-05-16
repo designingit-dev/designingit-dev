@@ -1,0 +1,54 @@
+<div class="background--lightGrey">
+  <div class="constrain">
+    <div class="row">
+      <div class="l--medium--12 columns">
+        <h3 class="text--grey text--bold text--larger margin--top margin--bottom--narrow">DOWNLOADS AND LINKS</h3>
+        <h2 class="text--xLarger text--bold">Support manuals, guides & software</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% set linkTypes = {'_all' : 'all'} %}
+{% for link in links %}
+  {% set linkTypes = linkTypes | merge({('_' ~ link.supportLinkType):(link.supportLinkType)}) %}
+{% endfor %}
+<div class="background--black">
+  <div class="constrain">
+    <div class="row">
+      <div class="l--medium--12 columns margin--bottom--none">
+        <ul class="list--inline">
+          {% for type in linkTypes | keys %}
+            {% set type =  type | slice(1) %}
+            <li class="supportLinksList__type text--large margin--bottom--none {{ loop.first ? 'active' : '' }}" data-type="{{ type }}">{{ type | upper }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="constrain">
+  <div class="row" id="supportLinksList__container">
+    {% for link in links %}
+      <a href="{{ link.linkURL|parseRefs|raw }}" target="{{ link.isExternalLink ? '_blank' : '' }}">
+        <div class="l--extraSmall--12 l--small--12 l--medium--4 columns supportLinksList__link" data-type="{{ link.supportLinkType }}">
+          <div class="l--extraSmall--3 columns margin--bottom--none supportLinksList__link__imageContainer">
+            {% if link.linkIcon.one is not empty %}
+              {% set linkIcon = link.linkIcon.one.url %}
+            {% else %}
+              {% set linkIcon = '/assets/images/support/support-link-type-' ~ link.supportLinkType ~ '-icon.png'  %}
+            {% endif %}
+            <img src="{{ linkIcon }}" class="supportLinksList__link__image" />
+            {% if link.isExternalLink %}
+              <img class="supportLinksList__link__external" src="/assets/images/support/external-support-link-icon.png" />
+            {% endif %}
+          </div>
+          <div class="l--extraSmall--9 columns margin--bottom--none background--black textLeft supportLinksList__link__label">
+            <span>{{ link.title }}</span>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>

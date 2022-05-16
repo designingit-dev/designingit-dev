@@ -1,0 +1,65 @@
+<vue-modal :active-modal="activeModal" name="{{ market }}marketSpecificBenefits__modal" class="contactUs__modal marketSpecificBenefits__modal" v-cloak id="marketSpecificBenefits__modal">
+    <div slot="header">
+        <div class="container container--noPad">
+            <div class="row">
+                <div class="l--extraSmall--2 l--extraSmall--offset--10 columns text--alignRight margin--bottom--half">
+                    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('{{ market }}marketSpecificBenefits__modal')">
+                        <img src="/assets/images/modal-close-button.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div slot="body">
+        <div class="container container--noPad">
+
+            <div class="row">
+                <div class="l--extraSmall--12 columns">
+                    <h3 class="leasingOptions__modal__title margin--bottom--narrow">{{ modalTitle|raw }}</h3>
+                    <p class="text--sansSerif--black marketSpecificBenefits__modal__subtitle margin--bottom--none">{{ modalSubtitle }}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="is--hidden is--visible--small l--small--4 columns text--alignCenter">
+                    <img src="{{ productImage.getUrl() }}">
+                </div>
+
+                <div class="l--small--8 columns">
+                    {% for collapsibleFeature in collapsibleBenefits %}
+                        <div class="faq">
+                            <div class="faq__iconWrapper">
+                                <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+                            </div>
+                            <div class="faq__content">
+                                <div class="faq__question">
+                                    {{ collapsibleFeature.title }}
+                                </div>
+                                <div class="faq__answer" aria-hidden="true">
+                                    {% set productNameNormalised = entry.title|title %}
+                                    {{ collapsibleFeature.supportFAQAnswer|replace({'%productTitle%': productNameNormalised})|parseRefs|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}    
+                </div>
+            </div>
+
+            {% set demoVanBannerEntry = entry.strengthMppDemoVanBanner.one() %}
+            {% if demoVanBannerEntry %}
+                {% include 'shared/content-block/layout/_customCSS' with {
+                    'blocks': demoVanBannerEntry.contentBlocks
+                } %}
+                <div class="margin--top">
+                    {% for block in demoVanBannerEntry.contentBlocks.level(1) %}
+                        {% include 'shared/content-block/_content-block' with {
+                            'block': block
+                        } %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <div slot="footer"></div>
+</vue-modal>

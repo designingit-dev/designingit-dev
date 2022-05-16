@@ -1,0 +1,47 @@
+<article>
+
+  {% include "about/_about-careers-header-block.html" %}
+
+  <div class="container">
+    <div class="titleBlock">
+      <h1 class="titleBlock__subTitle">Current positions available</h1>
+    </div>
+
+    {% set jobs = craft.entries.section('jobs') %}
+    {% set form = craft.sproutForms.form('generalApplication') %}
+    {% set formFields = craft.sproutForms.displayTab(form, (form.getFieldLayout().getTabs()|first).id) %}
+
+    {% if jobs|length > 0 %}
+      {% include "about/_jobs-list" with { 'jobs' : jobs } %}
+    {% else %}
+    <div class="row">
+      <div class="l--small--12 columns">
+        <p>Please check back in the future for job positions at Keiser Corporation. If you’d like to send us your resume and cover letter, please use the form below.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="l--small--12 columns">
+        <div class="titleBlock">
+          <h2>General Application Submissions</h2>
+        </div>
+
+        {% include "shared/_job-form" with { 'form': form, 'formFields': formFields, 'jobTitle': "General Application" } %}
+
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+</article>
+
+<vue-modal :active-modal="activeModal" name="job">
+  <div slot="body">
+    <div class="titleBlock">
+      <h2><span v-html="productTitle"></span> Application</h2>
+    </div>
+
+    {% include "shared/_job-form.html" with { 'form': form, 'formFields': formFields } %}
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>

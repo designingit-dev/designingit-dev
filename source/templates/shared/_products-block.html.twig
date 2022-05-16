@@ -1,0 +1,38 @@
+{% for block in entry.productsSection.type("productsCopyBlock") %}
+  <div class="titleBlock">
+    <div class="titleBlock__title scale--large">{{ block.headerOne }}</div>
+    <div class="titleBlock__subTitle scale--xXLarge">{{ block.headerTwo }}</div>
+  </div>
+  <p class="margin--bottom">{{ block.productsCopy }}</p>
+{% endfor %}
+
+<div class="row">
+  {% for block in entry.productsSection.type("equipmentLink") %}
+    <div class="l--small--6 l--medium--4 columns l--centered">
+      <div class="imageLink">
+        {% switch block.equipmentCategory.one.title %}
+        {% case 'KEISER STRENGTH' %}
+          {% set url = '/fitness-equipment/strength-training' %}
+        {% case 'KEISER CARDIO' %}
+          {% set url = '/fitness-equipment/cardio-training' %}
+        {% case 'FUNCTIONAL TRAINING' %}
+          {% set url = '/fitness-equipment/functional-training' %}
+        {% default %}
+          {% set url = block.equipmentCategory.one.url %}
+        {% endswitch %}
+        <a href="{{ url }}" class="imageLink__imageWrapper">
+          {% set productImage = block.equipmentImage.one %}
+          {% if productImage %}
+            <img src="{{ productImage.getURL("medium") }}" class="imageLink__image">
+          {% else %}
+            <img src="{{ about.imageUnavailable.one.getURL("medium") }}" class="imageLink__image">
+          {% endif %}
+        </a>
+        <div class="imageLink__copy">
+          <h2 class="l--noMargin">{{ block.categoryTitle }}</h2>
+          <a href="{{ url }}" class="button">{{ block.linkText }}</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

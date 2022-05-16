@@ -1,0 +1,118 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Max Site Width
+//  - Gutters
+//  - Vertical Rhythm
+//  - Border Widths
+//  - Radius
+//  - Letter Spacing
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// !-- Max Site Width
+// -----------------------------------------------------------------------------
+
+$site--maxWidth: 1200px;
+$site--usableMaxWidth: 1170px;
+
+// -----------------------------------------------------------------------------
+// !-- Gutters
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Gutters
+name: 00-gutters
+category: Variables - Measurements
+---
+Gutters are the space between the edge of elements on a page (2 columns, a
+header and content area, two stacked articles, etc.).
+<figure class="sg--measurement" style="width: 30px;">
+  <figcaption><strong>$gutter:</strong> 30px</figcaption>
+</figure>
+<figure class="sg--measurement" style="width: 15px;">
+  <figcaption><strong>$gutter--half:</strong> 15px</figcaption>
+</figure>
+<figure class="sg--measurement" style="width: 10px;">
+  <figcaption><strong>$gutter--narrow:</strong> 10px</figcaption>
+</figure>
+*/
+// -----------------------------------------------------------------------------
+
+$gutter: 30px;
+$gutter--half: $gutter / 2;
+$gutter--narrow: 10px;
+$gutter--narrow12: 12px;
+$gutter--veryNarrow: 5px;
+
+// -----------------------------------------------------------------------------
+// !-- Vertical Rhythm
+// -----------------------------------------------------------------------------
+
+$verticalRhythm: $gutter;
+$verticalRhythm--half: $gutter--half;
+$verticalRhythm--narrow: $gutter--narrow;
+$verticalRhythm--veryNarrow: $gutter--veryNarrow;
+
+// -----------------------------------------------------------------------------
+// !-- Border Widths
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Border Widths
+name: border-widths
+category: Variables - Measurements
+---
+The following rule widths should be used for any borders throughout the
+application.
+<figure class="sg--borderThickness">
+  <hr class="" style="width: 100%; border: 0; height: 8px"/>
+  <figcaption class="sg--borderThicknessVariable">$borderWidth--fat</figcaption>
+</figure>
+<figure class="sg--borderThickness">
+  <hr class="" style="width: 100%; border: 0; height: 4px"/>
+  <figcaption class="sg--borderThicknessVariable">$borderWidth--thick</figcaption>
+</figure>
+<figure class="sg--borderThickness">
+  <hr class="" style="width: 100%; border: 0; height: 2px"/>
+  <figcaption class="sg--borderThicknessVariable">$borderWidth--medium</figcaption>
+</figure>
+<figure class="sg--borderThickness">
+  <hr class="" style="width: 100%; border: 0; height: 1px"/>
+  <figcaption class="sg--borderThicknessVariable">$borderWidth--thin</figcaption>
+</figure>
+*/
+// -----------------------------------------------------------------------------
+
+$borderWidth--thin: 1px;
+$borderWidth--medium: 2px;
+$borderWidth--thick: 4px;
+$borderWidth--fat: 8px;
+
+// -----------------------------------------------------------------------------
+// !-- Radius
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Radius
+name: radius
+category: Variables - Measurements
+---
+<figure class="sg--radius" style="border-radius: 50%">
+  <figcaption class="sg--radiusVariable">$radius--circle (50%)</figcaption>
+</figure>
+*/
+// -----------------------------------------------------------------------------
+
+$radius: 3px;
+$radius--circle: 50%;
+
+// -----------------------------------------------------------------------------
+// !-- Letter Spacing
+// -----------------------------------------------------------------------------
+
+$letterSpacing--tight: -2px;
+
+$button--maxWidth: 400px;
+
+$modal--maxWidth: 960px;

@@ -1,0 +1,140 @@
+// -----------------------------------------------------------------------------
+// !-- Breadcrumb Styling
+//
+// -----------------------------------------------------------------------------
+
+
+/*doc
+---
+title: Breadcrumb
+name: breadcrumb
+category: Components - Breadcrumb
+---
+
+Navigational Breadcrumb styling.
+
+You can have anything inside the `<li>` of a breadcrumb, as long as it is an inline element
+(links, `<span>`s, or anything set to `display: inline` or `inline-block`).
+
+``` html_example
+
+<ul class="breadcrumb">
+  <li class="active breadcrumb__item">
+    <a href="#">Email</a>
+  </li>
+
+  <li class="breadcrumb__item">
+    <a href="#">Address</a>
+  </li>
+
+  <li class="breadcrumb__item">
+    <span>Shipping</span>
+  </li>
+
+  <li class="breadcrumb__item">
+    <span>Review and Pay</span>
+  </li>
+</ul>
+
+```
+
+/*doc
+---
+title: Breadcrumb with Steps
+name: breadcrumb-with-steps
+category: Components - Breadcrumb
+---
+
+For the checkout flow, we include step indicators to make the checkout steps more prominent.
+To do this, add `breadcrumb__step` element inside the `breadcrumb`.
+
+``` html_example
+
+<ul class="breadcrumb">
+  <li class="active breadcrumb__item">
+    <div class="breadcrumb__step">Step 1:</div>
+    <a href="#">Email</a>
+  </li>
+
+  <li class="breadcrumb__item">
+    <div class="breadcrumb__step">Step 2:</div>
+    <a href="#">Address</a>
+  </li>
+
+  <li class="breadcrumb__item">
+    <div class="breadcrumb__step">Step 3:</div>
+    <span>Shipping</span>
+  </li>
+
+  <li class="breadcrumb__item">
+    <div class="breadcrumb__step">Step 4:</div>
+    <span>Review and Pay</span>
+  </li>
+</ul>
+
+```
+*/
+
+// -----------------------------------------------------------------------------
+
+.breadcrumb {
+  font-size: map-get($fontSizes, small);
+  margin-bottom: $gutter;
+
+  @include respond-to(small) {
+    text-align: center;
+  }
+
+  @include respond-to(medium) {
+    font-size: map-get($fontSizes, base);
+  }
+}
+
+.breadcrumb__item {
+  display: block;
+  margin-bottom: $gutter--narrow * 2;
+
+  @include respond-to(small) {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: $gutter * 2;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &.active {
+    a {
+      padding-bottom: $gutter--narrow / 2;
+      border-bottom: $borderWidth--medium solid $grey--light;
+    }
+  }
+}
+
+.breadcrumb__step {
+  font-size: map-get($fontSizes, small);
+  display: inline-block;
+  margin-right: $gutter--narrow;
+  color: $grey--medium;
+
+  @include respond-to(small) {
+    display: block;
+    margin-right: 0;
+    margin-bottom: $gutter--narrow / 2;
+  }
+}
+
+.navigation-breadcrumb,.navigation-breadcrumb a {
+  color: $keiser--black;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18.95px;
+  padding-top: $verticalRhythm;
+  margin-bottom: $verticalRhythm--half;
+}
+
+.navigation-breadcrumb a {
+  text-decoration: underline;
+}

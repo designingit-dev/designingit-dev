@@ -1,0 +1,33 @@
+<div class="background--lightGrey">
+  <div class="container container--tight-alt" id="standardAccessoriesContainer">
+    <div class="row margin--top--half">
+      <div class="l--medium--12 columns">
+        <h2 class="text--sansSerif--black text--xLarge">Included with every order</h2>
+        <hr class="background--lightGrey pageDivider--narrow">
+      </div>
+    </div>
+      {% for accessory in accessories %}
+        {% if loop.index0 % 2 == 0 and not loop.first %}
+          </div> <!-- Close row -->
+        {% endif %}
+        {% if loop.index0 % 2 == 0 %}
+          <div class="row">
+        {% endif %}
+          <div class="l--medium--6 columns standardAccessory margin--bottom">
+            <div class="row">
+              <div class="l--medium--12 columns is--hidden--medium margin--bottom--none">
+                <p class="text--large text--bold margin--bottom--half  standardAccessory__text__title">{{ accessory.title }}</p>
+              </div>
+              <div class="l--medium--4 columns standardAccessory__image margin--bottom--half">
+                <img class="lazyload" data-src="{{ accessory.image.one.getUrl('xxsmall') }}" />
+              </div>
+              <div class="l--medium--8 columns margin--bottom--half standardAccessory__text">
+                <p class="text--large text--bold margin--bottom--half is--hidden is--visible--medium standardAccessory__text__title">{{ accessory.title }}</p>
+                <div class="standardAccessory__text__description">{{ accessory.body }}</div>
+              </div>
+            </div>
+          </div>
+      {% endfor %}
+      </div>
+    </div>
+</div> <!-- Close background--lightGrey -->

@@ -1,0 +1,9 @@
+.rackPlatforms {
+
+  @include respond-to(medium){
+    &__image {
+      max-width: 350px;
+    }
+  }
+
+}

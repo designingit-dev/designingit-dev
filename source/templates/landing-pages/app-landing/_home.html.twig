@@ -1,0 +1,115 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+  {% if entry.appLandingHeaderWithScreenshot is not empty %}
+    {% set block = entry.appLandingHeaderWithScreenshot.one() %}
+    <div class="background--darkGrey">
+      <div class="container container--noPadBottom">
+        <div class="row">
+          <div class="l--medium--12 columns appLanding__headerWithScreenshot__title">
+            {{ block.screenshotTitle }}
+          </div>
+        </div>
+        <hr class="pageDivider--narrow--alt background--mediumGrey is--hidden--medium">
+        <div class="row">
+          <div class="l--extraSmall--12 columns is--hidden--medium appLanding__headerWithScreenshot__description">
+            {{ block.description }}
+          </div>
+          <div class="l--medium--7 columns text--alignCenter margin--bottom--none is--hidden is--visible--medium">
+            <img src="{{ block.screenshot.one.url }}">
+          </div>
+          <div class="l--medium--5 columns appLanding__headerWithScreenshot__description">
+            <div class="is--hidden is--visible--medium">
+              {{ block.description }}
+            </div>
+            <div class="row">
+              <div class="l--extraSmall--3 columns">
+                <img src="/assets/images/app-landing/keiser-m-series-app-icon-new.png" class="appLanding__headerWithScreenshot__appIconImage">
+                <div class="text--xSmall text--alignCenter appLanding__headerWithScreenshot__appIconLabel">
+                  M Series
+                </div>
+              </div>
+              <div class="l--extraSmall--3 columns">
+                <img src="/assets/images/app-landing/keiser-m-series-group-icon-new.png" class="appLanding__headerWithScreenshot__appIconImage">
+                <div class="text--xSmall text--alignCenter appLanding__headerWithScreenshot__appIconLabel">
+                  M Series Group
+                </div>
+              </div>
+              <div class="l--extraSmall--3 columns">
+                <img src="/assets/images/app-landing/keiser-m-series-instructor-icon-new.png" class="appLanding__headerWithScreenshot__appIconImage">
+                <div class="text--xSmall text--alignCenter appLanding__headerWithScreenshot__appIconLabel">
+                  M Series Instructor
+                </div>
+              </div>
+              <div class="l--extraSmall--3 columns"></div>
+            </div>
+            <div class="appLanding__headerWithScreenshot__getStarted">
+              <a data-scroll="" href="#appLanding__linkBlock__1" class="text--red margin--bottom--none"><strong>GET STARTED BELOW</strong></a>
+              <a href="#appLanding__linkBlock__1" data-scroll=""><div class="appLanding__headerWithScreenshot__downCaret"></div></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingAppLinkBlock is not empty %}
+    <div class="background--white">
+      {% for block in entry.appLandingAppLinkBlock %}
+        <div class="container appLanding__linkBlock" id="appLanding__linkBlock__{{ loop.index }}">
+          <div class="row">
+            <div class="l--medium--1 columns is--hidden is--visible--medium"></div>
+            <div class="l--extraSmall--3 l--medium--2 columns margin--bottom--none">
+              <img src="{{ block.icon.one.url }}">
+            </div>
+            <div class="l--extraSmall--9 l--medium--9 columns margin--bottom--none">
+              {{ block.blockContent }}
+              <a class="button" href="{{ block.ctaLink }}">{{ block.ctaTitle }}</a>
+            </div>
+          </div>
+        </div>
+        <hr class="background--red pageDivider pageDivider--narrow">
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if entry.appLandingIconReel is not empty %}
+    {% for iconReel in entry.appLandingIconReel %}
+      <div class="background--darkGrey">
+        <div class="container">
+          <div class="row">
+            <div class="l--medium--12 columns">
+              {{ iconReel.blockContent }}
+            </div>
+            {% for icon in iconReel.icons %}
+              <div class="l--extraSmall--6 l--medium--3 columns text--alignCenter appLanding__iconReel">
+                <span class="appLanding__iconReel__helper"></span><img src="{{ icon.url }}">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <hr class="background--red pageDivider pageDivider--narrow">
+    {% endfor %}
+  {% endif %}
+
+  {% if entry.appLandingModalCta is not empty %}
+    {% set contactModalCTA = entry.appLandingModalCta.one() %}
+    <div class="background--darkGrey">
+      <div class="container">
+        <div class="row">
+          <div class="l--medium--6 columns margin--bottom--none">
+            <h2 class="appLanding__modalCTA__description">{{ contactModalCTA.description }}</h2>
+          </div>
+          <div class="l--medium--1 columns"></div>
+          <div class="l--medium--5 columns margin--bottom--none">
+            <button class="commercialSalesModal text--alignLeft text--larger appLanding__modalCTA__cta" v-on:click="openModal('{{ contactModalCTA.modalName }}')" class="button">{{ contactModalCTA.ctaTitle }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include contactModalCTA.modalTemplatePath %}
+  {% endif %}
+
+{% endblock %}

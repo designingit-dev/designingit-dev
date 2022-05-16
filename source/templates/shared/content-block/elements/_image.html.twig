@@ -1,0 +1,29 @@
+{% set lazyload = false %}
+{% if contentElement.contentBlockLazyLoad is defined and contentElement.contentBlockLazyLoad %}
+  {% set lazyload = true %}
+{% endif %}
+
+{% set image = contentElement.image.one %}
+{% if contentElement.contentBlockEntrySpecificImageOverrideFieldName is defined and contentElement.contentBlockEntrySpecificImageOverrideFieldName is not empty %}
+  {% if attribute(entry,contentElement.contentBlockEntrySpecificImageOverrideFieldName) is defined and attribute(entry,contentElement.contentBlockEntrySpecificImageOverrideFieldName) is not empty %}
+    {% set image = attribute(entry,contentElement.contentBlockEntrySpecificImageOverrideFieldName).one %}
+  {% endif %}
+{% endif %}
+
+<div class="{{ craft.keiserCommerceHelpers.getCustomCSSClasses(contentElement)|join(' ') }}" id="{{ contentElement.contentBlockID ? contentElement.contentBlockID : 'div'~contentElement.id }}">
+  {% if contentElement.contentBlockImageAnchorUrl is defined and contentElement.contentBlockImageAnchorUrl is not empty %}
+    <a href="{{ contentElement.contentBlockImageAnchorUrl }}" target="{{ contentElement.contentBlockImageAnchorUrlOpenLocation }}">
+  {% endif %}
+  {% if contentElement.contentBlockAllowImageTransformations is not defined or not contentElement.contentBlockAllowImageTransformations %}
+    {% if lazyload %}
+      <img data-src="{{ image.url }}" class="lazyload">
+    {% else %}
+      <img src="{{ image.url }}">
+    {% endif %}
+  {% else %}
+    {% include 'shared/_srcset_image.html' with {'image': image, 'default_size': 'large','lazyload': lazyload } %}
+  {% endif %}
+  {% if contentElement.contentBlockImageAnchorUrl is defined and contentElement.contentBlockImageAnchorUrl is not empty %}
+    </a>
+  {% endif %}
+</div>

@@ -1,0 +1,60 @@
+{% if commerce.freeTShirtMensSmallSize or commerce.freeTShirtMensMediumSize or
+  commerce.freeTShirtMensLargeSize or commerce.freeTShirtMensExtraLargeSize or
+  commerce.freeTShirtMensDoubleExtraLargeSize or commerce.freeTShirtWomensExtraSmallSize or
+  commerce.freeTShirtWomensSmallSize or commerce.freeTShirtWomensMediumSize or
+  commerce.freeTShirtWomensLargeSize or commerce.freeTShirtWomensExtraLargeSize %}
+  <script type="text/javascript">
+    tShirtSizeAvailability = {
+      'mens': {},
+      'womens': {}
+    };
+    {% set mensTShirtSizes = {
+      's': commerce.freeTShirtMensSmallSize,
+      'm': commerce.freeTShirtMensMediumSize,
+      'l': commerce.freeTShirtMensLargeSize,
+      'xl': commerce.freeTShirtMensExtraLargeSize,
+      '2xl': commerce.freeTShirtMensDoubleExtraLargeSize,
+    } %}
+    {% set womensTShirtSizes = {
+      'xs': commerce.freeTShirtWomensExtraSmallSize,
+      's': commerce.freeTShirtWomensSmallSize,
+      'm': commerce.freeTShirtWomensMediumSize,
+      'l': commerce.freeTShirtWomensLargeSize,
+      'xl': commerce.freeTShirtWomensExtraLargeSize
+    } %}
+    {% for size,availability in mensTShirtSizes %}
+      {% if not availability %}
+        {% set availability = 0 %}
+      {% endif %}
+      tShirtSizeAvailability.mens['{{ size }}'] = {{ availability }};
+    {% endfor %}
+    {% for size,availability in womensTShirtSizes %}
+      {% if not availability %}
+        {% set availability = 0 %}
+      {% endif %}
+      tShirtSizeAvailability.womens['{{ size }}'] = {{ availability }};
+    {% endfor %}
+  </script>
+  <div class="row productFeature tShirtSize">
+    <div class="l--extraSmall--3 l--small--2 l--medium--2 columns productFeature__icon padding--right--none margin--bottom--half">
+      <img src="/assets/images/free-tshirt-icon.png" />
+    </div>
+    <div class="l--extraSmall--9 l--small--10 l--medium--10 columns margin--bottom--none productFeature__text">
+      <p class="text--black text--large margin--bottom--none tShirtSize__title">
+        Free T-Shirt:
+      </p>
+      <br class="is--hidden--medium">
+      <ul class="text--grey tShirtSize__list__style">
+        <li id="tShirtSize__list__style__option__mens__container" class="margin--left--none textCenter margin--bottom--none tShirtSize__list__style__option" data-option="mens"><div id="tShirtSize__list__style__option__mens"></div></li>
+        <li id="tShirtSize__list__style__option__womens__container" class="margin--left--none textCenter margin--bottom--none tShirtSize__list__style__option" data-option="womens"><div id="tShirtSize__list__style__option__womens"></div></li>
+      </ul>
+      <span id="tShirtOptionsDivider" class="is--hidden">|</span>
+      <ul class="text--grey tShirtSize__list__size" for="tShirt{{ product.defaultVariant.id }}"></ul>
+    </div>
+  </div>
+  <div class="row background--black textCenter is--hidden tShirtSize__error" id="tShirtSize__error">
+    <div class="l--medium--12 columns margin--bottom--none">
+      <img src="/assets/images/keiser-alert-icon.png" class="inline--block" /> <p class="inline--block margin--bottom--none text--small">Select T-Shirt Size & Style</p>
+    </div>
+  </div>
+{% endif %}

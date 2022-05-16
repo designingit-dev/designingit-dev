@@ -1,0 +1,8 @@
+<aside class="blog__sidebar blog__category__list margin--bottom">
+    <h2 class="blog__module__title">{{ listTitle }}</h2>
+    <ul class="list--noBullets">
+    {% for category in craft.categories.group(categorySlug) %}
+        <li class="margin--left--none margin--bottom--narrow"><a href="{{ category.url }}">{{ category.title }}</a></li>
+    {% endfor %}
+    </ul>
+</aside>

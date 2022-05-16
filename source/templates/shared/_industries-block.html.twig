@@ -1,0 +1,22 @@
+{% for block in entry.industrySection.type("industryCopyBlock") %}
+  <div class="titleBlock">
+    <h2 class="titleBlock__title scale--large">{{ block.headerOne }}</h2>
+    <h3 class="titleBlock__subTitle scale--xXLarge">{{ block.headerTwo }}</h3>
+  </div>
+  <p class="margin--bottom">{{ block.industryCopy }}</p>
+
+  <div class="row">
+    {% for block in entry.industrySection.type("industryImageBlock") %}
+      <div class="l--small--6 l--medium--4 columns l--noMargin">
+        <a href="{{ url(block.linkToEntry.one.uri) }}" class="noHoverEffects">
+          <div class="card card--backgroundImage"
+               style="background-image:url({{ block.image.one.getURL("medium") }})">
+            <div class="scale--large l--noMargin">{{ block.header }}</div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a href="{{ url(block.buttonLink.one.uri) }}" class="button">{{ block.linkText }}</a>
+{% endfor %}

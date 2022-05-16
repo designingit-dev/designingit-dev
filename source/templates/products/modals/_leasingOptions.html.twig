@@ -1,0 +1,85 @@
+<vue-modal :active-modal="activeModal" name="leasingOptions__modal" class="contactUs__modal leasingOptions__modal" v-cloak id="leasingOptions__modal">
+    <div slot="header">
+        <div class="container container--noPad">
+            <div class="row">
+                <div class="l--extraSmall--2 l--extraSmall--offset--10 columns text--alignRight margin--bottom--half">
+                    <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('leasingOptions__modal')">
+                        <img src="/assets/images/modal-close-button.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div slot="body">
+        <div class="container container--noPad margin--top">
+
+            <div class="row">
+                <div class="l--extraSmall--12 columns">
+                    <h3 class="leasingOptions__modal__title">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingOptionsModalTitle|replace('%productTitle%', entry.title|title)|typogrify }}</h3>
+                </div>
+                <div class="l--extraSmall--12 columns leasingOptions__modal__specialOffer__container">
+                    <div class="l--extraSmall--12 l--small--6 columns leasingOptions__modal__specialOffer__innerContainer">
+                        <p class="margin--bottom--veryNarrow leasingOptions__modal__secondaryTitle text--uppercase">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingSpecialOfferTitle|replace('%productTitle%', entry.title)|typogrify }}</p>
+                        <p class="text--sansSerif--black text--larger margin--bottom--veryNarrow"><strong>{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leaseOneMachineTitle|replace('%productTitle%', entry.title)|typogrify }}</strong></p>
+                        <p class="margin--bottom--none"><span class="text--sansSerif--black text--larger margin--bottom--veryNarrow"><strong>{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingOptionsSpecialOfferPrice}}<sup>*</sup></strong></span><span class="margin--left--veryNarrow">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingOptionsSpecialOfferDuration|replace('%productTitle%', entry.title)|typogrify }}</span></p>
+                    </div>
+                    <div class="l--extraSmall--12 l--small--6 columns leasingOptions__modal__specialOffer__innerContainer leasingOptions__modal__specialOffer__qualificationCheckContainer">
+                        <p class="margin--bottom--veryNarrow">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingFindOutTitle|replace('%productTitle%', entry.title)|typogrify }}</p>
+                        <p class="text--sansSerif--black text--larger margin--bottom--veryNarrow"><strong>{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingQualifyTitle|replace('%productTitle%', entry.title)|typogrify)|raw }}</strong></p>
+                        <p class="margin--bottom--none">{{ craft.keiserContactHelpers.stripEnclosingParagraphTags(strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingQualifyTimelineTitle|replace('%productTitle%', entry.title)|typogrify)|raw }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="l--small--5 columns text--alignCenter">
+                    <p class="text--sansSerif--black text--larger"><strong>{{ productTitle }}</strong></p>
+                    <div class="leasingOptions__modal__options__innerContainer">
+                        <div class="text--alignCenter">
+                            <img class="leasingOptions__modal__productImage" src="{{ productImage.getUrl() }}">
+                        </div>
+                        <p class="text--xLarge text--sansSerif--black leasingOptions__modal__options__price margin--bottom--veryNarrow">
+                            <strong>${{ productPrice }}/month<sup>†*</sup></strong>
+                        </p>
+                        <p class="margin--bottom--veryNarrow">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingDuration|replace('%productTitle%', entry.title)|typogrify }} <sup>*</sup></p>
+                        <p class="margin--bottom--veryNarrow">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingProvider|replace('%productTitle%', entry.title)|typogrify }}</p>
+                    </div>
+                </div>
+
+                <div class="l--small--2 columns">
+                    <div class="l--small--6 columns leasingOptions__modal__options__innerContainer__divider">
+
+                    </div>
+                </div>
+
+                <div class="l--small--5 columns text--alignCenter">
+                    <p class="text--sansSerif--black text--larger"><strong>{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingModalGetThisCircuitText }}</strong></p>
+                    <div class="leasingOptions__modal__options__innerContainer">
+                        <div class="text--alignCenter">
+                            <img src="{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingOptionsModalCircuitLeaseImage.one.url }}">
+                        </div>
+                        <p class="text--xLarge text--sansSerif--black leasingOptions__modal__options__price margin--bottom--veryNarrow">
+                            <strong>${{ strengthMppSharedContentEntry.strengthMppSharedContent.one.circuitLeasePrice}}/month<sup>†*</sup></strong>
+                        </p>
+                        <p class="margin--bottom--veryNarrow">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.circuitLeasePriceDuration|replace('%productTitle%', entry.title)|typogrify }}<sup>*</sup></p>
+                        <p class="margin--bottom">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingProvider|replace('%productTitle%', entry.title)|typogrify }}</p>
+                        <p class="text--smaller text--greyLight">{{ strengthMppSharedContentEntry.strengthMppSharedContent.leasingModalOtherConfigurationsText }}</p>
+                    </div>
+                </div>
+
+                <div class="l--extraSmall--12 columns text--alignCenter">
+                    <a href="#" v-on:click="[openCommercialEnquiryModal('strengthMppAskAboutLeasing'),trackFormAnchor('Ask About Leasing Options', 'askAboutLeasingOptionsModal')]" class="button">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingCta|replace('%productTitle%', entry.title)|typogrify }}</a>
+                </div>
+
+                <div class="l--extraSmall--12 columns">
+                    <p class="text--small margin--bottom--half">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingPricingDate|replace('%productTitle%', entry.title)|typogrify }}</p>
+                    <p class="text--small margin--bottom--none">{{ strengthMppSharedContentEntry.strengthMppSharedContent.one.leasingTerms|replace('%productTitle%', entry.title)|typogrify }}</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div slot="footer"></div>
+</vue-modal>

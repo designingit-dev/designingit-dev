@@ -1,0 +1,151 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+// - List - No Bullets
+// - List - Tight
+// - List - Fancy
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- List No Bullets
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: List Without Bullets
+name: list-no-bullets
+category: Components - Lists
+---
+
+Add class `.list--noBullets` to any `ul` or `ol` element to get a list without
+bullets, numbers, or left margin.
+
+``` html_example
+<ul class="list--noBullets">
+  <li>List Item</li>
+  <li>List Item</li>
+  <li>List Item</li>
+</ul>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.list--noBullets {
+  list-style-type: none;
+
+  li {
+    margin-left: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- List Tight
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: List Tight
+name: list-tight
+category: Components - Lists
+---
+
+``` html_example
+<ul class="list--tight">
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ul>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.list--tight {
+  li {
+    margin-bottom: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- List Fancy
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: List Fancy
+name: list-fancy
+category: Components - Lists
+---
+
+``` html_example
+<ul class="list--fancy">
+  <li class="list__title">
+    <span class="list__titleSection text--red">Foundations</span>
+    <span class="list__titleSection text--black">$3,5000</span>
+    <span class="list__titleSection text--red">2 hours</span>
+    <div class="list__descriptionSection">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+  </li>
+  <li class="list__title">
+    <span class="list__titleSection text--red">Foundations</span>
+    <span class="list__titleSection text--black">$3,5000</span>
+    <span class="list__titleSection text--red">2 hours</span>
+    <div class="list__descriptionSection">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+  </li>
+</ul>
+```
+*/
+// -----------------------------------------------------------------------------
+
+$_margin--descriptionSection: 25px;
+$_size--bullet: 10px;
+
+.list--fancy {
+  
+  li {
+    list-style: none;
+    margin-left: .25em;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      height: $_size--bullet;
+      width: $_size--bullet;
+      border-radius: 50%;
+      background-color: $red;
+      margin-right: $gutter--narrow;
+    }
+  }
+}
+
+.list__title {
+  // placeholder
+}
+
+.list__titleSection {
+  font-family: $sansSerif--black;
+  font-weight: $fontWeight--black;
+
+  &::after {
+    content: "|";
+    padding-left: .5em;
+    color: $red;
+  }
+
+  &:last-of-type {
+    &::after {
+      content: "";
+    }
+  }
+}
+
+.list__descriptionSection {
+  margin-left: $_margin--descriptionSection;
+}
+
+.list--inline {
+  display: inline-block;
+
+  li {
+    list-style: none;
+    margin-left: .25em;
+    display: inline-block;
+  }
+
+}

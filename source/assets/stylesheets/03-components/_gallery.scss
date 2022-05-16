@@ -1,0 +1,79 @@
+// ------------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Gallery Thumbs
+//  - Gallery Thumbs Wrapper
+//  - Gallery Video Wrapper
+//  - Gallery Video Icon
+//
+// ------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------
+// !-- Gallery Thumbs
+// ------------------------------------------------------------------------------
+
+.gallery__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+// ------------------------------------------------------------------------------
+// !-- Gallery Thumbs Wrapper
+// ------------------------------------------------------------------------------
+
+$_size--thumb: pem(68px);
+
+.gallery__thumbWrapper {
+  position: relative;
+  display: flex;
+  width: $_size--thumb;
+  height: $_size--thumb;
+  margin: $gutter / 8 $gutter / 8 0 0;
+  cursor: pointer;
+  border: $borderWidth--thin solid $grey--medium;
+  flex-shrink: 0;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery__thumbWrapper--active {
+  border-color: $red;
+}
+
+.gallery__displayedImageWrapper {
+  overflow: hidden;
+}
+
+// ------------------------------------------------------------------------------
+// !-- Gallery Video Wrapper
+// ------------------------------------------------------------------------------
+
+$_padding--galleryVideoWapper: 25px;
+
+// https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+.gallery__videoWrapper {
+  position: relative;
+  height: 0;
+  padding-top: $_padding--galleryVideoWapper;
+  padding-bottom: 56.25%; /* 16:9 */
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ------------------------------------------------------------------------------
+// !-- Gallery Video Icon
+// ------------------------------------------------------------------------------
+
+.gallery__videoIcon {
+  position: absolute;
+  top: $_size--thumb / 4;
+  left: $_size--thumb / 4;
+}

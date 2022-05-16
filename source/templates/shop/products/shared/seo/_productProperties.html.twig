@@ -1,0 +1,24 @@
+<meta itemprop="name" content="{{ product.title }}" />
+<meta itemprop="brand" content="Keiser">
+<meta itemprop="manufacturer" content="Keiser">
+<meta itemprop="description" content="{{ product.metaDescription }}">
+<meta itemprop="sku" content="{{ product.defaultSku }}">
+<meta itemprop="mpn" content="{{ product.defaultSku }}">
+{% if product.googleShoppingUPC|length %}
+  <meta itemprop="gtin" content="{{ product.googleShoppingUPC }}">
+{% endif %}
+{% if product.image.one %}
+  <link itemprop="image" href="{{ product.image.one.getURL("xxsmall") }}" />
+{% endif %}
+<meta itemprop="itemcondition" content="NewCondition">
+<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+  <link itemprop="url" href="{{ product.url }}" />
+  <meta itemprop="priceCurrency" content="{{ cart.currency }}" />
+  {% if product.defaultVariant.onSale %}
+    <meta itemprop="price" content="{{ product.defaultVariant.salePrice| number_format(2, '.', '')  }}" />
+    <meta itemprop="priceValidUntil" content="2021-07-06" />
+  {% else %}
+    <meta itemprop="price" content="{{ product.defaultVariant.price| number_format(2, '.', '')  }}" />
+  {% endif %}
+  <link itemprop="availability" href="http://schema.org/InStock" />
+</div>

@@ -1,0 +1,140 @@
+{% css %}
+  {% for breakpointName,breakpointWidth in {'mobile':'300px','tablet':'500px','desktop':'800px'} %}
+    @media (min-width: {{ breakpointWidth }}) {
+      {% for block in blocks %}
+        #{{ block.contentBlockID ? block.contentBlockID : 'div'~block.id }}{
+          {% for cssProperty in ['Margin','Padding','Sizing','Visibility'] %}
+            {% if attribute(block, 'contentBlock'~cssProperty) is defined %}
+              {% for row in attribute(block, 'contentBlock'~cssProperty) %}
+                {% if attribute(row,breakpointName) is defined and attribute(row,breakpointName) %}
+                  {{ row.property }}: {{ attribute(row,breakpointName) }};
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+          {% if attribute(block,'contentBlockAlignment') is defined %}
+            {% set flexWrap = block.contentBlockWrapFlexItems is defined and not block.contentBlockWrapFlexItems ? '' : 'flex-wrap: wrap;' %}
+            {% set flexDirection = block.contentBlockFlexDirection is defined and block.contentBlockFlexDirection ? 'flex-direction:' ~ block.contentBlockFlexDirection ~ ';' : '' %}
+            {% for row in attribute(block,'contentBlockAlignment') %}
+              {% if attribute(row,breakpointName) is defined and attribute(row,breakpointName) %}
+                {% switch row.property %}
+                  {% case 'horizontalAlignment' %}
+                    {% switch attribute(row,breakpointName) %}
+                      {% case 'left' %}
+                        display: flex;
+                        {{ flexWrap }}
+                        {{ flexDirection }}
+                        justify-content: flex-start;
+                      {% case 'right' %}
+                        display: flex;
+                        {{ flexWrap }}
+                        {{ flexDirection }}
+                        justify-content: flex-end;
+                      {% case 'center' %}
+                        display: flex;
+                        {{ flexWrap }}
+                        {{ flexDirection }}
+                        justify-content: center;
+                    {% endswitch %}
+                  {% case 'verticalAlignment' %}
+                    {% switch attribute(row,breakpointName) %}
+                      {% case 'top' %}
+                        display: flex;
+                        {{ flexWrap }}
+                        {{ flexDirection }}
+                        align-items: flex-start;
+                      {% case 'bottom' %}
+                        display: flex;
+                        {{ flexWrap }}
+                        {{ flexDirection }}
+                        align-items: flex-end;
+                      {% case 'center' %}
+                        display: flex;
+                        {{ flexWrap }}
+                        {{ flexDirection }}
+                        align-items: center;
+                    {% endswitch %}
+                {% endswitch %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        }
+
+        {% if block.contentBlockBackground is defined and block.contentBlockBackground is not empty %}
+          #{{ block.contentBlockID ? block.contentBlockID~'containerbackground' : 'div'~block.id~'containerbackground' }}{
+          {% set backgroundBlock = block.contentBlockBackground.one() %}
+
+          {% set backgroundSettings = null %}
+          {% for row in backgroundBlock.backgroundSettings %}
+            {% set backgroundSettings = row %}
+          {% endfor %}
+
+          {% if attribute(backgroundSettings,breakpointName) is defined and attribute(backgroundSettings,breakpointName) == 'none' %}
+            background: none;
+          {% elseif attribute(backgroundSettings,breakpointName) is defined and (attribute(backgroundSettings,breakpointName) == 'color' or attribute(backgroundSettings,breakpointName) == 'image' or attribute(backgroundSettings,breakpointName) == 'colorImage') %}
+            {% if attribute(backgroundSettings,breakpointName) is defined and (attribute(backgroundSettings,breakpointName) == 'color' or attribute(backgroundSettings,breakpointName) == 'colorImage' ) %}
+              {% for row in backgroundBlock.backgroundColor %}
+                {% if attribute(row,breakpointName) is defined and attribute(row,breakpointName) %}
+                  background-color: {{ attribute(row,breakpointName) }};
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+
+            {% for row in backgroundBlock.backgroundSize %}
+              {% if attribute(row,breakpointName) is defined and attribute(row,breakpointName) %}
+                background-size: {{ attribute(row,breakpointName) }};
+              {% endif %}
+            {% endfor %}
+
+            {% set backgroundHorizontalPosition = '' %}
+            {% set backgroundVerticalPosition = '' %}
+            {% for row in backgroundBlock.backgroundPosition %}
+              {% if attribute(row,breakpointName) is defined and attribute(row,breakpointName) %}
+                {% if row.property == 'horizontal' %}
+                  {% set backgroundHorizontalPosition = attribute(row,breakpointName) %}
+                {% endif %}
+                {% if row.property == 'vertical' %}
+                  {% set backgroundVerticalPosition = attribute(row,breakpointName) %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% if backgroundHorizontalPosition != '' or backgroundVerticalPosition != '' %}
+              background-position: {{ backgroundHorizontalPosition }} {{ backgroundVerticalPosition }};
+            {% endif %}
+
+            {% set backgroundHorizontalRepeat = '' %}
+            {% set backgroundVerticalRepeat = '' %}
+            {% for row in backgroundBlock.backgroundRepeat %}
+              {% if attribute(row,breakpointName) is defined and attribute(row,breakpointName) %}
+                {% if row.property == 'horizontal' %}
+                  {% set backgroundHorizontalRepeat = attribute(row,breakpointName) %}
+                {% endif %}
+                {% if row.property == 'vertical' %}
+                  {% set backgroundVerticalRepeat = attribute(row,breakpointName) %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% if backgroundHorizontalRepeat != '' or backgroundVerticalRepeat != '' %}
+              background-repeat: {{ backgroundHorizontalRepeat }} {{ backgroundVerticalRepeat }};
+            {% endif %}
+
+            {% if attribute(backgroundSettings,breakpointName) is defined and (attribute(backgroundSettings,breakpointName) == 'image' or attribute(backgroundSettings,breakpointName) == 'colorImage' ) %}
+              {% if attribute(backgroundBlock.backgroundImage.one, breakpointName) is defined %}
+                {% set backgroundImage = attribute(backgroundBlock.backgroundImage.one, breakpointName) %}
+                background-image: url('{{ backgroundImage.one.url }}');
+              {% endif %}
+            {% endif %}
+          {% endif %}
+          }
+        {% endif %}
+
+        {% if block.contentBlockElementMaxWidth is defined and attribute(block.contentBlockElementMaxWidth, breakpointName) is defined and attribute(block.contentBlockElementMaxWidth, breakpointName) %}
+          #{{ block.contentBlockID ? block.contentBlockID : 'div'~block.id }} img {
+            max-width: {{ attribute(block.contentBlockElementMaxWidth, breakpointName) }};
+          }
+        {% endif %}
+
+      {% endfor %}
+    }
+  {% endfor %}
+{% endcss %}

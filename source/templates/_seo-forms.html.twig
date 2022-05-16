@@ -1,0 +1,15 @@
+{#
+This partial is only be used when the page is a form, and not an entry.
+#}
+
+{% set metatitle = form.getField('metaTitle') %}
+{% set metadescription = form.getField('metaDescription') %}
+<title>{{ metatitle ? metatitle.settings.value : form.name ~ ' | ' ~ siteName }}</title>
+
+<meta content="{{ metatitle ? metatitle.settings.value : form.name ~ ' | ' ~ siteName }}" name="DC.title"/>
+<meta content="{{ metatitle ? metatitle.settings.value : form.name ~ ' | ' ~ siteName }}" property="og:title"/>
+{% if metadescription %}
+<meta content="{{ metadescription.settings.value }}" name="description"/>
+<meta content="{{ metadescription.settings.value }}" name="DC.description"/>
+<meta content="{{ metadescription.settings.value}}" property="og:description"/>
+{% endif %}

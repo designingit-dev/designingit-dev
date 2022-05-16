@@ -1,0 +1,133 @@
+{% extends "_layout" %}
+
+{% block header %}
+  <header class="landingHeader background--black">
+    <div class="container container--full container--tight m7i">
+      <div class="row">
+        <div class="l--small--3 columns columns--noMargin">
+          <div itemscope itemtype="http://schema.org/Organization" class="logo">
+            <a href="https://www.keiser.com/?utm_campaign=M7i&utm_source=landing-page&utm_medium=newsletter&utm_content=home-page&utm_term=M7i-showcase" itemprop="url" class="logo__link">
+              <img src="/assets/images/keiser-logo.svg" itemprop="logo" alt="Keiser" class="logo__image">
+            </a>
+          </div>
+        </div>
+        <div class="l--small--9 columns columns--noMargin text--alignCenter">
+          {% for block in entry.linkBlock %}
+            <a href="{{ block.linkDestination }}" class="button button--quaternary">{{ block.linkText }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+
+  <main>
+    <section class="landingContent background--darkGrey">
+      <div class="container container--full container--noPadBottom text--alignCenter">
+        <div class="row">
+          <div class="l--small--12 columns">
+            <h2 class="landingContent__title landingContent__title--lowercase"><span class="text--red">IGNORE LIMITS</span> WITH THE M7i WTBT</h2>
+            <div class="constrain">
+              <div class="videoEmbed">
+                <div id="player"></div>
+                <iframe width="853" height="480" src="https://www.youtube.com/embed/KADKK6LfuoE?rel=0&&enablejsapi=1" frameborder="0" allowfullscreen data-action="Embedded Click"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="background--white">
+      <div class="container container--full container--tight">
+        <div class="text--alignCenter">
+          <h3 class="landingContent__heading landingContent__heading--noMargin">The industry's <span class="text--red">most versatile</span> total body trainer</h3>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="background--white">
+      <div class="container container--full container--noPad">
+        <div class="row">
+          <div class="l--small--4 l--noPad l--noMargin columns ">
+            <figure class="landingContent__figure">
+              <img src="/assets/images/m7i-landing-page/m7i-more-versatile.jpg" alt="M7i - More Versatile">
+              <figcaption>More <span class="text--red">Versatile</span></figcaption>
+            </figure>
+          </div>
+          <div class="l--small--4 l--noPad l--noMargin columns">
+            <figure class="landingContent__figure landingContent__figure--center">
+              <img src="/assets/images/m7i-landing-page/m7i-more-functional.jpg" alt="M7i - More Functional">
+              <figcaption>More <span class="text--red">Functional</span></figcaption>
+            </figure>
+          </div>
+          <div class="l--small--4 l--noPad l--noMargin columns">
+            <figure class="landingContent__figure landingContent__figure--right">
+              <img src="/assets/images/m7i-landing-page/m7i-more-portable.jpg" alt="M7i - More Portable">
+              <figcaption>More <span class="text--red">Portable</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="background--red">
+      <section class="container m7i">
+        <div class="row">
+          <div class="l--small--5 columns text--alignCenter">
+            <img src="/assets/images/m7i-product-sheet.png" alt="Keiser M7i Product Sheet">
+          </div>
+          <div class="l--small--7 l--medium--5 columns">
+
+              <vue-brochure inline-template download-track-label="M7i Product Sheet">
+                <div>
+                  {% set form = craft.sproutForms.form('m7iProductSheet') %}
+                  <form method="post"
+                        v-if="!hasSubmittedForm"
+                        accept-charset="utf-8"
+                        enctype="multipart/form-data"
+                        id="m7iProductSheetForm"
+                        @submit.prevent="handleFormSubmit"
+                        v-el:form
+                        class="m7iProductSheetForm form--fullWidth js--trackForm--contactRep">
+
+                    <div v-if="hasFormErrors" transition="slide-down" class="margin--bottom--half">
+                      <strong>All fields are required.</strong>
+                    </div>
+
+                    {{ csrfInput() }}
+                    <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+                    <input type="hidden" name="handle" value="{{ form.handle }}">
+                    {{ redirectInput(form.redirectUri) }}
+                    {{ craft.sproutForms.displayTab('m7iProductSheet.form') }}
+
+                    {% hook 'sproutForms.modifyForm' %}
+                    {# input type="button" is a workaround for mobile iOS. DO NOT change to type="submit" #}
+                    <input @click="handleFormSubmit" type="button" class="button button--quaternary" value="Download The Details">
+                  </form>
+                  <div v-if="hasSubmittedForm">
+                    <h2>Thank you</h2>
+                    <p>Thank you for your interest in the M7i WTBT!</p>
+                    <a @click.prevent="handleFormDownload" href="/assets/pdf/KEISER_PS_M_SERIES_M7i_US_LO.pdf" class="button button--reverse">Download The Details</a>
+                  </div>
+                </div>
+              </vue-brochure>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+{% endblock %}
+
+{% block footerThirdPartyScripts %}
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=58b878e6b5b25f0011bebb6c&product=inline-share-buttons"></script>
+{% endblock %}
+
+{% block footer %}
+  {% include 'footers/_footer-small' %}
+{% endblock %}

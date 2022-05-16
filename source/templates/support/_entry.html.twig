@@ -1,0 +1,23 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+  {% switch entry.type %}
+    {% case "support" %}
+      {% include "support/_support.html" %}
+    {% case "warranty" %}
+      {% include "support/_warranty.html" %}
+    {% case "maintenance" %}
+      {% include "support/_maintenance.html" %}
+    {% case "shipping" %}
+      {% include "support/_shipping.html" %}
+    {% case "serviceBulletins" %}
+      {% include "support/_service-bulletins.html" %}
+    {% case "serviceBulletinEntry" %}
+      {% include "support/_service-bulletins-entry.html" %}
+    {% case "returnsAndRefunds" %}
+      {% include "support/_returns-and-refunds.html" %}
+  {% endswitch %}
+
+{% endblock %}
+

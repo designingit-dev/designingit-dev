@@ -1,0 +1,33 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+//  - Breakpoints
+//
+// -----------------------------------------------------------------------------
+
+$breakpoint--screen: "only screen";
+$breakpoint--landscape: "#{$breakpoint--screen} and (orientation: landscape)";
+$breakpoint--portrait: "#{$breakpoint--screen} and (orientation: portrait)";
+
+// Define breakpoints
+$breakpoints: (
+  extraSmall: 300px,
+  small: 564px,
+  medium: 852px,
+  large: 1260px,
+  extraLarge: 1392px,
+  extraExtraLarge: 1680px,
+);
+
+$breakpoints--height: (
+  small: 320px,
+  medium: 415px,
+);
+
+$breakpoints--homepage: (
+  430: 430px,
+  710: 710px,
+  711: 711px,
+  930: 930px,
+  1101: 1101px
+)

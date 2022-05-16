@@ -1,0 +1,69 @@
+{% include '/checkout/_errors' %}
+
+{% set shippingAddress = attribute(cart, 'shippingAddress') %}
+{% set billingAddress = attribute(cart, 'billingAddress') %}
+  <vue-checkout-addresses
+     inline-template
+     :shipping-address-id="{{ shippingAddress ? shippingAddress.id : null  }}"
+     :billing-address-id="{{ billingAddress ? billingAddress.id : null }}">
+
+            {% include '/checkout/addresses/_fieldset' with {
+            title: "Shipping Address"|t,
+            class: 'ShippingAddress',
+            address: shippingAddress,
+            name: 'shippingAddress',
+            required: true
+            } %}
+
+       <div class="row">
+         <div class="l--12 columns margin--bottom--half">
+           <label>
+             <input name="billingAddressSameAsShipping" type="checkbox" checked>
+             <span>Use same address for billing</span>
+           </label>
+         </div>
+       </div>
+
+        <div id="checkout-billing-address-container" class="is--hidden">
+          <h3 class="margin--top">Billing Address</h3>
+          {% include '/checkout/addresses/_fieldset' with {
+            title: "Billing Address"|t,
+            class: 'BillingAddress',
+            address: billingAddress,
+            name: 'billingAddress',
+            required: false
+          } %}
+        </div>
+
+        <div class="row">
+          <div class="l--medium--12 columns">
+            <button type="submit" class="button" id="checkout-step-1-submit" v-on:click="handleSubmit">Continue to Shipping Method</button>
+          </div>
+          <div class="l--medium--12 columns">
+            <a class="text--small text--uppercase checkout__goBackLink" href="/cart">< Return to cart</a>
+          </div>
+        </div>
+
+    {% verbatim %}
+    <vue-address-modal :active-modal="activeModal" name="addressError" v-cloak>
+      <div slot="body">
+        <h3>We've encountered an error, please see below.</h3>
+        <div v-for="(title, error) in errors">
+          <p>
+            <strong v-if="title != 'Error'">{{ title }}<br/></strong>
+            {{ error }}</p>
+        </div>
+      </div>
+      <div slot="footer">
+        <button class="modal__defaultButton"
+          v-on:click="closeModal">
+          Edit Address
+        </button>
+        <button
+          v-on:click="requestManualReview">
+          Request Manual Review
+        </button>
+      </div>
+    </vue-address-modal>
+    {% endverbatim %}
+  </vue-checkout-addresses>

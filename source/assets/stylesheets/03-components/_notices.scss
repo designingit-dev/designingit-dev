@@ -1,0 +1,54 @@
+// -----------------------------------------------------------------------------
+// Table of Contents - Notice component
+//
+// - Containers
+//
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// !-- Containers
+// -----------------------------------------------------------------------------
+
+.notice {
+  padding: pem($gutter--narrow);
+  text-align: center;
+  background-color: tint($grey--light, 50%);
+
+  &--red {
+    color: $white;
+    background-color: $red;
+  }
+}
+
+/*doc
+---
+title: Notice
+name: notice
+category: Components - Notices
+---
+
+``` html_example
+<div class="notice">Thanks! We'll be in touch with you soon.</div>
+```
+*/
+
+.noticeFull {
+  padding: pem($gutter--half) 0;
+  border-bottom: $borderWidth--fat solid $grey--xLight;
+}
+
+/*doc
+---
+title: Notice Full
+name: notice-full
+category: Components - Notices
+---
+
+``` html_example
+<div class="noticeFull margin--bottom">
+  <h2>Oh, Sorry. We couldn't find that page.</h2>
+  <p>
+    Don't worry, it's not your fault. Sometimes things get mixed up. Let us help you find what you're looking for.
+</div>
+```
+*/

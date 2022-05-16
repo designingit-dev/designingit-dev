@@ -1,0 +1,33 @@
+<div class="footer__sectionLinks">
+  {% for entry in craft.entries.section("education").level(1) %}
+    <a href="{{ entry.url }}" class="scale--base">
+      {% include 'shared/_nav-title.html' with {'entry': entry} %}
+    </a>
+  {% endfor %}
+  <ul class="list--tight">
+    {% for entry in craft.entries.section("education").level(2) %}
+      <li>
+        <a href="{{ entry.url }}">
+          {% include 'shared/_nav-title.html' with {'entry': entry} %}
+        </a>
+      </li>
+    {% endfor %}
+
+    {% set theRideLPEntry = craft.entries.section('lp').slug('the-ride-indoor-cycling-workouts').one() %}
+    {% if theRideLPEntry is not empty %}
+      <li>
+        <a href="{{ theRideLPEntry.url }}">
+          {% include 'shared/_nav-title.html' with {'entry': theRideLPEntry} %}
+        </a>
+      </li>
+    {% endif %}
+    {% set powerEdBlogHomepage = craft.entries.slug('powered-blog-homepage').one() %}
+    {% if powerEdBlogHomepage is not empty %}
+      <li>
+        <a href="{{ powerEdBlogHomepage.url }}">
+          {% include 'shared/_nav-title.html' with {'entry': powerEdBlogHomepage} %}
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</div>

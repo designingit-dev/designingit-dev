@@ -1,0 +1,116 @@
+{#
+ # All Reviews Page template
+ # ---------------
+ #
+ #}
+{% set product = craft.products.slug(productSlug).one() %}
+{% set sortBy = craft.app.request.getQueryParam('sortBy') %}
+{% set sortOrder = 'sproutforms_entries.dateCreated desc' %}
+{% if sortBy %}
+  {% switch sortBy %}
+    {% case "ratingHighToLow" %}
+      {% set sortOrder = 'rating desc' %}
+    {% case "ratingLowToHigh" %}
+      {% set sortOrder = 'rating' %}
+  {% endswitch %}
+{% endif %}
+{% set productReviews = craft.sproutForms.entries.formHandle('productReview').productSlug(productSlug).moderationStatus('published').orderBy(sortOrder) %}
+{% paginate craft.sproutForms.entries.formHandle('productReview').productSlug(product.slug).moderationStatus('published').orderBy(sortOrder).limit(8) as pageInfo, currentPageProductReviews %}
+{% set category = product.commerceProductCategory.one %}
+
+{% if not product or not productReviews or not category %}
+  {% exit 404 %}
+{% endif %}
+
+{% extends "_layout" %}
+
+{% block seo %}
+  {% set title = product.title|lower|title ~ ' Reviews | Keiser Fitness' %}
+  <title>{{ title }}</title>
+  <meta content="{{ title }}" name="DC.title"/>
+{% endblock %}
+
+{% block breadcrumb %}
+  <div class="background--white is--hidden is--visible--medium">
+    <div class="constrain">
+      <div class="row">
+        <div class="l--medium--12 columns navigation-breadcrumb">
+          <a data-hideForeign="true" href="{{ url('/') }}">Home</a> / <a href="/shop">Shop</a> / <a href="{{ category.url }}">{{ category.title }}</a> / <a href="{{ product.url }}">{{ product.title }}</a> / Reviews
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <div itemscope itemtype="http://schema.org/Product" class="container container--tight">
+    {% include 'shop/products/shared/seo/_productProperties' with {
+      'product': product
+    } %}
+    <div class="row">
+      <div class="l--medium--12 columns">
+        <h2>Product Reviews</h2>
+      </div>
+      {% include 'shop/products/shared/reviews/_aggregateRating.html' with {
+        'product': product,
+        'productReviews': productReviews,
+        'shopButton': true
+      } %}
+    </div>
+    <div class="row">
+      <div class="l--small--5 l--medium--4 columns dropdown">
+        <div class="input">
+          <select id="commerceProductReview__sortBy">
+            <option value="newest">Newest</option>
+            <option value="ratingHighToLow">Ratings - High to Low</option>
+            <option value="ratingLowToHigh">Ratings - Low to High</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    {% for review in currentPageProductReviews %}
+      {% include 'shop/products/shared/reviews/_entry.html' with {
+        'review': review
+      } %}
+    {% endfor %}
+    <div class="row">
+      <div class="l--medium--12 columns text--alignCenter" id="commerceProductReview__pagination">
+
+        {% if pageInfo.currentPage == 1 %}
+          <a class="link--disableClick"><img src="/assets/images/reviews/first-page-inactive.png" /></a>
+        {% else %}
+          <a href="{{ pageInfo.firstUrl }}" class="noLink"><img src="/assets/images/reviews/first-page-active.png" /></a>
+        {% endif %}
+
+        {% if pageInfo.prevUrl %}
+          <a href="{{ pageInfo.prevUrl }}"><img src="/assets/images/reviews/previous-page-active.png" /></a>
+        {% else %}
+          <a class="link--disableClick"><img src="/assets/images/reviews/previous-page-inactive.png" /></a>
+        {% endif %}
+
+        {% for page, url in pageInfo.getPrevUrls(5) %}
+          <a href="{{ url }}">{{ page }}</a>
+        {% endfor %}
+
+        <a class="link--disableClick text--black currentPage">{{ pageInfo.currentPage }}</a>
+
+        {% for page, url in pageInfo.getNextUrls(5) %}
+          <a href="{{ url }}">{{ page }}</a>
+        {% endfor %}
+
+        {% if pageInfo.nextUrl %}
+          <a href="{{ pageInfo.nextUrl }}"><img src="/assets/images/reviews/next-page-active.png" /></a>
+        {% else %}
+          <a class="link--disableClick"><img src="/assets/images/reviews/next-page-inactive.png" /></a>
+        {% endif %}
+
+        {% if pageInfo.currentPage == pageInfo.totalPages %}
+          <a class="link--disableClick"><img src="/assets/images/reviews/last-page-inactive.png" /></a>
+        {% else %}
+          <a href="{{ pageInfo.lastUrl }}"><img src="/assets/images/reviews/last-page-active.png" /></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

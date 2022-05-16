@@ -1,0 +1,44 @@
+.link {
+
+  &--textual {
+    color: $blp--textual--link;
+    font-weight: $fontWeight--semiBold;
+    text-transform: uppercase;
+
+    &:after {
+      content: '';
+      background-image: url(/assets/images/right-chevron.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin-left: 6px;
+      width: 15px;
+      height: 14px;
+      background-position: center center;
+      position: absolute;
+      margin-top: 3px;
+    }
+
+    &:active,&:hover,&:visited,&:focus {
+      text-decoration: none;
+    }
+
+  }
+
+  &--chevron {
+
+    &::after {
+      content: '';
+      background-image: url(/assets/images/right-chevron.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin-left: 6px;
+      width: 15px;
+      height: 14px;
+      background-position: center center;
+      position: absolute;
+      margin-top: 3px;
+    }
+
+  }
+
+}

@@ -1,0 +1,135 @@
+{% set discountDescription = '' %}
+{% set whiteGloveDeliveryFees = 0 %}
+{% for lineItem in cart.lineItems %}
+    {% if lineItem.options.whiteGloveDelivery is defined and lineItem.options.whiteGloveDelivery %}
+      {% set whiteGloveDeliveryFees = whiteGloveDeliveryFees + (lineItem.purchasable.product.whiteGloveDeliveryFee * lineItem.qty) %}
+    {% endif %}
+{% endfor %}
+
+{% for adjustment in cart.adjustments %}
+ {% switch adjustment.type %}
+   {% case 'discount' %}
+    {% set discountDescription = '<p class="margin--left--half margin--bottom--none">' ~ adjustment.name ~ '</p>' %}
+ {% endswitch %}
+{% endfor %}
+
+<div class="row text--red is--hidden--medium" id="checkout-orderReview-mobileToggle">
+  <div class="l--extraSmall--6 columns margin--top margin--bottom--half">
+    <h4>Cart Summary</h4>
+  </div>
+  <div class="l--extraSmall--4 columns margin--top margin--bottom--half">
+    {% if showTotals %}
+      <h4>{{ cart.totalPrice |commerceCurrency(cart.currency) }}</h4>
+    {% else %}
+      <h4>{{ (cart.itemSubTotal + cart.getAdjustmentsTotalByType('discount') + whiteGloveDeliveryFees)|commerceCurrency(cart.currency) }}</h4>
+    {% endif %}
+  </div>
+  <div class="l--extraSmall--2 columns margin--top margin--bottom--half checkout__orderReview__toggle">
+     <img src="/assets/images/cart/right-chevron.svg">
+  </div>
+</div>
+
+<div id="checkout-orderReview-details" class="is--hidden is--visible--medium">
+  <h3 class="margin--bottom--half checkout__orderReview__header">Order Review</h3>
+
+  {% for lineItem in cart.lineItems %}
+    <div class="row  margin--top checkout__orderReview__lineItem">
+      <div class="l--extraSmall--8 l--medium--9 columns">
+        <h4 class="margin--bottom--narrow">{{ lineItem.qty }} {{ lineItem.description }}</h4>
+        <p class="margin--left--half margin--bottom--none">SKU: {{ lineItem.sku }}</p>
+        {% if lineItem.options.productSellersNotes is defined %}
+          <p class="margin--left--half margin--bottom--none">
+            {{ lineItem.options.productSellersNotes }}
+          </p>
+        {% endif %}
+        {% if lineItem.note %}
+          <p class="margin--left--half margin--bottom--none">Notes: </p>{{ lineItem.note }}
+        {% endif %}
+        {% if lineItem.options.tShirtSize is defined %}
+          <p class="margin--left--half margin--bottom--none">
+            Free T-Shirt: {{ lineItem.options.tShirtSize }}
+          </p>
+        {% endif %}
+        {% if lineItem.options.promoItem is defined %}
+          <p class="margin--left--half margin--bottom--none">
+            Free Promotional Item: {{ craft.keiserCommerceHelpers.getProductTitleBySKU(lineItem.options.promoItem) }}
+          </p>
+        {% endif %}
+        {% if lineItem.purchasable.clothingSize is defined and lineItem.purchasable.clothingSize is not empty %}
+          <p class="margin--left--half margin--bottom--none">
+            {{ lineItem.purchasable.product.clothingSizeLabel }}: {{ lineItem.purchasable.clothingSize|upper }}
+          </p>
+        {% endif %}
+        {% if lineItem.options.whiteGloveDelivery is defined and lineItem.options.whiteGloveDelivery %}
+          <p class="margin--left--half margin--bottom--none">
+            M Series Assembly & Maintenance Kit included with White Glove Assembly
+          </p>
+        {% endif %}
+      </div>
+      <div class="l--extraSmall--4 l--medium--3 columns">
+        <h4>{{ lineItem.subtotal | commerceCurrency(cart.currency) }}</h4>
+        {% if lineItem.options.whiteGloveDelivery is defined and lineItem.options.whiteGloveDelivery %}
+          <h5 class="text--grey--light margin--top--veryNarrow margin--bottom--veryNarrow">White Glove Assembly</h5>
+          <h5 class="text--grey--light margin--top--none margin--bottom--none">+ {{ (lineItem.purchasable.product.whiteGloveDeliveryFee * lineItem.qty) | commerceCurrency(cart.currency) }}</h5>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+  {% set discount = cart.getAdjustmentsTotalByType('discount') %}
+  {% if discount < 0 %}
+    <div class="row">
+      <div class="l--extraSmall--8 l--medium--9 columns">
+        <h4 class="margin--bottom--narrow">Discount</h4>
+        {{ discountDescription|raw }}
+      </div>
+      <div class="l--extraSmall--4 l--medium--3 columns">
+        <h4 class="text--red">{{ discount|commerceCurrency(cart.currency) }}</h4>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="margin--bottom--half">
+    {% include 'checkout/_shippingLeadTimeMessage' %}
+  </div>
+
+  <hr class="pageDivider pageDivider--thin background--black" />
+
+  <div class="row margin--top--half">
+    <div class="l--extraSmall--8 l--medium--9 columns checkout__orderReview__subtotals">
+      <h4>Subtotal</h4>
+      {% if showTotals %}
+        <h4>Shipping</h4>
+        <h4 class="margin--bottom--narrow">Tax</h4>
+      {% endif %}
+    </div>
+    <div class="l--extraSmall--4 l--medium--3 columns">
+      <h4>{{ (cart.itemSubTotal + cart.getAdjustmentsTotalByType('discount') + whiteGloveDeliveryFees)|commerceCurrency(cart.currency) }}</h4>
+      {% if showTotals %}
+        <h4>{{ (cart.getAdjustmentsTotalByType('shipping') - whiteGloveDeliveryFees)|commerceCurrency(cart.currency) }}</h4>
+        <h4>{{ cart.getAdjustmentsTotalByType('tax')|commerceCurrency(cart.currency) }}</h4>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if showTotals %}
+    <hr class="pageDivider pageDivider--thin background--black" />
+    <div class="row margin--top--half">
+      <div class="l--extraSmall--8 l--medium--9 columns">
+        <h4>Total Payment</h4>
+      </div>
+      <div class="l--extraSmall--4 l--medium--3 columns">
+        <h4>{{ cart.totalPrice |commerceCurrency(cart.currency) }}</h4>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="l--medium--12 columns">
+      {% include 'shared/_additionalTransitTimeMessage' with {
+        'includeAsterisk': true,
+        'includeModals': true
+      } %}
+    </div>
+  </div>
+</div>

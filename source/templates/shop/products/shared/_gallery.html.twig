@@ -1,0 +1,104 @@
+{% set thumb = {
+mode: 'crop',
+width: 68,
+height: 68,
+quality: 90,
+position: 'top-center'
+} %}
+{% set zoomOptions = "zoomPosition: #zoom-placeholder; expandZoomMode: off; zoomOn: hover; lazyZoom: true;" %}
+
+<vue-gallery inline-template>
+  <div class="gallery row">
+    <div class="l--medium--12 columns margin--bottom-half">
+
+      <div class="gallery__displayedImageWrapper"
+           v-el:displayed-image-wrapper
+           :style="{ height: displayedImageHeight + 'px' }">
+
+        <a v-show="isVisible(0)"
+           href="{{ primaryImage.width >= 2000 ? primaryImage.getURL("xxlarge") :  primaryImage.getURL() }}"
+           class="MagicZoom js--galleryItem0"
+           data-options="{{ zoomOptions }}">
+          {% include 'shared/_srcset_image.html' with {
+          'image': primaryImage,
+          'default_size': 'medium',
+          'prop': 'itemprop=image',
+          'maxSize': 'small'
+          } %}
+        </a>
+
+        {% for block in gallery %}
+          {% set loopIndex = loop.index %}
+
+          {% switch block.type %}
+
+            {% case "galleryImage" %}
+              {% set galleryImage = block.image.one %}
+              <a v-show="isVisible({{ loopIndex }})"
+                 v-cloak
+                 href="{{ galleryImage.width >= 2000 ? galleryImage.getURL("xxlarge") :  galleryImage.getURL() }}"
+                 class="MagicZoom js--galleryItem{{ loopIndex }}"
+                 data-options="{{ zoomOptions }}">
+                {% include 'shared/_srcset_image.html' with {
+                'image': galleryImage,
+                'default_size': 'medium',
+                'prop': 'itemprop=image',
+                'maxSize': 'small',
+                'lazyload': true,
+                'loadAfterPageLoaded': true
+                } %}
+              </a>
+
+          {% case "galleryVideo" %}
+            <div class="gallery__videoWrapper js--galleryItem{{ loopIndex }}"
+                 v-if="isVisible({{ loopIndex }})"
+                 v-cloak>
+              {{ block.videoEmbed | raw }}
+            </div>
+
+          {% case "gallerySpin" %}
+            <a v-show="isVisible({{ loopIndex }})"
+               v-cloak
+               class="Magic360 js--galleryItem{{ loopIndex }}"
+               data-options="images:{% for image in block.images %} {{ image.getURL('medium') }}{% endfor %}">
+              <img src="{{ block.images.one.getURL('medium') }}">
+            </a>
+
+          {% endswitch %}
+        {% endfor %}
+      </div><!-- .gallery__displayedImageWrapper -->
+    </div>
+    <div class="l--medium--12 columns">
+      {% if gallery | length %}
+
+        <div class="gallery__thumbs" v-cloak>
+
+      <span class="gallery__thumbWrapper"
+            @click="handleImageThumb(0)"
+            :class="{ 'gallery__thumbWrapper--active': isVisible(0) }">
+        <img @click="handleImageThumb(0)"
+             class="gallery__thumb"
+             src="{{primaryImage.getURL(thumb) }}">
+      </span>
+
+          {% for block in gallery %}
+            {% set loopIndex = loop.index %}
+            <span class="gallery__thumbWrapper"
+                  @click="handleImageThumb({{ loopIndex }})"
+                  :class="{ 'gallery__thumbWrapper--active': isVisible({{ loopIndex }}) }">
+
+              {% switch block.type %}
+                {% case "galleryImage" %}
+                  <img src="{{block.image.one.getURL(thumb) }}" >
+                {% case "galleryVideo" %}
+                  <img src="{{block.videoThumbnail.one.getURL(thumb) }}" >
+                {% case "gallerySpin" %}
+                  <img src="/assets/images/360icon.png">
+              {% endswitch %}
+            </span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</vue-gallery>

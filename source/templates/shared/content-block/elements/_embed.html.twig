@@ -1,0 +1,5 @@
+<div id="{{ contentElement.contentBlockID ? contentElement.contentBlockID : 'div'~contentElement.id }}" class="youtube-embed {{ craft.keiserCommerceHelpers.getCustomCSSClasses(contentElement)|join(' ') }}" data-ytvideoid="{{ contentElement.contentBlockYoutubeVideo.youtubeVideoID }}">
+  <div class="imageVideo__buttonOverlay button--image--large"></div>
+  <img src="{{ contentElement.contentBlockYoutubeVideo.videoThumbnail.one.url }}">
+</div>
+

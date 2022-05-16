@@ -1,0 +1,63 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+  {% include 'support/shared/_hero' %}
+
+  {% if entry.supportAnnouncements is not empty %}
+    {% include 'support/shared/_announcementsCarousel' with {'announcements': entry.supportAnnouncements} %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% if entry.supportSubcategories is not empty %}
+    {% include 'support/categories/_subcategoriesList' with {
+      'subcategoriesList': entry.supportSubcategories.one
+    } %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% if entry.topResources is not empty %}
+    {% include 'support/categories/_topResources' with {'resources': entry.topResources} %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% if entry.supportLinks is not empty %}
+    {% include 'support/shared/_supportLinksList' with {'links': entry.supportLinks} %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% if entry.supportFAQ is not empty %}
+    <div class="container container--tight margin--bottom">
+      {% include 'support/faq/_list' with {
+        'frequentlyAskedQuestions': entry.supportFAQ
+      } %}
+    </div>
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% for block in entry.arbitraryContentBlocks %}
+    {% include 'shared/_arbitrary-content-block' with { 'block': block } %}
+    <hr class="pageDivider background--red">
+  {% endfor %}
+
+  {% if entry.supportLinkBlockWithIcon is not empty %}
+    {% include 'support/shared/_linkBlockWithIcon' with {
+      'linkBlockWithIcon': entry.supportLinkBlockWithIcon.one
+    } %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% if entry.supportCopyBlockWithLink is not empty %}
+    {% include 'support/shared/_copyBlockWithLink' with {
+      'copyBlockWithLink': entry.supportCopyBlockWithLink.one
+    } %}
+    <hr class="pageDivider background--red">
+  {% endif %}
+
+  {% include 'about/contact-us/modals/_commercialSalesSimplified' %}
+  {% include 'about/contact-us/modals/_commercialSales' %}
+  {% include 'about/contact-us/modals/_customerSupport' %}
+
+  {% include 'support/shared/_supportFooter' %}
+
+{% endblock %}

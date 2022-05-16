@@ -1,0 +1,176 @@
+{% set form = craft.sproutForms.form('demoBrochure') %}
+<vue-modal :active-modal="activeModal" name="demoVan__modal" class="contactUs__modal" v-cloak>
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <a onClick="chatButton.onClick();" class="contactUs__modal__emailSupport">
+          <div class="l--extraSmall--3 l--small--1 columns margin--bottom--half text--alignCenter">
+            <img src="/assets/images/contact-us/contact-us-via-chat.png" />
+          </div>
+          <div class="l--extraSmall--7 l--small--10 columns margin--bottom--half">
+            <p class="margin--bottom--none contactUs__modal__emailSupport__heading">Not Sure?</p>
+            <p class="margin--bottom--none contactUs__modal__emailSupport__body">Chat with a representative.</p>
+          </div>
+        </a>
+        <div class="l--extraSmall--2 l--small--1 columns text--alignRight margin--bottom--half">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('demoVan__modal')"><img src="/assets/images/modal-close-button.png" /> </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <h3 class="margin--top--half contactUs__modal__formName">Request a mobile showroom visit</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <div class="container container--noPad" id="demoVan__modal__fieldsContainer">
+
+      <div class="row modalContentPage" id="demoVan__modal__locationType">
+        <div class="l--medium--12 columns margin--bottom--half">
+          {% set locationType = form.getField('locationType') %}
+          <h3 class="contactUs__modal__fieldName">{{ locationType.name }}</h3>
+        </div>
+        {% for option in locationType.settings.options %}
+          {% set labels = option.label | split('(') %}
+          {% set label1 = labels[0]|trim %}
+          {% set label2 = labels[1]|replace(')','')|trim %}
+          <div class="l--extraSmall--12 l--medium--6 columns margin--bottom--half">
+            <label>
+              <input type="radio" class="productReview__radio__input" value="{{ option.value }}" name="fields[{{ locationType.handle }}]" {%- if option.default %} checked="checked"{% endif -%}>
+              <p class="margin--bottom--none contactUs__modal__optionSmallLabel">{{ label1 }}</p>
+              <p class="margin--bottom--none contactUs__modal__optionLargeLabel">{{ label2 }}</p>
+            </label>
+          </div>
+          {% if loop.index % 2 == 0 %}
+            <div class="clearfix__medium clearfix__large"></div>
+          {% endif %}
+        {% endfor %}
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+        <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+          <a class="button contactUs__modal__button" v-on:click="validateDemoVanRequest('location')">Next</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+          <a class="button button--black contactUs__modal__button" v-on:click="closeModal('demoVan__modal')">Back</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+          <a class="button button--black" v-on:click="closeModal('demoVan__modal')">Back</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+          <a class="button text--alignRight contactUs__modal__buttonNext" v-on:click="validateDemoVanRequest('location')">Next</a>
+        </div>
+      </div>
+
+      <div class="row is--hidden modalContentPage" id="demoVan__modal__consumerSales">
+        <div class="l--medium--12 columns margin--bottom--half">
+          <p>WE’RE SORRY, THE MOBILE SHOWROOM IS CURRENTLY NOT AVAILABLE FOR HOME SALES.</p>
+          <p>CAN WE HAVE OUR CONSUMER SALES REPRESENTATIVE FOLLOW UP WITH YOU?</p>
+        </div>
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+        <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+          <a class="button contactUs__modal__button" v-on:click="changeModal('demoVan__modal', 'contactUs__consumerSales')">Yes</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+          <a class="button button--black contactUs__modal__button" v-on:click="closeModal('demoVan__modal')">No</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+          <a class="button button--black" v-on:click="closeModal('demoVan__modal')">No</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+          <a class="button text--alignRight contactUs__modal__buttonNext" v-on:click="changeModal('demoVan__modal', 'contactUs__consumerSales')">Yes</a>
+        </div>
+      </div>
+
+      <div class="row is--hidden modalContentPage" id="demoVan__modal__zipCodeSelection">
+
+        <div class="l--medium--12 columns margin--bottom--half">
+          <h3 class="contactUs__modal__fieldName">Please tell us more about your organization</h3>
+        </div>
+
+        <div class="l--medium--6 columns margin--bottom--half">
+          {{ craft.sproutForms.displayField(form, form.getField('customerTitle')) }}
+        </div>
+
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+
+        <div class="l--medium--6 columns margin--bottom--half">
+          {{ craft.sproutForms.displayField(form, form.getField('phoneNumber')) }}
+        </div>
+
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+
+        <div class="l--medium--6 columns margin--bottom--half">
+          <div class="field dropdown required">
+            <div class="heading">
+              <label for="demoVan__modal__countrySelection">Select your Region (Keiser's Mobile Showrooms are currently available in the following countries)</label>
+            </div>
+            <div class="input">
+              <select id="demoVan__modal__countrySelection" v-on:change="demoVanCountrySelection()">
+                <option value="" selected></option>
+                <option value="US">United States of America</option>
+                <option value="CA">Canada</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+
+        <div class="l--medium--12 columns is--hidden contactUs__modal__errorContainer" id="demoVan__modal__zipCodeSelection__error">
+          <p class="margin--bottom--none">Please provide a valid US ZIP Code</p>
+        </div>
+        <div class="l--medium--6 columns margin--bottom--half is--hidden" id="demoVan__modal__zipSelectionContainer">
+          <div class="field plaintext required">
+            <div class="heading">
+              <label for="contactUs__commercialSales__zipCode">Enter your ZIP Code (US Only)</label>
+            </div>
+            <div class="input">
+              <input type="text" name="contactUs__commercialSales__zipCode" id="contactUs__commercialSales__zipCode" maxlength="5">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+
+        <div class="l--medium--6 columns margin--bottom--half">
+          {{ craft.sproutForms.displayField(form, form.getField('institutionType')) }}
+        </div>
+
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+
+        <div class="l--medium--6 columns margin--bottom--none">
+          {{ craft.sproutForms.displayField(form, form.getField('interestedProducts')) }}
+        </div>
+
+        <div class="clearfix__extraSmall clearfix__small clearfix__medium clearfix__large"></div>
+
+        <div class="l--medium--6 columns margin--bottom-none">
+          <div class="is--hidden userLocationField__errorContainer" id="marketingOptInErrorContainer">
+            Please select one of the options below
+          </div>
+          {{ craft.sproutForms.displayField(form, form.getField('marketingOptIn')) }}
+        </div>
+        <div class="clearfix__medium clearfix__large"></div>
+
+        <div class="l--extraSmall--12 columns margin--top margin--bottom--none is--hidden--small">
+          <a class="button button--disabled contactUs__modal__button demoVan__modal__zipCodeConfirmationButton" v-on:click="demoVanLocationConfirmation()">Next</a>
+        </div>
+        <div class="l--extraSmall--12 l--small--6 columns margin--top--half is--hidden--small">
+          <a class="button button--black contactUs__modal__button" v-on:click="showPage('demoVan__modal__locationType', 'demoVan__modal__fieldsContainer')">Back</a>
+        </div>
+        <div class="l--medium--6 l--small--6 columns margin--top text--alignLeft is--hidden--extraSmall is--visible--small">
+          <a class="button button--black" v-on:click="showPage('demoVan__modal__locationType', 'demoVan__modal__fieldsContainer')">Back</a>
+        </div>
+        <div class="l--medium--6 l--small--6 columns margin--top text--alignRight is--hidden--extraSmall is--visible--small">
+          <a class="button button--disabled demoVan__modal__zipCodeConfirmationButton" v-on:click="demoVanLocationConfirmation()">Next</a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div slot="footer">
+  </div>
+</vue-modal>
+
+{% include 'about/contact-us/modals/_customerSupport' %}
+{% include 'about/contact-us/modals/_consumerSales' %}

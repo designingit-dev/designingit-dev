@@ -1,0 +1,41 @@
+<div class="background--grey">
+  <div class="container container--tight caseStudy__filters">
+    <div class="row">
+      <div class="l--medium--12 columns margin--bottom--none">
+        <div class="margin--bottom--none caseStudy__filters__toggle">
+          <img class="caseStudy__filters__plusIcon" src="/assets/images/plus-button-white.svg" /> Filter Success Stories
+        </div>
+      </div>
+    </div>
+    <div class="row caseStudy__filters__container is--hidden">
+      <div class="l--medium--12 columns margin--top">
+        <p class="margin--bottom--half">By Industry</p>
+        {% for market in craft.categories.group('caseStudyMarkets') %}
+          {% if selectedFilter is defined and selectedFilter.slug == market.slug %}
+            <div class="caseStudy__filters__filter text--white active">
+              {{ market.title }} <a href="/success-stories" title="Clear Filter"> <img class="caseStudy__filters__closeIcon" src="/assets/images/cancel-icon-material-design.png" /> </a>
+            </div>
+          {% else %}
+            <a href="/success-stories/{{ market.slug }}" class="caseStudy__filters__filter text--white ">
+              {{ market.title }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="l--medium--12 columns">
+        <p class="margin--bottom--half">By Equipment Line</p>
+        {% for equipmentLine in craft.categories.group('caseStudyEquipmentLines') %}
+          {% if selectedFilter is defined and selectedFilter.slug == equipmentLine.slug %}
+            <div class="caseStudy__filters__filter text--white active">
+              {{ equipmentLine.title }} <a href="/success-stories" title="Clear Filter"> <img class="caseStudy__filters__closeIcon" src="/assets/images/cancel-icon-material-design.png" /> </a>
+            </div>
+          {% else %}
+            <a href="/success-stories/{{ equipmentLine.slug }}" class="caseStudy__filters__filter text--white">
+              {{ equipmentLine.title }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

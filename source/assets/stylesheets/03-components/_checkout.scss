@@ -1,0 +1,96 @@
+.checkout {
+
+  .field {
+    @media (min-width: 62.5em) {
+      width: 85%;
+    }
+  }
+
+  &__customerInfo {
+
+    &__summary {
+      padding: $verticalRhythm--half;
+      border: solid 2px $keiser--black;
+      margin-bottom: $verticalRhythm;
+      border-radius: 30px;
+      @include respond-to(medium){
+        max-width: calc(100% - 30px);
+      }
+    }
+
+  }
+
+  &__orderReview{
+
+    &__header {
+      margin-top: 0;
+      @include respond-to(medium){
+        margin-top: $verticalRhythm;
+      }
+    }
+
+    &__toggle {
+      img {
+        max-width: 24px;
+        position: relative;
+        top: -4px
+      }
+
+      &.opened {
+        img {
+          transform: rotate(90deg);
+          transition: all 0.1s ease;
+        }
+      }
+    }
+  }
+
+}
+
+#checkout-orderReview {
+  padding-left: 15px;
+  padding-right: 15px;
+  z-index: map-get($z-index, stickyHeader);
+}
+
+#checkout-payment-methods-container {
+  @include respond-to(medium){
+    max-width: calc(100% - 30px);
+  }
+}
+
+input[name="billingAddressSameAsShipping"] {
+  vertical-align: middle;
+}
+
+#checkout-summary-shipping-method-separator {
+  position: relative;
+  top: -4px;
+  font-weight: $fontWeight--bold;
+}
+
+.checkoutValidate--btn {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  span, img {
+    vertical-align: middle;
+  }
+
+  &:disabled {
+    background: $grey--xLight;
+    pointer-events: none;
+  }
+}
+
+#stripe-card-errors {
+  color: $keiser--red;
+}
+
+#checkout-step-2 {
+
+  .additionalTransitTime__deliveryTimeFrameBlurb {
+    display: block;
+  }
+
+}

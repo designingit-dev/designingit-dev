@@ -1,0 +1,29 @@
+<div class="l--small--4 l--medium--4 columns">
+  {% if product.image.one %}
+    <img src="{{ product.image.one.getURL("xsmall") }}" />
+  {% endif %}
+</div>
+<div class="l--small--8 l--medium--8 columns" id="commerceProductReview__average" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+  <h3 class="margin--bottom--none" id="commerceProductReview__average__productTitle">{{ product.title }}</h3>
+  <p class="text--small commerceProductReview__average__avgRatingLabel">Average rating</p>
+  {% set avgRating = 0 %}
+  {% for review in productReviews %}
+    {% set avgRating = avgRating + review.rating %}
+  {% endfor %}
+  {% set avgRating = avgRating / productReviews.count() %}
+  <div class="row">
+    <div class="l--medium--7 columns margin--bottom--none" id="commerceProductReview__average__avgRatingContainer">
+      {{ craft.keiserCommerceHelpers.getRatingStarsHtml(avgRating) | raw  }}
+      <span class="text--xLarger text--red text--sansSerif--black" id="commerceProductReview__average__rating" itemprop="ratingValue">{{ avgRating | round(2, 'ceil') }}</span>
+      <span itemprop="bestRating" class="is--hidden">5</span>
+      <span itemprop="ratingCount" class="is--hidden">{{ productReviews.count() }}</span>
+      <p class="text--small margin--bottom--half">{{ productReviews.count() }} reviews</p>
+    </div>
+    <div class="l--medium--5 columns margin--bottom--none">
+      <a class="button" href="/{{ product.slug }}-review">WRITE A REVIEW</a>
+    </div>
+  </div>
+  {% if shopButton %}
+    <a data-hideForeign="true" href="{{ product.url }}" class="button button--black shopForHomeButton" id="commerceProductReview__shopButton">SHOP NOW</a>
+  {% endif %}
+</div>

@@ -1,0 +1,351 @@
+.demoVan {
+
+  h1 {
+    font-size: map-get($fontSizes, larger) !important;
+    @include respond-to(small){
+      font-size: map-get($fontSizes, xLarger) !important;
+    }
+    @include respond-to(medium){
+      font-size: map-get($fontSizes, xXLarge) !important;
+    }
+  }
+
+  .titleBlock__subTitle {
+    font-size: map-get($fontSizes, larger);
+    @include respond-to(medium){
+      font-size: map-get($fontSizes, xLarge)
+    }
+  }
+
+  .container {
+    padding-top: $verticalRhythm--half;
+    @include respond-to(medium){
+      padding-top: 2 * $verticalRhythm;
+    }
+  }
+
+  .container--noPad {
+    padding-top: 0;
+  }
+
+  &__heroPart1 {
+    padding-bottom: 176px;
+    @include respond-to(small){
+      padding-bottom: 160px;
+    }
+    .container {
+      @include respond-to(small){
+        padding-top: $verticalRhythm;
+        padding-bottom: $verticalRhythm;
+      }
+      @include respond-to(medium){
+        padding-top: $verticalRhythm * 2;
+        padding-bottom: $verticalRhythm;
+      }
+    }
+  }
+
+  &__heroPart2 {
+
+    position:relative;
+    margin-top: -245px;
+    @include respond-to(small){
+      margin-top: -186px;
+    }
+    @include respond-to(medium){
+      margin-top: -230px;
+    }
+
+    &__imageContainer {
+      margin-bottom: 0;
+      @include respond-to(small){
+        margin-bottom: $verticalRhythm;
+      }
+
+      &__demoVanImage {
+
+        figcaption {
+          position: absolute;
+          top: 10px;
+          left: 70%;
+          @include respond-to(small){
+            top: 30px;
+            left: 77%;
+          }
+        }
+
+        img {
+          max-width: 66vw;
+          @include respond-to(small){
+            max-width: 48vw;
+          }
+          @include respond-to(medium){
+            max-width: 100%;
+          }
+        }
+
+      }
+
+      &__safetyImage {
+
+        position: relative;
+        margin-top: -113px;
+        margin-left: calc(66vw - 20px);
+        top: -23px;
+
+        @include respond-to(small){
+          margin-top: -174px;
+          margin-left: 26px;
+          top: 31px;
+        }
+
+        @include respond-to(medium){
+          top: 0px;
+        }
+
+        @media (min-width: 500px) and (max-width: 660px) {
+          margin-top: -21vw;
+        }
+
+        div {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          float: left;
+        }
+
+        img {
+          max-width: 64px;
+
+          @include respond-to(small){
+            max-width: 100px;
+          }
+
+          @include respond-to(medium){
+            max-width: 115px;
+          }
+        }
+
+        figcaption {
+          position: relative;
+          color: $white;
+          max-width: 100px;
+
+          @include respond-to(small){
+            color: $keiser--black;
+            top: 8px;
+          }
+        }
+
+      }
+    }
+
+  }
+
+  &__downPointedCallout {
+    padding: 12px 10px 0;
+    background-color: $demo--van--grey--callout;
+    position: relative;
+
+    @include respond-to(small){
+      padding: 24px 30px;
+    }
+
+    &__subtitle {
+      color: $grey--light;
+    }
+
+    &__subtitle,&__title {
+      font-size: map-get($fontSizes, larger);
+      @include respond-to(medium){
+        font-size: map-get($fontSizes, xLarge)
+      }
+    }
+  }
+
+  &__downPointedCallout::after {
+    content: "";
+    position: absolute;
+    top: 98%;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background: url('/assets/images/demo-van/down-pointed-callout.svg') bottom center;
+    background-size: 150%;
+  }
+
+  &__productDisplay {
+
+    figcaption {
+      font-family: $sansSerif--black;
+      font-weight: $fontWeight--black;
+      font-size: map-get($fontSizes, smaller);
+      @include respond-to(small){
+        font-size: map-get($fontSizes, base);
+      }
+    }
+
+    @include respond-to(medium){
+      margin-top: -60px;
+    }
+
+    &__image {
+      max-width: 125px;
+    }
+
+    &__productContainer {
+      min-height: 171px;
+      margin-bottom: $verticalRhythm;
+      @include respond-to(medium){
+        margin-bottom: 2 * $verticalRhythm;
+      }
+    }
+
+  }
+
+  &__theWarrior {
+
+    figure {
+
+      @include respond-to(small){
+        text-align: center;
+      }
+
+      img {
+        max-width: 48vw;
+        @include respond-to(small){
+          max-width: 42vw;
+        }
+        @include respond-to(medium){
+          max-width: 100%;
+        }
+      }
+
+    }
+
+    figcaption {
+      position: absolute;
+      top: 30px;
+      left: 57%;
+      @include respond-to(small){
+        left: 60%;
+      }
+      @include respond-to(medium){
+        left: 72%;
+      }
+
+    }
+
+    &__description {
+      @include respond-to(medium){
+        margin-top: 100px;
+      }
+    }
+  }
+
+  &__keiserIntegratedTechnology {
+
+    &__imageContainer {
+      margin-bottom: 0;
+      @include respond-to(medium){
+        margin-bottom: $verticalRhythm;
+      }
+    }
+
+    figure {
+      text-align: center;
+      @include respond-to(medium){
+        margin-top: -30px;
+      }
+
+      img {
+        max-width: 58vw;
+        @include respond-to(small){
+          max-width: 42vw;
+        }
+        @include respond-to(medium){
+          max-width: 100%;
+        }
+      }
+    }
+
+    &__description {
+      margin-top: -30px;
+      @include respond-to(medium){
+        margin-top: 80px;
+      }
+    }
+
+  }
+
+  &__keiserVsStatusQuo {
+
+    &__description {
+      @include respond-to(medium){
+        margin-top: 20px;
+      }
+    }
+
+  }
+
+  &__leadForm {
+
+    &__field {
+      width: 100% !important;
+    }
+
+    h2 {
+      font-size: map-get($fontSizes, xLarge);
+      @include respond-to(medium){
+        font-size: map-get($fontSizes, xXLarge);
+      }
+    }
+
+    h3 {
+      font-size: map-get($fontSizes, larger);
+      @include respond-to(medium){
+        font-size: map-get($fontSizes, xLarge);
+      }
+    }
+
+  }
+
+  &__greyTitle {
+    color: $demo--van--grey--subtitle !important;
+  }
+
+  &__vanBullet {
+    max-width: 110px;
+  }
+
+}
+
+#demoVan {
+
+  &__stickyButton {
+    position: fixed;
+    bottom: 0;
+    z-index: map-get($z-index, stickyHeader);
+    margin-bottom: 0;
+    left: 0;
+    width: 100%;
+
+    @include respond-to(medium){
+      right: $verticalRhythm;
+      width: 276px;
+      left: auto;
+      box-shadow: 0px 0px 12px 6px rgba(0,0,0,0.25);
+      margin-bottom: $verticalRhythm;
+    }
+  }
+
+  &__topSubmit {
+    margin-top: 50px;
+    max-width: 100%;
+  }
+
+}
+
+#demoVan__form__submit {
+  max-width: 100%;
+}

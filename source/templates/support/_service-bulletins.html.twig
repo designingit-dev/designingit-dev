@@ -1,0 +1,61 @@
+<article>
+  {% include "support/_header-block.html" %}
+
+  <div class="container">
+    <h2 class="margin--bottom">Service Updates</h2>
+    <div class="row">
+      {% for bulletin in craft.entries.type("serviceBulletinEntry") %}
+        {% for option in bulletin.serviceUpdateOrUpgrade.options %}
+          {% if option.label == ("Service Update") %}
+            {% if option.selected %}
+              <div class="l--small--6 l--medium--4 columns">
+                <div class="titleCard">
+                  <h3 class="titleCard__title">
+                    {{ bulletin.title }}
+                  </h3>
+                  <div class="titleCard__description">
+                    {% set date = bulletin.postDate %}
+                    {{ date.month }}/{{ date.day }}/{{ date.year }}
+                  </div>
+                  <a href="{{ bulletin.url }}" class="button">
+                    View Instructions
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="container">
+    <h2 class="margin--bottom">Upgrade Offers</h2>
+    <div class="row">
+      {% for bulletin in craft.entries.type("serviceBulletinEntry") %}
+        {% for option in bulletin.serviceUpdateOrUpgrade.options %}
+          {% if option.label == ("Upgrade Offer") %}
+            {% if option.selected %}
+              <div class="l--small--6 l--medium--4 columns">
+                <div class="titleCard">
+                  <h3 class="titleCard__title">
+                    {{ bulletin.title }}
+                  </h3>
+                  <div class="titleCard__description">
+                    {{ bulletin.body }}
+                  </div>
+                  <a href="{{ bulletin.url }}" class="button">
+                    See Offer
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+</article>

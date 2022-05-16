@@ -1,0 +1,352 @@
+{% extends '_layout' %}
+
+{% block content %}
+  {% cache %}
+
+  <button id="ihrsaGuarantee__thankYouButton" v-on:click="openModal('ihrsaGuarantee__thankYou')" class="is--hidden"></button>
+  <vue-modal :active-modal="activeModal" name="ihrsaGuarantee__thankYou" id="ihrsaGuarantee__thankYou" v-cloak>
+    <div slot="header">
+      <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('ihrsaGuarantee__thankYou')"><img src="/assets/images/modal-close-button.png" /> </div>
+      <h2 class="text--red margin--bottom--none">THANK YOU</h2>
+    </div>
+    <div slot="body">
+      <h2>FOR REGISTERING YOUR INTEREST</h2>
+    </div>
+  </vue-modal>
+
+  <div class="background--black ihrsaGuarantee__header fibo2018__header">
+    <div class="container">
+      <div class="row">
+        <div class="l--medium--12 columns margin--bottom--none">
+          <h1 class="margin--bottom--none ihrsaGuarantee__header__largeTitle ihrsaGuarantee__header__largeTitle__red">BUY KEISER.</h1>
+          <h1 class="margin--bottom--none ihrsaGuarantee__header__largeTitle">GET 5 SOLUTIONS IN 1.</h1>
+          <h1 class="margin--bottom--none ihrsaGuarantee__header__largeTitle ihrsaGuarantee__header__largeTitle__red">MAXIMIZE YOUR ROI.</h1>
+          <p class="text--larger ihrsaGuarantee__header__copy">
+            With traditional iron resistance, you can only train one way: slow and steady. With our pneumatic resistance
+            technology, only Keiser can deliver <strong>five different training solutions in every one of our strength machines.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="background--red pageDivider" />
+
+  <div class="background--white fibo2018__specialities">
+    <div class="container container--noPadBottom">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <p>
+            Capitalize on this unrivaled versatility and ROI by taking advantage of the
+            <strong>“Keiser Challenge” Special Offer</strong> – create your own 12-piece lineup from our
+            selection of 15 strength machines and introduce your health club’s members to:
+          </p>
+        </div>
+        <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+          <img src="/assets/images/landing-pages/fibo-2018/1.png" />
+        </div>
+        <div class="l--extraSmall--10 l--medium--11 columns">
+          <h3>TRADITIONAL TRAINING</h3>
+          <p>
+            Train slowly like you would with a traditional iron resistance-based machine.
+          </p>
+        </div>
+        <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+          <img src="/assets/images/landing-pages/fibo-2018/2.png" />
+        </div>
+        <div class="l--extraSmall--10 l--medium--11 columns">
+          <h3>POWER TRAINING</h3>
+          <p>
+            Train for power with controlled eccentric phase followed by rapid explosive phase.
+          </p>
+        </div>
+        <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+          <img src="/assets/images/landing-pages/fibo-2018/3.png" />
+        </div>
+        <div class="l--extraSmall--10 l--medium--11 columns">
+          <h3>ECCENTRIC TRAINING</h3>
+          <p>
+            Train for far greater muscle fatigue and stimulation, maximizing eccentric effects, resulting in
+            increased strength gains over a shorter period of time.
+          </p>
+        </div>
+        <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+          <img src="/assets/images/landing-pages/fibo-2018/4.png" />
+        </div>
+        <div class="l--extraSmall--10 l--medium--11 columns">
+          <h3>SPEED TRAINING</h3>
+          <p>
+            Train for far greater central nervous system stimulation with explosive concentric phase followed by fairly
+            quick eccentric phase, resulting in increased speed development even at lower resistance levels.
+          </p>
+        </div>
+        <div class="l--extraSmall--2 l--medium--1 columns fibo2018__specialities__counterContainer">
+          <img src="/assets/images/landing-pages/fibo-2018/5.png" />
+        </div>
+        <div class="l--extraSmall--10 l--medium--11 columns">
+          <h3>HIGH-INTENSITY INTERVAL TRAINING</h3>
+          <p>
+            Train for far greater cardiovascular response while taxing muscles with 	explosive concentric phase
+            followed by fairly quick eccentric phase — a safer method of HIIT for all ages.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="background--black ihrsaGuarantee__offerInclusions">
+    <div class="container">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <h3 class="text--upcase text--alignCenter margin--bottom--none ihrsaGuarantee__offerInclusions__largeCopy">
+            you’ll also get:
+          </h3>
+        </div>
+        <div class="l--medium--12 columns ihrsaGuarantee__offerInclusions__satisfactionGuarantee">
+          <div class="text--alignCenter">
+            <h2 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__largeTitle">FREE</h2>
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">DEMO</h3>
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">STATION</h3>
+          </div>
+          <div class="text--alignCenter ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer">
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer__symbol">+</h3>
+          </div>
+          <div class="text--alignCenter">
+            <h2 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__largeTitle">6 WEEK</h2>
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">TRAINING</h3>
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">PROGRAM</h3>
+          </div>
+          <div class="text--alignCenter ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer">
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer__symbol">+</h3>
+          </div>
+          <div class="text--alignCenter">
+            <h2 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__largeTitle">300</h2>
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">WELCOME</h3>
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">PACKS</h3>
+          </div>
+          <div class="text--alignCenter ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer">
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer__symbol">+</h3>
+          </div>
+          <div class="text--alignCenter">
+            <div class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__rewardsProgramContainer">
+              <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">REWARDS</h3>
+              <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">PROGRAM</h3>
+            </div>
+          </div>
+          <div class="text--alignCenter ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer">
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__symbolContainer__symbol">=</h3>
+          </div>
+          <div class="text--alignCenter fibo2018__roiContainer">
+            <h3 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__smallTitle">MAXIMUM</h3>
+            <h2 class="ihrsaGuarantee__offerInclusions__satisfactionGuarantee__largeTitle">ROI</h2>
+          </div>
+        </div>
+        <div class="l--medium--12 columns margin--bottom--narrow text--alignCenter">
+          <h2 class="text--xLarger text--red ihrsaGuarantee__offerInclusions__satisfactionGuarantee__value">
+            A
+            <span class="text--white ihrsaGuarantee__offerInclusions__satisfactionGuarantee__value__red">€15,000</span>
+            VALUE!
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="background--red pageDivider" />
+
+  <div class="background--darkGrey ihrsaGuarantee__demoStation">
+    <div class="container">
+      <div class="row">
+        <div class="l--medium--6 columns">
+          <h2 class="margin--top">DEMO STATION</h2>
+          <p>
+            To demonstrate the groundbreaking Keiser pneumatics system to current and new members, your health club will
+            receive a FREE Keiser Demo Station — The “Warrior” — a modified leg extension machine that compares the
+            advantages of Keiser’s pneumatic-resistance technology over traditional iron resistance.
+          </p>
+          <p>
+            Additionally, you’ll receive the companion pull-up banner that introduces and encourages members to sign up
+            for “The Keiser Challenge”.
+          </p>
+        </div>
+        <div class="l--medium--6 columns text--alignCenter">
+          <img class="fibo2018__demoStation__warrior" src="/assets/images/landing-pages/fibo-2018/warrior-leg-machine.png" />
+        </div>
+        <div class="l--medium--12 columns">
+          <h2>TRAINING PROGRAM</h2>
+          <p>
+            The 6-week “Keiser Challenge” training program includes an introduction to Keiser machines, along with
+            instructions about technique, the Keiser digital display, tracking progress, and personal training.
+          </p>
+          <h2>WELCOME PACK</h2>
+          <p>
+            300 "Keiser Challenge" Welcome Packs are provided for participants. Included are a Keiser-branded T-shirt and
+            a workout program packet, featuring fact sheets and workout cards based on the 5 different training protocols
+            offered by Keiser pneumatics: Traditional, Power, Eccentric, Speed and HIIT.
+          </p>
+          <h2>REWARDS PROGRAM</h2>
+          <p>
+            The Rewards Program includes one smartwatch per 300 Welcome Packs, which your health club can use as the prize
+            in a sweepstakes or competition among members participating in the Keiser Challenge.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="background--red pageDivider" />
+
+  <div class="background--white ihrsaGuarantee__equipmentChoices">
+    <div class="container">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <h2><span class="text--red">CHOOSE 12</span> STRENGTH MACHINES FROM OUR LIST BELOW:</h2>
+        </div>
+        {% set products = [
+        {
+        'name': 'AIR250 LEG EXTENSION',
+        'image': '102728-air250-legextension-001121bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 LAT PULL-DOWN ',
+        'image': '102728-air250-latpulldown-002121bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 SEATED LEG CURL',
+        'image': '102728-air250-seatedlegcurl-001221bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 MILITARY PRESS',
+        'image': '102728-air250-militarypress-001621bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 ABDOMINAL',
+        'image': '102728-air250-abdominal-002721bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 TRICEPS',
+        'image': '102728-air250-triceps-001921bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 LOWER BACK',
+        'image': '102728-air250-lowerback-002821bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 ARM CURL',
+        'image': '102728-air250-armcurl-001721bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR250 STANDING HIP',
+        'image': '102728-air250-standinghip-002621bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR300 SEATED CALF',
+        'image': '102728-air300-seatedcalf-002936bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR300 SQUAT',
+        'image': '102728-air300-squat-001533bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR300 LEG PRESS',
+        'image': '102728-air300-legpress-002531bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR350 SEATED BUTTERFLY',
+        'image': '102728-air350-seatedbutterfly-002235bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR350 BIAXIAL UPPER BACK',
+        'image': '102728-air350-biaxialupperback-002035bp-ret-cmyk-small'
+        },
+        {
+        'name': 'AIR350 BIAXIAL CHEST PRESS',
+        'image': '102728-air350-biaxialchestpress-001335bp-ret-cmyk-small'
+        }
+        ] %}
+        {% for product in products %}
+          <div class="l--medium--3 l--extraSmall--6 columns text--alignCenter">
+            <div class="ihrsaGuarantee__equipmentChoices__equipment" data-name="{{ product.name }}">
+              <img src="/assets/images/landing-pages/ihrsa-2018/products/{{ product.image }}.png" />
+              {% set productTitleParts = product.name|split(' ') %}
+              <a class="button">{{ productTitleParts[0] }}<br>{{ productTitleParts|slice(1)|join(' ') }} </a>
+            </div>
+          </div>
+          {% if loop.index % 4 == 0 %}
+            <div class="is--hidden is--visible--medium ihrsaGuarantee__equipmentChoices__clearfix"></div>
+          {% endif %}
+          {% if loop.index % 2 == 0 %}
+            <div class="is--hidden--medium ihrsaGuarantee__equipmentChoices__clearfix"></div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="ihrsaGuarantee__contact">
+    <div class="container container--noPadTop">
+      <div class="row">
+        <div class="l--medium--12 columns">
+          <h2>REGISTER FOR A KEISER SALES REP TO CONTACT YOU:</h2>
+        </div>
+        {% set form = craft.sproutForms.form('fibo2018promo') %}
+        <form method="post" action="/forms/fibo2018promo" accept-charset="UTF-8" id="ihrsaGuarantee__contact__form">
+          <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+          <input type="hidden" name="handle" value="fibo2018promo">
+          {{ redirectInput('/' ~ craft.app.request.segments[0] ~ '?message=thankyouforsubmitting') }}
+          {{ csrfInput() }}
+          <input type="hidden" name="fields[equipmentSelected]">
+          <div class="l--medium--4 columns margin--bottom--none">
+            {{ craft.sproutForms.displayField(form, form.getField('leadName')) }}
+          </div>
+          <div class="l--medium--4 columns margin--bottom--none">
+            {{ craft.sproutForms.displayField(form, form.getField('email')) }}
+          </div>
+          <div class="ihrsaGuarantee__contact__clearfix"></div>
+          <div class="l--medium--4 columns margin--bottom--none">
+            {{ craft.sproutForms.displayField(form, form.getField('industry')) }}
+          </div>
+          <div class="l--medium--4 columns margin--bottom--none">
+            {{ craft.sproutForms.displayField(form, form.getField('country')) }}
+          </div>
+          <div class="l--medium--4 columns margin--bottom--none">
+            <input type="submit" class="button button--fullWidth" value="REGISTER">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="background--darkGrey ihrsaGuarantee__statusQuo">
+    <div class="container">
+      <div class="row">
+        <div class="l--medium--6 columns">
+          <h2 class="margin--bottom--none">KEISER <span class="text--red">VS</span></h2>
+          <h2 class="ihrsaGuarantee__statusQuo__title__grey">THE STATUS QUO</h2>
+          <p>
+            Watch our video to learn the benefits of Keiser pneumatic-resistance machines when compared to traditional
+            iron resistance strength training.
+          </p>
+          <a href="/science" class="button">LEARN MORE</a>
+        </div>
+        <div class="l--medium--6 columns text--alignRight">
+          <div class="imageVideo">
+            <div class="imageVideo__image">
+              <img src="/assets/images/landing-pages/ihrsa-2018/keiser-vs-status-quo-thumbnail.png">
+            </div>
+            <div class="imageVideo__buttonOverlay" v-on:click="openModal('video-keiser-vs-status-quo')"></div>
+          </div>
+          <vue-modal :show.sync="showModal" :active-modal="activeModal" name="video-keiser-vs-status-quo">
+            <h3 slot="header">
+              KEISER vs THE STATUS QUO
+            </h3>
+            <div class="videoEmbed" slot="body" v-html.literal='<iframe width="560" height="315" src="https://www.youtube.com/embed/NUPAJAJPRyo?rel=0&enablejsapi=1" frameborder="0" allowfullscreen></iframe>'>
+            </div>
+          </vue-modal>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endcache %}
+{% endblock %}

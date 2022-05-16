@@ -1,0 +1,11 @@
+{% if class is not defined %}
+ {% set class = "" %}
+{% endif %}
+
+{% if id is not defined %}
+ {% set id = "" %}
+{% endif %}
+
+<svg class="icon {{class}}">
+   <use xlink:href="#{{id}}"></use>
+</svg>

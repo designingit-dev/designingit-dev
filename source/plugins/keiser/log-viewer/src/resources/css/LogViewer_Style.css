@@ -1,0 +1,36 @@
+.viewer__loading,
+.viewer__container {
+	display: none;
+	margin-top: 20px;
+}
+
+.viewer__container .tableview .tablecontent tr {
+	height: 50px;
+	max-height: 50px;
+	overflow: hidden;
+}
+
+.viewer__container .tableview .tablecontent thead tr {
+	height: 12px;
+}
+
+.viewer__container .tableview .tablecontent td, .tablecontent th {
+	min-width: 100px;
+}
+
+.viewer__container .tableview .tablecontent td {
+	border-right: 1px solid #eee;
+}
+
+.viewer__container .tableview .tablecontent tr td:last-child  {
+	border-right: 0px solid transparent;
+}
+
+.viewer__container .tableview th,
+.viewer__container .tableview td {
+	vertical-align:top;
+}
+
+.viewer__container .tableview {
+	overflow: auto
+}

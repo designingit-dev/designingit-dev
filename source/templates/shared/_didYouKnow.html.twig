@@ -1,0 +1,15 @@
+<div class="interstitial">
+  <div class="row">
+    <div class="l--small--6 l--medium--4 columns l--noMargin">
+      <div class="interstitial__svgWrapper">
+        <img class="lazyload" data-src="/assets/images/Keiser_DidYouKnow.svg" alt="Did You Know?">
+      </div>
+    </div>
+    <div class="l--small--6 l--medium--7 columns l--noMargin l--pullRight">
+      <div class="interstitial__textWrapper">
+        {% set randomDidYouKnow = craft.entries.section(['didYouKnow']).orderBy('RAND()').one() %}
+        {{ randomDidYouKnow.didYouKnowText }}
+      </div>
+    </div>
+  </div>
+</div>

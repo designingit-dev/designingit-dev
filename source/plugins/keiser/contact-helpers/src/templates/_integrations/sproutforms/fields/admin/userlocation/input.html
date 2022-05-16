@@ -1,0 +1,10 @@
+<div class="userLocationField">
+  {% if value is defined and value is not empty %}
+    {% set values = value|split(';') %}
+    <span>Country: {{ values[0] }}</span>
+    {% if values[1] is defined %}
+      <br>
+      <span>ZIP: {{ values[1] }}</span>
+    {% endif %}
+  {% endif %}
+</div>

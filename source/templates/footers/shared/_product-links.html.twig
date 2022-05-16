@@ -1,0 +1,28 @@
+<div class="footer__sectionLinks">
+  {% for entry in craft.entries.section("fitnessEquipment") %}
+    <div class="scale--base l--noMargin">
+      <a href="{{ entry.url }}">
+        {% include 'shared/_nav-title.html' with {'entry': entry} %}
+      </a>
+    </div>
+  {% endfor %}
+  <ul class="list--tight">
+    {% for category in craft.categories.group('productTypes') %}
+      {% switch category.title %}
+      {% case 'KEISER STRENGTH' %}
+        {% set url = '/fitness-equipment/strength-training' %}
+      {% case 'KEISER CARDIO' %}
+        {% set url = '/fitness-equipment/cardio-training' %}
+      {% case 'FUNCTIONAL TRAINING' %}
+        {% set url = '/fitness-equipment/functional-training' %}
+      {% default %}
+        {% set url = category.url %}
+      {% endswitch %}
+      <li>
+        <a href="{{ url }}">
+          {% include 'shared/_nav-title.html' with {'entry': category} %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

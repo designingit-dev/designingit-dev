@@ -1,0 +1,28 @@
+{% extends "_layout" %}
+{% set form = craft.sproutForms.form(slug) %}
+
+{% block seo %}
+  {% include "_seo-forms" %}
+{% endblock %}
+
+{% block content %}
+
+{% set options = {
+    "class": "form",
+    "errorClass": "form--error"
+} %}
+
+
+{% if not form %}
+  {% redirect siteUrl %}
+{% endif %}
+
+<div class="row container">
+  <h1>{{ form.name }}</h1>
+
+  <article>
+    {{ craft.sproutForms.displayForm(slug, options) }}
+  </article>
+</div>
+
+{% endblock %}

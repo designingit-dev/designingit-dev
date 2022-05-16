@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------------
+// !-- Respond To
+//
+// Easily create add a media query
+// We take a mobile-first apporach so we're only concerned about breaking
+// upward. This mixin receives a named breakpoint from the `$breakpoints`
+// variable map and outputs the media query.
+//
+// Example:
+//
+// .div {
+//   @include respond-to(large) {
+//     background-color: purple;
+//   };
+// }
+//
+// Generates:
+//
+// .div {
+//   @media (min-width: 81.25em) {
+//     background-color: purple;
+//   }
+// }
+// -----------------------------------------------------------------------------
+
+@mixin respond-to($breakpointName) {
+  // Retrieves the value from the key
+  $value: map-get($breakpoints, $breakpointName);
+
+  // If the key exists in the map
+  @if $value != null {
+    // Prints a media query based on the value
+    @media (min-width: pem($value)) {
+      @content;
+    }
+  } @else { // If the key doesn't exist in the map
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoints}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+@mixin respond-to-max($breakpointName) {
+  // Retrieves the value from the key
+  $value: (map-get($breakpoints, $breakpointName) - 1);
+
+  // If the key exists in the map
+  @if $value != null {
+    // Prints a media query based on the value
+    @media (max-width: pem($value)) {
+      @content;
+    }
+  } @else { // If the key doesn't exist in the map
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoints}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}

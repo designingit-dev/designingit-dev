@@ -1,0 +1,4 @@
+{% set category = craft.categories.group('productTypes').title('RACKS').one() %}
+{% include 'fitness-equipment/product-category' with {
+  'category': category
+} %}

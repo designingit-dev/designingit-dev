@@ -1,0 +1,64 @@
+// -----------------------------------------------------------------------------
+// !-- Graphic Header
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Graphic Header
+name: graphic-header
+category: Components - Graphic Header
+---
+
+``` html_example
+<div class="notice">Thanks! We'll be in touch with you soon.</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+@mixin graphicHeaderShared {
+  font-family: $sansSerif--black;
+  font-weight: $fontWeight--black;
+  line-height: .75;
+}
+
+.graphicHeader {
+  text-align: center;
+}
+
+.heroVideo-alt .graphicHeader {
+  margin: 0 auto;
+  max-width: 80%;
+
+  @include respond-to(medium) {
+    max-width: 65%;
+  }
+
+  @include respond-to(large) {
+    max-width: 50%;
+  }
+}
+
+.graphicHeader__title {
+  @include graphicHeaderShared;
+  font-size: 1.6em;
+  color: $grey--light;
+
+  @include respond-to(medium) {
+    font-size: 2.65em;
+  }
+}
+
+.heroVideo-alt .graphicHeader__title {
+  font-size: 2.35em;
+  line-height: 0.85;
+  text-shadow: 0 0 5px rgba(0,0,0,0.8);
+}
+
+.graphicHeader__subtitle {
+  @include graphicHeaderShared;
+  font-size: 1.9em;
+  color: $white;
+
+  @include respond-to(medium) {
+    font-size: 3.1em;
+  }
+}

@@ -1,0 +1,26 @@
+{% cache %}
+<article>
+
+  {% include "support/_header-block.html" %}
+
+  <div class="container">
+    <h2 class="margin--bottom">
+      Leasing application forms
+    </h2>
+    <div class="row">
+      {% for block in entry.blockWithLink %}
+        <div class="l--small--6 l--medium--4 columns">
+          <div class="titleCard titleCard--constrain">
+            <div class="titleCard__flexItems titleCard__flexItems--constrain">
+              <h3 class="titleCard__title">
+                {{ block.blockTitle }}
+              </h3>
+              <a href="{{ block.linkDestination }}" class="button button--fullWidth">{{ block.linkText }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>
+{% endcache %}

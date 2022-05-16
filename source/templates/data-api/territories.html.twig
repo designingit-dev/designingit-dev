@@ -1,0 +1,16 @@
+{% header "Cache-Control: no-cache, must-revalidate" %}
+{% header "Content-type: application/json" %}
+{% cache for 1 week %}
+{% spaceless %}
+{"data":[{% set territories = craft.entries.section('territories').orderBy('dropdownOrderAscending', 'slug').limit(10000) %}{% set total = territories.count() %}{% for entry in territories %}
+{
+  "title": "{{ entry.title }}",
+  "slug": "{{ entry.slug }}",
+  "region": "{{ entry.belongsToRegion.one().slug }}",
+  "rep": "{{ entry.belongsToRep.one().slug }}",
+  "repNiceName": "{{ entry.belongsToRep.one().title }}"
+}{% if not loop.last %},{% endif %}
+{% endfor %}
+],"meta":{"pagination":{"total":{{ total }},"count":{{ total }},"per_page":10000,"current_page":1,"total_pages":1,"links":[]}}}
+{% endspaceless %}
+{% endcache %}

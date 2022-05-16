@@ -1,0 +1,178 @@
+{% extends "_layout" %}
+
+{% block bodyClasses %}checkout__body{% endblock %}
+
+{% block seo %}
+  {% include "checkout/_seo-checkout.html" with {
+    stepTitle: siteName~" Checkout"
+  } %}
+{% endblock %}
+
+{% block header %}
+  {% include 'headers/_header-logo_only_narrow' %}
+{% endblock %}
+
+{% block content %}
+
+  {% if featureFlags.activateCommerce %}
+    {% if not cart.totalQty > 0 %}
+      {% redirect '/cart' %}
+    {% endif %}
+  {% endif %}
+
+  <div class="container container--tight margin--bottom checkout">
+
+    <div class="row">
+      <div class="l--medium--12 columns">
+        <h2>Checkout</h2>
+        <hr class="pageDivider pageDivider--thin background--black" />
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="l--medium--push--6 l--medium--6 columns background--lightGrey" id="checkout-orderReview">
+        {% include 'checkout/_reviewTableCondensed' with {
+          showTotals: false,
+          showShippingSubtotal: true
+        } %}
+      </div>
+
+      <div class="l--medium--pull--6 l--medium--6 columns">
+
+        <div class="checkout__customerInfo__summary is--hidden">
+
+          <div class="field margin--top--half margin--bottom--narrow">
+            <div class="field__heading">
+              <label>Contact</label>
+            </div>
+            <div class="row">
+              <div class="l--medium--10 columns margin--bottom--narrow" id="checkout-summary-email">
+
+              </div>
+              <div class="l--medium--2 columns margin--bottom--narrow">
+                <a id="checkout-summary-email-change" onclick="window.checkout.editContactInformation()">Change</a>
+              </div>
+            </div>
+          </div>
+
+          <hr class="pageDivider pageDivider--thin background--black" />
+
+          <div class="field margin--top--half margin--bottom--narrow">
+            <div class="field__heading">
+              <label>Ship To</label>
+            </div>
+            <div class="row">
+              <div class="l--medium--10 columns margin--bottom--narrow" id="checkout-summary-shipping-address">
+
+              </div>
+              <div class="l--medium--2 columns margin--bottom--narrow">
+                <a id="checkout-summary-shipping-address-change" onclick="window.checkout.editContactInformation()">Change</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="is--hidden" id="checkout-summary-billing-address-container">
+            <hr class="pageDivider pageDivider--thin background--black" />
+
+            <div class="field margin--top--half margin--bottom--narrow">
+              <div class="field__heading">
+                <label>Bill To</label>
+              </div>
+              <div class="row">
+                <div class="l--medium--10 columns margin--bottom--narrow" id="checkout-summary-billing-address">
+
+                </div>
+                <div class="l--medium--2 columns margin--bottom--narrow">
+                  <a id="checkout-summary-billing-address-change" onclick="window.checkout.editContactInformation()">Change</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="is--hidden" id="checkout-summary-shipping-method-container">
+            <hr class="pageDivider pageDivider--thin background--black" />
+
+            <div class="field margin--top--half margin--bottom--narrow">
+              <div class="field__heading">
+                <label>Shipping Method</label>
+              </div>
+              <div class="row">
+                <div class="l--medium--10 columns margin--bottom--narrow" id="checkout-summary-shipping-method">
+
+                </div>
+                <div class="l--medium--2 columns margin--bottom--narrow">
+                  <a id="checkout-summary-shipping-method-change" onclick="window.checkout.editShippingMethod()">Change</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <form id="checkout-step-1">
+          <h3>Contact Information</h3>
+          <div class="field margin--bottom--narrow">
+            <div class="field__heading">
+              <label for="checkout-email">Email Address *</label>
+            </div>
+            <div class="field__input">
+              <input required id="checkout-email" type="email" value="{{ cart.email }}" name="email" placeholder="email@site.com"/>
+            </div>
+          </div>
+
+          <h3 class="margin--top">Shipping Address</h3>
+          {% include '/checkout/_addresses' %}
+        </form>
+
+        <form id="checkout-step-2" class="is--hidden">
+          <h3>Shipping Method</h3>
+          <div id="checkout-shipping-methods-container">
+
+          </div>
+          <div class="row">
+            <div class="l--medium--12 columns">
+              <button type="submit" class="button">Continue to Payment Method</button>
+            </div>
+            <div class="l--medium--12 columns">
+              <a class="text--small text--uppercase checkout__goBackLink" onclick="window.checkout.editContactInformation()">< Return to customer information</a>
+            </div>
+          </div>
+        </form>
+
+        <div id="checkout-step-3" class="is--hidden">
+          <h3>Payment</h3>
+          <div id="checkout-payment-methods-container">
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    {% include "checkout/_analytics" with { order: cart, checkoutStep: 1 } %}
+  </div>
+
+<button id="whiteGloveUnavailable__modal__trigger" class="is--hidden" v-on:click="openModal('whiteGloveUnavailable__modal')"></button>
+{% include 'checkout/_whiteGloveUnavailableModal' %}
+
+{% include 'checkout/_errors' %}
+<button id="checkoutError__modal__trigger" class="is--hidden" v-on:click="openModal('checkoutError__modal')"></button>
+
+<script type="text/javascript">
+  window.cartNumber = '{{ cart.number[:7]|upper }}';
+</script>
+{% endblock %}
+
+{% block footer %}
+  <div class="checkout__footer">
+    {% include 'footers/_footer-full' %}
+  </div>
+{% endblock %}
+
+{% block footerThirdPartyScripts %}
+  <script type="text/javascript">
+      window.csrfTokenName = "{{ craft.app.config.general.csrfTokenName|e('js') }}";
+      window.csrfTokenValue = "{{ craft.request.csrfToken|e('js') }}";
+  </script>
+{% endblock %}

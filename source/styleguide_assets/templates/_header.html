@@ -1,0 +1,37 @@
+<% nameScope = @config['name_scope'] %>
+<% sgPath = @config['styleguide_path'] %>
+<% client = @config['client_name'] %>
+<!doctype html>
+<html>
+  <head>
+    <title><%= client %> Living Styleguide: <%= title %></title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="on" http-equiv="cleartype"/>
+    <meta content="True" name="HandheldFriendly"/>
+    <meta content="320" name="MobileOptimized"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+    <link href="//cloud.webtype.com/css/84f7ac02-0c59-44b8-b45b-1355f8cd00ba.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/assets/stylesheets/application-styleguide.css" media="screen">
+    <link rel="stylesheet" href="/assets/stylesheets/application.css" media="screen">
+    <link rel="stylesheet" href="/assets/stylesheets/application-print.css" media="print">
+    <script>
+//      window.Keiser = {};
+//      window.Keiser.Variables = { stream_host: "example.com" }
+//      Project specific javascript variables will go here if we need them
+    </script>
+  </head>
+  <body class="sg--body">
+    <div class="sg--wrapper">
+      <div class="sg--wrapper__content">
+        <header class="sg--siteHeader">
+          <button class="sg--menu"></button>
+          <button class="sg--margins">Full Width</button>
+          <h1 class="sg--siteHeader__title"><%= client %> Living Styleguide: <%= title %></h1>
+          <ul class="sg--navTarget">
+          <% @blocks.each do |b| %>
+            <li class="sg--navTarget__item"><a class="sg--navTarget__link" href="#<%= b[:name] %>"><%= b[:title] %></a></li>
+          <% end %>
+          </ul>
+        </header>
+        <div class="sg--content">

@@ -1,0 +1,29 @@
+<div class="footer__contact">
+  <div class="scale--base">
+    CALL TODAY
+    <a href="tel:{{ about.phoneNumber }}">{{ about.phoneNumber }}</a>
+  </div>
+
+  <div class="scale--base margin--bottom">
+    {% set contactLink = craft.entries.type("aboutContact").one.url %}
+    OR <a href="{{ contactLink }}" class="text--uppercase text--underline footer__contactLink">Contact Us.</a>
+  </div>
+
+  <div class="footer__socialLinks">
+    <a href="{{ about.facebook }}" target="_blank">
+      <svg class="footer__socialLinks__icon"><use xlink:href="#facebook"></use></svg>
+    </a>
+    <a href="{{ about.twitter }}" target="_blank">
+      <svg class="footer__socialLinks__icon"><use xlink:href="#twitter"></use></svg>
+    </a>
+    <a href="{{ about.youtube }}" target="_blank">
+      <svg class="footer__socialLinks__icon"><use xlink:href="#youtube"></use></svg>
+    </a>
+    <a href="{{ about.linkedin }}" target="_blank">
+      <svg class="footer__socialLinks__icon"><use xlink:href="#linkedin"></use></svg>
+    </a>
+    <a href="{{ about.instagram }}" target="_blank">
+      <svg class="footer__socialLinks__icon"><use xlink:href="#instagram"></use></svg>
+    </a>
+  </div>
+</div>

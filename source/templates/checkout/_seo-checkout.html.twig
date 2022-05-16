@@ -1,0 +1,11 @@
+{#
+This partial sets the title for a given checkout page because Craft
+Commerce checkout pages do not have entries or categories.
+
+These titles are for human purposes only given that the crawlers
+should not be going through the checkout flow. Hobgoblins or no, SEO remains in
+the name of the template for consistency.
+#}
+
+<title>{{ stepTitle }}</title>
+<meta content="{{ stepTitle }}" name="DC.title"/>

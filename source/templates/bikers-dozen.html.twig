@@ -1,0 +1,147 @@
+{% extends "_layout" %}
+
+{% block header %}
+  <header class="landingHeader background--black">
+    <div class="container container--full container--tight">
+      <div class="row">
+        <div class="l--small--3 columns columns--noMargin">
+          <div itemscope itemtype="http://schema.org/Organization" class="logo">
+            <a href="http://keiser.com" itemprop="url" class="logo__link">
+              <img src="/assets/images/keiser-logo.svg" itemprop="logo" alt="Keiser" class="logo__image">
+            </a>
+          </div>
+        </div>
+        <div class="l--small--9 columns columns--noMargin">
+          <h1 class="landingHeader__title"><span class="text--red">M3i</span> Indoor Bike</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+
+  <main>
+    <section class="landingContent">
+      <div class="container container--full container--noPadBottom">
+        <div class="row">
+          <div class="l--small--12 columns">
+            <div class="constrain">
+              <div class="text--alignCenter margin--bottom">
+                <h1 class="landingTitle--XLarge text--red">
+                  The Biker's Dozen
+                </h1>
+
+                <h3 class="landingTitle--medium">
+                  <span class="text--red">13 Things</span>
+                  to look for when buying an indoor group cycling bike
+                </h3>
+              </div>
+
+              <ul class="numberedList">
+                {% for block in entry.frequentlyAskedQuestions %}
+                  <li class="faq faq--minimal numberedList__item numberedList__item--setWidth">
+                    <div class="faq__iconWrapper">
+                      <img class="faq__icon" src="/assets/images/plus-button.svg" alt="plus">
+                    </div>
+                    <div class="faq__content">
+                      <div class="faq__question">
+                        {{ block.question }}
+                      </div>
+                      <div class="faq__answer" aria-hidden="true">
+                        {{ block.answer }}
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="background--lightGrey">
+      <div class="container text--alignCenter">
+        {% for block in entry.linkBlock %}
+          <a href="{{ block.linkDestination }}" class="button">
+            {{ block.linkText }}
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="background--red">
+      <section class="container">
+        <div class="row">
+          <div class="l--12 columns">
+            <h2 class="landingTitle--large text--alignCenter">The ultimate machine <span class="text--greyLight">for indoor group cycling</span></h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="l--small--6 columns">
+            <div class="videoEmbed">
+              <iframe width="853" height="480" src="https://www.youtube.com/embed/TCxRK4PsW_U?rel=0&enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="l--small--6 columns">
+
+              <vue-brochure inline-template>
+                <div>
+                  {% set form = craft.sproutForms.form('m3ibrochure') %}
+                  <form method="post"
+                        v-if="!hasSubmittedForm"
+                        accept-charset="utf-8"
+                        enctype="multipart/form-data"
+                        id="m3iBrochureForm"
+                        @submit.prevent="handleFormSubmit"
+                        v-el:form
+                        class="m3iBrochureForm form--fullWidth js--trackForm--contactRep">
+
+                    <div v-if="hasFormErrors" transition="slide-down" class="margin--bottom--half">
+                      <strong>All fields are required.</strong>
+                    </div>
+
+                    {{ csrfInput() }}
+                    <input type="hidden" name="action" value="sprout-forms/entries/save-entry">
+                    <input type="hidden" name="handle" value="{{ form.handle }}">
+                    {{ redirectInput(form.redirectUri) }}
+                    {{ craft.sproutForms.displayTab('m3ibrochure.form') }}
+
+                    {% hook 'sproutForms.modifyForm' %}
+                    {# input type="button" is a workaround for mobile iOS. DO NOT change to type="submit" #}
+                    <input @click="handleFormSubmit" type="button" class="button button--reverse" value="Get the Brochure">
+                  </form>
+                  <div v-if="hasSubmittedForm">
+                    <h2>Thank you</h2>
+                    <p>Thank you for your interest in the M3i. Click the button below to download your brochure.</p>
+                    <a @click.prevent="handleFormDownload" href="/assets/pdf/Keiser_M3i_Brochure_web.pdf" class="button button--reverse">Download the Brochure</a>
+                  </div>
+                </div>
+              </vue-brochure>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="background--darkGrey">
+      <div class="container container--full container--tight">
+        <div class="sharethis-inline-share-buttons"></div>
+        <div class="text--alignCenter">
+          <a href="/" class="button button--reversedTertiary">Visit keiser.com to learn more.</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+{% endblock %}
+
+{% block footerThirdPartyScripts %}
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=58b878e6b5b25f0011bebb6c&product=inline-share-buttons"></script>
+{% endblock %}
+
+{% block footer %}
+  {% include 'footers/_footer-small' %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% if featureFlags.activateCommerce %}
+
+{% set variant = product.defaultVariant %}
+{% set outOfStock = true %}
+{% if variant.hasUnlimitedStock or variant.stock > 0 %}
+  {% set outOfStock = false %}
+{% endif %}
+
+<label class="button {{ outOfStock ? 'button--disabled' : '' }} {{ buttonClasses }}" for="submit{{variant.id}}">
+  {{ outOfStock ? 'OUT OF STOCK' : buttonText }}
+</label>
+<form
+  method="POST"
+  class="is--hidden {{ useAjax ?? '' }}"
+  id="form{{ variant.id }}"
+  data-product-name="{{ variant.title }}"
+  data-sku="{{ variant.sku }}"
+  data-price="{{ variant.price|number_format('2', '.', '') }}"
+  data-category="{{ product.analyticsCategory.one() }}"
+  data-product-url="{{ product.url }}"
+  data-product-image-url="{{ product.image.one ? product.image.one.url : '' }}">
+
+  <input type="hidden" name="action" value="/commerce/cart/update-cart">
+  {{ redirectInput('/cart') }}
+  <input type="hidden" name="purchasableId" value="{{ variant.id }}">
+  {% if product.productSellersNotes is not null and product.productSellersNotes is not empty %}
+    <input type="hidden" name="options[productSellersNotes]" value="{{ product.productSellersNotes }}">
+  {% endif %}
+  <vue-addtocart
+    product-name="{{ variant.title }}"
+    sku="{{ variant.sku }}"
+    price="{{ variant.price|number_format('2', '.', '') }}"
+    category="{{ product.analyticsCategory.one() }}"
+    product-url="{{ product.url }}"
+    product-image-url="{{ product.image.one ? product.image.one.url : '' }}"
+    inline-template>
+    <input type="hidden" name="qty" id="qty{{ variant.id }}" v-model="quantity" value="1">
+    {{ craft.blitz.csrfInput() }}
+    <input id="submit{{variant.id}}"
+        {% if useAjax is not defined %}v-on:click="trackAddToCart"{% endif %}
+        type="submit"
+        value="{{ buttonText }}">
+  </vue-addtocart>
+</form>
+
+{% if product.productQuestionnaire is not null and product.productQuestionnaire.count > 0 %}
+  {% include 'shop/products/shared/_productQuestionnaire' with {'product': product} %}
+{% endif %}
+
+{% endif %}

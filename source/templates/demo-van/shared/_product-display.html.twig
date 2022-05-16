@@ -1,0 +1,18 @@
+<!-- Product Display -->
+<div class="container container--noPadBottom demoVan__productDisplay">
+  <div class="row">
+    {% set productSlugs = ["infinity-series-performance-trainer", "m3i-indoor-cycle", "air350-biaxial-chest-press", "air300-leg-press", "power-rack", "m7i-wheelchair-accessible-total-body-trainer"] %}
+    {% for slug in productSlugs %}
+      {% set product = craft.entries.section('products').slug(slug).one() %}
+      {% if product is not null %}
+        <div class="l--extraSmall--6 l--small--4 columns text--alignCenter demoVan__productDisplay__productContainer">
+          <figure>
+            <img class="demoVan__productDisplay__image" src="/assets/images/demo-van/{{ product.slug }}.png" alt="{{ product.title }}">
+            <figcaption><strong>{{ product.title }}</strong></figcaption>
+          </figure>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+<!-- End Product Display -->

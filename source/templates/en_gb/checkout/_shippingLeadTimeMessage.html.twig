@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="l--extraSmall--9 l--extraSmall--offset--3 l--medium--10 l--medium--offset--2 columns margin--bottom--none">
+    <div class="additionalTransitTime__deliveryTimeFrameBlurb">
+      <div class="padding--left--narrow text--small margin--bottom--none">
+        Usually <strong>ships within {{ craft.keiserCommerceHelpers.getShippingLeadTimeForCart() }}&nbsp;business&nbsp;days.</strong>
+        {% if craft.keiserCommerceHelpers.isPreInstalledAccessoryInCart() %}
+          <a data-modal-trigger="cart_needItSooner" class="link--underlined modalTrigger">Need&nbsp;it&nbsp;sooner?</a>
+        {% endif %}
+      </div>
+      <div class="margin--bottom--none">
+        <img src="/assets/images/cart/fedex-ground/icon-delivery-timeframe.png">
+      </div>
+    </div>
+  </div>
+</div>

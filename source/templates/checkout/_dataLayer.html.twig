@@ -1,0 +1,23 @@
+<script type="text/javascript">
+  var orderLineItems = [];
+  {% for item in order.lineItems %}
+    orderLineItems.push({
+        'id': '{{ item.sku }}',
+        'name': '{{ item.description }}',
+        'category': '{{ item.purchasable.product.analyticsCategory.one() }}',
+        'price': {% if item.onSale %}{{ item.salePrice|number_format(2, '.', '') }}{% else %}{{ item.price|number_format(2, '.', '') }}{% endif %},
+        'quantity': {{ item.qty }}
+    });
+  {% endfor %}
+
+  dataLayer.push({
+    'orderId': '{{ order.number[:7]|upper }}',
+    'orderLineItems': orderLineItems,
+    'orderTax': {{ order.getAdjustmentsTotalByType('tax')|number_format(2, '.', '') }},
+    'orderShipping': {{ order.getAdjustmentsTotalByType('shipping')|number_format(2, '.', '') }},
+    'orderTotal': {{ order.totalPrice |number_format(2, '.', '') }},
+    'orderCurrency': '{{ order.currency }}',
+    'orderCoupon': '{{ order.couponCode }}',
+    'orderNumItems': orderLineItems.length
+  });
+</script>

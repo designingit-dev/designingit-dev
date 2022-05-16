@@ -1,0 +1,42 @@
+<div class="background--darkGrey">
+  <div class="container container--tight">
+    <div class="row">
+      <div class="l--small--12 l--medium--6 columns l--noMargin">
+        <div class="titleBlock">
+          <h1 class="titleBlock__subTitle">
+            {{ entry.title }}
+          </h1>
+        </div>
+        <div class="">
+          {{ entry.body }}
+        </div>
+      </div>
+      <div class="l--small--12 l--medium--6 columns">
+        <div class="ctaCard background--black">
+
+          <h2 class="ctaCard__title">
+            Need immediate help?
+          </h2>
+
+          <a v-on:click="openModal('contactUs__educationServices')">
+            <img src="/assets/images/contact-us/ticket.svg" />
+            <div>Submit an Education Request</div>
+          </a>
+
+          <a onclick="chatButton.onClick();">
+            <img src="/assets/images/contact-us/chat.svg" />
+            <div>Chat with<br> us now</div>
+          </a>
+
+          <a href="tel:{{ about.phoneNumber }}">
+            <img src="/assets/images/contact-us/contact-customer-support.svg" />
+            <div>Call <br>{{ about.phoneNumber }}</div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'about/contact-us/modals/_educationServices' %}

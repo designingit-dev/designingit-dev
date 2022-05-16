@@ -1,0 +1,30 @@
+@keyframes animate-steps {
+	0% {background-position: 0 0; }
+	100% {background-position: 0 -16884px; }
+}
+
+@keyframes animate-arrow {
+	0% { background-position: 0 0; }
+	100% { background-position: 0 -300%; }
+}
+
+@keyframes animate-hotspots {
+	0% { background-position: 0 0; }
+	100% { background-position: 0 -800%; }
+}
+
+@keyframes animate-hotspots-horz {
+	0% { background-position: 0 0; }
+	100% { background-position: -800% 0; }
+}
+
+
+
+@keyframes spin {
+	from {
+    transform:rotate(0deg);
+	}
+	to {
+    transform:rotate(360deg);
+	}
+}

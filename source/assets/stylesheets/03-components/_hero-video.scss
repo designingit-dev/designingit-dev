@@ -1,0 +1,399 @@
+// -----------------------------------------------------------------------------
+// !-- Hero Video
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Hero Video
+name: hero-video
+category: Components - Heros
+---
+
+This is a hero with a looping video background. Unfortunately, a Hologram style is
+conflicting, which makes the video not show up here. To see the video, inspect this page
+and remove the `background: #fff;` that is set on the wrapping `.sg--codeExample` element,
+then you should see the video background.
+
+To make this work, we need to have videos decoded in MP4, OGV, and WEBM to ensure that it
+shows consistently in different browsers. You should also include a poster image that will
+displayed in cases where the video can't load (some mobile browsers & slow connections).
+
+There is also a mobile image that needs to be included as well. We've decided to not show
+the video on mobile devices, so the mobile image is used as a background image on small
+screens and above the smallest breakpoint, the video is shown.
+
+This component is also using the [tagline][tagline] component.
+
+``` html_example
+<div class="heroVideo">
+  <div class="heroVideo__image" style="background-image: url(https://d3k5xyayaartr5.cloudfront.net/_assets/home-video/beach-waves-loop.jpg)"></div>
+
+  <video playsinline autoplay muted loop poster="https://d3k5xyayaartr5.cloudfront.net/_assets/home-video/beach-waves-loop.jpg" class="heroVideo__video">
+    <source src="https://d3k5xyayaartr5.cloudfront.net/_assets/home-video/beach-waves-loop.webm" type="video/webm">
+    <source src="https://d3k5xyayaartr5.cloudfront.net/_assets/home-video/beach-waves-loop.mp4" type="video/mp4">
+    <source src="https://d3k5xyayaartr5.cloudfront.net/_assets/home-video/beach-waves-loop.ogv" type="video/ogv">
+  </video>
+
+  <div class="heroVideo__content">
+    <div class="graphicHeader">
+      <div class="graphicHeader__title">
+        We relentlessly pursue solutions that
+      </div>
+      <div class="graphicHeader__subtitle">
+        Push the limits of fitness science
+      </div>
+    </div>
+
+    <div class="tagline tagline--knockout">
+      <div class="tagline__top">
+        Because&nbsp;&#8230;
+      </div>
+      <div class="tagline__bottom">
+        &#39;Good
+        <br />
+        Enough&#39;
+        <br />
+        Isn't.<sup class="tagline__trademark">&#8482;</sup>
+      </div>
+    </div>
+  </div>
+
+  <div class="heroVideo__moreIndicator">
+    <img src="/assets/images/arrow-down-white.svg" class="heroVideo__arrow">
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.heroVideo {
+  position: relative;
+  overflow: hidden;
+  height: 82vh;
+  margin-bottom: -1px; //weird spacing issue
+  //background-color: rgba($black, 0.6);
+
+  &-alt {
+    height: 58vh;
+  }
+
+  &-no-overlay {
+    background-color: transparent;
+  }
+}
+
+.heroVideo__image {
+  position: absolute;
+  z-index: -100;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+
+  @include respond-to(small) {
+    display: none;
+  }
+}
+
+.heroVideo__video {
+  display: none;
+
+  @include respond-to(small) {
+    position: absolute;
+    z-index: -100;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: auto;
+    min-width: 100%;
+    max-width: initial; // overrides the max-width: 100%; reset because we need the video to grow;
+    height: auto;
+    min-height: 100%;
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
+  }
+}
+
+.heroVideo__content {
+  margin-top: 24vh;
+  width: 100%;
+  text-align: center;
+}
+
+.heroVideo-alt .heroVideo__content {
+  position: relative;
+  top: auto;
+  height: 100%;
+  display: flex;
+  padding-top: 30px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroVideo__action {
+  text-align: center;
+
+  @media (max-height: map-get($breakpoints--height, medium)) {
+    padding: 0;
+  }
+}
+
+.heroVideo__moreIndicator {
+  position: absolute;
+  bottom: $gutter--narrow * 2;
+  width: 100%;
+  text-align: center;
+
+  img {
+    width: 1.5em;
+  }
+}
+
+.heroVideo-alt .heroVideo__moreIndicator {
+
+
+  .heroVideo__action {
+    padding-bottom: 0px;
+  }
+
+  @include respond-to(small) {
+    margin-top: 30px;
+    .heroVideo__action {
+      padding: 0;
+      .button {
+        margin-top: 0;
+      }
+    }
+  }
+
+  @include respond-to(small) {
+    position: relative;
+    bottom: auto;
+  }
+}
+
+.newHeroVideo {
+
+  max-width: 1200px;
+
+  &__container {
+    padding-top: 56.25% //required to maintain the 16:9 aspect ratio of video
+  }
+
+  &__video {
+    display: none;
+
+    @include respond-to(small) {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      z-index: map-get($z-index, above);
+
+      video {
+        width: 100%;
+      }
+
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Video Block Hero
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Video Block Hero
+name: video-block-hero
+category: Components - Heros
+---
+
+This is the video hero block on the homepage.
+
+
+``` html_example
+<div class="container--full container--tight container--noPadSides container--noPadBottom">
+  <div class="videoBlockHero">
+    <div class="videoBlockHero__image" style="background-image: url('/assets/images/homepage-video-block-hero.jpg')"></div>
+
+    <div class="videoBlockHero__content">
+      <div class="graphicHeader">
+        <div class="graphicHeader__title">
+          Dennis Keiser
+        </div>
+        <div class="graphicHeader__subtitle">
+          Meet the man behind the machines
+        </div>
+      </div>
+    </div>
+
+    <div class="videoBlockHero__moreIndicator">
+      <div class="videoBlockHero__action">
+        <a class="button" v-on:click="openModalWithTracking('video-block-hero-1', '[\'Home Page Videos\', \'Click Home Page Video Modal\',\'Video Request - Dennis Keiser\']')">Play Video</a>
+      </div>
+    </div>
+
+    <vue-modal :show.sync="showModal" :active-modal="activeModal" name="video-block-hero-1">
+      <div class="videoEmbed" slot="body" v-html.literal='<iframe width="560" height="315" src="https://www.youtube.com/embed/VcwCfrLxslQ?rel=0" frameborder="0" allowfullscreen></iframe>'>
+      </div>
+    </vue-modal>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+.videoBlockHero {
+  position: relative;
+  overflow: hidden;
+  height: 59vh;
+
+  &__image {
+    position: absolute;
+    z-index: -100;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+  }
+
+  &__content {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    text-align: center;
+
+    @include respond-to(small) {
+      top: 33%;
+    }
+
+    @media (max-height: map-get($breakpoints--height, medium)) {
+      top: 25%;
+    }
+
+    .graphicHeader {
+      padding: 0 20px;
+
+      &__title {
+        @include graphicHeaderShared;
+        font-size: 1.9em;
+        color: $white;
+
+        @include respond-to(medium) {
+          font-size: 3.1em;
+        }
+      }
+
+      &__subtitle {
+        font-family: $sansSerif;
+        font-size: 1.35em;
+        font-weight: $fontWeight--bold;
+        line-height: 1.1;
+        color: $white-transparent;
+
+        @include respond-to(medium) {
+          font-size: 2.125em;
+        }
+
+        @media (max-height: map-get($breakpoints--height, small)) {
+          font-size: .9em;
+        }
+      }
+    }
+  }
+
+  &__moreIndicator {
+    position: absolute;
+    bottom: $gutter--narrow * 2;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__action {
+    padding: $verticalRhythm 0;
+    text-align: center;
+
+    @media (max-height: map-get($breakpoints--height, medium)) {
+      padding: 0;
+    }
+  }
+}
+.exosVideoBlockHero {
+  z-index: 1;
+
+  .partnerTestimonial + div > & {
+      top: -125px;
+      max-width: $site--maxWidth;
+      margin: 0 auto;
+  }
+
+  .graphicHeader {
+    &__subtitle {
+      color: $keiser--white;
+      font-size: map-get($fontSizes, large);
+      margin-top: 6px;
+
+      @include respond-to(medium){
+        font-size: map-get($fontSizes, xLarge);
+      }
+    }
+  }
+
+  .graphicHeader__logos {
+    margin-bottom: 15px;
+    white-space: nowrap;
+
+    @include respond-to(medium){
+      margin-bottom: 20px;
+    }
+
+    img {
+      display: inline-block;
+    }
+
+    div {
+      display: inline-block;
+    }
+
+    .graphicHeader__logos__keiserLogo,.graphicHeader__logos__separator {
+      margin-right: 22px;
+    }
+
+    .graphicHeader__logos__separator img {
+      position: relative;
+      top: 14px;
+    }
+  }
+
+  .partnerTestimonial__blockQuote {
+    font-size: 100px;
+    line-height: 0;
+
+    @include respond-to(medium){
+      font-size: 177px;
+    }
+  }
+
+  figcaption {
+    position: absolute;
+    text-align: left;
+    left: 14px;
+    bottom: 14px;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 0;
+    font-family: $sansSerif--light;
+    font-weight: $fontWeight--light;
+    text-shadow: 0 0 10px #000;
+    h4 {
+      font-size: 17px;
+      margin-bottom: 0;
+      font-family: $sansSerif--bold;
+      font-weight: $fontWeight--bold;
+    }
+  }
+}

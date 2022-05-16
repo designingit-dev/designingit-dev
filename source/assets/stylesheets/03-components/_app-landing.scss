@@ -1,0 +1,450 @@
+.interactive-cycling {
+  h1 {
+    font-size: 56px;
+    padding: 0 $gutter--half;
+  }
+  h3 {
+    font-size: 2.7em;
+  }
+  h2 {
+    font-size: 2em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    strong {
+      font-weight: normal;
+      color: $red;
+    }
+  }
+  h5 {
+    font-size: 17px;
+  }
+  section:first-child {
+    border-bottom: 2px solid $red;
+    figure {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column nowrap;
+      img {
+        max-width: 350px;
+      }
+      @include respond-to(medium) {
+        flex-flow: row-reverse wrap;
+        img, figcaption {
+          width: 50%;
+        }
+        img {
+          align-self: flex-end;
+        }
+        figcaption {
+          font-size: 18px;
+        }
+      }
+      figcaption {
+        text-transform: uppercase;
+        padding: $gutter;
+        text-align: left;
+        strong {
+          color: $red;
+          font-weight: normal;
+        }
+        a {
+          display: block;
+          text-align: center;
+          padding-bottom: $gutter--half;
+          font-weight: bold;
+          //text-align: center;
+          line-height: 0;
+          @include respond-to(medium) {
+            display: inline-block;
+            text-align: left;
+          }
+          &:after {
+            display: block;
+            font-size: 40px;
+            text-align: center;
+            content: "˯";
+            line-height: 0;
+          }
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+  article {
+    border-bottom: 2px solid $red;
+    clear: both;
+    text-align: center;
+    padding: $gutter $gutter--half;
+    color: #8d8d8d;
+    figure {
+      max-width: 840px;
+      margin: 0 auto;
+      @include respond-to(small) {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: flex-start;
+      }
+    }
+    figcaption {
+      text-align: left;
+    }
+    img {
+      width: 130px;
+      flex: 1 0 auto;
+      margin-right: $gutter;
+      float: left;
+    }
+    h3, h5 {
+      text-transform: uppercase;
+      margin: 0;
+    }
+    h3 {
+      color: black;
+    }
+    p {
+      margin: 0 0 $gutter--half 0;
+      color: #666;
+    }
+  }
+
+  .compatibility {
+    padding: 0 $gutter--half;
+    h2 {
+      text-transform: uppercase;
+    }
+    p {
+      color: #909090;
+    }
+    .row > div {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      figure {
+        padding: 0 $gutter--half;
+        width: 50%;
+        @include respond-to(small) {
+          width: 25%;
+        }
+      }
+    }
+    border-bottom: 2px solid $red;
+  }
+
+  .button {
+    text-align: center;
+  }
+}
+
+.appLanding {
+
+  &__textLightGrey {
+    color: $grey--medium-alt;
+  }
+
+  &__textLightGrey--alt {
+    color: $grey--xLight-alt
+  }
+
+  &__xLargeHeading {
+
+    font-family: $sansSerif--black;
+    font-weight: $fontWeight--black;
+    font-size: map-get($fontSizes, xxxLarge);
+    line-height: 1em;
+
+    @include respond-to(medium){
+      font-size: map-get($fontSizes, xxxLarger);
+    }
+  }
+
+  &__largeHeading {
+    font-family: $sansSerif--black;
+    font-weight: $fontWeight--black;
+    font-size: map-get($fontSizes, xLarger);
+    line-height: 1em;
+
+    &__black {
+      color: $keiser--black;
+    }
+  }
+
+  &__mediumHeading {
+    font-size: map-get($fontSizes, xLarge);
+  }
+
+  &__smallText {
+    font-size: map-get($fontSizes, small);
+  }
+
+  &__redDotList li {
+    list-style-image: url('/assets/images/app-landing/red-bullet.png');
+    color: $grey--medium-alt;
+  }
+
+  &__description {
+    color: $grey--medium-alt;
+
+    ul li {
+      list-style-image: url('/assets/images/app-landing/red-bullet.png');
+    }
+
+    &__largeHeading {
+      font-family: $sansSerif--black;
+      font-weight: $fontWeight--black;
+      font-size: map-get($fontSizes, xLarger);
+
+      &__black {
+        color: $keiser--black;
+      }
+    }
+  }
+
+  &__header {
+
+    &__icon {
+      @include respond-to(medium){
+        max-width: 210px;
+      }
+    }
+
+    &__smallHeading {
+      font-family: $sansSerif;
+      margin-bottom: 5px;
+
+      @include respond-to(medium){
+        margin-top: $verticalRhythm--half;
+        margin-bottom: 10px;
+      }
+    }
+
+    &__largeHeading {
+      font-size: map-get($fontSizes, xLarger);
+      @include respond-to(small){
+        font-size: map-get($fontSizes, xxxxLarge);
+      }
+    }
+
+  }
+
+  &__headerWithImage {
+
+    .container {
+      padding-bottom: $verticalRhythm * 2;
+      @include respond-to(medium){
+        padding-bottom: 0;
+      }
+    }
+
+    &__smallHeading {
+      font-family: $sansSerif;
+      margin-bottom: 5px;
+    }
+
+    &__largeHeading {
+      font-size: map-get($fontSizes, xXLarge);
+
+      @include respond-to(medium){
+        font-size: map-get($fontSizes, xxxLarge);
+      }
+
+      &__groupClass {
+        font-size: map-get($fontSizes, xLarger);
+
+        @include respond-to(small){
+          font-size: map-get($fontSizes, xxxLarge);
+        }
+      }
+
+    }
+
+    &__description {
+      color: $grey--xLight-alt;
+    }
+
+    &__appStoreIcon {
+      @include respond-to(medium){
+        max-width: 210px;
+      }
+    }
+
+  }
+
+  &__appStoreBlock {
+
+    &__appleColumn {
+      border-right: solid 1px $keiser--red;
+    }
+
+    &__appStoreIcon {
+      @include respond-to(medium){
+        max-width: 250px;
+      }
+    }
+
+    &__description {
+      font-family: $sansSerif;
+    }
+
+  }
+
+  &__modalCTA {
+
+    &__description {
+      font-size: map-get($fontSizes, xXLarge);
+    }
+    
+    &__cta {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+  }
+
+  &__twoColumnBlockWithImage {
+
+    &__leftColumn {
+      margin-top: $verticalRhythm * 2;
+    }
+
+    &__largeHeading {
+      font-size: map-get($fontSizes, xLarger);
+    }
+
+    &__description{
+
+      &__highlight {
+        //color: $keiser--red;
+      }
+
+    }
+  }
+
+  &__twoColumnBlockWithInfographic {
+
+    &__largeHeading {
+      font-size: map-get($fontSizes, xLarger);
+    }
+
+    &__description {
+      color: $grey--xLight-alt;
+    }
+
+    &__footnotes {
+      margin-top: $verticalRhythm;
+      @include respond-to(medium){
+        margin-top: $verticalRhythm--half;
+      }
+      color: $grey--xLight-alt;
+      font-size: map-get($fontSizes, small);
+    }
+
+  }
+
+  &__screenshot {
+
+    &__image {
+      margin-top: 5px;
+    }
+
+  }
+  
+  &__instructions {
+    
+    &__title {
+      font-size: map-get($fontSizes, xLarge);
+    }
+    
+  }
+
+  &__instructionStep {
+
+    margin-bottom: 15px;
+
+    &__icon {
+      max-width: 30px;
+    }
+
+    &__description {
+      color: $grey--medium-alt;
+      margin-left: 10px;
+      vertical-align: top;
+      position: relative;
+      top: 6px;
+    }
+
+  }
+
+  &__iconReel {
+    height: 85px;
+    white-space: nowrap;
+
+    &__helper {
+      display:inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    img {
+      vertical-align: middle;
+      max-height: 85px;
+    }
+
+  }
+
+  &__headerWithScreenshot {
+    
+    &__title {
+      margin-bottom: 15px;
+      
+      @include respond-to(medium){
+        margin-bottom: 30px;
+      }
+    }
+
+    &__description {
+      margin-top: $verticalRhythm--half;
+      margin-bottom: 0;
+
+      @include respond-to(medium){
+        margin-top: 120px;
+        margin-bottom: $verticalRhythm;
+      }
+    }
+
+    &__downCaret {
+      min-height: 20px;
+      min-width: 20px;
+      background: url('/assets/images/app-landing/down-caret-red.png') no-repeat 0 0;
+      margin-left: 50%;
+      margin-right: 50%;
+      @include respond-to(medium){
+        margin-left: 76px;
+        margin-right: auto;
+      }
+    }
+
+    &__getStarted {
+      text-align: center;
+      margin-bottom: $verticalRhythm;
+      @include respond-to(medium){
+        text-align: left;
+        margin-bottom: 0;
+      }
+    }
+
+  }
+
+  &__linkBlock {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+}

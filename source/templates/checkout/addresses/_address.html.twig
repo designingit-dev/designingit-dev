@@ -1,0 +1,65 @@
+<ul class="list--noBullets list--tight">
+  {% if address.firstName is not empty or address.lastName is not empty %}
+    <li>
+      <strong>
+        {% if address.attention is not empty %}
+          Att: {{ address.attention }}
+        {% endif %}
+        {% if address.title is not empty %}
+          {{ address.title }}
+        {% endif %}
+
+        {% if address.firstName is not empty %}
+          {{ address.firstName }}
+        {% endif %}
+
+        {% if address.lastName is not empty %}
+          {{ address.lastName }}
+        {% endif %}
+        {% if address.businessName is not empty %}
+          {{ address.businessName }}
+        {% endif %}
+
+        {% if address.businessTaxId is not empty %}
+          - {{ address.businessTaxId }}
+        {% endif %}
+      </strong>
+    </li>
+  {% endif %}
+
+  <div class="text--small">
+    {% if address.address1 is not empty %}
+      <li>{{ address.address1 }}</li>
+    {% endif %}
+
+    {% if address.address2 is not empty %}
+      <li>{{ address.address2 }}</li>
+    {% endif %}
+
+    <li>
+      {% if address.city is not empty %}
+        {{ address.city }},
+      {% endif %}
+
+      {% if address.stateText is defined %}
+        {{ address.stateText }}
+      {% endif %}
+
+      {% if address.zipCode is not empty %}
+        {{ address.zipCode }}
+      {% endif %}
+    </li>
+
+    {% if address.countryText is defined %}
+      <li>{{ address.countryText|title }}</li>
+    {% endif %}
+
+    {% if address.phone is not empty %}
+      <li>{{ address.phone }}</li>
+    {% endif %}
+
+    {% if address.alternativePhone is not empty %}
+      <li>{{ address.alternativePhone }}</li>
+    {% endif %}
+  </div>
+</ul>

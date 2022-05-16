@@ -1,0 +1,58 @@
+{% set columnClasses = craft.keiserCommerceHelpers.getCustomCSSClasses(column) %}
+{% for row in column.contentBlockColumnProperties %}
+  {% for breakpointName,breakpointValue in {'mobile':'extraSmall', 'tablet':'small', 'desktop':'medium'} %}
+    {% if attribute(row,breakpointName) != 0 %}
+
+      {% switch row.property %}
+        {% case 'width' %}
+          {% set columnClasses = columnClasses|merge(['l--'~ breakpointValue ~'--' ~ attribute(row,breakpointName)]) %}
+        {% case 'push' %}
+          {% set columnClasses = columnClasses|merge(['l--'~ breakpointValue ~'--push--' ~ attribute(row,breakpointName)]) %}
+        {% case 'pull' %}
+          {% set columnClasses = columnClasses|merge(['l--'~ breakpointValue ~'--pull--' ~ attribute(row,breakpointName)]) %}
+        {% case 'offset' %}
+          {% set columnClasses = columnClasses|merge(['l--'~ breakpointValue ~'--offset--' ~ attribute(row,breakpointName)]) %}
+      {% endswitch %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+<div class="{{ columnClasses|join(' ') }} columns" id="{{ column.contentBlockID ? column.contentBlockID : 'div'~column.id }}">
+  {% for child in column.children %}
+    {% switch child.type.handle %}
+      {% case 'row' %}
+        {% include 'shared/content-block/layout/_row' with {
+          'row' : child
+        } %}
+      {% case 'text' %}
+        {% include 'shared/content-block/elements/_text' with {
+          'contentElement': child
+        } %}
+      {% case 'image' %}
+        {% include 'shared/content-block/elements/_image' with {
+          'contentElement': child
+        } %}
+      {% case 'embed' %}
+        {% include 'shared/content-block/elements/_embed' with {
+          'contentElement': child
+        } %}
+      {% case 'productReview' %}
+        {% include 'shared/content-block/elements/_productReview' with {
+          'contentElement': child
+        } %}
+      {% case 'productComparison' %}
+        {% include 'shared/content-block/elements/_productComparison' with {
+          'contentElement': child
+        } %}
+      {% case 'form' %}
+        {% include 'shared/content-block/elements/_form' with {
+          'contentElement': child
+        } %}
+      {% case 'button' %}
+        {% include 'shared/content-block/elements/_button' with {
+          'contentElement': child
+        } %}
+    {% endswitch %}
+  {% endfor %}
+</div>
+

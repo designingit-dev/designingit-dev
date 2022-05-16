@@ -1,0 +1,101 @@
+{% cache %}
+<article>
+
+  {% include "support/_header-block.html" %}
+
+  <div class="container">
+    <h2 class="margin--bottom">
+      Required Forms
+    </h2>
+
+    <div class="row">
+      {% for block in entry.linkBlockWithIcon %}
+        <div class="l--small--12 l--medium--6 l--large--4 columns">
+          <div class="titleCard titleCard--withIcon">
+            <div class="row">
+
+              <div class="l--small--4 columns l--noMargin">
+                <div class="titleCard__iconBlock l--centered">
+                  <img class="titleCard__icon"
+                       src="{{ block.icon.one.getURL("small") }}"
+                       srcset="
+                        {{ block.icon.one.getURL("xsmall") }} 320w,
+                        {{ block.icon.one.getURL("small") }} 480w,
+                        {{ block.icon.one.getURL("medium") }} 640w,
+                        {{ block.icon.one.getURL("large") }} 960w,
+                        {{ block.icon.one.getURL("xlarge") }} 1280w">
+                </div>
+              </div>
+              <div class="l--small--8 columns l--noMargin">
+                <div class="titleCard__flexItems titleCard__flexItems--flexEnd">
+                  <h3 class="titleCard__title">
+                    {{ block.blockTitle }}
+                  </h3>
+                  <a href="{{ block.linkDestination }}" class="button button--fullWidth">
+                    {{ block.linkText }}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <hr class="background--red pageDivider">
+
+  <div class="container">
+    <h2 class="margin--bottom">
+      Frequently Asked Questions
+    </h2>
+
+    <div class="row row--narrowSpaced">
+      {# dividing the FAQs in half to be in each column, half + 1 to make the
+      left column always longer than the right one, for visual sake #}
+
+      {% set faqHalf = ((entry.frequentlyAskedQuestions | length) / 2) + 1 %}
+      {% set faqAll = entry.frequentlyAskedQuestions | length %}
+
+      <div class="l--small--12 l--medium--6 columns l--noMargin">
+        <dl class="definitionList">
+          {% for block in entry.frequentlyAskedQuestions.limit(faqHalf) %}
+            <dt class="definitionList__label--lowercase">
+              {{ block.question }}
+            </dt>
+            <dd class="definitionList__value definitionList__value--small">
+              {{ block.answer }}
+            </dd>
+          {% endfor %}
+        </dl>
+      </div>
+
+      <div class="l--small--12 l--medium--6 columns l--noMargin">
+        <dl class="definitionList">
+          {% for block in entry.frequentlyAskedQuestions.offset(faqHalf) %}
+            <dt class="definitionList__label--lowercase">
+              {{ block.question }}
+            </dt>
+            <dd class="definitionList__value definitionList__value--small">
+              {{ block.answer }}
+            </dd>
+          {% endfor %}
+        </dl>
+      </div>
+    </div>
+    <div class="row">
+      <div class="l--small--12 l--medium--6 columns l--noMargin">
+        <div class="scale--xLarge">
+          Check Shipping Status
+        </div>
+      </div>
+      <div class="l--small--12 l--medium--6 columns l--noMargin">
+        <a href="/forms/checkShippingStatus" class="button l--noMargin">
+          View Form
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+{% endcache %}

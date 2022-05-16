@@ -1,0 +1,94 @@
+.leadersOfferPage {
+
+  &__hero {
+
+    background-color: #302D48;
+
+    @include respond-to(medium){
+      background-image: url('/assets/images/landing-pages/leaders-offer/leaders-promo-hero-background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    .container {
+      padding-top: $verticalRhythm;
+      padding-bottom: 0;
+      @include respond-to(medium){
+        padding-top: $verticalRhythm;
+        padding-bottom: $verticalRhythm;
+      }
+    }
+
+    &__logoContainer {
+      img {
+        max-width: 100%;
+        @include respond-to(small){
+          max-width: 380px;
+        }
+      }
+    }
+
+    &__offerDetails {
+
+      figure img {
+        width: 44px;
+      }
+
+      &__container {
+        display: inline-block;
+        margin-top: $verticalRhythm;
+        @include respond-to(medium){
+          margin-top: 39px;
+        }
+      }
+
+      &__pointsContainer {
+        vertical-align: top;
+        margin-left: 15px;
+      }
+
+      &__point1 {
+        margin-top: 22px;
+      }
+
+      &__point2 {
+        margin-top: 61px;
+      }
+
+      &__point3 {
+        margin-top: 56px;
+      }
+
+    }
+
+  }
+
+  &__intro {
+
+    &__title {
+      font-size: map-get($fontSizes, xXLarge);
+      @include respond-to(medium){
+        font-size: map-get($fontSizes, xxxxLarge);
+      }
+    }
+
+  }
+
+  &__offerDetails {
+    h3 {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__ctaContainer {
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    &__shopLink {
+      text-decoration: underline;
+    }
+
+  }
+
+}

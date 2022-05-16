@@ -1,0 +1,14 @@
+<div class="background--black">
+  <div class="constrain promo">
+    <div class="row">
+      <div class="l--small--6 l--medium--6 columns margin--bottom--none padding--right--half is--hidden is--visible--small is--visible--medium">
+        <h3 class="text--grey text--bold text--larger margin--top margin--bottom--narrow">{{ promo.smallTitle }}</h3>
+        <h2 class="text--white text--xLarger text--sansSerif--black">{{ promo.largeTitle }}</h2>
+        <p class="text--white">{{ promo.bodyCopy }}</p>
+      </div>
+      <div class="l--small--6 l--medium--6 columns margin--bottom--none">
+        <img class="lazyload" data-src="{{ promo.image.one.getUrl() }}" />
+      </div>
+    </div>
+  </div>
+</div>

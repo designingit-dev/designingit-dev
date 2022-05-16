@@ -1,0 +1,13 @@
+<p class="blog__article__video__title margin--bottom--half text--bold">{{ video.videoTitle }}</p>
+{% if video.videoDescription is not empty %}
+    <div class="blog__article__video__description">{{ video.videoDescription }}</div>
+{% endif %}
+<div class="blog__article__video__container">
+    {% if 'youtube' in video.videoUrl %}
+        <iframe width="560" height="315" src="{{ craft.keiserCommerceHelpers.createYoutubeEmbedLink(video.videoUrl) }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% elseif 'vimeo' in video.videoUrl %}
+        <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="{{ craft.keiserCommerceHelpers.createVimeoEmbedLink(video.videoUrl) }}" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    {% endif %}
+</div>

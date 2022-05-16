@@ -1,0 +1,24 @@
+<div class="container container--noPadBottom">
+  <div class="row">
+    <div class="l--medium--12 columns">
+      <h2>Top Resources</h2>
+      {% for resource in resources %}
+        {% set item = resource.resource.one() %}
+        <div class="l--medium--9 columns">
+          <h3><strong>{{ item.title }}</strong></h3>
+          {% if resource.resourceDescription is not empty %}
+            {{ resource.resourceDescription }}
+          {% else %}
+            {{ item.richTextBody | striptags | parseRefs | raw | slice(0,300) }}
+            {% if item.richTextBody |length > 300 %}
+              ...
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="l--medium--3 columns">
+          <a class="button topResource__linkButton" href="{{ item.getSection().handle == 'supportLinks' ? item.linkURL|parseRefs|raw : item.url }}">{{ resource.ctaLabel is not empty ? resource.ctaLabel : 'Read More' }}</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

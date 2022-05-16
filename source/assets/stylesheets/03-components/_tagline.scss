@@ -1,0 +1,113 @@
+// -----------------------------------------------------------------------------
+// !-- Tagline
+// -----------------------------------------------------------------------------
+/*doc
+---
+title: Tagline
+name: tagline
+category: Components - Tagline
+---
+
+The standard tagline for the Keiser brand in CSS and markup. Currently this is
+styled to be only the size you see below.
+
+``` html_example
+<div class="tagline">
+  <div class="tagline__top">
+    Because&nbsp;&#8230;
+  </div>
+  <div class="tagline__bottom">
+    &#39;Good
+    <br />
+    Enough&#39;
+    <br />
+    Isn't.<sup class="tagline__trademark">&#8482;</sup>
+  </div>
+</div>
+```
+
+The knockout version of the tagline. Used on dark backgrounds.
+
+``` html_example
+<div class="tagline tagline--knockout">
+  <div class="tagline__top">
+    Because&nbsp;&#8230;
+  </div>
+  <div class="tagline__bottom">
+    &#39;Good
+    <br />
+    Enough&#39;
+    <br />
+    Isn't.<sup class="tagline__trademark">&#8482;</sup>
+  </div>
+</div>
+```
+*/
+// -----------------------------------------------------------------------------
+
+// NOTE: all the values here are intentionally very specific so that we can
+// match their branding as closely as possible.
+
+// scss-lint:disable PropertyUnits
+.tagline {
+  display: inline-block;
+  margin-top: $gutter;
+  text-align: center;
+  letter-spacing: $letterSpacing--tight;
+  text-transform: uppercase;
+
+  &--knockout {
+    // placeholder
+  }
+}
+
+.tagline__top {
+  font-family: $sansSerif;
+  font-size: 1.35em;
+  font-weight: $fontWeight--bold;
+  line-height: .9;
+  margin-left: 35px;
+  text-align: left;
+  color: $grey--light;
+
+  @include respond-to(medium) {
+    font-size: 2em;
+  }
+
+  @media (max-height: map-get($breakpoints--height, small)) {
+    font-size: .9em;
+  }
+}
+
+.tagline__bottom {
+  font-family: $sansSerif--black;
+  font-weight: $fontWeight--black;
+  font-size: 2.5em;
+  line-height: .75;
+
+  @include respond-to(medium) {
+    font-size: 3.5em;
+  }
+
+  @media (max-height: map-get($breakpoints--height, small)) {
+    font-size: 1.8em;
+  }
+
+  .tagline--knockout & {
+    color: $white;
+  }
+}
+
+.tagline__trademark {
+  font-family: $sansSerif;
+  font-size: .35em;
+  top: -18px;
+  left: -8px;
+
+  @include respond-to(medium) {
+    font-size: .34em;
+    top: -22px;
+    left: -11px;
+  }
+}
+// scss-lint:enable PropertyUnits

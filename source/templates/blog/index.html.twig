@@ -1,0 +1,55 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+{% include 'blog/shared/_hero' %}
+
+<section class="blog">
+
+    <div class="container container--tight">
+
+        <div class="row">
+
+            <div class="l--small--9 columns blog__articleList">
+
+                <h2 class="margin--bottom blog__module__title">Featured Content</h2>
+
+                {% include 'blog/shared/_articleList' with {
+                    'articles': entry.powerEdBlogFeaturedArticles.all()
+                } %}
+
+                <div class="blog__promo__container">
+                    {% set demoVanPromotionEntry = entry.powerEdBlogPromo1.first() %}
+                    {% include 'shared/content-block/layout/_customCSS' with {
+                        'blocks': demoVanPromotionEntry.contentBlocks
+                    } %}
+                    {% for block in demoVanPromotionEntry.contentBlocks.level(1) %}
+                        {% include 'shared/content-block/_content-block' with {
+                            'block': block
+                        } %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="l--small--3 columns">
+
+                {% include 'blog/shared/_sidebar_article_list' with {
+                    'listTitle': 'By format',
+                    'categorySlug': 'poweredBlogArticleFormats'
+                } %}
+                {% include 'blog/shared/_sidebar_article_list' with {
+                    'listTitle': 'By topic',
+                    'categorySlug': 'powerEdBlogArticleTopics'
+                } %}
+                {% include 'blog/shared/_sidebar_powered_authors' %}
+                {% include 'blog/shared/_sidebar_newsletter_subscription' with {
+                    'form': craft.sproutForms.form('poweredblogsubscription')
+                } %}
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

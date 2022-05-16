@@ -1,0 +1,16 @@
+{#
+This partial is only to be used in cases where 
+
++ there is no entry or category to hook into
++ the page is low traffic and users are unlikely to notice the page title
+
+Reasoning: We do not want to incur the penalty of identical page
+titles across different pages but it may not be worth creating
+the machinery to create bespoke titles. In that case we generate
+custom titles by concatenating the site name with slug. Created
+for use with the forms-template in mind.
+#}
+
+{% set uglyTitle = siteName~" "~slug %}
+<title>{{ uglyTitle }}</title>
+<meta content="{{ uglyTitle }}" name="DC.title"/>

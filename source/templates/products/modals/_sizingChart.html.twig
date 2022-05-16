@@ -1,0 +1,38 @@
+<vue-modal :active-modal="activeModal" name="sizingChart__modal" v-cloak id="sizingChart__modal">
+  <div slot="header">
+    <div class="container container--noPad">
+      <div class="row">
+        <div class="l--extraSmall--2 l--extraSmall--offset--10 columns text--alignRight">
+          <div id="modal-close-button" class="text--alignRight" v-on:click="closeModal('sizingChart__modal')">
+            <img src="/assets/images/modal-close-button.png" alt="Close Button" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="body">
+    <div class="container padding--top--half margin--bottom">
+      {% set sizeChart = craft.fields.getFieldByHandle('sizeChart') %}
+      <table class="text--alignCenter text--large centerContent">
+        <thead>
+          <tr>
+          {% for column in sizeChart.settings.columns %}
+            <th class="text--extraBold padding--half border--bottom--dark--grey">{{ column.heading }}</th>
+          {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in commerce.sizeChart %}
+          {% set border = loop.last ? '' : 'border--bottom--medium--grey' %}
+          <tr>
+            <td class="text--extraBold padding--half {{ border }}">{{ row.size }}</td>
+            <td class="padding--half {{ border }}">{{ row.mens }}</td>
+            <td class="padding--half {{ border }}">{{ row.womens }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div slot="footer"></div>
+</vue-modal>

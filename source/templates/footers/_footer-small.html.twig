@@ -1,0 +1,39 @@
+<footer class="background--blpgrey">
+  <div class="container container--tight">
+    <div class="footer footer--secondary">
+      <div class="row">
+        <div class="l--small--12 l--medium--2 columns l--noMargin">
+          <img data-src="/assets/images/keiser-logo.svg" alt="Keiser" class="footer__logo lazyload">
+        </div>
+        <div class="l--small--12 l--medium--7 columns l--noMargin footer--secondary__right">
+          <div>Keiser Corporation | 2470 S. Cherry Ave | Fresno CA 93706</div>
+          <div>
+            &copy; {{ "now" | date("Y") }} Keiser. All Rights Reserved |
+            {% for entry in craft.entries.section("generalPages").slug('keiser-terms-conditions') %}
+              <a href="{{ entry.url }}">
+                {% include 'shared/_nav-title.html' with {'entry': entry} %}
+              </a> |
+            {% endfor %}
+
+            {% for entry in craft.entries.section("privacyPolicy") %}
+              <a href="{{ entry.url }}">
+                {% include 'shared/_nav-title.html' with {'entry': entry} %}
+              </a>
+            {% endfor %}
+            {% for entry in craft.entries.section("generalPages").slug('california-privacy-notice') %}
+              | <a href="{{ entry.url }}">
+                {% include 'shared/_nav-title.html' with {'entry': entry} %}
+              </a>
+            {% endfor %}
+            
+            {% for entry in craft.entries.section("userGeneratedContentTermsAndConditions") %}
+              | <a href="{{ entry.url }}">
+                {% include 'shared/_nav-title.html' with {'entry': entry} %}
+                </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

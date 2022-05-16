@@ -1,0 +1,543 @@
+// -----------------------------------------------------------------------------
+// Table of Contents
+//
+// - Containers
+// - Logo
+// - Menu
+// - Nav
+//
+// -----------------------------------------------------------------------------
+
+/*doc
+---
+title: Site Header
+name: 01-Site-Header
+category: Components - Global
+---
+This is the header for the site.
+
+(`.js--site` should be present on the site's body or wrapper, it's included here for demonstration purposes only.)
+
+``` html_example
+<div class="js--site">
+  <header class="siteHeader">
+    <div class="container siteHeader__container">
+      <div itemscope itemtype="http://schema.org/Organization" class="logo siteHeader__logo">
+        <a href="http://keiser.com" itemprop="url" class="logo__link">
+          <img src="/assets/images/keiser-logo.svg" itemprop="logo" alt="Keiser" class="logo__image">
+        </a>
+      </div>
+
+      <a href="#" class="menuButton siteHeader__menuButton" @click="openMenu(object, $event)"><span class="menuButton__icon" v-bind:class="{ 'is--active': menuOpen }"></span></a>
+    </div>
+  </header>
+</div>
+```
+*/
+
+$logo--width: 116px;
+$logo--widthLarge: 250px;
+$logo--spacing: 60px;
+$container--padding: $verticalRhythm--half;
+$shadowDistance: 8px;
+
+.siteHeader {
+  position: fixed;
+  z-index: map-get($z-index, stickyHeader);
+  top: 0;
+  display: block;
+  overflow: visible;
+  width: 100%;
+  background: $keiser--black;
+
+  @include respond-to(medium){
+    border-bottom: solid 1px transparent;
+  }
+
+  &.is--sticky {
+    box-shadow: 0 $shadowDistance $shadowDistance transparentize($black, .8);
+
+    .siteHeader__topContainer {
+      @include respond-to(medium) {
+        display: block;
+      }
+    }
+
+    .container--xTight {
+      padding-top: $gutter--veryNarrow;
+      padding-bottom: $gutter--veryNarrow;
+    }
+
+  }
+
+  &__topContainer {
+    background: $header--top--container--back;
+    position: relative;
+    z-index: map-get($z-index, stickyHeader);
+
+    .container--xTight {
+      padding-top: $gutter--narrow;
+      padding-bottom: $gutter--narrow;
+
+    }
+
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      a.button {
+        padding: 10px 20px;
+        margin-left: $verticalRhythm--half;
+        margin-top: 0;
+      }
+
+    }
+
+  }
+
+}
+
+.container--xTight {
+
+  @include respond-to-max(medium) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+}
+
+.is--sticky {
+
+  .siteHeader__topMenu .topMenu__item.topMenu--item--dropDown ul {
+    top: 17px;
+  }
+
+}
+
+.siteHeader__topMenu {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  .topMenu__item {
+    display: inline-flex;
+    padding: 0 12px;
+    margin-left: 0;
+    margin-bottom: 0;
+    position: relative;
+    list-style: none;
+
+    &:last-child {
+
+      &:before {
+        display: none;
+      }
+
+    }
+
+    a {
+      position: relative;
+      z-index: map-get($z-index, nav--subNav);
+      display: inline-block;
+    }
+
+    &:before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 1px;
+      background: $blp--grey--medium;
+      content:'';
+    }
+
+    &.topMenu--item--dropDown {
+      padding-right: 27px;
+
+      &.active {
+
+        ul {
+          display: block;
+        }
+  
+      }
+
+      ul {
+        position: absolute;
+        width: 265px;
+        list-style: none;
+        left: 0;
+        display: none;
+        top:22px;
+        padding: $gutter--half 0;
+        background: $blp--grey;
+        box-shadow: 0 0 6px $keiser--black;
+
+        &.active {
+          display: block;
+        }
+
+        li {
+          padding: 0;
+          margin: 0;
+          display: inline-flex;
+          height: 45px;
+          width: 100%;
+          align-items: center;
+          a {
+            color: $header--top--container--back;
+            text-transform: uppercase;
+            font-weight:$fontWeight--semiBold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 100%;
+            padding-left: $gutter;
+
+            &:hover {
+              color: $header-top-menu-hover;
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+    
+    .topMenu__item__link {
+
+      &.link--highlight {
+        color: $keiser--white;
+      }
+
+      &.active {
+        color: $keiser--red;
+
+        + .dropdown--icon {
+          filter: invert(19%) sepia(97%) saturate(4109%) hue-rotate(340deg) brightness(79%) contrast(108%);
+        }
+        
+      }
+
+    }
+
+    &:hover {
+      .topMenu__item__link {
+        color: $header-top-menu-hover;
+        text-decoration: underline;
+
+        + .dropdown--icon {
+          filter: invert(19%) sepia(97%) saturate(4109%) hue-rotate(340deg) brightness(79%) contrast(108%);
+        }
+
+      }
+    }
+    
+  }
+
+}
+
+.made--in--block {
+  margin-left: $gutter--narrow12;
+  font-size: map-get($fontSizesPx, 12);
+  text-transform: uppercase;
+  line-height: map-get($fontSizesPx, 14);
+  font-weight: $fontWeight--bold;
+  display: inline-flex;
+
+  @include respond-to-max(medium) {
+    position: relative;
+    top: -4px;
+    margin-left: $gutter--veryNarrow;
+  }
+
+  a {
+    display: inline-block;
+    color: $blp--grey--medium;
+
+    &:hover {
+      color: $keiser--white;
+    }
+
+  }
+
+  span {
+    display: inline-block;
+    position: relative;
+    padding-left: 28px;
+
+    &:before {
+      content:'';
+      width: 20px;
+      height: 13px;
+      background-image: url("/assets/images/svg/us-flag-20x13.svg");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: contain;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+  }
+
+}
+
+.siteHeader__container {
+  position: relative;
+  padding-top: $verticalRhythm--half;
+  padding-bottom: $verticalRhythm--half;
+
+  @include respond-to(medium){
+    padding-top: $gutter--veryNarrow;
+    padding-bottom: $gutter--veryNarrow;
+  }
+
+  @include respond-to-max(medium){
+    padding-top: $gutter--narrow;
+    padding-bottom: $gutter--narrow;
+  }
+
+  &__inner {
+    @include respond-to(medium) {
+      position: static;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &.is--sticky {
+
+    @include respond-to(medium){
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.siteHeader--checkout {
+  background: $grey--xLight;
+
+  &::after {
+    clear: both;
+  }
+}
+
+
+// -----------------------------------------------------------------------------
+// !-- Logo
+// -----------------------------------------------------------------------------
+
+.logo__image {
+  width: 198px;
+  @include respond-to(medium){
+    width: 198px;
+  }
+  @include respond-to-max(medium) {
+    width: 130px;
+  }
+}
+
+.siteHeader__logo {
+
+  display: inline-block;
+  position: relative;
+  top: 3px;
+
+  @include respond-to(medium) {
+    display: block;
+
+    .is--sticky & {
+      position: relative;
+      bottom: auto;
+      max-width: pem($logo--width);
+      min-width: pem($logo--width);
+    }
+  }
+
+  &--small {
+    max-width: pem($logo--width);
+  }
+
+}
+
+.siteHeader__logoLink {
+  @include respond-to(medium) {
+    .is--sticky & {
+      bottom: auto;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// !-- Menu
+// -----------------------------------------------------------------------------
+
+.siteHeader__menuButton {
+  position: relative;
+  top: 0; // Magic number to visually center
+  float: right;
+}
+
+// -----------------------------------------------------------------------------
+// !-- Nav
+// -----------------------------------------------------------------------------
+
+.siteHeader__nav {
+  display: none;
+
+  @include respond-to(medium) {
+    font-size: map-get($fontSizes, small);
+    display: block;
+    flex: 1 0 25em;
+  }
+
+}
+
+.siteHeader__navContact {
+  .button {
+    vertical-align: top;
+
+    &.button--van {
+      vertical-align: baseline;
+    }
+  }
+
+  @include respond-to(medium) {
+    max-height: pem(40px); // Magic number to animate hiding
+    transition-timing-function: $ease-in-out;
+    transition-duration: $duration;
+    transition-property: max-height, opacity;
+    opacity: 1;
+
+    .is--sticky & {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+    }
+  }
+
+  @media (min-width: 50em) and (max-width: 55.125em) {
+    .js--stickyHeader:not(.is--sticky) & {
+      span {
+        display: inline-block;
+        margin-bottom: 0;
+
+        &.medium-alt--block {
+          display: block;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
+
+#demoPromo {
+  position: relative;
+  height: 40px;
+  width: 230px;
+  top: $verticalRhythm--half;
+  display: none;
+}
+
+#demoPromo p {
+  width: 110px;
+  position: relative;
+  top: -20px;
+  font-weight: $fontWeight--bold;
+}
+
+#demoPromo img {
+  height: 55px;
+  position: relative;
+  top: -$verticalRhythm--half
+}
+
+.button--distributorLocator {
+  margin-top: 15px;
+
+  @include respond-to(medium){
+    vertical-align: baseline !important;
+    margin-left: 13px;
+    margin-top: 5px;
+  }
+}
+
+#js--stickyHeaderSpacer {
+  height: 58px;
+  @include respond-to(medium){
+    height: 159px;
+  }
+}
+
+.siteHeader__topContainer {
+  height: 0;
+  @include respond-to(medium){
+    height: auto;
+  }
+}
+
+.nav--right--item {
+
+  @include respond-to-max(medium){
+    width: 45px;
+    height: calc(100% + 20px);
+    position: absolute;
+    top: -10px;
+    right: 60px;
+
+    ul {
+      height: 100%;
+
+      li {
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+    }
+
+  }
+  
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    li {
+      margin: 0;
+      padding: 0;
+
+      &:first-child {
+        margin-right: $gutter--narrow12 / 2;
+      }
+
+      a {
+
+        &:hover {
+          color: $keiser--white;
+          text-decoration: underline;
+        }
+
+      }
+
+    }
+
+  }
+  
+}
+
+.dropdown--icon {
+  position: absolute;
+  right: 12px;
+  top: 2px;
+  font-size: map-get($fontSizesPx, 10);
+  display: inline-block;
+  width: 10px;
+}
